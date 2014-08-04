@@ -1,0 +1,7 @@
+# ignore everything
+/*
+# except
+!/README.org
+!/init.el
+!/custom.el
+!/.gitignore
