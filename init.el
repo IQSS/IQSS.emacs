@@ -314,14 +314,6 @@
 ;; The beeping can be annoying--turn it off
 (set-variable 'visible-bell t)
 
-
-
-
-
-
-;;; Things only Gary wants
-(set-face-attribute 'default nil :height 150)
-
 ;; save settings made using the customize interface to a sparate file
-(setq custom-file "~/.emacs.d/custom.el")
+(setq custom-file (concat user-emacs-directory "custom.el"))
 (load custom-file 'noerror)
