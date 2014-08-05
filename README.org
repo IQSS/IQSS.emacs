@@ -466,18 +466,11 @@ The emacs configuration in the sections below implements the [[#Requirements][Re
   ;; The beeping can be annoying--turn it off
   (set-variable 'visible-bell t)
 
-
-
-
-
-
-  ;;; Things only Gary wants
-  (set-face-attribute 'default nil :height 150)
-
   ;; save settings made using the customize interface to a sparate file
-  (setq custom-file "~/.emacs.d/custom.el")
+  (setq custom-file (concat user-emacs-directory "custom.el"))
+  (unless (file-exists-p custom-file)
+    (write-region "" nil custom-file))
   (load custom-file 'noerror)
-
 
 #+END_SRC
 
