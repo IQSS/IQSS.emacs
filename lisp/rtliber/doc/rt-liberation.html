@@ -1,0 +1,1600 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- (C) 2009
+   Yoni Rabkin yonirabkin@member.fsf.org
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. A
+copy of the license is included in the section entitled "GNU Free
+Documentation License". -->
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>The rt-liberation Manual</title>
+
+<meta name="description" content="The rt-liberation Manual">
+<meta name="keywords" content="The rt-liberation Manual">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="#Top" rel="start" title="Top">
+<link href="#Concept-Index" rel="index" title="Concept Index">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="dir.html#Top" rel="up" title="(dir)">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<h1 class="settitle" align="center">The rt-liberation Manual</h1>
+
+
+
+
+
+
+<a name="SEC_Contents"></a>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+
+<ul class="no-bullet">
+  <li><a name="toc-Introduction-1" href="#Introduction">1 Introduction</a></li>
+  <li><a name="toc-Dependencies-1" href="#Dependencies">2 Dependencies</a>
+  <ul class="no-bullet">
+    <li><a name="toc-RT-CLI-Setup-1" href="#RT-CLI-Setup">2.1 RT CLI Setup</a></li>
+  </ul></li>
+  <li><a name="toc-Installation-1" href="#Installation">3 Installation</a></li>
+  <li><a name="toc-Queries-1" href="#Queries">4 Queries</a>
+  <ul class="no-bullet">
+    <li><a name="toc-Query-Compiler-1" href="#Query-Compiler">4.1 Query Compiler</a></li>
+    <li><a name="toc-Query-Language-1" href="#Query-Language">4.2 Query Language</a></li>
+  </ul></li>
+  <li><a name="toc-Ticket-Browser-1" href="#Ticket-Browser">5 Ticket Browser</a>
+  <ul class="no-bullet">
+    <li><a name="toc-Ticket-Browser-Display-1" href="#Ticket-Browser-Display">5.1 Ticket Browser Display</a></li>
+    <li><a name="toc-Ticket-Browser-Sorting-1" href="#Ticket-Browser-Sorting">5.2 Ticket Browser Sorting</a></li>
+    <li><a name="toc-Ticket-Browser-Filtering-1" href="#Ticket-Browser-Filtering">5.3 Ticket Browser Filtering</a></li>
+    <li><a name="toc-Multiple-Ticket-Browsers-1" href="#Multiple-Ticket-Browsers">5.4 Multiple Ticket Browsers</a></li>
+  </ul></li>
+  <li><a name="toc-Ticket-Viewer-1" href="#Ticket-Viewer">6 Ticket Viewer</a></li>
+  <li><a name="toc-Gnus-Integration-1" href="#Gnus-Integration">7 Gnus Integration</a></li>
+  <li><a name="toc-Tracking-Updates-1" href="#Tracking-Updates">8 Tracking Updates</a></li>
+  <li><a name="toc-Batch-Operations-1" href="#Batch-Operations">9 Batch Operations</a></li>
+  <li><a name="toc-Local-Storage-1" href="#Local-Storage">10 Local Storage</a></li>
+  <li><a name="toc-Concept-Index-1" href="#Concept-Index">Concept Index</a></li>
+  <li><a name="toc-Function-Index-1" href="#Function-Index">Function Index</a></li>
+  <li><a name="toc-Variable-Index-1" href="#Variable-Index">Variable Index</a></li>
+  <li><a name="toc-Keybinding-Index-1" href="#Keybinding-Index">Keybinding Index</a></li>
+</ul>
+</div>
+
+
+
+<a name="Top"></a>
+<div class="header">
+<p>
+Next: <a href="#Introduction" accesskey="n" rel="next">Introduction</a>, Previous: <a href="dir.html#Top" accesskey="p" rel="prev">(dir)</a>, Up: <a href="dir.html#Top" accesskey="u" rel="up">(dir)</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<a name="The-rt_002dliberation-Manual"></a>
+<h1 class="top">The rt-liberation Manual</h1>
+
+<p>This is the Manual for the rt-liberation system
+</p>
+<p>&copy; 2009
+   Yoni Rabkin yonirabkin@member.fsf.org
+</p><blockquote>
+<p>Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. A
+copy of the license is included in the section entitled &ldquo;GNU Free
+Documentation License&rdquo;.
+</p></blockquote>
+
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Introduction" accesskey="1">Introduction</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Introduction to rt-liberation.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Dependencies" accesskey="2">Dependencies</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Before you can use rt-liberation.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Installation" accesskey="3">Installation</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Setup rt-liberation to work on the system.
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+Using rt-liberation
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="#Queries" accesskey="4">Queries</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Retrieve particular tickets from the server.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Ticket-Browser" accesskey="5">Ticket Browser</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Browse the query results.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Ticket-Viewer" accesskey="6">Ticket Viewer</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Interface to query results.
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+Extensions
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="#Gnus-Integration" accesskey="7">Gnus Integration</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Sending email to the RT server via Gnus.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Tracking-Updates" accesskey="8">Tracking Updates</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Keeping up to date with ticket changes.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Batch-Operations" accesskey="9">Batch Operations</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Performing operations on batches of tickets.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Local-Storage">Local Storage</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Associate arbitrary data with tickets.
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+
+Indices
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="#Concept-Index">Concept Index</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Function-Index">Function Index</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Variable-Index">Variable Index</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Keybinding-Index">Keybinding Index</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+</pre></th></tr><tr><th colspan="3" align="left" valign="top"><pre class="menu-comment"> &mdash; The Detailed Node Listing &mdash;
+
+Queries
+
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="#Query-Compiler">Query Compiler</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Compiling Emacs Lisp to TicketSQL.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Query-Language">Query Language</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">A description of the Sexp-based language.
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+Ticket Browser
+
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="#Ticket-Browser-Display">Ticket Browser Display</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">How tickets are displayed in the browser.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Ticket-Browser-Sorting">Ticket Browser Sorting</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">How tickets are sorted in the browser.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Ticket-Browser-Filtering">Ticket Browser Filtering</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">How to filter tickets out of the browser.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Multiple-Ticket-Browsers">Multiple Ticket Browsers</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">More than one ticket browser buffer.
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+</pre></th></tr></table>
+
+
+
+
+
+
+
+<hr>
+<a name="Introduction"></a>
+<div class="header">
+<p>
+Next: <a href="#Dependencies" accesskey="n" rel="next">Dependencies</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<a name="Introduction-1"></a>
+<h2 class="chapter">1 Introduction</h2>
+
+<a name="index-introduction"></a>
+
+<p>rt-liberation is a GNU/Emacs package for working with the Request
+Tracker (henceforth abbreviated as just &ldquo;RT&rdquo;) software from Best
+Practical Solutions. RT has a Web interface and a command line
+interface (the &ldquo;RT CLI&rdquo;). rt-liberation uses the RT CLI as a backend
+to communicate to the server.
+</p>
+<p>rt-liberation allows sending search queries to the RT server, browsing
+the resulting tickets, viewing the tickets&rsquo; contents and performing
+operations on the ticket.
+</p>
+
+
+
+
+
+<hr>
+<a name="Dependencies"></a>
+<div class="header">
+<p>
+Next: <a href="#Installation" accesskey="n" rel="next">Installation</a>, Previous: <a href="#Introduction" accesskey="p" rel="prev">Introduction</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<a name="Dependencies-1"></a>
+<h2 class="chapter">2 Dependencies</h2>
+
+<a name="index-dependencies"></a>
+
+<p>rt-liberation has been tested exclusively on GNU/Emacs.
+</p>
+<p>rt-liberation uses the RT command line interface (RT CLI) as a back-end
+to communicate with the RT server. rt-liberation will need a local
+copy of the RT software on the machine running rt-liberation. RT is
+available at <a href="http://bestpractical.com/rt/download.html">http://bestpractical.com/rt/download.html</a>
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#RT-CLI-Setup" accesskey="1">RT CLI Setup</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Getting the RT Command Line Interface to work
+</td></tr>
+</table>
+
+
+
+
+<hr>
+<a name="RT-CLI-Setup"></a>
+<div class="header">
+<p>
+Up: <a href="#Dependencies" accesskey="u" rel="up">Dependencies</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<a name="RT-CLI-Setup-1"></a>
+<h3 class="section">2.1 RT CLI Setup</h3>
+
+<p>The following is a short description of how to get the RT CLI setup on
+the machine where rt-liberation will be running. It assumes a
+GNU/Linux distribution such as Trisquel <a href="http://trisquel.info/">http://trisquel.info/</a>.
+</p>
+<p>You need the address of the remote RT server (note whether it&rsquo;s an
+HTTP or HTTPS address), and the username and password for the user
+account on that server.
+</p>
+<p>Download a local copy of RT (version 4.2.3 happened to be extant at
+the time of writing).
+</p>
+<div class="example">
+<pre class="example">$ wget http://download.bestpractical.com/pub/rt/release/rt-4.2.3.tar.gz
+$ tar xzf rt-4.2.3.tar.gz
+</pre></div>
+
+<p>Navigate down to the &ldquo;bin&rdquo; directory and try to run the RT CLI.
+</p>
+<div class="example">
+<pre class="example">$ cd rt-4.2.3/bin
+$ ./rt
+</pre></div>
+
+<p>If you don&rsquo;t already have Perl LWP installed it will fail to run, in
+which case you have to satisfy this dependency. The following command
+should do it on a Trisquel GNU/Linux or similar system:
+</p>
+<div class="example">
+<pre class="example">sudo apt-get install liblwp-protocol-https-perl
+</pre></div>
+
+<p>Trying to run the RT CLI at this point should work, and you will be
+greeted by the friendly RT CLI prompt &ldquo;rt&gt;&rdquo;. Feel free to hit Ctrl-C
+at this point because while the RT CLI is running it is still
+unconfigured.
+</p>
+<p>The RT CLI looks for a file named &ldquo;.rtrc&rdquo; in your home directory, so
+create an &ldquo;~/.rtrc&rdquo; file and, using the information collected
+earlier, fill in the details.
+</p>
+<div class="example">
+<pre class="example">server https://rt.server.somewhere
+user USERNAME-ON-RT
+passwd PASSWORD-ON-RT
+</pre></div>
+
+<p>Now back to running the RT CLI we can enter a simple RT query to check
+the setup. If everything is set up correctly then the result will be a
+list of tickets.
+</p>
+<div class="example">
+<pre class="example">rt&gt; ls &quot;Queue=sprockets and Status=new&quot;
+Ticket Owner Queue    Age   Told Status Requestor Subject
+--------------------------------------------------------------------------------
+==========  2 unowned tickets ==========
+   701       sproc  5 min        new    admin@no. foo
+   702       sproc  4 min        new    john.foo@ john's foo
+</pre></div>
+
+<p>At this point you know that rt-liberation has everything it needs to
+call into the server<a name="DOCF1" href="#FOOT1"><sup>1</sup></a>.
+</p>
+
+<hr>
+<a name="Installation"></a>
+<div class="header">
+<p>
+Next: <a href="#Queries" accesskey="n" rel="next">Queries</a>, Previous: <a href="#Dependencies" accesskey="p" rel="prev">Dependencies</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<a name="Installation-1"></a>
+<h2 class="chapter">3 Installation</h2>
+
+<a name="index-installation"></a>
+
+<p>rt-liberation can be configured in the ~/.emacs file.
+</p>
+<p>Place rt-liberation in the load path:
+</p>
+<div class="lisp">
+<pre class="lisp">(add-to-list 'load-path &quot;/PATH/TO/rt-liberation/&quot;)
+</pre></div>
+
+<p>Tell GNU/Emacs to load the package with:
+</p>
+<div class="lisp">
+<pre class="lisp">(require 'rt-liberation)
+</pre></div>
+
+<p>Tell rt-liberation where to find the RT binary and which version is
+being used, for example:
+</p>
+<div class="lisp">
+<pre class="lisp">(setq rt-liber-rt-binary &quot;~/src/rt-3.8.2/bin/rt&quot;
+      rt-liber-rt-version &quot;3.8.8&quot;)
+</pre></div>
+
+<p>rt-liberation can issue a command to &ldquo;take&rdquo; a ticket, that is,
+assign it to yourself. For this the variable <var>rt-liber-username</var>
+must be set:
+</p>
+<div class="lisp">
+<pre class="lisp">(setq rt-liber-username &quot;someuser&quot;)
+</pre></div>
+
+<p>rt-liberation can also launch a Web browser to visit a ticket. For
+that to work the base URL needs to be set in
+<var>rt-liber-base-url</var>. For example:
+</p>
+<p>(setq rt-liber-base-url &quot;https://rt.foo.org/&quot;)
+</p>
+
+<hr>
+<a name="Queries"></a>
+<div class="header">
+<p>
+Next: <a href="#Ticket-Browser" accesskey="n" rel="next">Ticket Browser</a>, Previous: <a href="#Installation" accesskey="p" rel="prev">Installation</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<a name="Queries-1"></a>
+<h2 class="chapter">4 Queries</h2>
+
+<a name="index-queries"></a>
+
+<p>A typical RT server is meant to manage a large amount of tickets. Much
+more that would be convenient to view all at once. Instead queries are
+used to view only a subset of the tickets on the server.
+</p>
+<p>rt-liberation has its own Sexp-based query language which maps to RT&rsquo;s
+TicketSQL language.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Query-Compiler" accesskey="1">Query Compiler</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Compiling Emacs Lisp to TicketSQL.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Query-Language" accesskey="2">Query Language</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">A description of the Sexp-based language.
+</td></tr>
+</table>
+
+
+
+
+
+
+<hr>
+<a name="Query-Compiler"></a>
+<div class="header">
+<p>
+Next: <a href="#Query-Language" accesskey="n" rel="next">Query Language</a>, Up: <a href="#Queries" accesskey="u" rel="up">Queries</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<a name="Query-Compiler-1"></a>
+<h3 class="section">4.1 Query Compiler</h3>
+
+<a name="index-query-compiler"></a>
+
+<p>In order to browse and view tickets a list of needs to be requested
+from the RT server. Typically the tickets answer some kind of
+criteria, for example &ldquo;tickets no older than a week owned by me which
+have \&ldquo;foobar\&rdquo; in their subject line&rdquo;. In RT these criteria are
+formulated with &ldquo;TicketSQL&rdquo; queries; a structured query language
+specific to RT.
+</p>
+<p>rt-liberation provides a query compiler function to compile Emacs Lisp
+symbolic expressions into TicketSQL. The query compiler supports a
+number of TicketSQL tokens.
+</p>
+
+
+
+
+
+<hr>
+<a name="Query-Language"></a>
+<div class="header">
+<p>
+Previous: <a href="#Query-Compiler" accesskey="p" rel="prev">Query Compiler</a>, Up: <a href="#Queries" accesskey="u" rel="up">Queries</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<a name="Query-Language-1"></a>
+<h3 class="section">4.2 Query Language</h3>
+
+<a name="index-query-language"></a>
+
+<p>rt-liberation&rsquo;s Sexp-based query language covers a portion of the
+TicketSQL language. Here are some of the supported TicketSQL tokens:
+Boolean tokens as a means of combining query subsections: &ldquo;and&rdquo;, &ldquo;or&rdquo;,
+&ldquo;not&rdquo;. LIKE attribute tokens: &ldquo;subject&rdquo;, &ldquo;content&rdquo;.
+</p>
+<p>For example here is a query with both Boolean and LIKE tokens:
+</p>
+<div class="lisp">
+<pre class="lisp">(rt-liber-compile-query
+    (and (queue &quot;bugs&quot;)
+         (content &quot;gnu&quot;)))
+
+==&gt; &quot;Queue = 'bugs' AND Content LIKE 'gnu'&quot;
+</pre></div>
+
+<p>We can also express negation (note that the compiler produces &quot;!=&quot; and
+&quot;NOT LIKE&quot; for negation depending on the context):
+</p>
+<div class="lisp">
+<pre class="lisp">(rt-liber-compile-query
+ (and (queue &quot;bugs&quot;)
+      (not (owner &quot;Nobody&quot;))
+      (not (content &quot;sprigz&quot;))
+      (status &quot;new&quot;)))
+
+==&gt; &quot;Queue = 'licensing' AND Owner != 'Nobody' \
+    AND Content NOT LIKE 'sprigz' AND Status = 'new'&quot;
+</pre></div>
+
+<p>Attribute tokens which match an attribute to a specific field such as:
+&ldquo;owner&rdquo;, &ldquo;status&rdquo; and &ldquo;queue&rdquo;. Temporal tokens which limit the search
+results to tickets within a certain time interval: &ldquo;created&rdquo; and
+&ldquo;lastupdated&rdquo;. Note that temporal keywords such as &ldquo;created&rdquo; always
+accept two arguments: BEFORE and AFTER. When either BEFORE or AFTER
+aren&rsquo;t needed, use NIL instead.
+</p>
+<p>One of the advantages of being able to express the TicketSQL queries
+as Emacs Lisp is to be able to express queries using Emacs Lisp
+functions.
+</p>
+<p>Here is a slightly more involved example to illustrate:
+</p>
+<div class="lisp">
+<pre class="lisp">(rt-liber-compile-query
+ (and (queue &quot;bugs&quot;)
+      (owner &quot;me@myaddress.com&quot;)
+      (status &quot;open&quot;)
+      (lastupdated nil
+                   (format-time-string
+                     &quot;%Y-%m-%d&quot;
+                     (seconds-to-time
+                      (- (time-to-seconds (current-time))
+                         (* 60 60 24 7)))))))
+
+==&gt; &quot;Queue = 'bugs' AND Owner = 'me@myaddress.com' AND Status = 'open' AND LastUpdated &gt; '2009-03-30'&quot;
+</pre></div>
+
+
+<p>Here is an example of how the ticket browser and compiler can be used
+in function calls:
+</p>
+<div class="lisp">
+<pre class="lisp">(defun rt-liber-display-ticket (ticket-id)
+  &quot;Display ticket with TICKET-ID in the ticket-browser.&quot;
+  (interactive &quot;MTicket ID: &quot;)
+  (rt-liber-browse-query
+   (rt-liber-compile-query
+    (and (queue &quot;complaints&quot;)
+         (id ticket-id)))))
+</pre></div>
+
+
+
+
+
+<hr>
+<a name="Ticket-Browser"></a>
+<div class="header">
+<p>
+Next: <a href="#Ticket-Viewer" accesskey="n" rel="next">Ticket Viewer</a>, Previous: <a href="#Queries" accesskey="p" rel="prev">Queries</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<a name="Ticket-Browser-1"></a>
+<h2 class="chapter">5 Ticket Browser</h2>
+
+<a name="index-ticket-browser"></a>
+
+<p>The ticket browser is a special buffer which provides a convenient
+interface to the results of a server query. The ticket browser can be
+started by invoking: (rt-liber-browse-query QUERY), where QUERY is a
+TicketSQL query. The TicketSQL query can be entered manually as a
+string or as the return value of the query compiler.
+</p>
+<dl>
+<dt><a name="index-rt_002dliber_002dbrowse_002dquery"></a>Function: <strong>rt-liber-browse-query</strong> <em>QUERY &amp;optional NEW</em></dt>
+<dd><p>Runs QUERY against the server and launches the browser.
+</p>
+<p>If NEW is non-nil then the query results will be displayed in a new
+buffer, otherwise the query results will override the contents of the
+existing ticket browser buffer. If NEW is a string then that will be
+the name of the new buffer.
+</p></dd></dl>
+
+<p>The TicketSQL query can be the return value of the query compiler. For
+example:
+</p>
+<div class="lisp">
+<pre class="lisp">(rt-liber-browse-query
+ (rt-liber-compile-query
+     (and (queue &quot;bugs&quot;)
+          (content &quot;gnu&quot;)))
+</pre></div>
+
+
+<p>Since the return value of the query compiler is just a TicketSQL
+string, the following is equivalent:
+</p>
+<div class="lisp">
+<pre class="lisp">(rt-liber-browse-query &quot;Queue = 'bugs' AND Content LIKE 'gnu'&quot;)
+</pre></div>
+
+<p>The ticket browser defines a number of commands:
+</p>
+<dl compact="compact">
+<dt><kbd>q</kbd></dt>
+<dd><a name="index-q-_0028ticket-browser_0029"></a>
+<a name="index-rt_002dliber_002dbrowser_002dmode_002dquit"></a>
+<p>Bury the ticket browser buffer.
+</p>
+</dd>
+<dt><kbd>n</kbd></dt>
+<dd><a name="index-n-_0028ticket-browser_0029"></a>
+<a name="index-rt_002dliber_002dnext_002dticket_002din_002dbrowser"></a>
+<p>Move point to the next ticket.
+</p>
+</dd>
+<dt><kbd>p</kbd></dt>
+<dd><a name="index-p-_0028ticket-browser_0029"></a>
+<a name="index-rt_002dliber_002dprevious_002dticket_002din_002dbrowser"></a>
+<p>Move point to the previous ticket.
+</p>
+</dd>
+<dt><kbd>RET</kbd></dt>
+<dd><a name="index-RET-_0028ticket-browser_0029"></a>
+<a name="index-rt_002dliber_002ddisplay_002dticket_002dat_002dpoint"></a>
+<p>Visit the ticket at point in the See <a href="#Ticket-Viewer">Ticket Viewer</a>.
+</p>
+</dd>
+<dt><kbd>g</kbd></dt>
+<dd><a name="index-g-_0028ticket-browser_0029"></a>
+<a name="index-revert_002dbuffer"></a>
+<p>Refresh the contents of the browser buffer.
+</p>
+</dd>
+<dt><kbd>G</kbd></dt>
+<dd><a name="index-G-_0028ticket-browser_0029"></a>
+<a name="index-rt_002dliber_002dbrowser_002drefresh_002dand_002dreturn"></a>
+<p>Refresh the contents of the browser buffer. Return point to the
+current ticket after the refresh (if possible).
+</p>
+</dd>
+<dt><kbd>s</kbd></dt>
+<dd><a name="index-s-_0028ticket-browser_0029"></a>
+<a name="index-rt_002dliber_002dbrowser_002dmark_002das_002dspam"></a>
+<p>Mark the ticket as spam.
+</p>
+</dd>
+<dt><kbd>S</kbd></dt>
+<dd><a name="index-S-_0028ticket-browser_0029"></a>
+<a name="index-rt_002dliber_002dmulti_002ddelete_002dspam"></a>
+<p>Delete marked tickets as spam (requires rt-liberation-multi package).
+</p>
+</dd>
+<dt><kbd>a</kbd></dt>
+<dd><a name="index-a-_0028ticket-browser_0029"></a>
+<a name="index-rt_002dliber_002dbrowser_002dassign"></a>
+<p>Assign the ticket to a user.
+</p>
+</dd>
+<dt><kbd>r</kbd></dt>
+<dd><a name="index-r-_0028ticket-browser_0029"></a>
+<a name="index-rt_002dliber_002dbrowser_002dresolve"></a>
+<p>Mark the ticket as &ldquo;resolved&rdquo;.
+</p>
+</dd>
+<dt><kbd>o</kbd></dt>
+<dd><a name="index-o-_0028ticket-browser_0029"></a>
+<a name="index-rt_002dliber_002dbrowser_002dopen"></a>
+<p>Mark the ticket as &ldquo;open&rdquo;.
+</p>
+</dd>
+<dt><kbd>t</kbd></dt>
+<dd><a name="index-t-_0028ticket-browser_0029"></a>
+<a name="index-rt_002dliber_002dbrowser_002dtake_002dticket_002dat_002dpoint"></a>
+<p>Assign the ticket at point to <var>rt-liber-username</var>.
+</p>
+</dd>
+<dt><kbd>SPC</kbd></dt>
+<dd><a name="index-SPC-_0028ticket-browser_0029"></a>
+<a name="index-scroll_002dup"></a>
+<p>Scroll the text of the ticket browser upward.
+</p>
+</dd>
+<dt><kbd>DEL</kbd></dt>
+<dd><a name="index-DEL-_0028ticket-browser_0029"></a>
+<a name="index-scroll_002ddown"></a>
+<p>Scroll the text of the ticket browser downward.
+</p>
+</dd>
+<dt><kbd>m</kbd></dt>
+<dd><a name="index-m-_0028ticket-browser_0029"></a>
+<a name="index-rt_002dliber_002dbrowser_002dmove"></a>
+<p>Move the ticket to a different queue.
+</p>
+</dd>
+<dt><kbd>P</kbd></dt>
+<dd><a name="index-P-_0028ticket-browser_0029"></a>
+<a name="index-rt_002dliber_002dbrowser_002dprioritize"></a>
+<p>Set the numerical priority level of the ticket at point.
+</p>
+</dd>
+</dl>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Ticket-Browser-Display" accesskey="1">Ticket Browser Display</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">How tickets are displayed in the browser.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Ticket-Browser-Sorting" accesskey="2">Ticket Browser Sorting</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">How tickets are sorted in the browser.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Ticket-Browser-Filtering" accesskey="3">Ticket Browser Filtering</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">How to filter tickets out of the browser.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Multiple-Ticket-Browsers" accesskey="4">Multiple Ticket Browsers</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">More than one ticket browser buffer.
+</td></tr>
+</table>
+
+
+
+
+
+
+<hr>
+<a name="Ticket-Browser-Display"></a>
+<div class="header">
+<p>
+Next: <a href="#Ticket-Browser-Sorting" accesskey="n" rel="next">Ticket Browser Sorting</a>, Up: <a href="#Ticket-Browser" accesskey="u" rel="up">Ticket Browser</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<a name="Ticket-Browser-Display-1"></a>
+<h3 class="section">5.1 Ticket Browser Display</h3>
+
+<a name="index-ticket-browser-display-function"></a>
+
+<p>The ticket browser displays the tickets in the browser by calling
+<em>rt-liber-ticketlist-browser-redraw-f</em> which can be changed and
+customized. Any implementation of
+<em>rt-liber-ticketlist-browser-redraw-f</em> must leave point at the end
+of the ticket text.
+</p>
+<p>The ticket data itself can be displayed using rt-liberation ticket
+format string %-sequences:
+</p>
+<dl compact="compact">
+<dt>%i</dt>
+<dd><p>ID number of the ticket in the RT database.
+</p></dd>
+<dt>%s</dt>
+<dd><p>Subject line.
+</p></dd>
+<dt>%c</dt>
+<dd><p>Ticket creation time. The format to display the time is specified in
+the variable <var>rt-liber-browser-time-format-string</var>.
+</p></dd>
+<dt>%S</dt>
+<dd><p>Ticket status (&ldquo;open&rdquo;, &ldquo;new&rdquo; etc.)
+</p></dd>
+<dt>%r</dt>
+<dd><p>Whether the ticket is resolved.
+</p></dd>
+<dt>%R</dt>
+<dd><p>Requestor/s
+</p></dd>
+<dt>%C</dt>
+<dd><p>Creator of the ticket.
+</p></dd>
+<dt>%o</dt>
+<dd><p>Owner of the ticket.
+</p></dd>
+<dt>%q</dt>
+<dd><p>The queue originating the ticket.
+</p></dd>
+<dt>%p</dt>
+<dd><p>The numerical priority of the ticket
+</p></dd>
+</dl>
+
+<p>Here is an example implementation of
+<em>rt-liber-ticketlist-browser-redraw-f</em> showing the use of the
+%-sequences. Note the use of text properties to add color to ticket
+text. The use of text properties as opposed to font-locking is meant
+to ease customization because otherwise any change in ticket display
+would break the font-locking regular expressions.
+</p>
+<div class="lisp">
+<pre class="lisp">(defun rt-liber-ticketlist-browser-redraw-f (ticket)
+  &quot;Display TICKET.&quot;
+  (insert (rt-liber-format &quot;[%c] %i&quot; ticket))
+  (add-text-properties (point-at-bol)
+                       (point-at-eol)
+                       '(face rt-liber-ticket-face))
+  (newline)
+  (insert (rt-liber-format &quot;    [%S] %s&quot; ticket))
+  (newline)
+  (insert (rt-liber-format &quot;    %o &lt;== %R&quot; ticket)))
+</pre></div>
+
+<p>The function <em>rt-liber-high-priority-p</em> can be used to apply a
+different face or text to a ticket if it is high priority. A ticket is
+considered high priority if its value is strictly higher than
+<var>rt-liber-browser-priority-cutoff</var>
+</p>
+
+
+
+
+<hr>
+<a name="Ticket-Browser-Sorting"></a>
+<div class="header">
+<p>
+Next: <a href="#Ticket-Browser-Filtering" accesskey="n" rel="next">Ticket Browser Filtering</a>, Previous: <a href="#Ticket-Browser-Display" accesskey="p" rel="prev">Ticket Browser Display</a>, Up: <a href="#Ticket-Browser" accesskey="u" rel="up">Ticket Browser</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<a name="Ticket-Browser-Sorting-1"></a>
+<h3 class="section">5.2 Ticket Browser Sorting</h3>
+
+<a name="index-ticket-browser-sorting"></a>
+
+<p>The tickets in the browser are displayed by default in reverse
+chronological order. Ticket sorting is done by a call to
+<em>rt-liber-browser-default-sorting-function</em>.
+</p>
+<p>Other sorting orders can be used by binding
+<em>rt-liber-browser-default-sorting-function</em> to a different
+function. To ease writing such functions rt-liberation provides two
+predicate functions to perform comparisons between ticket objects:
+</p>
+<dl>
+<dt><a name="index-rt_002dliber_002dlex_002dlessthan_002dp"></a>Function: <strong>rt-liber-lex-lessthan-p</strong> <em>a b field</em></dt>
+<dd><p>Return true if A is lexicographically less than B in FIELD.
+</p>
+<p>Here is an example of sorting tickets lexicographically by owner name
+using <em>rt-liber-lex-lessthan-p</em> (note that you can feed
+<em>rt-liber-lex-lessthan-p</em> a date/time string and it will sort it
+just fine except that it wouldn&rsquo;t make any sense):
+</p>
+<div class="lisp">
+<pre class="lisp">(defun rt-liber-sort-by-owner (ticket-list)
+  &quot;Sort TICKET-LIST lexicographically by owner.&quot;
+  (rt-liber-sort-ticket-list
+   ticket-list
+   #'(lambda (a b)
+       (rt-liber-lex-lessthan-p a b &quot;Owner&quot;))))
+</pre></div>
+
+</dd></dl>
+
+<dl>
+<dt><a name="index-rt_002dliber_002dtime_002dlessthan_002dp"></a>Function: <strong>rt-liber-time-lessthan-p</strong> <em>a b field</em></dt>
+<dd><p>Return t if A is chronologically less than B in FIELD.
+</p>
+<p>Here is an example of sorting tickets lexicographically by owner name
+using <em>rt-liber-time-lessthan-p</em> (note that feeding
+<em>rt-liber-time-lessthan-p</em> anything but a date/time string, in
+this case &ldquo;Created&rdquo; contains a date, will result in an error being
+signaled).
+</p>
+<div class="lisp">
+<pre class="lisp">(defun rt-liber-sort-by-time-created (ticket-list)
+  &quot;Sort TICKET-LIST in reverse chronological order.&quot;
+  (reverse
+   (rt-liber-sort-ticket-list
+    ticket-list
+    #'(lambda (a b)
+        (rt-liber-time-lessthan-p a b &quot;Created&quot;)))))
+</pre></div>
+
+</dd></dl>
+
+
+<hr>
+<a name="Ticket-Browser-Filtering"></a>
+<div class="header">
+<p>
+Next: <a href="#Multiple-Ticket-Browsers" accesskey="n" rel="next">Multiple Ticket Browsers</a>, Previous: <a href="#Ticket-Browser-Sorting" accesskey="p" rel="prev">Ticket Browser Sorting</a>, Up: <a href="#Ticket-Browser" accesskey="u" rel="up">Ticket Browser</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<a name="Ticket-Browser-Filtering-1"></a>
+<h3 class="section">5.3 Ticket Browser Filtering</h3>
+
+<a name="index-ticket-browser-filtering-filter"></a>
+
+<p>The Ticket Browser can also filter out (that is, not display) certain
+tickets based on particular criteria. This probably shouldn&rsquo;t be used
+instead of a properly formed RT query, but when used in conjunction
+with correctly formulated queries it becomes a powerful tool.
+</p>
+<p>During ticket display processing the Ticket Browser will call the
+function pointed to by <var>rt-liber-browser-default-filter-function</var>
+on each ticket, passing the function the ticket alist as a single
+argument. The function is set by default to
+<em>rt-liber-default-filter-f</em>, which is a function which will
+display all tickets and filter none.
+</p>
+<p>If any tickets are filtered, the Ticket Browser will display the
+filtered ticket count at the bottom ticket listing.
+</p>
+<p>Here is a simple example of how to filter out all of the tickets which
+have a status of &ldquo;deleted&rdquo;.
+</p>
+<p>First we define a custom filter function. Note how it accepts a single
+argument, which is the ticket alist, and returns nil if the ticket is
+to be filtered.
+</p>
+<div class="lisp">
+<pre class="lisp">(defun rt-liber-browser-deleted-filter (ticket)
+  (not
+   (and ticket
+        (string= (cdr (assoc &quot;Status&quot; ticket))
+                 &quot;deleted&quot;))))
+</pre></div>
+
+<p>Then we assign that function to be our default filtering function:
+</p>
+<div class="lisp">
+<pre class="lisp">(setq rt-liber-browser-default-filter-function
+      'rt-liber-browser-deleted-filter)
+</pre></div>
+
+
+
+<hr>
+<a name="Multiple-Ticket-Browsers"></a>
+<div class="header">
+<p>
+Previous: <a href="#Ticket-Browser-Filtering" accesskey="p" rel="prev">Ticket Browser Filtering</a>, Up: <a href="#Ticket-Browser" accesskey="u" rel="up">Ticket Browser</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<a name="Multiple-Ticket-Browsers-1"></a>
+<h3 class="section">5.4 Multiple Ticket Browsers</h3>
+
+<a name="index-ticket-browser-multiple-buffer"></a>
+
+<p>It is sometimes useful to rename the ticket browser buffer to
+something more informative than the default
+<var>rt-liber-browser-buffer-name</var>, especially if there are multiple
+ticket browsers.
+</p>
+<p>Changing a ticket browser&rsquo;s name can be done normally with
+&lsquo;rename-buffer&rsquo;, but it is also possible to name the ticket browser
+when it is created. In the following example two ticket browser
+buffers will be created displaying the query results and named
+&ldquo;*updated by supervisor*&rdquo; and &ldquo;*new tickets*&rdquo; respectively:
+</p>
+<div class="lisp">
+<pre class="lisp">(defun rt-liber-daily-rounds ()
+  (interactive)
+
+  (rt-liber-browse-query
+   (rt-liber-compile-query
+    (and (queue &quot;complaints&quot;)
+         (owner &quot;lem.e.tweakit&quot;)
+         (status &quot;open&quot;)
+         (lastupdatedby &quot;molly.manager&quot;)))
+   &quot;*updated by supervisor*&quot;)
+
+  (rt-liber-browse-query
+   (rt-liber-compile-query
+    (and (queue &quot;complaints&quot;)
+         (owner &quot;Nobody&quot;)
+         (status &quot;new&quot;)))
+   &quot;*new tickets*&quot;))
+</pre></div>
+
+
+
+
+
+
+<hr>
+<a name="Ticket-Viewer"></a>
+<div class="header">
+<p>
+Next: <a href="#Gnus-Integration" accesskey="n" rel="next">Gnus Integration</a>, Previous: <a href="#Ticket-Browser" accesskey="p" rel="prev">Ticket Browser</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<a name="Ticket-Viewer-1"></a>
+<h2 class="chapter">6 Ticket Viewer</h2>
+
+<a name="index-ticket-viewer"></a>
+
+<p>The ticket viewer is an interface for viewing the contents of a
+ticket. It provides font-locking to make reading the contents easier
+via <var>rt-liber-viewer-font-lock-keywords</var> and a number of
+key-bindings.
+</p>
+<p>The ticket viewer provides key-bindings to help compose emails to send
+to the RT email interface. The key-bindings for composing email
+described below are generic, what actually happens when you invoke
+them depends on the email-backend system you have installed into
+rt-liberation. <samp>rt-liberation-gnus.el</samp> provides integration with
+Gnus, See <a href="#Gnus-Integration">Gnus Integration</a>.
+</p>
+<p>Setting <var>rt-liber-jump-to-latest</var> to &lsquo;t&rsquo; will cause the viewer to
+automatically scroll to the latest comment in a ticket when that
+ticket is visited. By default <var>rt-liber-jump-to-latest</var> is set to
+&lsquo;nil&rsquo;.
+</p>
+<p>When in the ticket viewer buffer, invoking
+<em>rt-liber-viewer-take-ticket</em> will &ldquo;take&rdquo; the ticket.
+</p>
+<dl compact="compact">
+<dt><kbd>q</kbd></dt>
+<dd><a name="index-q-_0028ticket-viewer_0029"></a>
+<a name="index-rt_002dliber_002dviewer_002dmode_002dquit"></a>
+<p>Bury the ticket viewer buffer.
+</p>
+</dd>
+<dt><kbd>n</kbd></dt>
+<dd><a name="index-n-_0028ticket-viewer_0029"></a>
+<a name="index-rt_002dliber_002dnext_002dsection_002din_002dviewer"></a>
+<p>Move point to the next section in ticket.
+</p>
+</dd>
+<dt><kbd>N</kbd></dt>
+<dd><a name="index-N-_0028ticket-viewer_0029"></a>
+<a name="index-rt_002dliber_002djump_002dto_002dlatest_002dcorrespondence"></a>
+<p>Move point to the newest correspondence section, if any.
+</p>
+</dd>
+<dt><kbd>p</kbd></dt>
+<dd><a name="index-p-_0028ticket-viewer_0029"></a>
+<a name="index-rt_002dliber_002dprevious_002dsection_002din_002dviewer"></a>
+<p>Move point to the previous section in ticket.
+</p>
+</dd>
+<dt><kbd>V</kbd></dt>
+<dd><a name="index-V-_0028ticket-viewer_0029"></a>
+<a name="index-rt_002dliber_002dviewer_002dvisit_002din_002dbrowser"></a>
+<p>Visit the current ticket in a Web browser.
+</p>
+</dd>
+<dt><kbd>m</kbd></dt>
+<dd><a name="index-m-_0028ticket-viewer_0029"></a>
+<a name="index-rt_002dliber_002dviewer_002danswer"></a>
+<p>Compose an answer to the current ticket.
+</p>
+</dd>
+<dt><kbd>M</kbd></dt>
+<dd><a name="index-M-_0028ticket-viewer_0029"></a>
+<a name="index-rt_002dliber_002dviewer_002danswer_002dthis"></a>
+<p>Compose an answer to the current ticket. The content section around
+point will be inserted into the email body and commented out.
+</p>
+</dd>
+<dt><kbd>t</kbd></dt>
+<dd><a name="index-t-_0028ticket-viewer_0029"></a>
+<a name="index-rt_002dliber_002dviewer_002danswer_002dprovisionally"></a>
+<p>Compose a provisional answer to the current ticket.
+</p>
+</dd>
+<dt><kbd>T</kbd></dt>
+<dd><a name="index-t-_0028ticket-viewer_0029-1"></a>
+<a name="index-rt_002dliber_002dviewer_002danswer_002dprovisionally_002dthis"></a>
+<p>Compose a provisional answer to the current ticket. The content
+section around point will be inserted into the email body and
+commented out.
+</p>
+</dd>
+<dt><kbd>F</kbd></dt>
+<dd><a name="index-F-_0028ticket-viewer_0029"></a>
+<a name="index-rt_002dliber_002dviewer_002danswer_002dverbatim_002dthis"></a>
+<p>Compose an answer to the current ticket. The content section around
+point will be inserted into the email body verbatim.
+</p>
+</dd>
+<dt><kbd>c</kbd></dt>
+<dd><a name="index-c-_0028ticket-viewer_0029"></a>
+<a name="index-rt_002dliber_002dviewer_002dcomment"></a>
+<p>Compose a comment for the current ticket.
+</p>
+</dd>
+<dt><kbd>C</kbd></dt>
+<dd><a name="index-C-_0028ticket-viewer_0029"></a>
+<a name="index-rt_002dliber_002dviewer_002dcomment_002dthis"></a>
+<p>Comment on the ticket using the current context
+</p>
+</dd>
+<dt><kbd>g</kbd></dt>
+<dd><a name="index-g-_0028ticket-viewer_0029"></a>
+<a name="index-revert_002dbuffer-1"></a>
+<p>Refresh and redisplay the current ticket.
+</p>
+</dd>
+<dt><kbd>SPC</kbd></dt>
+<dd><a name="index-SPC-_0028ticket-viewer_0029"></a>
+<a name="index-scroll_002dup-1"></a>
+<p>Scroll text of ticket viewer upward.
+</p>
+</dd>
+<dt><kbd>DEL</kbd></dt>
+<dd><a name="index-DEL-_0028ticket-viewer_0029"></a>
+<a name="index-scroll_002ddown-1"></a>
+<p>Scroll text of ticket viewer downward.
+</p>
+</dd>
+<dt><kbd>h</kbd></dt>
+<dd><a name="index-h-_0028ticket-viewer_0029"></a>
+<a name="index-rt_002dliber_002dviewer_002dshow_002dticket_002dbrowser"></a>
+<p>Display the associated ticket in the ticket browser.
+</p>
+</dd>
+</dl>
+
+
+
+
+
+
+<hr>
+<a name="Gnus-Integration"></a>
+<div class="header">
+<p>
+Next: <a href="#Tracking-Updates" accesskey="n" rel="next">Tracking Updates</a>, Previous: <a href="#Ticket-Viewer" accesskey="p" rel="prev">Ticket Viewer</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<a name="Gnus-Integration-1"></a>
+<h2 class="chapter">7 Gnus Integration</h2>
+
+<a name="index-Gnus-Integration"></a>
+
+<p>The file <samp>rt-liberation-gnus.el</samp> implements integration with Gnus
+for composing emails. To enable the feature, &lsquo;require&rsquo; it after
+loading rt-liberation:
+</p>
+<div class="lisp">
+<pre class="lisp">(require 'rt-liberation-gnus)
+</pre></div>
+
+<p>In order for rt-liberation-gnus to be useful a few variables need to
+be specialized. The following is example code which sets these
+variables followed by a more thorough description of the variables:
+</p>
+<div class="lisp">
+<pre class="lisp">(setq rt-liber-gnus-comment-address &quot;our-rtserver-comment@ourserver.org&quot;
+      rt-liber-gnus-address         &quot;our-rtserver@ourserver.org&quot;
+      rt-liber-gnus-subject-name    &quot;ourserver.org&quot;
+      rt-liber-gnus-answer-headers  '((&quot;Gcc&quot; . &quot;nnml:Send-Mail&quot;)
+                                      (&quot;X-Ethics&quot; . &quot;Use GNU&quot;))
+      rt-liber-gnus-signature       &quot;Kind Regards&quot;)
+</pre></div>
+
+<dl>
+<dt><a name="index--"></a>User Option: <strong>
+</strong></dt>
+<dd><p><var>rt-liber-gnus-address</var> is the email address which is configured
+in the RT server email interface for sending a response to the
+ticket&rsquo;s requestor.
+</p></dd></dl>
+<dl>
+<dt><a name="index---1"></a>User Option: <strong>
+</strong></dt>
+<dd><p><var>rt-liber-gnus-comment-address</var> is the email address which is
+configured in the RT server email interface for adding a comment under
+the ticket in question.
+</p></dd></dl>
+<dl>
+<dt><a name="index---2"></a>User Option: <strong>
+</strong></dt>
+<dd><p><var>rt-liber-gnus-subject-name</var> is a string, typically included at
+the beginning of the square brackets in the subject. The string is a
+part of the subject line which helps the RT server recognize the
+email.
+</p></dd></dl>
+<dl>
+<dt><a name="index---3"></a>User Option: <strong>
+</strong></dt>
+<dd><p><var>rt-liber-gnus-answer-headers</var> defines a list of dotted-pairs
+containing the header name and value for additional email headers.
+</p></dd></dl>
+<dl>
+<dt><a name="index---4"></a>User Option: <strong>
+</strong></dt>
+<dd><p>A signature can be added automatically to the end of the email by
+setting <var>rt-liber-gnus-signature</var> to be some text. It is useful to
+include newlines in this text to make the signature format nicely.
+</p></dd></dl>
+
+<p>Once rt-liberation-gnus is loaded and customized the key-bindings in
+the Viewer will be able to call into it, See <a href="#Ticket-Viewer">Ticket Viewer</a>.
+</p>
+
+
+
+
+
+<hr>
+<a name="Tracking-Updates"></a>
+<div class="header">
+<p>
+Next: <a href="#Batch-Operations" accesskey="n" rel="next">Batch Operations</a>, Previous: <a href="#Gnus-Integration" accesskey="p" rel="prev">Gnus Integration</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<a name="Tracking-Updates-1"></a>
+<h2 class="chapter">8 Tracking Updates</h2>
+
+<a name="index-Tracking-Updates"></a>
+
+<p>The functions in <samp>rt-liberation-update.el</samp> help keep up with
+updates to the ticket database. To enable the feature, &lsquo;require&rsquo; it
+after loading rt-liberation:
+</p>
+<div class="lisp">
+<pre class="lisp">(require 'rt-liberation-update)
+</pre></div>
+
+<p>Then set <var>rt-liber-update-default-queue</var> to be the name of the
+queue to watch for updates. For example:
+</p>
+<div class="lisp">
+<pre class="lisp">(setq rt-liber-update-default-queue &quot;complaints&quot;)
+</pre></div>
+
+<dl>
+<dt><a name="index-rt_002dliber_002dupdate"></a>Function: <strong>rt-liber-update</strong> <em>&amp;optional no-update</em></dt>
+<dd><p><code>rt-liber-update</code> is an interactive function which runs a query
+against the RT server asking for the tickets which have been updated
+since the time <code>rt-liber-update</code> was last run (each time it runs,
+it leaves a time-stamp). If no time-stamp is found, for instance when
+you run <code>rt-liber-update</code> for the first time, today&rsquo;s date is
+used.
+</p>
+<p>With the NO-UPDATE prefix, <code>rt-liber-update</code> will not update the
+time-stamp so that the next invocation will produce the same result.
+</p></dd></dl>
+
+
+
+
+
+<hr>
+<a name="Batch-Operations"></a>
+<div class="header">
+<p>
+Next: <a href="#Local-Storage" accesskey="n" rel="next">Local Storage</a>, Previous: <a href="#Tracking-Updates" accesskey="p" rel="prev">Tracking Updates</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<a name="Batch-Operations-1"></a>
+<h2 class="chapter">9 Batch Operations</h2>
+
+<a name="index-Batch-Operations"></a>
+
+<p>The extension <samp>rt-liberation-multi.el</samp> implements performing
+batch operations on groups of tickets. It works in two stages: First
+mark an arbitrary number of tickets within the same buffer then call a
+batch operation function on them. The batch operation functions work
+the same way as function which work on single tickets only that they
+iterate through all of the marked tickets.
+</p>
+<p>To enable batch operations first load <samp>rt-liberation-multi.el</samp>:
+</p>
+<div class="lisp">
+<pre class="lisp">(require 'rt-liberation-storage)
+</pre></div>
+
+<dl compact="compact">
+<dt><kbd>M</kbd></dt>
+<dd><a name="index-M-_0028ticket-browser_0029"></a>
+<a name="index-rt_002dliber_002dmark_002dticket_002dat_002dpoint"></a>
+<p>Mark the ticket at point for future action. If the ticket at point is
+already marked then unmark it.
+</p></dd>
+</dl>
+
+<dl>
+<dt><a name="index-rt_002dliber_002dmulti_002dset_002dstatus_002dopen"></a>Function: <strong>rt-liber-multi-set-status-open</strong></dt>
+<dd><p>Set the status of all the marked tickets to &ldquo;open&rdquo;.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-rt_002dliber_002dmulti_002dset_002dstatus_002dresolved"></a>Function: <strong>rt-liber-multi-set-status-resolved</strong></dt>
+<dd><p>Set the status of all the marked tickets to &ldquo;resolved.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-rt_002dliber_002dmulti_002dassign"></a>Function: <strong>rt-liber-multi-assign</strong> <em>name</em></dt>
+<dd><p>Assign all of the marked tickets to NAME.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-rt_002dliber_002dmulti_002dflag_002das_002dspam_002dand_002ddelete"></a>Function: <strong>rt-liber-multi-flag-as-spam-and-delete</strong></dt>
+<dd><p>Set the status of all the marked tickets to &ldquo;is-spam&rdquo; and delete.
+</p></dd></dl>
+
+
+
+
+
+
+<hr>
+<a name="Local-Storage"></a>
+<div class="header">
+<p>
+Next: <a href="#Concept-Index" accesskey="n" rel="next">Concept Index</a>, Previous: <a href="#Batch-Operations" accesskey="p" rel="prev">Batch Operations</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<a name="Local-Storage-1"></a>
+<h2 class="chapter">10 Local Storage</h2>
+
+<a name="index-Local-Storage"></a>
+
+<p><samp>rt-liberation-storage.el</samp> implements associating arbitrary
+ancillary data with tickets. The data is stored locally and is not
+sent to the RT server.
+</p>
+<p>To enable local storage first load <samp>rt-liberation-storage.el</samp>:
+</p>
+<div class="lisp">
+<pre class="lisp">(require 'rt-liberation-storage)
+</pre></div>
+
+<p>Then enable the display of ancillary data with:
+</p>
+<div class="lisp">
+<pre class="lisp">(setq rt-liber-anc-p t)
+</pre></div>
+
+<p>The associated data is edited and displayed in the ticket browser with
+the following command key:
+</p>
+<dl compact="compact">
+<dt><kbd>A</kbd></dt>
+<dd><a name="index-A-_0028ticket-browser_0029"></a>
+<a name="index-rt_002dliber_002dbrowser_002dancillary_002dtext"></a>
+<p>Associate text with the ticket at point. You will be prompted to enter
+a string of text.
+</p></dd>
+</dl>
+
+<p>Once text is associated with a ticket it will be displayed alongside
+that ticket in the ticket browser. This particular feature lends
+itself to creating private annotations about tickets.
+</p>
+<p>The implementation distributed with rt-liberation allows associating
+text with tickets but is not limited to text. The same implementation
+can be extended to associate any arbitrary data with any ticket.
+</p>
+
+
+
+
+
+
+
+<hr>
+<a name="Concept-Index"></a>
+<div class="header">
+<p>
+Next: <a href="#Function-Index" accesskey="n" rel="next">Function Index</a>, Previous: <a href="#Local-Storage" accesskey="p" rel="prev">Local Storage</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<a name="Concept-Index-1"></a>
+<h2 class="unnumbered">Concept Index</h2>
+<table><tr><th valign="top">Jump to: &nbsp; </th><td><a class="summary-letter" href="#Concept-Index_cp_letter-B"><b>B</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Concept-Index_cp_letter-D"><b>D</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Concept-Index_cp_letter-G"><b>G</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Concept-Index_cp_letter-I"><b>I</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Concept-Index_cp_letter-L"><b>L</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Concept-Index_cp_letter-Q"><b>Q</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Concept-Index_cp_letter-T"><b>T</b></a>
+ &nbsp; 
+</td></tr></table>
+<table class="index-cp" border="0">
+<tr><td></td><th align="left">Index Entry</th><td>&nbsp;</td><th align="left"> Section</th></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th><a name="Concept-Index_cp_letter-B">B</a></th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Batch-Operations">Batch Operations</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Batch-Operations">Batch Operations</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th><a name="Concept-Index_cp_letter-D">D</a></th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-dependencies">dependencies</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Dependencies">Dependencies</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th><a name="Concept-Index_cp_letter-G">G</a></th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Gnus-Integration">Gnus Integration</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Gnus-Integration">Gnus Integration</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th><a name="Concept-Index_cp_letter-I">I</a></th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-installation">installation</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Installation">Installation</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-introduction">introduction</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Introduction">Introduction</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th><a name="Concept-Index_cp_letter-L">L</a></th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Local-Storage">Local Storage</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Local-Storage">Local Storage</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th><a name="Concept-Index_cp_letter-Q">Q</a></th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-queries">queries</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Queries">Queries</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-query-compiler">query compiler</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Query-Compiler">Query Compiler</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-query-language">query language</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Query-Language">Query Language</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th><a name="Concept-Index_cp_letter-T">T</a></th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-ticket-browser">ticket browser</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser">Ticket Browser</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-ticket-browser-display-function">ticket browser display function</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser-Display">Ticket Browser Display</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-ticket-browser-filtering-filter">ticket browser filtering filter</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser-Filtering">Ticket Browser Filtering</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-ticket-browser-multiple-buffer">ticket browser multiple buffer</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Multiple-Ticket-Browsers">Multiple Ticket Browsers</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-ticket-browser-sorting">ticket browser sorting</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser-Sorting">Ticket Browser Sorting</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-ticket-viewer">ticket viewer</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Viewer">Ticket Viewer</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Tracking-Updates">Tracking Updates</a>:</td><td>&nbsp;</td><td valign="top"><a href="#Tracking-Updates">Tracking Updates</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+</table>
+<table><tr><th valign="top">Jump to: &nbsp; </th><td><a class="summary-letter" href="#Concept-Index_cp_letter-B"><b>B</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Concept-Index_cp_letter-D"><b>D</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Concept-Index_cp_letter-G"><b>G</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Concept-Index_cp_letter-I"><b>I</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Concept-Index_cp_letter-L"><b>L</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Concept-Index_cp_letter-Q"><b>Q</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Concept-Index_cp_letter-T"><b>T</b></a>
+ &nbsp; 
+</td></tr></table>
+
+
+
+
+
+<hr>
+<a name="Function-Index"></a>
+<div class="header">
+<p>
+Next: <a href="#Variable-Index" accesskey="n" rel="next">Variable Index</a>, Previous: <a href="#Concept-Index" accesskey="p" rel="prev">Concept Index</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<a name="Function-Index-1"></a>
+<h2 class="unnumbered">Function Index</h2>
+<table><tr><th valign="top">Jump to: &nbsp; </th><td><a class="summary-letter" href="#Function-Index_fn_letter-R"><b>R</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-Index_fn_letter-S"><b>S</b></a>
+ &nbsp; 
+</td></tr></table>
+<table class="index-fn" border="0">
+<tr><td></td><th align="left">Index Entry</th><td>&nbsp;</td><th align="left"> Section</th></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th><a name="Function-Index_fn_letter-R">R</a></th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-revert_002dbuffer"><code>revert-buffer</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser">Ticket Browser</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-revert_002dbuffer-1"><code>revert-buffer</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Viewer">Ticket Viewer</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-rt_002dliber_002dbrowse_002dquery"><code>rt-liber-browse-query</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser">Ticket Browser</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-rt_002dliber_002dbrowser_002dancillary_002dtext"><code>rt-liber-browser-ancillary-text</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Local-Storage">Local Storage</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-rt_002dliber_002dbrowser_002dassign"><code>rt-liber-browser-assign</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser">Ticket Browser</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-rt_002dliber_002dbrowser_002dmark_002das_002dspam"><code>rt-liber-browser-mark-as-spam</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser">Ticket Browser</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-rt_002dliber_002dbrowser_002dmode_002dquit"><code>rt-liber-browser-mode-quit</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser">Ticket Browser</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-rt_002dliber_002dbrowser_002dmove"><code>rt-liber-browser-move</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser">Ticket Browser</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-rt_002dliber_002dbrowser_002dopen"><code>rt-liber-browser-open</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser">Ticket Browser</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-rt_002dliber_002dbrowser_002dprioritize"><code>rt-liber-browser-prioritize</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser">Ticket Browser</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-rt_002dliber_002dbrowser_002drefresh_002dand_002dreturn"><code>rt-liber-browser-refresh-and-return</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser">Ticket Browser</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-rt_002dliber_002dbrowser_002dresolve"><code>rt-liber-browser-resolve</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser">Ticket Browser</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-rt_002dliber_002dbrowser_002dtake_002dticket_002dat_002dpoint"><code>rt-liber-browser-take-ticket-at-point</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser">Ticket Browser</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-rt_002dliber_002ddisplay_002dticket_002dat_002dpoint"><code>rt-liber-display-ticket-at-point</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser">Ticket Browser</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-rt_002dliber_002djump_002dto_002dlatest_002dcorrespondence"><code>rt-liber-jump-to-latest-correspondence</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Viewer">Ticket Viewer</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-rt_002dliber_002dlex_002dlessthan_002dp"><code>rt-liber-lex-lessthan-p</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser-Sorting">Ticket Browser Sorting</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-rt_002dliber_002dmark_002dticket_002dat_002dpoint"><code>rt-liber-mark-ticket-at-point</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Batch-Operations">Batch Operations</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-rt_002dliber_002dmulti_002dassign"><code>rt-liber-multi-assign</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Batch-Operations">Batch Operations</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-rt_002dliber_002dmulti_002ddelete_002dspam"><code>rt-liber-multi-delete-spam</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser">Ticket Browser</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-rt_002dliber_002dmulti_002dflag_002das_002dspam_002dand_002ddelete"><code>rt-liber-multi-flag-as-spam-and-delete</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Batch-Operations">Batch Operations</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-rt_002dliber_002dmulti_002dset_002dstatus_002dopen"><code>rt-liber-multi-set-status-open</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Batch-Operations">Batch Operations</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-rt_002dliber_002dmulti_002dset_002dstatus_002dresolved"><code>rt-liber-multi-set-status-resolved</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Batch-Operations">Batch Operations</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-rt_002dliber_002dnext_002dsection_002din_002dviewer"><code>rt-liber-next-section-in-viewer</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Viewer">Ticket Viewer</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-rt_002dliber_002dnext_002dticket_002din_002dbrowser"><code>rt-liber-next-ticket-in-browser</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser">Ticket Browser</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-rt_002dliber_002dprevious_002dsection_002din_002dviewer"><code>rt-liber-previous-section-in-viewer</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Viewer">Ticket Viewer</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-rt_002dliber_002dprevious_002dticket_002din_002dbrowser"><code>rt-liber-previous-ticket-in-browser</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser">Ticket Browser</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-rt_002dliber_002dtime_002dlessthan_002dp"><code>rt-liber-time-lessthan-p</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser-Sorting">Ticket Browser Sorting</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-rt_002dliber_002dupdate"><code>rt-liber-update</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Tracking-Updates">Tracking Updates</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-rt_002dliber_002dviewer_002danswer"><code>rt-liber-viewer-answer</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Viewer">Ticket Viewer</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-rt_002dliber_002dviewer_002danswer_002dprovisionally"><code>rt-liber-viewer-answer-provisionally</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Viewer">Ticket Viewer</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-rt_002dliber_002dviewer_002danswer_002dprovisionally_002dthis"><code>rt-liber-viewer-answer-provisionally-this</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Viewer">Ticket Viewer</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-rt_002dliber_002dviewer_002danswer_002dthis"><code>rt-liber-viewer-answer-this</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Viewer">Ticket Viewer</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-rt_002dliber_002dviewer_002danswer_002dverbatim_002dthis"><code>rt-liber-viewer-answer-verbatim-this</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Viewer">Ticket Viewer</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-rt_002dliber_002dviewer_002dcomment"><code>rt-liber-viewer-comment</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Viewer">Ticket Viewer</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-rt_002dliber_002dviewer_002dcomment_002dthis"><code>rt-liber-viewer-comment-this</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Viewer">Ticket Viewer</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-rt_002dliber_002dviewer_002dmode_002dquit"><code>rt-liber-viewer-mode-quit</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Viewer">Ticket Viewer</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-rt_002dliber_002dviewer_002dshow_002dticket_002dbrowser"><code>rt-liber-viewer-show-ticket-browser</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Viewer">Ticket Viewer</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-rt_002dliber_002dviewer_002dvisit_002din_002dbrowser"><code>rt-liber-viewer-visit-in-browser</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Viewer">Ticket Viewer</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th><a name="Function-Index_fn_letter-S">S</a></th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-scroll_002ddown"><code>scroll-down</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser">Ticket Browser</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-scroll_002ddown-1"><code>scroll-down</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Viewer">Ticket Viewer</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-scroll_002dup"><code>scroll-up</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser">Ticket Browser</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-scroll_002dup-1"><code>scroll-up</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Viewer">Ticket Viewer</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+</table>
+<table><tr><th valign="top">Jump to: &nbsp; </th><td><a class="summary-letter" href="#Function-Index_fn_letter-R"><b>R</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-Index_fn_letter-S"><b>S</b></a>
+ &nbsp; 
+</td></tr></table>
+
+
+
+
+
+<hr>
+<a name="Variable-Index"></a>
+<div class="header">
+<p>
+Next: <a href="#Keybinding-Index" accesskey="n" rel="next">Keybinding Index</a>, Previous: <a href="#Function-Index" accesskey="p" rel="prev">Function Index</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<a name="Variable-Index-1"></a>
+<h2 class="unnumbered">Variable Index</h2>
+
+
+
+
+
+<hr>
+<a name="Keybinding-Index"></a>
+<div class="header">
+<p>
+Previous: <a href="#Variable-Index" accesskey="p" rel="prev">Variable Index</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<a name="Keybinding-Index-1"></a>
+<h2 class="unnumbered">Keybinding Index</h2>
+<table><tr><th valign="top">Jump to: &nbsp; </th><td><a class="summary-letter" href="#Keybinding-Index_ky_letter-A"><b>A</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Keybinding-Index_ky_letter-C"><b>C</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Keybinding-Index_ky_letter-D"><b>D</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Keybinding-Index_ky_letter-F"><b>F</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Keybinding-Index_ky_letter-G"><b>G</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Keybinding-Index_ky_letter-H"><b>H</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Keybinding-Index_ky_letter-M"><b>M</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Keybinding-Index_ky_letter-N"><b>N</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Keybinding-Index_ky_letter-O"><b>O</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Keybinding-Index_ky_letter-P"><b>P</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Keybinding-Index_ky_letter-Q"><b>Q</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Keybinding-Index_ky_letter-R"><b>R</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Keybinding-Index_ky_letter-S"><b>S</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Keybinding-Index_ky_letter-T"><b>T</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Keybinding-Index_ky_letter-V"><b>V</b></a>
+ &nbsp; 
+</td></tr></table>
+<table class="index-ky" border="0">
+<tr><td></td><th align="left">Index Entry</th><td>&nbsp;</td><th align="left"> Section</th></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th><a name="Keybinding-Index_ky_letter-A">A</a></th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-a-_0028ticket-browser_0029"><code>a (ticket browser)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser">Ticket Browser</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-A-_0028ticket-browser_0029"><code>A (ticket browser)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Local-Storage">Local Storage</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th><a name="Keybinding-Index_ky_letter-C">C</a></th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-c-_0028ticket-viewer_0029"><code>c (ticket viewer)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Viewer">Ticket Viewer</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-C-_0028ticket-viewer_0029"><code>C (ticket viewer)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Viewer">Ticket Viewer</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th><a name="Keybinding-Index_ky_letter-D">D</a></th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-DEL-_0028ticket-browser_0029"><code>DEL (ticket browser)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser">Ticket Browser</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-DEL-_0028ticket-viewer_0029"><code>DEL (ticket viewer)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Viewer">Ticket Viewer</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th><a name="Keybinding-Index_ky_letter-F">F</a></th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-F-_0028ticket-viewer_0029"><code>F (ticket viewer)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Viewer">Ticket Viewer</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th><a name="Keybinding-Index_ky_letter-G">G</a></th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-g-_0028ticket-browser_0029"><code>g (ticket browser)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser">Ticket Browser</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-G-_0028ticket-browser_0029"><code>G (ticket browser)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser">Ticket Browser</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-g-_0028ticket-viewer_0029"><code>g (ticket viewer)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Viewer">Ticket Viewer</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th><a name="Keybinding-Index_ky_letter-H">H</a></th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-h-_0028ticket-viewer_0029"><code>h (ticket viewer)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Viewer">Ticket Viewer</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th><a name="Keybinding-Index_ky_letter-M">M</a></th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-m-_0028ticket-browser_0029"><code>m (ticket browser)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser">Ticket Browser</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-M-_0028ticket-browser_0029"><code>M (ticket browser)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Batch-Operations">Batch Operations</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-m-_0028ticket-viewer_0029"><code>m (ticket viewer)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Viewer">Ticket Viewer</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-M-_0028ticket-viewer_0029"><code>M (ticket viewer)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Viewer">Ticket Viewer</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th><a name="Keybinding-Index_ky_letter-N">N</a></th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-n-_0028ticket-browser_0029"><code>n (ticket browser)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser">Ticket Browser</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-n-_0028ticket-viewer_0029"><code>n (ticket viewer)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Viewer">Ticket Viewer</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-N-_0028ticket-viewer_0029"><code>N (ticket viewer)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Viewer">Ticket Viewer</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th><a name="Keybinding-Index_ky_letter-O">O</a></th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-o-_0028ticket-browser_0029"><code>o (ticket browser)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser">Ticket Browser</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th><a name="Keybinding-Index_ky_letter-P">P</a></th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-p-_0028ticket-browser_0029"><code>p (ticket browser)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser">Ticket Browser</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-P-_0028ticket-browser_0029"><code>P (ticket browser)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser">Ticket Browser</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-p-_0028ticket-viewer_0029"><code>p (ticket viewer)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Viewer">Ticket Viewer</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th><a name="Keybinding-Index_ky_letter-Q">Q</a></th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-q-_0028ticket-browser_0029"><code>q (ticket browser)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser">Ticket Browser</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-q-_0028ticket-viewer_0029"><code>q (ticket viewer)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Viewer">Ticket Viewer</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th><a name="Keybinding-Index_ky_letter-R">R</a></th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-r-_0028ticket-browser_0029"><code>r (ticket browser)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser">Ticket Browser</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-RET-_0028ticket-browser_0029"><code>RET (ticket browser)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser">Ticket Browser</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th><a name="Keybinding-Index_ky_letter-S">S</a></th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-s-_0028ticket-browser_0029"><code>s (ticket browser)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser">Ticket Browser</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-S-_0028ticket-browser_0029"><code>S (ticket browser)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser">Ticket Browser</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-SPC-_0028ticket-browser_0029"><code>SPC (ticket browser)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser">Ticket Browser</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-SPC-_0028ticket-viewer_0029"><code>SPC (ticket viewer)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Viewer">Ticket Viewer</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th><a name="Keybinding-Index_ky_letter-T">T</a></th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-t-_0028ticket-browser_0029"><code>t (ticket browser)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Browser">Ticket Browser</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-t-_0028ticket-viewer_0029"><code>t (ticket viewer)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Viewer">Ticket Viewer</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-t-_0028ticket-viewer_0029-1"><code>t (ticket viewer)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Viewer">Ticket Viewer</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th><a name="Keybinding-Index_ky_letter-V">V</a></th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-V-_0028ticket-viewer_0029"><code>V (ticket viewer)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Ticket-Viewer">Ticket Viewer</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+</table>
+<table><tr><th valign="top">Jump to: &nbsp; </th><td><a class="summary-letter" href="#Keybinding-Index_ky_letter-A"><b>A</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Keybinding-Index_ky_letter-C"><b>C</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Keybinding-Index_ky_letter-D"><b>D</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Keybinding-Index_ky_letter-F"><b>F</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Keybinding-Index_ky_letter-G"><b>G</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Keybinding-Index_ky_letter-H"><b>H</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Keybinding-Index_ky_letter-M"><b>M</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Keybinding-Index_ky_letter-N"><b>N</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Keybinding-Index_ky_letter-O"><b>O</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Keybinding-Index_ky_letter-P"><b>P</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Keybinding-Index_ky_letter-Q"><b>Q</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Keybinding-Index_ky_letter-R"><b>R</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Keybinding-Index_ky_letter-S"><b>S</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Keybinding-Index_ky_letter-T"><b>T</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Keybinding-Index_ky_letter-V"><b>V</b></a>
+ &nbsp; 
+</td></tr></table>
+
+
+<div class="footnote">
+<hr>
+<h4 class="footnotes-heading">Footnotes</h4>
+
+<h3><a name="FOOT1" href="#DOCF1">(1)</a></h3>
+<p>Implementing rt-liberation in this way
+has the additional benefit of isolating the rt-liberation code
+somewhat from changes in the way the RT CLI communicates with the RT
+server.</p>
+</div>
+<hr>
+
+
+
+</body>
+</html>
