@@ -316,4 +316,7 @@
 
 ;; save settings made using the customize interface to a sparate file
 (setq custom-file (concat user-emacs-directory "custom.el"))
+(unless (file-exists-p custom-file)
+  (write-region "" nil custom-file))
 (load custom-file 'noerror)
+
