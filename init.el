@@ -299,6 +299,33 @@
 (global-set-key [(control left)] 'scroll-right-1)
 (global-set-key [(control right)] 'scroll-left-1)
 
+;; enable toggling paragraph fill
+(defun compact-uncompact-block ()
+  "Remove or add line ending chars on current paragraph.
+This command is similar to a toggle of `fill-paragraph'.
+When there is a text selection, act on the region."
+  (interactive)
+  ;; This command symbol has a property “'stateIsCompact-p”.
+  (let (currentStateIsCompact (bigFillColumnVal most-positive-fixnum) (deactivate-mark nil))
+    (save-excursion
+      ;; Determine whether the text is currently compact.
+      (setq currentStateIsCompact
+            (if (eq last-command this-command)
+                (get this-command 'stateIsCompact-p)
+              (if (> (- (line-end-position) (line-beginning-position)) fill-column) t nil)))
+      (if (use-region-p)
+          (if currentStateIsCompact
+              (fill-region (region-beginning) (region-end))
+            (let ((fill-column bigFillColumnVal))
+              (fill-region (region-beginning) (region-end))))
+        (if currentStateIsCompact
+            (fill-paragraph nil)
+          (let ((fill-column bigFillColumnVal))
+            (fill-paragraph nil))))
+      (put this-command 'stateIsCompact-p (if currentStateIsCompact nil t)))))
+
+(global-set-key (kbd "M-q") 'compact-uncompact-block)
+
 ;; visual line mode
 (global-visual-line-mode 1) 
 
