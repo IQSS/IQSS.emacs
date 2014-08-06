@@ -249,7 +249,7 @@ outpr)
          load-path)))
 
 (require 'ob-stata)
-(require 'org-ref)
+;(require 'org-ref)
 
 ;; require the main file containing common functions
 (require 'eval-in-repl)
