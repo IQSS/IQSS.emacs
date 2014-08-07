@@ -18,6 +18,10 @@
 
 ;;; other overrides go here
 
+
+(add-to-list 'package-archives 
+             '("sunrise-commander" . "http://joseito.republika.pl/sunrise-commander/") t)
+
 ;; install other packages I like
 (setq package-list '(smex
                      ido-ubiquitous
@@ -32,7 +36,13 @@
                      eval-in-repl
                      elpy
                      cider
-                     slime))
+                     slime
+                     sunrise-commander
+                     sunrise-x-mirror
+                     sunrise-x-modeline
+                     sunrise-x-tabs))
+
+
 
 ;; Activate package autoloads
 (package-initialize)
@@ -45,6 +55,9 @@
 (dolist (package package-list)
   (when (not (package-installed-p package))
     (package-install package)))
+
+(require 'sunrise-commander)
+(add-to-list 'auto-mode-alist '("\\.srvm\\'" . sr-virtual-mode))
 
 
 ;;; from http://www.emacswiki.org/emacs/essh.el
