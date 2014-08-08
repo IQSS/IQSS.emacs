@@ -22,6 +22,10 @@
 (add-to-list 'package-archives 
              '("sunrise-commander" . "http://joseito.republika.pl/sunrise-commander/") t)
 
+;; Fetch the list of packages available
+(when (not package-archive-contents)
+  (package-refresh-contents))
+
 ;; install other packages I like
 (setq package-list '(smex
                      ido-ubiquitous
