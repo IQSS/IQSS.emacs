@@ -13,9 +13,9 @@ This is a drop-in replacement for your .emacs.d. It automatically installs and c
    - master :: Relatively conservative, probably the one you want.
    - Gary :: Like master but with large font by default.
    - izahn :: Master plus more experimental packages at settings. Use
-              at your own risk! For example, to use Gary's
-              configuration open a terminal and run =git clone
-              https://github.com/izahn/dotemacs.git ~/.emacs.d=
+              at your own risk! 
+
+For example, to use Gary's configuration open a terminal and run =git clone https://github.com/izahn/dotemacs.git ~/.emacs.d=
 
 * Discussion and implementation
 
