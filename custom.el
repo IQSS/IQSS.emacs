@@ -35,10 +35,6 @@
                      sunrise-x-tabs
                      unicode-fonts))
 
-;; make sure unicode fonts work nicely
-(require 'unicode-fonts)
-(unicode-fonts-setup)
-
 ;; Activate package autoloads
 (package-initialize)
 
@@ -53,6 +49,11 @@
 
 (require 'sunrise-commander)
 (add-to-list 'auto-mode-alist '("\\.srvm\\'" . sr-virtual-mode))
+
+
+;; make sure unicode fonts work nicely
+(require 'unicode-fonts)
+(unicode-fonts-setup)
 
 
 ;;; from http://www.emacswiki.org/emacs/essh.el
