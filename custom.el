@@ -32,9 +32,12 @@
                      sunrise-commander
                      sunrise-x-mirror
                      sunrise-x-modeline
-                     sunrise-x-tabs))
+                     sunrise-x-tabs
+                     unicode-fonts))
 
-
+;; make sure unicode fonts work nicely
+(require 'unicode-fonts)
+(unicode-fonts-setup)
 
 ;; Activate package autoloads
 (package-initialize)
