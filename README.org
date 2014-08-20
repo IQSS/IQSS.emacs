@@ -15,7 +15,7 @@ This is a drop-in replacement for your .emacs.d. It automatically installs and c
    - izahn :: Master plus more experimental packages at settings. Use
               at your own risk! 
 
-For example, to use Gary's configuration open a terminal and run =git clone https://github.com/izahn/dotemacs.git ~/.emacs.d=
+For example, to use Gary's configuration open a terminal and run =git clone https://github.com/izahn/dotemacs.git -b Gary ~/.emacs.d=
 
 * Discussion and implementation
 
