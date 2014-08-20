@@ -7,46 +7,6 @@
 (setq default-buffer-file-coding-system 'utf-8)                      
 (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 
-(add-to-list 'package-archives 
-             '("sunrise-commander" . "http://joseito.republika.pl/sunrise-commander/") t)
-
-;; Fetch the list of packages available
-(when (not package-archive-contents)
-  (package-refresh-contents))
-
-;; install other packages I like
-(setq package-list '(smex
-                     ido-ubiquitous
-                     outline-magic
-                     smooth-scroll
-                     auto-complete
-                     auctex
-                     ess 
-                     org-plus-contrib
-                     markdown-mode 
-                     polymode
-                     eval-in-repl
-                     elpy
-                     cider
-                     slime
-                     sunrise-commander
-                     sunrise-x-mirror
-                     sunrise-x-modeline
-                     sunrise-x-tabs
-                     unicode-fonts))
-
-;; Activate package autoloads
-(package-initialize)
-
-;; Fetch the list of packages available
-(when (not package-archive-contents)
-  (package-refresh-contents))
-
-;; Install packages in package-list if they are not already installed
-(dolist (package package-list)
-  (when (not (package-installed-p package))
-    (package-install package)))
-
 (require 'sunrise-commander)
 (add-to-list 'auto-mode-alist '("\\.srvm\\'" . sr-virtual-mode))
 

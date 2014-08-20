@@ -19,6 +19,8 @@
              '("org" . "http://orgmode.org/elpa/") t)
 (add-to-list 'package-archives 
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(add-to-list 'package-archives 
+             '("sunrise-commander" . "http://joseito.republika.pl/sunrise-commander/") t)
 
 
 ;; Make a list of the packages you want
@@ -31,7 +33,16 @@
                      ess 
                      org-plus-contrib
                      markdown-mode 
-                     polymode))
+                     polymode
+                     eval-in-repl
+                     elpy
+                     cider
+                     slime
+                     sunrise-commander
+                     sunrise-x-mirror
+                     sunrise-x-modeline
+                     sunrise-x-tabs
+                     unicode-fonts))
 
 ;; Activate package autoloads
 (package-initialize)
