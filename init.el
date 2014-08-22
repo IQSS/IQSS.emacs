@@ -42,7 +42,6 @@
                      sunrise-x-mirror
                      sunrise-x-modeline
                      sunrise-x-tabs
-                     unicode-fonts
                      htmlize))
 
 ;; Activate package autoloads

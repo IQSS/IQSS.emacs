@@ -14,10 +14,6 @@
 (load "server")
 (unless (server-running-p) (server-start))
 
-;; make sure unicode fonts work nicely
-(require 'unicode-fonts)
-(unicode-fonts-setup)
-
 ;; Python completion and code checking
 (elpy-enable)
 
