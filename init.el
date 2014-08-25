@@ -120,6 +120,9 @@
 (define-key ac-completing-map [tab] 'ac-complete)
 (define-key ac-completing-map [return] nil)
 
+;; workaround so auto-complete works with flyspell
+(ac-flyspell-workaround)
+
 ;;; Configure outline minor modes
 ;; Less crazy key bindings for outline-minor-mode
 (setq outline-minor-mode-prefix "\C-c\C-o")
