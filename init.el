@@ -1,3 +1,4 @@
+
 ;;; COMMENTARY
 
 ;; This emacs configuration file sets some convenient defaults and activates 
@@ -184,9 +185,6 @@
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
-;;; Org-mode
-
-;; Make sure org-mode is loaded
 (require 'org)
 
 ;; Load additional export formats
@@ -221,9 +219,7 @@
 (setq org-src-fontify-natively t)
 (setq org-src-tab-acts-natively t)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;;;;  Emacs Speaks Statistics (ESS) ;;;
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;  ESS (Emacs Speaks Statistics)
 
 ;; Start R in the working directory by default
 (setq ess-ask-for-ess-directory nil)
@@ -361,4 +357,3 @@ When there is a text selection, act on the region."
 (unless (file-exists-p custom-file)
   (write-region "" nil custom-file))
 (load custom-file 'noerror)
-
