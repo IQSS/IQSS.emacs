@@ -143,6 +143,9 @@ The emacs configuration in the sections below implements the [[#Requirements][Re
                '("org" . "http://orgmode.org/elpa/") t)
   (add-to-list 'package-archives 
                '("melpa" . "http://melpa.milkbox.net/packages/") t)
+  (add-to-list 'package-archives 
+               '("sunrise-commander" . "http://joseito.republika.pl/sunrise-commander/") t)
+
 
   ;; Make a list of the packages you want
   (setq package-list '(smex
@@ -154,7 +157,16 @@ The emacs configuration in the sections below implements the [[#Requirements][Re
                        ess 
                        org-plus-contrib
                        markdown-mode 
-                       polymode))
+                       polymode
+                       eval-in-repl
+                       elpy
+                       cider
+                       slime
+                       sunrise-commander
+                       sunrise-x-mirror
+                       sunrise-x-modeline
+                       sunrise-x-tabs
+                       htmlize))
 
   ;; Activate package autoloads
   (package-initialize)
