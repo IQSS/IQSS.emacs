@@ -1,6 +1,3 @@
-
-;; Preamble
-
 ;;; COMMENTARY
 
 ;; This emacs configuration file sets some convenient defaults and activates 
@@ -11,8 +8,6 @@
 ;; settings. To use this init file on the RCE you need to start emacs with
 ;; emacs --no-site-file --no-site-lisp. This is a temporary requirement that
 ;; will eventually be resolved in cooperation with the RCE team.
-
-;; Install useful packages
 
 ;;; Install required packages
 
@@ -49,8 +44,6 @@
   (when (not (package-installed-p package))
     (package-install package)))
 
-;; Spell checking
-
 ;; enable on-the-fly spell checking
 (add-hook 'text-mode-hook
           (lambda ()
@@ -61,8 +54,6 @@
           (lambda ()
             ;; `ispell-comments-and-strings'
             (flyspell-prog-mode)))
-
-;; Minibuffer hints and completion
 
 ;;; Completion hints for files and buffers buffers
 (setq ido-file-extensions-order '(".tex" ".bib" ".org" ".txt" ".html" 
@@ -117,8 +108,6 @@
 ;; This is your old M-x.
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
-;; Auto-complete configuration
-
 ;;; Auto-complete
 
 ;; Set up autocomplete sources
@@ -134,8 +123,6 @@
 ;; workaround so auto-complete works with flyspell
 (ac-flyspell-workaround)
 
-;; Outline-magic
-
 ;;; Configure outline minor modes
 ;; Less crazy key bindings for outline-minor-mode
 (setq outline-minor-mode-prefix "\C-c\C-o")
@@ -147,8 +134,6 @@
 ;; turn on for some modes:
 (add-hook 'LaTeX-mode-hook 'outline-minor-mode t)
 (add-hook 'prog-mode-hook 'outline-minor-mode t)
-
-;; LaTeX-mode
 
 ;;; AucTeX config
 ;; turn on math mode and and index to imenu
@@ -181,16 +166,15 @@
           '(lambda ()
              (define-key bibtex-mode-map "\M-q" 'bibtex-fill-entry)))
 
-;; Markdown mode
-
 ;;; markdown mode
 
 ;; Use markdown-mode for files with .markdown or .md extensions
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
-;; Org-mode
+;;; Org-mode
 
+;; Make sure org-mode is loaded
 (require 'org)
 
 ;; Load additional export formats
@@ -225,9 +209,9 @@
 (setq org-src-fontify-natively t)
 (setq org-src-tab-acts-natively t)
 
-;; Emacs Speaks Statistics
-
-;;;  ESS (Emacs Speaks Statistics)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;;;  Emacs Speaks Statistics (ESS) ;;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Start R in the working directory by default
 (setq ess-ask-for-ess-directory nil)
@@ -239,8 +223,6 @@
 
 ;; Make sure ESS is loaded
 (require 'ess-site)
-
-;; Polymode
 
 ;;; polymode
 
@@ -262,8 +244,6 @@
   (add-to-list 'auto-mode-alist '("\\.Rbrew" . poly-brew+r-mode))
   (add-to-list 'auto-mode-alist '("\\.Rcpp" . poly-r+c++-mode))
   (add-to-list 'auto-mode-alist '("\\.cppR" . poly-c++r-mode)))
-
-;; Miscellaneous
 
 ;;; Misc. Conveniences
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)
@@ -369,3 +349,4 @@ When there is a text selection, act on the region."
 (unless (file-exists-p custom-file)
   (write-region "" nil custom-file))
 (load custom-file 'noerror)
+
