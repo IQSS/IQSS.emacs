@@ -103,6 +103,7 @@
    (emacs-lisp . t)
    (stata . t)
    (sh . t)
+   (latex . t)
    ;; (dot . t)
    ;; (latex . t)
    ;; (octave . t)
@@ -112,6 +113,15 @@
 ))
 
 (setq org-confirm-babel-evaluate nil)
+
+;; highlight babel code block execution
+(defadvice org-babel-execute-src-block (around progress nil activate)
+  "create a buffer indicating what is running"
+  (let ((ol (make-overlay (org-element-property :begin (org-element-at-point))
+                          (org-element-property :end (org-element-at-point)))))
+    (overlay-put ol 'face '(foreground-color . "blue"))
+    ad-do-it
+    (delete-overlay ol)))
 
 ;;; email and stuff (I really think the browser is better...)
 ;; (require 'rt-liberation)
