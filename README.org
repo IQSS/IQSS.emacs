@@ -7,15 +7,48 @@
 This is a drop-in replacement for your .emacs.d. It automatically installs and configures several emacs packages useful for working with LaTeX documents, and for writing code for statistical analysis in R, Stata, SAS, and Julia. It also turns on several built-in features of emacs such as spell checking and syntax highlighting.
 
 ** How to I install it?
-1) Make sure you have [[http://git-scm.com/downloads][git]] installed on your computer.
-2) Back up your existing =~/.emacs= file and =~/.emacs.d= directory (e.g., rename =.emacs= to =OLD.emacs= and rename =.emacs.d= to =OLD.emacs.d=).
-3) Clone one of the following versions into =~.emacs.d=:
-   - master :: Relatively conservative, probably the one you want.
-   - Gary :: Like master but with large font by default.
+1) Make sure emacs >= version 24.3 is installed on your computer. See  [[#Suggested-external-programs][Suggested-external-programs]] for installation instructions.
+2) Make sure you have [[http://git-scm.com/downloads][git]] installed on your computer. If you don't know what git is you might be interested in John McDonnell's [[http://nyuccl.org/pages/GitTutorial/][git tutorial]].
+3) Determine your emacs configuration directory. Open emacs and type =C-x f ~/ RET=. This should open a directory listing buffer. Note the path at the top of this file. This is were your =.emacs.d= should go.
+4) Back up your existing =~/.emacs= file and =~/.emacs.d= directory (e.g., rename =.emacs= to =OLD.emacs= and rename =.emacs.d= to =OLD.emacs.d=).
+5) Clone one of the following versions into =~.emacs.d=:
+   - master :: Relatively conservative, probably the one you want. \\ =git clone https://github.com/izahn/dotemacs.git -b master ~/.emacs.d=
+   - Gary :: Like master but with large font by default. \\ =git clone https://github.com/izahn/dotemacs.git -b Gary ~/.emacs.d=
    - izahn :: Master plus more experimental packages at settings. Use
-              at your own risk! 
+              at your own risk! \\ =git clone https://github.com/izahn/dotemacs.git -b Gary ~/.emacs.d=
 
 For example, to use Gary's configuration open a terminal and run =git clone https://github.com/izahn/dotemacs.git -b Gary ~/.emacs.d=
+
+** Suggested external programs
+  :PROPERTIES:
+  :CUSTOM_ID: Suggested-external-programs
+  :END:
+
+Some of the requirements listed in [[#Requirements][Requirements]] make use of software that must be installed outside of emacs. And of course you will need emacs itself! 
+
+While it is theoretically possible to try to automate the installation of these external dependencies, it is probably easier and safer to simply provide documentation instructing users on how to install these prerequisites.
+
+- Windows
+  - Emacs :: http://vgoulet.act.ulaval.ca/en/emacs/
+  - R :: http://cran.r-project.org/bin/windows/base/
+  - LaTeX :: http://miktex.org/download
+  - Pandoc :: https://github.com/jgm/pandoc/releases
+  - GhostScript :: http://www.ghostscript.com/download/gsdnld.html
+
+- OSX
+  - Emacs :: http://vgoulet.act.ulaval.ca/en/emacs/
+  - R :: http://cran.r-project.org/bin/macosx/
+  - LaTeX :: http://tug.org/mactex/
+  - Pandoc :: https://github.com/jgm/pandoc/releases
+  - GhostScript :: http://pages.uoregon.edu/koch/
+
+- Linux
+  - Emacs :: Use your package manager, or see http://www.gnu.org/software/emacs/#Obtaining
+  - R :: Use your package manager, or see http://cran.r-project.org/bin/linux/
+  - LaTeX :: Use your package manager, or see https://www.tug.org/texlive/quickinstall.html
+  - Pandoc :: Use your package manager, or see http://johnmacfarlane.net/pandoc/installing.html#all-platforms
+  - GhostScript :: Use your package manager, or see http://www.ghostscript.com/download/gsdnld.html
+
 
 * Discussion and implementation
 
@@ -69,30 +102,6 @@ Implementation of the requirements listed in the previous section can be approac
 3) We can start with specialized emacs distributions for different operating systems and add required functionality.
 
 In my experience option 1 (building up from default Gnu emacs) works well on Linux, so-so on Mac, and is a real pain on Windows. Option 2 (the meta-package approach) tends to result in un-maintainable, complicated configurations that the user doesn't understand and can't configure. Therefore I suggest that we encourage people to start with OS-specific emacs distributions, and that we write relatively minimal config files that sets up the basics, along with documentation and comments explaining how to add related functionality. See [[#Cross-platform-issues][Cross platform issues]] for recommended emacs versions for Windows and OS X.
-
-** Suggested external programs
-  :PROPERTIES:
-  :CUSTOM_ID: Suggested-external-programs
-  :END:
-
-Some of the requirements listed in [[#Requirements][Requirements]] make use of software that must be installed outside of emacs. While it is theoretically possible to try to automate the installation of these external dependencies, it is probably easier and safer to simply provide documentation instructing users on how to install these prerequisites.
-
-- R
-  - Windows :: http://cran.r-project.org/bin/windows/base/
-  - OSX :: http://cran.r-project.org/bin/macosx/
-  - Linux :: Use your package manager, or see http://cran.r-project.org/bin/linux/
-- LaTeX
-  - Windows :: http://miktex.org/download
-  - OSX :: http://tug.org/mactex/
-  - Linux :: Use your package manager, or see https://www.tug.org/texlive/quickinstall.html
-- Pandoc
-  - Windows :: https://github.com/jgm/pandoc/releases
-  - OSX :: https://github.com/jgm/pandoc/releases
-  - Linux :: Use your package manager, or see http://johnmacfarlane.net/pandoc/installing.html#all-platforms
-- Ghostscript
-  - Windows :: http://www.ghostscript.com/download/gsdnld.html and http://pages.cs.wisc.edu/~ghost/gsview/index.htm
-  - OSX :: http://pages.uoregon.edu/koch/
-  - Linux :: Use your package manager, or see http://www.ghostscript.com/download/gsdnld.html
 
 ** Cross-platform issues
   :PROPERTIES:
