@@ -7,6 +7,10 @@
 (setq default-buffer-file-coding-system 'utf-8)                      
 (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 
+;; finally a theme I can live with!
+(load-theme 'leuven t) 
+(setq org-fontify-whole-heading-line t)
+
 (require 'sunrise-commander)
 (add-to-list 'auto-mode-alist '("\\.srvm\\'" . sr-virtual-mode))
 
