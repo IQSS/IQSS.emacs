@@ -25,7 +25,8 @@
 
 
 ;; Make a list of the packages you want
-(setq package-list '(smex
+(setq package-list '(leuven
+                     smex
                      ido-ubiquitous
                      outline-magic
                      smooth-scroll
