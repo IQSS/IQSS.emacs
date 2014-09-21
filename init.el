@@ -25,7 +25,8 @@
 
 
 ;; Make a list of the packages you want
-(setq package-list '(helm
+(setq package-list '(async
+                     helm
                      outline-magic
                      smooth-scroll
                      auto-complete
