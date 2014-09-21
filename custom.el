@@ -7,7 +7,11 @@
 (setq default-buffer-file-coding-system 'utf-8)                      
 (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 
-(add-to-list 'eshell-visual-commands "nano")
+(add-hook 'eshell-first-time-mode-hook
+		  '(lambda ()
+		     (add-to-list 'eshell-visual-commands "nano")))
+
+
 
 ;; finally a theme I can live with!
 (load-theme 'leuven t) 

@@ -71,6 +71,8 @@
 ;;; Completion hints for files and buffers buffers functions and more
 (require 'helm)
 (helm-mode 1)
+;; make sure helm gets updated correctly
+(require 'async-bytecomp)
 
 ;;; Auto-complete
 
