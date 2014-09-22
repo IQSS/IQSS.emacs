@@ -25,7 +25,8 @@
 
 
 ;; Make a list of the packages you want
-(setq package-list '(async
+(setq package-list '(leuven-theme
+                     async
                      helm
                      outline-magic
                      smooth-scroll
