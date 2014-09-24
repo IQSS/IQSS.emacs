@@ -17,9 +17,6 @@
 (load-theme 'leuven t) 
 (setq org-fontify-whole-heading-line t)
 
-(require 'sunrise-commander)
-(add-to-list 'auto-mode-alist '("\\.srvm\\'" . sr-virtual-mode))
-
 ;; start the server if not already started
 (load "server")
 (unless (server-running-p) (server-start))

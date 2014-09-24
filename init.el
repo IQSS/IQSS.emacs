@@ -20,8 +20,6 @@
              '("org" . "http://orgmode.org/elpa/") t)
 (add-to-list 'package-archives 
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(add-to-list 'package-archives 
-             '("sunrise-commander" . "http://joseito.republika.pl/sunrise-commander/") t)
 
 
 ;; Make a list of the packages you want
@@ -41,10 +39,6 @@
                      elpy
                      cider
                      slime
-                     sunrise-commander
-                     sunrise-x-mirror
-                     sunrise-x-modeline
-                     sunrise-x-tabs
                      htmlize))
 
 ;; Activate package autoloads
