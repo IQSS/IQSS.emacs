@@ -12,7 +12,6 @@
 		     (add-to-list 'eshell-visual-commands "nano")))
 
 
-
 ;; finally a theme I can live with!
 (load-theme 'leuven t) 
 (setq org-fontify-whole-heading-line t)

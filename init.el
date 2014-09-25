@@ -24,6 +24,8 @@
 
 ;; Make a list of the packages you want
 (setq package-list '(leuven-theme
+                     persistent-soft
+                     unicode-fonts
                      async
                      helm
                      helm-descbinds
@@ -63,6 +65,10 @@
           (lambda ()
             ;; `ispell-comments-and-strings'
             (flyspell-prog-mode)))
+
+(require 'persistent-soft)
+(require 'unicode-fonts)
+(unicode-fonts-setup)
 
 ;;; Completion hints for files and buffers buffers functions and more
 (require 'helm-config)

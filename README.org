@@ -156,6 +156,8 @@ The emacs configuration in the sections below implements the [[#Requirements][Re
 
   ;; Make a list of the packages you want
   (setq package-list '(leuven-theme
+                       persistent-soft
+                       unicode-fonts
                        async
                        helm
                        helm-descbinds
@@ -200,6 +202,15 @@ The emacs configuration in the sections below implements the [[#Requirements][Re
           (lambda ()
             ;; `ispell-comments-and-strings'
             (flyspell-prog-mode)))
+#+END_SRC
+
+*** Fonts
+Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we set fallback fonts for different Unicode blocks, dramatically increasing the number of characters Emacs will display.
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (require 'persistent-soft)
+  (require 'unicode-fonts)
+  (unicode-fonts-setup)
 #+END_SRC
 
 *** Minibuffer hints and completion
