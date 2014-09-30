@@ -173,7 +173,9 @@ The emacs configuration in the sections below implements the [[#Requirements][Re
                        elpy
                        cider
                        slime
-                       htmlize))
+                       htmlize
+                       pcmpl-args
+                       pcmpl-pip))
 
   ;; Activate package autoloads
   (package-initialize)

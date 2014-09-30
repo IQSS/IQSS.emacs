@@ -88,6 +88,19 @@
           '(lambda()
 		     (local-set-key "\C-c\C-c" 'eir-eval-in-shell)))
 
+;; extra ESS stuff from https://github.com/gaborcsardi/dot-emacs/blob/master/.emacs
+(ess-toggle-underscore nil)
+(defun my-ess-post-run-hook ()
+(ess-execute-screen-options)
+(local-set-key "\C-cw" 'ess-execute-screen-options))
+(add-hook 'ess-post-run-hook 'my-ess-post-run-hook)
+
+;; auto-complete for eshell
+(require 'ac-pcomplete)
+(add-hook 'eshell-mode-hook #'(lambda () (setq ac-sources '(ac-source-pcomplete))))
+(add-to-list 'ac-modes 'eshell-mode)
+
+
 (require 'org-capture)
 
 (require 'org-protocol)
@@ -230,7 +243,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(eshell-cmpl-autolist t)
+ '(term-buffer-maximum-size 1024)
+ '(term-completion-autolist t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
