@@ -103,10 +103,10 @@
 (add-to-list 'ac-modes 'eshell-mode)
 (setq explicit-shell-file-name "bash")
 (setq explicit-bash-args '("-c" "export EMACS=; stty echo; bash"))
+(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 (setq comint-process-echoes t)
 (add-to-list 'ac-modes 'shell-mode)
 (add-hook 'shell-mode-hook 'ac-rlc-setup-sources)
-
 
 
 (require 'org-capture)
