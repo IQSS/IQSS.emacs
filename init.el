@@ -41,7 +41,10 @@
                      elpy
                      cider
                      slime
-                     htmlize))
+                     htmlize
+                     pcmpl-args
+                     pcmpl-pip
+                     readline-complete))
 
 ;; Activate package autoloads
 (package-initialize)
