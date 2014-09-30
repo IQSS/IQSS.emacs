@@ -95,10 +95,18 @@
 (local-set-key "\C-cw" 'ess-execute-screen-options))
 (add-hook 'ess-post-run-hook 'my-ess-post-run-hook)
 
-;; auto-complete for eshell
+;; auto-complete for shell and eshell
 (require 'ac-pcomplete)
 (add-hook 'eshell-mode-hook #'(lambda () (setq ac-sources '(ac-source-pcomplete))))
+(require 'readline-complete-autoloads)
+(require 'readline-complete)
 (add-to-list 'ac-modes 'eshell-mode)
+(setq explicit-shell-file-name "bash")
+(setq explicit-bash-args '("-c" "export EMACS=; stty echo; bash"))
+(setq comint-process-echoes t)
+(add-to-list 'ac-modes 'shell-mode)
+(add-hook 'shell-mode-hook 'ac-rlc-setup-sources)
+
 
 
 (require 'org-capture)
