@@ -12,9 +12,6 @@
 		     (add-to-list 'eshell-visual-commands "nano")))
 
 
-;; finally a theme I can live with!
-(load-theme 'leuven t) 
-(setq org-fontify-whole-heading-line t)
 
 ;; start the server if not already started
 (load "server")
@@ -260,4 +257,5 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(helm-selection ((t (:background "yellow")))))
+ ; '(helm-selection ((t (:background "yellow"))))
+)

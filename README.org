@@ -138,6 +138,19 @@ The emacs configuration in the sections below implements the [[#Requirements][Re
   ;; will eventually be resolved in cooperation with the RCE team.
 #+END_SRC
 
+
+*** Visual tweaks
+Visual changes such as hiding the toolbar and scroll bar need to come first to avoid jarring transitions during startup.
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  ;; hide the toolbar
+  (tool-bar-mode 0)
+  (scroll-bar-mode 0)
+  (menu-bar-mode 0)
+  (setq inhibit-splash-screen t)
+  (setq inhibit-startup-message t)
+#+END_SRC
+
 *** Install useful packages
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
@@ -192,6 +205,14 @@ The emacs configuration in the sections below implements the [[#Requirements][Re
 
 #+END_SRC
 
+*** Load theme
+Loading the theme should come as early as possible in the init sequence to avoid jarring visual changes during startup, but must come after loading packages because we use a custom theme that needs to be installed first.
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  ;; finally a theme I can live with!
+  (load-theme 'leuven t) 
+  (setq org-fontify-whole-heading-line t)
+#+END_SRC
 *** Spell checking
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
@@ -456,10 +477,6 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
 #+BEGIN_SRC emacs-lisp :tangle init.el
 
   ;;; Misc. Conveniences
-  ;; hide the toolbar
-  (tool-bar-mode 0)
-  (scroll-bar-mode 0)
-  (menu-bar-mode 0)
 
   ;; use regex search by default
   (global-set-key (kbd "C-s") 'isearch-forward-regexp)

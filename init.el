@@ -10,6 +10,13 @@
 ;; emacs --no-site-file --no-site-lisp. This is a temporary requirement that
 ;; will eventually be resolved in cooperation with the RCE team.
 
+;; hide the toolbar
+(tool-bar-mode 0)
+(scroll-bar-mode 0)
+(menu-bar-mode 0)
+(setq inhibit-splash-screen t)
+(setq inhibit-startup-message t)
+
 ;;; Install required packages
 
 ;; load the package manager
@@ -57,6 +64,10 @@
 (dolist (package package-list)
   (when (not (package-installed-p package))
     (package-install package)))
+
+;; finally a theme I can live with!
+(load-theme 'leuven t) 
+(setq org-fontify-whole-heading-line t)
 
 ;; enable on-the-fly spell checking
 (add-hook 'text-mode-hook
@@ -260,10 +271,6 @@
   (add-to-list 'auto-mode-alist '("\\.cppR" . poly-c++r-mode)))
 
 ;;; Misc. Conveniences
-;; hide the toolbar
-(tool-bar-mode 0)
-(scroll-bar-mode 0)
-(menu-bar-mode 0)
 
 ;; use regex search by default
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)
