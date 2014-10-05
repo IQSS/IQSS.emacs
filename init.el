@@ -131,6 +131,12 @@
 (define-key ac-completing-map "\r" nil)
 (define-key ac-completing-map [tab] 'ac-complete)
 (define-key ac-completing-map [return] nil)
+;; same thing, for company mode
+(require 'company)
+(define-key company-active-map "\t" 'company-complete-selection)
+(define-key company-active-map "\r" nil)
+(define-key company-active-map [tab] 'company-complete-selection)
+(define-key company-active-map [return] nil)
 
 ;; workaround so auto-complete works with flyspell
 (ac-flyspell-workaround)
