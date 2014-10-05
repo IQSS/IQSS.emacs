@@ -253,6 +253,9 @@
   (add-to-list 'auto-mode-alist '("\\.cppR" . poly-c++r-mode)))
 
 ;;; Misc. Conveniences
+;; hide the toolbar
+(tool-bar-mode 0)
+
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)
 (global-set-key (kbd "C-r") 'isearch-backward-regexp)
 

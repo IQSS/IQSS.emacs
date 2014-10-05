@@ -449,6 +449,9 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
 #+BEGIN_SRC emacs-lisp :tangle init.el
 
   ;;; Misc. Conveniences
+  ;; hide the toolbar
+  (tool-bar-mode 0)
+
   (global-set-key (kbd "C-s") 'isearch-forward-regexp)
   (global-set-key (kbd "C-r") 'isearch-backward-regexp)
 
