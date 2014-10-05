@@ -255,7 +255,10 @@
 ;;; Misc. Conveniences
 ;; hide the toolbar
 (tool-bar-mode 0)
+(scroll-bar-mode 0)
+(menu-bar-mode 0)
 
+;; use regex search by default
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)
 (global-set-key (kbd "C-r") 'isearch-backward-regexp)
 
