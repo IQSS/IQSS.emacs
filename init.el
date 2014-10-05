@@ -133,6 +133,7 @@
 (define-key ac-completing-map [return] nil)
 ;; same thing, for company mode
 (require 'company)
+(add-hook 'after-init-hook 'global-company-mode)
 (define-key company-active-map "\t" 'company-complete-selection)
 (define-key company-active-map "\r" nil)
 (define-key company-active-map [tab] 'company-complete-selection)
