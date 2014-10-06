@@ -33,7 +33,9 @@ While it is theoretically possible to try to automate the installation of these 
   - R :: http://cran.r-project.org/bin/windows/base/
   - LaTeX :: http://miktex.org/download
   - Pandoc :: https://github.com/jgm/pandoc/releases
-  - GhostScript :: http://www.ghostscript.com/download/gsdnld.html
+  - GhostScript :: http://www.ghostscript.com/download/gsdnld.html 
+  - Python :: http://continuum.io/downloads
+  - Jedi :: http://jedi.jedidjah.ch/en/latest/docs/installation.html 
 
 - OSX
   - Emacs :: http://vgoulet.act.ulaval.ca/en/emacs/
@@ -41,14 +43,16 @@ While it is theoretically possible to try to automate the installation of these 
   - LaTeX :: http://tug.org/mactex/
   - Pandoc :: https://github.com/jgm/pandoc/releases
   - GhostScript :: http://pages.uoregon.edu/koch/
-
+  - Python :: http://continuum.io/downloads
+  - Jedi :: http://jedi.jedidjah.ch/en/latest/docs/installation.html 
 - Linux
   - Emacs :: Use your package manager, or see http://www.gnu.org/software/emacs/#Obtaining
   - R :: Use your package manager, or see http://cran.r-project.org/bin/linux/
   - LaTeX :: Use your package manager, or see https://www.tug.org/texlive/quickinstall.html
   - Pandoc :: Use your package manager, or see http://johnmacfarlane.net/pandoc/installing.html#all-platforms
   - GhostScript :: Use your package manager, or see http://www.ghostscript.com/download/gsdnld.html
-
+  - Python :: Use your package manager, or see http://continuum.io/downloads
+  - Jedi :: Use your package manager, or see http://jedi.jedidjah.ch/en/latest/docs/installation.html 
 
 * Discussion and implementation
 
