@@ -19,6 +19,9 @@ This is a drop-in replacement for your .emacs.d. It automatically installs and c
 
 For example, to use Gary's configuration open a terminal and run =git clone https://github.com/izahn/dotemacs.git -b Gary ~/.emacs.d=
 
+** First run
+Note that after installing this configuration emacs will be extremely slow to start up the first time. This is due to a one-time scan of the fonts installed on your computer. Just be patient and wait for it to finish--subsequent start-ups will be much faster.
+
 ** Suggested external programs
   :PROPERTIES:
   :CUSTOM_ID: Suggested-external-programs
