@@ -82,6 +82,8 @@
           '(lambda()
 		     (local-set-key "\C-c\C-c" 'eir-eval-in-shell)))
 
+;; ESS completion using company-mode (temporary, will probably be included in ESS soon)
+(require 'company-ess)
 ;; extra ESS stuff from https://github.com/gaborcsardi/dot-emacs/blob/master/.emacs
 (ess-toggle-underscore nil)
 (defun my-ess-post-run-hook ()
@@ -89,18 +91,13 @@
 (local-set-key "\C-cw" 'ess-execute-screen-options))
 (add-hook 'ess-post-run-hook 'my-ess-post-run-hook)
 
-;; auto-complete for shell and eshell
-(require 'ac-pcomplete)
-(add-hook 'eshell-mode-hook #'(lambda () (setq ac-sources '(ac-source-pcomplete))))
+;; auto-complete (company-mode)for shell and eshell
 (require 'readline-complete-autoloads)
 (require 'readline-complete)
-(add-to-list 'ac-modes 'eshell-mode)
 (setq explicit-shell-file-name "bash")
 (setq explicit-bash-args '("-c" "export EMACS=; stty echo; bash"))
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 (setq comint-process-echoes t)
-;(add-to-list 'ac-modes 'shell-mode)
-;(add-hook 'shell-mode-hook 'ac-rlc-setup-sources)
 (push 'company-readline company-backends)
 (add-hook 'rlc-no-readline-hook (lambda () (company-mode -1)))
 
