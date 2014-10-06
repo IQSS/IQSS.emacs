@@ -117,6 +117,8 @@
 (global-set-key (kbd "C-x b") 'helm-mini)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 
+(helm-mode 1)  
+
 (require 'helm-eshell)
 
 (add-hook 'eshell-mode-hook
@@ -361,4 +363,8 @@ When there is a text selection, act on the region."
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (unless (file-exists-p custom-file)
   (write-region "" nil custom-file))
-(load custom-file 'noerror)
+(byte-recompile-file custom-file nil 0 nil)
+(load (concat user-emacs-directory "custom.elc") 'noerror)
+
+;; byte-compile init file if needed
+(byte-recompile-file user-init-file nil 0 nil)
