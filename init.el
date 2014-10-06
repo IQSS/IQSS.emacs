@@ -70,15 +70,19 @@
 (setq org-fontify-whole-heading-line t)
 
 ;; enable on-the-fly spell checking
-(add-hook 'text-mode-hook
+(add-hook 'after-init-hook
           (lambda ()
-            (flyspell-mode 1)))
+            (add-hook 'text-mode-hook
+                      (lambda ()
+                        (flyspell-mode 1)))))
 
 ;; prevent flyspell from finding mistakes in the code
-(add-hook 'prog-mode-hook
+(add-hook 'after-init-hook
           (lambda ()
-            ;; `ispell-comments-and-strings'
-            (flyspell-prog-mode)))
+            (add-hook 'prog-mode-hook
+                      (lambda ()
+                        ;; `ispell-comments-and-strings'
+                        (flyspell-prog-mode)))))
 
 (require 'persistent-soft)
 (require 'unicode-fonts)
@@ -367,4 +371,8 @@ When there is a text selection, act on the region."
 (load (concat user-emacs-directory "custom.elc") 'noerror)
 
 ;; byte-compile init file if needed
-(byte-recompile-file user-init-file nil 0 nil)
+(add-hook 'after-init-hook
+          (lambda ()
+            (byte-recompile-file user-init-file nil 1 nil)
+            (switch-to-buffer "*scratch*")
+            (delete-other-windows)))

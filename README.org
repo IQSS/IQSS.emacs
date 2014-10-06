@@ -216,16 +216,20 @@ Loading the theme should come as early as possible in the init sequence to avoid
 *** Spell checking
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
-;; enable on-the-fly spell checking
-(add-hook 'text-mode-hook
-          (lambda ()
-            (flyspell-mode 1)))
+  ;; enable on-the-fly spell checking
+  (add-hook 'after-init-hook
+            (lambda ()
+              (add-hook 'text-mode-hook
+                        (lambda ()
+                          (flyspell-mode 1)))))
 
-;; prevent flyspell from finding mistakes in the code
-(add-hook 'prog-mode-hook
-          (lambda ()
-            ;; `ispell-comments-and-strings'
-            (flyspell-prog-mode)))
+  ;; prevent flyspell from finding mistakes in the code
+  (add-hook 'after-init-hook
+            (lambda ()
+              (add-hook 'prog-mode-hook
+                        (lambda ()
+                          ;; `ispell-comments-and-strings'
+                          (flyspell-prog-mode)))))
 #+END_SRC
 
 *** Fonts
@@ -573,7 +577,13 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
   (load (concat user-emacs-directory "custom.elc") 'noerror)
 
   ;; byte-compile init file if needed
-  (byte-recompile-file user-init-file nil 0 nil)
+  (add-hook 'after-init-hook
+            (lambda ()
+              (byte-recompile-file user-init-file nil 1 nil)
+              (switch-to-buffer "*scratch*")
+              (delete-other-windows)))
+
+
 #+END_SRC
 
 ** Implementation issues
