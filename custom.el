@@ -7,17 +7,14 @@
 (setq default-buffer-file-coding-system 'utf-8)                      
 (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 
-(add-hook 'eshell-first-time-mode-hook
-		  '(lambda ()
-		     (add-to-list 'eshell-visual-commands "nano")))
-
-
-
 ;; start the server if not already started
-(load "server")
-(unless (server-running-p) (server-start))
+(add-hook 'after-init-hook
+		  '(lambda ()
+		     (load "server")
+                     (unless (server-running-p) (server-start))))
 
 ;; Python completion and code checking
+(setq elpy-modules '(elpy-module-company elpy-module-eldoc elpy-module-flymake elpy-module-pyvenv elpy-module-highlight-indentation elpy-module-sane-defaults))
 (elpy-enable)
 
 
@@ -257,5 +254,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- ; '(helm-selection ((t (:background "yellow"))))
-)
+ )
