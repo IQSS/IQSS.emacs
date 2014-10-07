@@ -69,6 +69,16 @@
 (load-theme 'leuven t) 
 (setq org-fontify-whole-heading-line t)
 
+;; add custom lisp directory to path
+(let ((default-directory (concat user-emacs-directory "lisp/")))
+  (setq load-path
+        (append
+         (let ((load-path (copy-sequence load-path))) ;; Shadow
+           (append 
+            (copy-sequence (normal-top-level-add-to-load-path '(".")))
+            (normal-top-level-add-subdirs-to-load-path)))
+         load-path)))
+
 ;; enable on-the-fly spell checking
 (add-hook 'after-init-hook
           (lambda ()

@@ -23,15 +23,6 @@
 
 ;; printing
 (setq ps-lpr-command "gtklp")
-;; ;; Look recursively in .emacs.d/lisp for elisp files and packages
-(let ((default-directory "~/.emacs.d/lisp/"))
-  (setq load-path
-        (append
-         (let ((load-path (copy-sequence load-path))) ;; Shadow
-           (append 
-            (copy-sequence (normal-top-level-add-to-load-path '(".")))
-            (normal-top-level-add-subdirs-to-load-path)))
-         load-path)))
 
 (require 'ob-stata)
 ;(require 'org-ref)
@@ -96,7 +87,8 @@
 (require 'readline-complete)
 (setq explicit-shell-file-name "bash")
 (setq explicit-bash-args '("-c" "export EMACS=; stty echo; bash"))
-(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+; (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+(ansi-color-for-comint-mode-filter)
 (setq comint-process-echoes t)
 (push 'company-readline company-backends)
 (add-hook 'rlc-no-readline-hook (lambda () (company-mode -1)))
@@ -244,6 +236,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(eshell-cmpl-autolist t)
+ '(helm-truncate-lines t)
  '(term-buffer-maximum-size 1024)
  '(term-completion-autolist t))
 (custom-set-faces
