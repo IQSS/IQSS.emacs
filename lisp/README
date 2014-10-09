@@ -1,0 +1,1 @@
+You custom elisp files and packages should be placed in this directory. They will automatically be added to the load-path.
