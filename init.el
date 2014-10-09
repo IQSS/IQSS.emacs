@@ -102,6 +102,15 @@
 (require 'helm-config)
 (require 'helm-grep)
 
+;; Sources list for helm-for-files
+(setq helm-for-files-preferred-list 
+      '(helm-source-recentf 
+        helm-source-files-in-current-dir 
+        helm-source-buffers-list 
+        helm-source-bookmarks 
+        helm-source-file-cache 
+        helm-source-locate))
+
 ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
 ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
 ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
