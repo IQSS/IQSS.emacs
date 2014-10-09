@@ -3,6 +3,7 @@
 # except
 !/README.org
 !/init.el
+!/init.elc
 !/lisp
 !/lisp/*
 !/.gitignore
