@@ -146,7 +146,8 @@
 
 (add-hook 'eshell-mode-hook
           #'(lambda ()
-              (define-key eshell-mode-map (kbd "M-l")  'helm-eshell-history)))
+              (define-key eshell-mode-map (kbd "M-l")  'helm-eshell-history)
+              (add-to-list 'eshell-visual-commands "nano")))
 (define-key shell-mode-map (kbd "C-c C-l") 'helm-comint-input-ring)
 
 (require 'helm-descbinds)
