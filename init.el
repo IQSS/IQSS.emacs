@@ -160,10 +160,17 @@
 ;; Set up Company-mode for autocompletion
 (require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
-(define-key company-active-map "\t" 'company-complete-selection)
-(define-key company-active-map "\r" nil)
-(define-key company-active-map [tab] 'company-complete-selection)
-(define-key company-active-map [return] nil)
+(define-key company-active-map (kbd "C-n") 'company-select-next)
+(define-key company-active-map (kbd "C-p") 'company-select-previous)
+;; Would be nice to have tab completion, but so much stuff is already
+;; bound to tab bind M-- to start company completion instead
+(global-set-key (kbd "M--") 'company-complete-common)
+;; (setq company-idle-delay nil)
+;; see http://stackoverflow.com/questions/16090517/elisp-conditionally-change-keybinding
+;; for possible ways to bind this to tab
+
+;; (add-to-list 'completion-at-point-functions 'company-complete-common)
+;; (setq tab-always-indent 'complete)
 
 ;;; Configure outline minor modes
 ;; Less crazy key bindings for outline-minor-mode
