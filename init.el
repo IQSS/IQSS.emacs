@@ -38,7 +38,7 @@
                      helm-descbinds
                      outline-magic
                      smooth-scroll
-                     company
+                     auto-complete
                      auctex
                      ess 
                      org-plus-contrib
@@ -157,20 +157,25 @@
 
 ;;; Auto-complete
 
-;; Set up Company-mode for autocompletion
-(require 'company)
-(add-hook 'after-init-hook 'global-company-mode)
-(define-key company-active-map (kbd "C-n") 'company-select-next)
-(define-key company-active-map (kbd "C-p") 'company-select-previous)
-;; Would be nice to have tab completion, but so much stuff is already
-;; bound to tab bind M-- to start company completion instead
-(global-set-key (kbd "M--") 'company-complete-common)
-;; (setq company-idle-delay nil)
-;; see http://stackoverflow.com/questions/16090517/elisp-conditionally-change-keybinding
-;; for possible ways to bind this to tab
+;; Set up autocomplete sources
+(require 'auto-complete-config)
+(ac-config-default)
 
-;; (add-to-list 'completion-at-point-functions 'company-complete-common)
-;; (setq tab-always-indent 'complete)
+;; use tab for completion instead of return
+(define-key ac-completing-map "\t" 'ac-complete)
+(define-key ac-completing-map "\r" nil)
+(define-key ac-completing-map [tab] 'ac-complete)
+(define-key ac-completing-map [return] nil)
+;; same thing, for company mode
+(require 'company)
+; (add-hook 'after-init-hook 'global-company-mode)
+(define-key company-active-map "\t" 'company-complete-selection)
+(define-key company-active-map "\r" nil)
+(define-key company-active-map [tab] 'company-complete-selection)
+(define-key company-active-map [return] nil)
+
+;; workaround so auto-complete works with flyspell
+(ac-flyspell-workaround)
 
 ;;; Configure outline minor modes
 ;; Less crazy key bindings for outline-minor-mode

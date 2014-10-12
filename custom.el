@@ -73,8 +73,7 @@
           '(lambda()
 		     (local-set-key "\C-c\C-c" 'eir-eval-in-shell)))
 
-;; ESS completion using company-mode (temporary, will probably be included in ESS soon)
-(require 'company-ess)
+
 ;; extra ESS stuff from https://github.com/gaborcsardi/dot-emacs/blob/master/.emacs
 (ess-toggle-underscore nil)
 (defun my-ess-post-run-hook ()
