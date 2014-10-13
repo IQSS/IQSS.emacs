@@ -326,28 +326,44 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
 *** Auto-complete configuration
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
-
   ;;; Auto-complete
 
   ;; Set up autocomplete sources
   (require 'auto-complete-config)
   (ac-config-default)
 
-  ;; use tab for completion instead of return
-  (define-key ac-completing-map "\t" 'ac-complete)
-  (define-key ac-completing-map "\r" nil)
-  (define-key ac-completing-map [tab] 'ac-complete)
-  (define-key ac-completing-map [return] nil)
-  ;; same thing, for company mode
-  (require 'company)
-  ; (add-hook 'after-init-hook 'global-company-mode)
-  (define-key company-active-map "\t" 'company-complete-selection)
-  (define-key company-active-map "\r" nil)
-  (define-key company-active-map [tab] 'company-complete-selection)
-  (define-key company-active-map [return] nil)
-
+  ;; use tab for completion; don't start automatically
+  (ac-set-trigger-key "TAB")
+  (setq ac-auto-start nil)
+  ;; similar thing, for company mode
+  ;; from https://github.com/company-mode/company-mode/issues/94
+  (eval-after-load "company"
+    '(progn
+       (define-key company-mode-map [remap indent-for-tab-command]
+         'company-indent-for-tab-command)
+       (setq tab-always-indent 'complete)
+       (defvar completion-at-point-functions-saved nil)
+       (defun company-indent-for-tab-command (&optional arg)
+         (interactive "P")
+         (let ((completion-at-point-functions-saved completion-at-point-functions)
+               (completion-at-point-functions '(company-complete-common-wrapper)))
+           (indent-for-tab-command arg)))
+       (defun company-complete-common-wrapper ()
+         (let ((completion-at-point-functions completion-at-point-functions-saved))
+           (company-complete-common)))
+       (setq company-idle-delay nil)))
+  ;; elpy tries to over-ride this--try to take the power back.
+  (add-hook 'elpy-mode-hook
+            (lambda ()
+              (setq company-idle-delay nil)))
+  ;; disable ac-mode in python-mode because elpy uses company instead
   ;; workaround so auto-complete works with flyspell
+  (setq ac-modes (remove "python-mode" ac-modes))
+
+  ;; required or auto-complete bogs down when flyspell is active
   (ac-flyspell-workaround)
+
+
 
 #+END_SRC
 
