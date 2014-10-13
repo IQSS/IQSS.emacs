@@ -89,8 +89,11 @@
 ; (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 (ansi-color-for-comint-mode-filter)
 (setq comint-process-echoes t)
-(push 'company-readline company-backends)
-(add-hook 'rlc-no-readline-hook (lambda () (company-mode -1)))
+;; (push 'company-readline company-backends)
+;; (add-hook 'rlc-no-readline-hook (lambda () (company-mode -1)))
+(add-to-list 'ac-modes 'shell-mode)
+(add-hook 'shell-mode-hook 'ac-rlc-setup-sources)
+
 
 (require 'org-capture)
 
