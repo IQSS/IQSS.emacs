@@ -28,33 +28,57 @@ Note that after installing this configuration emacs will be extremely slow to st
 
 Some of the requirements listed in [[#Requirements][Requirements]] make use of software that must be installed outside of emacs. And of course you will need emacs itself! 
 
-While it is theoretically possible to try to automate the installation of these external dependencies, it is probably easier and safer to simply provide documentation instructing users on how to install these prerequisites.
+*** External program download and installation
+While emacs alone is very powerful, one of it's most important strengths is its ability to inter-operate with other software programs. Links to the download pages for several programs that can be used from with emacs are provided below (they are also very useful on their own!). Installation of all these programs follows normal conventions on each platform, just download, run the installer, and follow the instructions.
 
-- Windows
-  - Emacs :: http://vgoulet.act.ulaval.ca/en/emacs/
-  - R :: http://cran.r-project.org/bin/windows/base/
-  - LaTeX :: http://miktex.org/download
-  - Pandoc :: https://github.com/jgm/pandoc/releases
-  - GhostScript :: http://www.ghostscript.com/download/gsdnld.html 
-  - Python :: http://continuum.io/downloads
-  - Jedi :: http://jedi.jedidjah.ch/en/latest/docs/installation.html 
+**** Windows
+- Emacs :: http://vgoulet.act.ulaval.ca/en/emacs/
+- R :: http://cran.r-project.org/bin/windows/base/
+- LaTeX :: http://miktex.org/download
+- git :: http://git-scm.com/download/win
+- Pandoc :: https://github.com/jgm/pandoc/releases
+- GhostScript :: http://www.ghostscript.com/download/gsdnld.html
 
-- OSX
-  - Emacs :: http://vgoulet.act.ulaval.ca/en/emacs/
-  - R :: http://cran.r-project.org/bin/macosx/
-  - LaTeX :: http://tug.org/mactex/
-  - Pandoc :: https://github.com/jgm/pandoc/releases
-  - GhostScript :: http://pages.uoregon.edu/koch/
-  - Python :: http://continuum.io/downloads
-  - Jedi :: http://jedi.jedidjah.ch/en/latest/docs/installation.html 
-- Linux
-  - Emacs :: Use your package manager, or see http://www.gnu.org/software/emacs/#Obtaining
-  - R :: Use your package manager, or see http://cran.r-project.org/bin/linux/
-  - LaTeX :: Use your package manager, or see https://www.tug.org/texlive/quickinstall.html
-  - Pandoc :: Use your package manager, or see http://johnmacfarlane.net/pandoc/installing.html#all-platforms
-  - GhostScript :: Use your package manager, or see http://www.ghostscript.com/download/gsdnld.html
-  - Python :: Use your package manager, or see http://continuum.io/downloads
-  - Jedi :: Use your package manager, or see http://jedi.jedidjah.ch/en/latest/docs/installation.html 
+**** OSX
+- Emacs :: http://vgoulet.act.ulaval.ca/en/emacs/
+- R :: http://cran.r-project.org/bin/macosx/
+- LaTeX :: http://tug.org/mactex/
+- git :: http://git-scm.com/download/mac
+- Pandoc :: https://github.com/jgm/pandoc/releases
+- GhostScript :: http://pages.uoregon.edu/koch/
+
+**** Linux
+- Emacs :: Use your package manager, or see http://www.gnu.org/software/emacs/#Obtaining
+- R :: Use your package manager, or see http://cran.r-project.org/bin/linux/
+- LaTeX :: Use your package manager, or see https://www.tug.org/texlive/quickinstall.html
+- git :: Use your package manager, or see http://git-scm.com/download/linux
+- Pandoc :: Use your package manager, or see http://johnmacfarlane.net/pandoc/installing.html#all-platforms
+- GhostScript :: Use your package manager, or see http://www.ghostscript.com/download/gsdnld.html
+
+*** External program configuration and use
+While a detailed instructions on how to use these programs would take years, you can get started with the quickly. Here are some quick pointers and links to more detailed tutorials.
+
+**** Emacs
+Emacs configuration is complex, and we will not go into it here except to say that the main configuration file is named =init.el= and can usually be found in a directory named =.emacs.d=, which is usually in your home directory. As mentioned in [[#Quickstart]] and  [[#Discussion-and-implementation]] there are many pre-packaged emacs configurations that you can use simply by copying them to your =.emacs.d= directory.
+
+You can almost just start emacs and start typing as you would in any other text editor, though you should be aware that Emacs uses different keyboard shortcuts than those you may be accustomed to. There is a introductory tutorial built into Emacs that you can access from the Help menu; IBM provides another excellent [[http://www.ibm.com/developerworks/aix/tutorials/au-emacs1/index.html][emacs tutorial]].
+
+**** R
+R is a free language and environment for statistical computing. It works well out of the box and does not require much in the way of configuration. If you want to learn more about R the [[http://r-project.org][official R website]] is a good place to start and includes many excellent [[http://cran.r-project.org/manuals.html][manuals]] and [[http://cran.r-project.org/other-docs.html][tutorials]].
+
+**** LaTeX
+LaTeX is a typesetting system that excels at formatting structured documents. LaTeX files are written in plain text using a markup syntax, and this markup is used to format the typeset document. LaTeX works well out of the box and does not typically require much in the way of configuration. If you want to learn more about LaTeX try [[http://www.andy-roberts.net/writing/latex][these LaTeX tutorials]] by Andrew Roberts.
+
+**** git
+git is a revision control system that allows you to track changes, merge changes with those made by collaborators, revert to previous versions, and more. While git can be used without any configuration, it is a good idea to at least set your user name and email; instructions for doing so are available at [[http://git-scm.com/book/en/Getting-Started-First-Time-Git-Setup]]; a detailed introduction to git is available at [[http://git-scm.com/book/en/]]
+
+It is often convenient to tell git /not/ to track some types of files (e.g., temporary files, or large binary files). LaTeX users in particular may be annoyed that git tries to track their .aux, .log, and other ephemeral files produced by LaTeX. You can tell git to ignore certain types of files by listing the in a .gitignore file. Details on .gitignore files are available at [[http://git-scm.com/docs/gitignore]], and many useful templates (including one designed for LaTeX users) are available at [[https://github.com/github/gitignore]].
+
+**** Pandoc
+Pandoc is a program for converting markup files from one markup language to another. Documentation and examples are available on the [[http://johnmacfarlane.net/pandoc/][pandoc website]].
+
+**** GhostScript
+GhostScript is a program for working the postscript and pdf files. While it can be used on its own it is included in this list only because it makes printing from emacs easier, especially on Windows. No configuration should be required.
 
 * Discussion and implementation
 
