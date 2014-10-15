@@ -109,6 +109,17 @@
 ;; This is your old M-x.
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
+;; modify smex so that typing a space will insert a hyphen 
+;; (from http://www.emacswiki.org/Smex#toc6)
+    (defadvice smex (around space-inserts-hyphen activate compile)
+      (let ((ido-cannot-complete-command 
+             `(lambda ()
+                (interactive)
+                (if (string= " " (this-command-keys))
+                    (insert ?-)
+                  (funcall ,ido-cannot-complete-command)))))
+        ad-do-it))
+
 ;;; Auto-complete
 
 ;; Set up autocomplete sources
