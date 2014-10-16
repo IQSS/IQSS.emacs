@@ -548,6 +548,13 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
 
 #+END_SRC
 
+**** Dired (file browsing)
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  ;;; Dired and Dired+ configuration
+  (require 'dired+)
+  (require 'mouse3)
+
+#+END_SRC
 
 *** Miscellaneous
 

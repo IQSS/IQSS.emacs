@@ -308,6 +308,10 @@
   (add-to-list 'auto-mode-alist '("\\.Rcpp" . poly-r+c++-mode))
   (add-to-list 'auto-mode-alist '("\\.cppR" . poly-c++r-mode)))
 
+;;; Dired and Dired+ configuration
+(require 'dired+)
+(require 'mouse3)
+
 ;;; Misc. Conveniences
 
 ;; use regex search by default
