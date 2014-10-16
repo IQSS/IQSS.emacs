@@ -13,7 +13,7 @@
 ;; hide the toolbar
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
-(menu-bar-mode 0)
+; (menu-bar-mode 0)
 (setq inhibit-splash-screen t)
 (setq inhibit-startup-message t)
 
@@ -32,6 +32,8 @@
 (setq package-list '(leuven-theme
                      persistent-soft
                      unicode-fonts
+                     dired+
+                     mouse3
                      ido
                      ido-ubiquitous
                      ido-vertical-mode
@@ -101,7 +103,7 @@
 (unicode-fonts-setup)
 
 ;;; Completion hints for files and buffers buffers
-(setq ido-file-extensions-order '(".r" ".sh" ".tex" ".bib" ".org" ".txt" ".html" 
+(setq ido-file-extensions-order '(".R", ".r" ".sh" ".tex" ".bib" ".org" ".txt" ".html" 
                                   ".py" ".emacs" ".xml" ".el" ".pdf" 
                                   ".png" ".ini" ".cfg" ".conf"))
 
