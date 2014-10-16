@@ -196,16 +196,14 @@ Visual changes such as hiding the toolbar and scroll bar need to come first to a
   (add-to-list 'package-archives 
                '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
-
   ;; Make a list of the packages you want
   (setq package-list '(leuven-theme
                        persistent-soft
                        unicode-fonts
                        ido
                        ido-ubiquitous
-                       flx-ido
-                       noflet
                        ido-vertical-mode
+                       noflet
                        kill-ring-ido
                        smex
                        outline-magic
@@ -295,7 +293,7 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
   ;;; Completion hints for files and buffers buffers
-  (setq ido-file-extensions-order '(".R" ".sh" ".tex" ".bib" ".org" ".txt" ".html" 
+  (setq ido-file-extensions-order '(".r" ".sh" ".tex" ".bib" ".org" ".txt" ".html" 
                                     ".py" ".emacs" ".xml" ".el" ".pdf" 
                                     ".png" ".ini" ".cfg" ".conf"))
 
@@ -308,16 +306,25 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
   ;; use ido everywhere you can
   (require 'ido-ubiquitous)
   (ido-ubiquitous-mode 1)
- 
+   
   ;; present ido suggestions vertically
   (require 'ido-vertical-mode)
   (ido-vertical-mode 1)
 
+  ;; set nice ido decorations
+  (setq ido-decorations '("
+  ▶ " "" "
+     " "
+     ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]" "
+  -> " ""))
+
+  ;; set sensible keys for id in vertical mode
+  (setq ido-vertical-define-keys (quote C-n-C-p-up-down-left-right))
 
   ;; use ido for kill-ring
   (require 'kill-ring-ido)
   (global-set-key (kbd "M-y") 'kill-ring-ido)
-  
+
   ;;; Completion hints for emacs functions
   (smex-initialize)
   (global-set-key (kbd "M-x") 'smex)
@@ -647,16 +654,8 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
   (setq custom-file (concat user-emacs-directory "custom.el"))
   (unless (file-exists-p custom-file)
     (write-region "" nil custom-file))
-  (byte-recompile-file custom-file nil 0 nil)
-  (load (concat user-emacs-directory "custom.elc") 'noerror)
 
-  ;; byte-compile init file if needed
-  (add-hook 'after-init-hook
-            (lambda ()
-              (byte-recompile-file user-init-file nil 1 nil)
-              (switch-to-buffer "*scratch*")
-              (delete-other-windows)))
-
+  (load (concat user-emacs-directory "custom.el") 'noerror)
 
 #+END_SRC
 

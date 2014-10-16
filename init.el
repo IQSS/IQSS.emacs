@@ -28,16 +28,14 @@
 (add-to-list 'package-archives 
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
-
 ;; Make a list of the packages you want
 (setq package-list '(leuven-theme
                      persistent-soft
                      unicode-fonts
                      ido
                      ido-ubiquitous
-                     flx-ido
-                     noflet
                      ido-vertical-mode
+                     noflet
                      kill-ring-ido
                      smex
                      outline-magic
@@ -103,7 +101,7 @@
 (unicode-fonts-setup)
 
 ;;; Completion hints for files and buffers buffers
-(setq ido-file-extensions-order '(".R" ".sh" ".tex" ".bib" ".org" ".txt" ".html" 
+(setq ido-file-extensions-order '(".r" ".sh" ".tex" ".bib" ".org" ".txt" ".html" 
                                   ".py" ".emacs" ".xml" ".el" ".pdf" 
                                   ".png" ".ini" ".cfg" ".conf"))
 
@@ -121,6 +119,15 @@
 (require 'ido-vertical-mode)
 (ido-vertical-mode 1)
 
+;; set nice ido decorations
+(setq ido-decorations '("
+▶ " "" "
+   " "
+   ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]" "
+-> " ""))
+
+;; set sensible keys for id in vertical mode
+(setq ido-vertical-define-keys (quote C-n-C-p-up-down-left-right))
 
 ;; use ido for kill-ring
 (require 'kill-ring-ido)
@@ -403,12 +410,5 @@ When there is a text selection, act on the region."
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (unless (file-exists-p custom-file)
   (write-region "" nil custom-file))
-(byte-recompile-file custom-file nil 0 nil)
-(load (concat user-emacs-directory "custom.elc") 'noerror)
 
-;; byte-compile init file if needed
-(add-hook 'after-init-hook
-          (lambda ()
-            (byte-recompile-file user-init-file nil 1 nil)
-            (switch-to-buffer "*scratch*")
-            (delete-other-windows)))
+(load (concat user-emacs-directory "custom.el") 'noerror)
