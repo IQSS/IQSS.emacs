@@ -103,9 +103,10 @@
 (unicode-fonts-setup)
 
 ;;; Completion hints for files and buffers buffers
-(setq ido-file-extensions-order '(".R" ".r" ".sh" ".tex" ".bib" ".org" ".txt" ".html" 
-                                  ".py" ".emacs" ".xml" ".el" ".pdf" 
-                                  ".png" ".ini" ".cfg" ".conf"))
+(setq ido-file-extensions-order '(".R" ".r" ".sh" ".tex" ".bib" ".org" 
+                                  ".py" ".emacs" ".xml" "org.el" ".pdf"
+                                  ".txt" ".html" ".png" ".ini" ".cfg" 
+                                  ".conf"))
 
 ;; load ido 
 (require 'ido)
