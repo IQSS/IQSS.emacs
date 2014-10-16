@@ -410,5 +410,12 @@ When there is a text selection, act on the region."
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (unless (file-exists-p custom-file)
   (write-region "" nil custom-file))
+(byte-recompile-file custom-file nil 0 nil)
+(load (concat user-emacs-directory "custom.elc") 'noerror)
 
-(load (concat user-emacs-directory "custom.el") 'noerror)
+;; byte-compile init file if needed
+(add-hook 'after-init-hook
+          (lambda ()
+            (byte-recompile-file user-init-file nil 1 nil)
+            (switch-to-buffer "*scratch*")
+            (delete-other-windows)))

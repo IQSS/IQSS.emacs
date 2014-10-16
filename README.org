@@ -654,8 +654,16 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
   (setq custom-file (concat user-emacs-directory "custom.el"))
   (unless (file-exists-p custom-file)
     (write-region "" nil custom-file))
+  (byte-recompile-file custom-file nil 0 nil)
+  (load (concat user-emacs-directory "custom.elc") 'noerror)
 
-  (load (concat user-emacs-directory "custom.el") 'noerror)
+  ;; byte-compile init file if needed
+  (add-hook 'after-init-hook
+            (lambda ()
+              (byte-recompile-file user-init-file nil 1 nil)
+              (switch-to-buffer "*scratch*")
+              (delete-other-windows)))
+
 
 #+END_SRC
 
