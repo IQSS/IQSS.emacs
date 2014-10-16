@@ -93,7 +93,9 @@
 ;; (add-hook 'rlc-no-readline-hook (lambda () (company-mode -1)))
 (add-to-list 'ac-modes 'shell-mode)
 (add-hook 'shell-mode-hook 'ac-rlc-setup-sources)
-
+;; extra completion for eshell
+(require 'pcmpl-args)
+(require 'pcmpl-pip)
 
 (require 'org-capture)
 
@@ -238,7 +240,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(eshell-cmpl-autolist t)
- '(helm-truncate-lines t)
  '(term-buffer-maximum-size 1024)
  '(term-completion-autolist t))
 (custom-set-faces

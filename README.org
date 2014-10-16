@@ -104,7 +104,7 @@ Emacs is many things to many people, being perhaps the most configurable text ed
 | Outline/structure editing   | Convenience        | Gary       | outline-minor-mode | Built-in, turned on                                       |
 | Revision control            | Version management | Gary       | VC-mode            | Built-in, turned on                                       |
 | Edit/evaluate R/Stata/SAS   | Data analysis      | Ista       | ESS                | Installed and activated                                   |
-| Easier file/buffer/access   | Convenience        | Ista       | helm               | Installed, turned on                                      |
+| Easier file/buffer/access   | Convenience        | Ista       | ido                | Installed, turned on                                      |
 | Reproducible research       | Data analysis      | Ista       | org-mode, polymode | Installed, polymode (Melpa) not working on RCE            |
 | Copy/paste with other apps  | Convenience        | Ista       | x-select           | Built-in, turned on                                       |
 | Word wrapping               | Look-n-feel        | Ista       | visual-line-mode   | Built-in, turned on                                       |
@@ -114,8 +114,8 @@ It will be hard to avoid the temptation for feature-creep; every emacs user has 
 
 | Requirement                        | Categories  | Requester | Solution               | Notes                                            |
 |------------------------------------+-------------+-----------+------------------------+--------------------------------------------------|
-| Command hinting/completion         | Convenience | Ista      | helm                   | Installed and turned on                          |
-| Programming auto-completion        | Convenience | Ista      | Company                | Installed and turned on                          |
+| Command hinting/completion         | Convenience | Ista      | smex                   | Installed and turned on                          |
+| Programming auto-completion        | Convenience | Ista      | auto-complete/Company  | Installed and turned on                          |
 | Keep backup files out of the way   | Convenience | Ista      | backup-directory-alist | Built-in, turned on                              |
 | Quieter startup                    | Look-n-feel | Ista      | inhibit-startup*       | Built-in, off by default                         |
 | Cleaner interface                  | Look-n-feel | Ista      | tool-bar-mode          | Built-in, off by default                         |
@@ -201,9 +201,13 @@ Visual changes such as hiding the toolbar and scroll bar need to come first to a
   (setq package-list '(leuven-theme
                        persistent-soft
                        unicode-fonts
-                       async
-                       helm
-                       helm-descbinds
+                       ido
+                       ido-ubiquitous
+                       flx-ido
+                       noflet
+                       ido-vertical-mode
+                       kill-ring-ido
+                       smex
                        outline-magic
                        smooth-scroll
                        auto-complete
@@ -234,6 +238,8 @@ Visual changes such as hiding the toolbar and scroll bar need to come first to a
       (package-install package)))
 
 #+END_SRC
+
+#+RESULTS:
 
 *** Load theme
 Loading the theme should come as early as possible in the init sequence to avoid jarring visual changes during startup, but must come after loading packages because we use a custom theme that needs to be installed first.
@@ -288,62 +294,52 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
 *** Minibuffer hints and completion
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
-  ;;; Completion hints for files and buffers buffers functions and more
-  (require 'helm-config)
-  (require 'helm-grep)
+  ;;; Completion hints for files and buffers buffers
+  (setq ido-file-extensions-order '(".R" ".sh" ".tex" ".bib" ".org" ".txt" ".html" 
+                                    ".py" ".emacs" ".xml" ".el" ".pdf" 
+                                    ".png" ".ini" ".cfg" ".conf"))
 
-  ;; Sources list for helm-for-files
-  (setq helm-for-files-preferred-list 
-        '(helm-source-recentf 
-          helm-source-files-in-current-dir 
-          helm-source-buffers-list 
-          helm-source-bookmarks 
-          helm-source-file-cache 
-          helm-source-locate))
+  ;; load ido and flx-ido
+  (require 'ido)
+  (require 'flx-ido)
+  (ido-mode 1)
+  (ido-everywhere 1)
+  (flx-ido-mode 1)
+  ;; disable ido faces to see flx highlights.
+  (setq ido-enable-flex-matching t)
+  (setq ido-use-faces nil)
 
-  ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
-  ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
-  ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
-  (global-set-key (kbd "C-c h") 'helm-command-prefix)
-  (global-unset-key (kbd "C-x c"))
-  ;; (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebihnd tab to do persistent action
-  ;; (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
-  ;; (define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
+  ;; use ido everywhere you can
+  (require 'ido-ubiquitous)
+  (ido-ubiquitous-mode 1)
+ 
+  ;; present ido suggestions vertically
+  (require 'ido-vertical-mode)
+  (ido-vertical-mode 1)
 
-  ;; (define-key helm-grep-mode-map (kbd "<return>")  'helm-grep-mode-jump-other-window)
-  ;; (define-key helm-grep-mode-map (kbd "n")  'helm-grep-mode-jump-other-window-forward)
-  ;; (define-key helm-grep-mode-map (kbd "p")  'helm-grep-mode-jump-other-window-backward)
 
-  (when (executable-find "curl")
-    (setq helm-google-suggest-use-curl-p t))
+  ;; use ido for kill-ring
+  (require 'kill-ring-ido)
+  (global-set-key (kbd "M-y") 'kill-ring-ido)
+  
+  ;;; Completion hints for emacs functions
+  (smex-initialize)
+  (global-set-key (kbd "M-x") 'smex)
+  (global-set-key (kbd "M-X") 'smex-major-mode-commands)
+  ;; This is your old M-x.
+  (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
-  (setq helm-quick-update                     t ; do not display invisible candidates
-        helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
-        helm-buffers-fuzzy-matching           t ; fuzzy matching buffer names when non--nil
-        helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
-        helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
-  ;      helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
-        helm-ff-file-name-history-use-recentf t)
+  ;; modify smex so that typing a space will insert a hyphen 
+  ;; (from http://www.emacswiki.org/Smex#toc6)
+      (defadvice smex (around space-inserts-hyphen activate compile)
+        (let ((ido-cannot-complete-command 
+               `(lambda ()
+                  (interactive)
+                  (if (string= " " (this-command-keys))
+                      (insert ?-)
+                    (funcall ,ido-cannot-complete-command)))))
+          ad-do-it))
 
-  (global-set-key (kbd "M-x") 'helm-M-x)
-  (global-set-key (kbd "M-y") 'helm-show-kill-ring)
-  (global-set-key (kbd "C-x b") 'helm-mini)
-  (global-set-key (kbd "C-x C-f") 'helm-find-files)
-
-  (helm-mode 1)  
-
-  (require 'helm-eshell)
-
-  (add-hook 'eshell-mode-hook
-            #'(lambda ()
-                (define-key eshell-mode-map (kbd "M-l")  'helm-eshell-history)
-                (add-to-list 'eshell-visual-commands "nano")))
-  (define-key shell-mode-map (kbd "C-c C-l") 'helm-comint-input-ring)
-
-  (require 'helm-descbinds)
-  (helm-descbinds-mode)
-  ;; make sure helm gets updated correctly
-  (require 'async-bytecomp)
 #+END_SRC
 
 
@@ -483,8 +479,8 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
      (python . t)
      (matlab . t)
      (emacs-lisp . t)
-     ;; (sh . t)
-     ;; (dot . t)
+     (sh . t)
+     (dot . t)
      ;; (latex . t)
      ;; (octave . t)
      ;; (ditaa . t)

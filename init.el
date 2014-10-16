@@ -33,9 +33,13 @@
 (setq package-list '(leuven-theme
                      persistent-soft
                      unicode-fonts
-                     async
-                     helm
-                     helm-descbinds
+                     ido
+                     ido-ubiquitous
+                     flx-ido
+                     noflet
+                     ido-vertical-mode
+                     kill-ring-ido
+                     smex
                      outline-magic
                      smooth-scroll
                      auto-complete
@@ -98,62 +102,51 @@
 (require 'unicode-fonts)
 (unicode-fonts-setup)
 
-;;; Completion hints for files and buffers buffers functions and more
-(require 'helm-config)
-(require 'helm-grep)
+;;; Completion hints for files and buffers buffers
+(setq ido-file-extensions-order '(".R" ".sh" ".tex" ".bib" ".org" ".txt" ".html" 
+                                  ".py" ".emacs" ".xml" ".el" ".pdf" 
+                                  ".png" ".ini" ".cfg" ".conf"))
 
-;; Sources list for helm-for-files
-(setq helm-for-files-preferred-list 
-      '(helm-source-recentf 
-        helm-source-files-in-current-dir 
-        helm-source-buffers-list 
-        helm-source-bookmarks 
-        helm-source-file-cache 
-        helm-source-locate))
+;; load ido and flx-ido
+(require 'ido)
+(require 'flx-ido)
+(ido-mode 1)
+(ido-everywhere 1)
+(flx-ido-mode 1)
+;; disable ido faces to see flx highlights.
+(setq ido-enable-flex-matching t)
+(setq ido-use-faces nil)
 
-;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
-;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
-;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
-(global-set-key (kbd "C-c h") 'helm-command-prefix)
-(global-unset-key (kbd "C-x c"))
-;; (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebihnd tab to do persistent action
-;; (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
-;; (define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
+;; use ido everywhere you can
+(require 'ido-ubiquitous)
+(ido-ubiquitous-mode 1)
+ 
+;; present ido suggestions vertically
+(require 'ido-vertical-mode)
+(ido-vertical-mode 1)
 
-;; (define-key helm-grep-mode-map (kbd "<return>")  'helm-grep-mode-jump-other-window)
-;; (define-key helm-grep-mode-map (kbd "n")  'helm-grep-mode-jump-other-window-forward)
-;; (define-key helm-grep-mode-map (kbd "p")  'helm-grep-mode-jump-other-window-backward)
 
-(when (executable-find "curl")
-  (setq helm-google-suggest-use-curl-p t))
+;; use ido for kill-ring
+(require 'kill-ring-ido)
+(global-set-key (kbd "M-y") 'kill-ring-ido)
 
-(setq helm-quick-update                     t ; do not display invisible candidates
-      helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
-      helm-buffers-fuzzy-matching           t ; fuzzy matching buffer names when non--nil
-      helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
-      helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
-;      helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
-      helm-ff-file-name-history-use-recentf t)
+;;; Completion hints for emacs functions
+(smex-initialize)
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+;; This is your old M-x.
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
-(global-set-key (kbd "M-x") 'helm-M-x)
-(global-set-key (kbd "M-y") 'helm-show-kill-ring)
-(global-set-key (kbd "C-x b") 'helm-mini)
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
-
-(helm-mode 1)  
-
-(require 'helm-eshell)
-
-(add-hook 'eshell-mode-hook
-          #'(lambda ()
-              (define-key eshell-mode-map (kbd "M-l")  'helm-eshell-history)
-              (add-to-list 'eshell-visual-commands "nano")))
-(define-key shell-mode-map (kbd "C-c C-l") 'helm-comint-input-ring)
-
-(require 'helm-descbinds)
-(helm-descbinds-mode)
-;; make sure helm gets updated correctly
-(require 'async-bytecomp)
+;; modify smex so that typing a space will insert a hyphen 
+;; (from http://www.emacswiki.org/Smex#toc6)
+    (defadvice smex (around space-inserts-hyphen activate compile)
+      (let ((ido-cannot-complete-command 
+             `(lambda ()
+                (interactive)
+                (if (string= " " (this-command-keys))
+                    (insert ?-)
+                  (funcall ,ido-cannot-complete-command)))))
+        ad-do-it))
 
 ;;; Auto-complete
 
@@ -259,8 +252,8 @@
    (python . t)
    (matlab . t)
    (emacs-lisp . t)
-   ;; (sh . t)
-   ;; (dot . t)
+   (sh . t)
+   (dot . t)
    ;; (latex . t)
    ;; (octave . t)
    ;; (ditaa . t)
