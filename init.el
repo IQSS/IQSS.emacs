@@ -107,15 +107,11 @@
                                   ".py" ".emacs" ".xml" ".el" ".pdf" 
                                   ".png" ".ini" ".cfg" ".conf"))
 
-;; load ido and flx-ido
+;; load ido 
 (require 'ido)
-(require 'flx-ido)
 (ido-mode 1)
 (ido-everywhere 1)
-(flx-ido-mode 1)
-;; disable ido faces to see flx highlights.
 (setq ido-enable-flex-matching t)
-(setq ido-use-faces nil)
 
 ;; use ido everywhere you can
 (require 'ido-ubiquitous)
