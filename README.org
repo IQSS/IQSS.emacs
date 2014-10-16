@@ -413,7 +413,7 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
 
 *** Major modes configuration
 
-**** LaTeX-mode
+**** LaTeX-mode (Typesetting markup language)
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
 
@@ -451,7 +451,7 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
 #+END_SRC
 
 
-**** Markdown mode
+**** Markdown mode (light-weight markup language)
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
 
@@ -463,7 +463,7 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
 
 #+END_SRC
 
-**** Org-mode
+**** Org-mode (Note taking and outlining)
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
 
@@ -503,7 +503,7 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
 
 #+END_SRC
 
-**** Emacs Speaks Statistics
+**** Emacs Speaks Statistics (run R in emacs)
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
   ;;;  ESS (Emacs Speaks Statistics)
@@ -521,7 +521,7 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
 
 #+END_SRC
 
-**** Polymode
+**** Polymode (multiple modes in one "buffer")
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
 
@@ -547,6 +547,7 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
     (add-to-list 'auto-mode-alist '("\\.cppR" . poly-c++r-mode)))
 
 #+END_SRC
+
 
 *** Miscellaneous
 
