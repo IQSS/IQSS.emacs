@@ -103,31 +103,45 @@
 (unicode-fonts-setup)
 
 ;;; Completion hints for files and buffers buffers
-(setq ido-file-extensions-order '(".R" ".r" ".sh" ".tex" ".bib" ".org" 
-                                  ".py" ".emacs" ".xml" "org.el" ".pdf"
-                                  ".txt" ".html" ".png" ".ini" ".cfg" 
-                                  ".conf"))
+ (setq ido-file-extensions-order '(".R" ".r" ".sh" ".tex" ".bib" ".org" 
+                                   ".py" ".emacs" ".xml" "org.el" ".pdf"
+                                   ".txt" ".html" ".png" ".ini" ".cfg" 
+                                   ".conf"))
 
-;; load ido 
-(require 'ido)
-(ido-mode 1)
-(ido-everywhere 1)
-(setq ido-enable-flex-matching t)
+ ;; load ido 
+ (require 'ido)
+ (ido-mode 1)
+ (ido-everywhere 1)
+ (setq ido-enable-flex-matching t)
 
-;; use ido everywhere you can
-(require 'ido-ubiquitous)
-(ido-ubiquitous-mode 1)
- 
-;; present ido suggestions vertically
-(require 'ido-vertical-mode)
-(ido-vertical-mode 1)
+ ;; use ido everywhere you can
+ (require 'ido-ubiquitous)
+ (ido-ubiquitous-mode 1)
+  
+ ;; present ido suggestions vertically
+ (require 'ido-vertical-mode)
+ (ido-vertical-mode 1)
 
-;; set nice ido decorations
-(setq ido-decorations '("
-▶ " "" "
-   " "
-   ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]" "
--> " ""))
+ ;; set nice ido decorations
+ (setq ido-decorations '("
+ ▶ " "" "
+    " "
+    ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]" "
+ -> " ""))
+
+;; show current directory so we can open in dired
+
+ ;; color directories blue, firstmatch bold etc.
+(set-face-attribute 'ido-first-match nil
+                    :weight 'bold 
+                    :height '1.125)
+(set-face-attribute 'ido-only-match nil
+                    :weight 'bold 
+                    :height '1.125
+                    :foreground "ForestGreen")
+
+(set-face-attribute 'ido-subdir nil
+                    :foreground "blue")
 
 ;; set sensible keys for id in vertical mode
 (setq ido-vertical-define-keys (quote C-n-C-p-up-down-left-right))
@@ -136,7 +150,10 @@
 (require 'kill-ring-ido)
 (global-set-key (kbd "M-y") 'kill-ring-ido)
 
-;;; Completion hints for emacs functions
+;; don't use ido for dired
+(setq ido-read-file-name-non-ido 'dired)
+
+ ;;; Completion hints for emacs functions
 (smex-initialize)
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
@@ -145,14 +162,14 @@
 
 ;; modify smex so that typing a space will insert a hyphen 
 ;; (from http://www.emacswiki.org/Smex#toc6)
-    (defadvice smex (around space-inserts-hyphen activate compile)
-      (let ((ido-cannot-complete-command 
-             `(lambda ()
-                (interactive)
-                (if (string= " " (this-command-keys))
-                    (insert ?-)
-                  (funcall ,ido-cannot-complete-command)))))
-        ad-do-it))
+(defadvice smex (around space-inserts-hyphen activate compile)
+  (let ((ido-cannot-complete-command 
+         `(lambda ()
+            (interactive)
+            (if (string= " " (this-command-keys))
+                (insert ?-)
+              (funcall ,ido-cannot-complete-command)))))
+    ad-do-it))
 
 ;;; Auto-complete
 
@@ -309,8 +326,41 @@
   (add-to-list 'auto-mode-alist '("\\.cppR" . poly-c++r-mode)))
 
 ;;; Dired and Dired+ configuration
+
+; load dired+ and mouse3
 (require 'dired+)
 (require 'mouse3)
+
+; set dired listing options
+(setq dired-listing-switches "-alDhp")
+
+; more subdued colors
+
+(set-face-attribute 'diredp-read-priv nil
+                    :foreground "LightGray"
+                    :background nil)
+(set-face-attribute 'diredp-write-priv nil
+                    :foreground "LightGray"
+                    :background nil)
+(set-face-attribute 'diredp-other-priv nil
+                    :foreground "LightGray"
+                    :background nil)
+(set-face-attribute 'diredp-rare-priv nil
+                    :foreground "LightGray"
+                    :background nil)
+(set-face-attribute 'diredp-no-priv nil
+                    :foreground "LightGray"
+                    :background nil)
+(set-face-attribute 'diredp-exec-priv nil
+                    :foreground "LightGray"
+                    :background nil)
+(set-face-attribute 'diredp-file-name nil
+                    :weight 'bold
+                    :background nil)
+(set-face-attribute 'diredp-dir-priv nil
+                    :weight 'bold)
+(set-face-attribute 'diredp-file-suffix nil
+                    :foreground nil)
 
 ;;; Misc. Conveniences
 
