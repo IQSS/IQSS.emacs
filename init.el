@@ -150,9 +150,6 @@
 (require 'kill-ring-ido)
 (global-set-key (kbd "M-y") 'kill-ring-ido)
 
-;; don't use ido for dired
-(setq ido-read-file-name-non-ido 'dired)
-
  ;;; Completion hints for emacs functions
 (smex-initialize)
 (global-set-key (kbd "M-x") 'smex)
@@ -361,6 +358,14 @@
                     :weight 'bold)
 (set-face-attribute 'diredp-file-suffix nil
                     :foreground nil)
+                    
+;; make sure dired buffers end in a slash so we can identify them easily
+(defun ensure-buffer-name-ends-in-slash ()
+  "change buffer name to end with slash"
+  (let ((name (buffer-name)))
+    (if (not (string-match "/$" name))
+        (rename-buffer (concat name "/") t))))
+(add-hook 'dired-mode-hook 'ensure-buffer-name-ends-in-slash)
 
 ;;; Misc. Conveniences
 
