@@ -333,7 +333,9 @@
 (setq dired-listing-switches "-alDhp")
 
 ;; more subdued colors
-
+(set-face-attribute 'diredp-ignored-file-name nil
+                    :foreground "LightGray"
+                    :background nil)
 (set-face-attribute 'diredp-read-priv nil
                     :foreground "LightGray"
                     :background nil)

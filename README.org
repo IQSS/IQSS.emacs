@@ -575,7 +575,9 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
   (setq dired-listing-switches "-alDhp")
 
   ;; more subdued colors
-
+  (set-face-attribute 'diredp-ignored-file-name nil
+                      :foreground "LightGray"
+                      :background nil)
   (set-face-attribute 'diredp-read-priv nil
                       :foreground "LightGray"
                       :background nil)
