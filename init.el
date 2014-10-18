@@ -129,7 +129,8 @@
     ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]" "
  -> " ""))
 
-;; show current directory so we can open in dired
+;; don't use ido for dired
+(setq ido-read-file-name-non-ido '(dired))
 
  ;; color directories blue, firstmatch bold etc.
 (set-face-attribute 'ido-first-match nil
@@ -324,14 +325,14 @@
 
 ;;; Dired and Dired+ configuration
 
-; load dired+ and mouse3
+;; load dired+ and mouse3
 (require 'dired+)
 (require 'mouse3)
 
-; set dired listing options
+;; set dired listing options
 (setq dired-listing-switches "-alDhp")
 
-; more subdued colors
+;; more subdued colors
 
 (set-face-attribute 'diredp-read-priv nil
                     :foreground "LightGray"
@@ -366,6 +367,9 @@
     (if (not (string-match "/$" name))
         (rename-buffer (concat name "/") t))))
 (add-hook 'dired-mode-hook 'ensure-buffer-name-ends-in-slash)
+(add-hook 'dired-mode-hook
+          '(lambda()
+             (setq truncate-lines 1)))
 
 ;;; Misc. Conveniences
 
