@@ -178,6 +178,14 @@
 ;; use tab for completion; don't start automatically
 (ac-set-trigger-key "TAB")
 (setq ac-auto-start nil)
+
+;; use C-n and C-p to cycle through completion suggestions
+(define-key ac-mode-map (kbd "C-n") 'ac-next)
+(define-key ac-mode-map (kbd "C-p") 'ac-previous)
+
+;; required or auto-complete bogs down when flyspell is active
+(ac-flyspell-workaround)
+
 ;; similar thing, for company mode
 ;; from https://github.com/company-mode/company-mode/issues/94
 (eval-after-load "company"
@@ -194,17 +202,20 @@
      (defun company-complete-common-wrapper ()
        (let ((completion-at-point-functions completion-at-point-functions-saved))
          (company-complete-common)))
-     (setq company-idle-delay nil)))
+     (setq company-idle-delay nil)
+  ;; use C-n and C-p to cycle through completions
+  (define-key company-mode-map (kbd "C-n") 'company-select-next)
+  (define-key company-mode-map (kbd "<tab>") 'company-select-next)
+  (define-key company-mode-map (kbd "C-p") 'company-select-previous)))
+
 ;; elpy tries to over-ride this--try to take the power back.
 (add-hook 'elpy-mode-hook
           (lambda ()
             (setq company-idle-delay nil)))
+
 ;; disable ac-mode in python-mode because elpy uses company instead
 ;; workaround so auto-complete works with flyspell
 (setq ac-modes (remove "python-mode" ac-modes))
-
-;; required or auto-complete bogs down when flyspell is active
-(ac-flyspell-workaround)
 
 ;;; Configure outline minor modes
 ;; Less crazy key bindings for outline-minor-mode
@@ -460,6 +471,7 @@ When there is a text selection, act on the region."
 (global-set-key (kbd "M-q") 'compact-uncompact-block)
 
 ;; visual line mode
+(setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
 (global-visual-line-mode 1) 
 
 ;; don't require two spaces for sentence end.
