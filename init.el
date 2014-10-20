@@ -337,6 +337,7 @@ When there is a text selection, act on the region."
 (global-set-key (kbd "M-q") 'compact-uncompact-block)
 
 ;; visual line mode
+(setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
 (global-visual-line-mode 1) 
 
 ;; don't require two spaces for sentence end.
