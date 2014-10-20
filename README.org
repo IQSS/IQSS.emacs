@@ -10,8 +10,9 @@ This is a drop-in replacement for your .emacs.d. It automatically installs and c
 1) Make sure emacs >= version 24.3 is installed on your computer. See  [[#Suggested-external-programs][Suggested-external-programs]] for installation instructions.
 2) Make sure you have [[http://git-scm.com/downloads][git]] installed on your computer. If you don't know what git is you might be interested in John McDonnell's [[http://nyuccl.org/pages/GitTutorial/][git tutorial]].
 3) Determine your emacs configuration directory. Open emacs and type =C-x f ~/ RET=. This should open a directory listing buffer. Note the path at the top of this file. This is were your =.emacs.d= should go.
-4) Back up your existing =~/.emacs= file and =~/.emacs.d= directory (e.g., rename =.emacs= to =OLD.emacs= and rename =.emacs.d= to =OLD.emacs.d=).
-5) Clone one of the following versions into =~.emacs.d=:
+4) Close Emacs.
+6) Back up your existing =~/.emacs= file and =~/.emacs.d= directory (e.g., rename =.emacs= to =OLD.emacs= and rename =.emacs.d= to =OLD.emacs.d=).
+6) Clone one of the following versions into =~.emacs.d=:
    - master :: Relatively conservative, probably the one you want. \\ =git clone https://github.com/izahn/dotemacs.git -b master ~/.emacs.d=
    - Gary :: Like master but with large font by default. \\ =git clone https://github.com/izahn/dotemacs.git -b Gary ~/.emacs.d=
    - izahn :: Master plus more experimental packages and all the bells and whistles. Use
