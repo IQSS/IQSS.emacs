@@ -149,7 +149,44 @@
 (require 'kill-ring-ido)
 (global-set-key (kbd "M-y") 'kill-ring-ido)
 
- ;;; Completion hints for emacs functions
+;;; Completion hints for emacs functions
+;; Horrible work-around to make smex work with emacs < 24.3:
+;; remove this part when emacs is updated.
+;; Check if Smex is supported
+(when (equal (cons 1 1)
+             (ignore-errors
+               (subr-arity (symbol-function 'execute-extended-command))))
+  (defun execute-extended-command (prefixarg &optional command-name)
+    "Read function name, then read its arguments and call it."
+    (interactive (list current-prefix-arg (read-extended-command)))
+    (if (null command-name)
+        (setq command-name (let ((current-prefix-arg prefixarg)) ; for prompt
+                             (read-extended-command))))
+    (let* ((function (and (stringp command-name) (intern-soft command-name)))
+           (binding (and suggest-key-bindings
+                         (not executing-kbd-macro)
+                         (where-is-internal function overriding-local-map t))))
+      (unless (commandp function)
+        (error "`%s' is not a valid command name" command-name))
+      (setq this-command function)
+      (setq real-this-command function)
+      (let ((prefix-arg prefixarg))
+        (command-execute function 'record))
+      (when binding
+        (let* ((waited
+                (sit-for (cond
+                          ((zerop (length (current-message))) 0)
+                          ((numberp suggest-key-bindings) suggest-key-bindings)
+                          (t 2)))))
+          (when (and waited (not (consp unread-command-events)))
+            (with-temp-message
+                (format "You can run the command `%s' with %s"
+                        function (key-description binding))
+              (sit-for (if (numberp suggest-key-bindings)
+                           suggest-key-bindings
+                         2)))))))))
+;; end horrible hack
+
 (smex-initialize)
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
