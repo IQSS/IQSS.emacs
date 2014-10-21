@@ -219,8 +219,6 @@ Visual changes such as hiding the toolbar and scroll bar need to come first to a
                        polymode
                        eval-in-repl
                        elpy
-                       cider
-                       slime
                        htmlize
                        pcmpl-args
                        pcmpl-pip

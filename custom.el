@@ -39,18 +39,6 @@
 ;; For M-x info
 (define-key Info-mode-map "\C-c\C-c" 'eir-eval-in-ielm)
 
-;; cider
-(require 'cider) ; if not done elsewhere
-(require 'eval-in-repl-cider)
-;; (define-key clojure-mode-map "\C-c\C-c" 'eir-eval-in-cider)
-
-;; SLIME
-(require 'slime) ; if not done elsewhere
-(require 'eval-in-repl-slime)
-(add-hook 'lisp-mode-hook
-		  '(lambda ()
-		     (local-set-key "\C-c\C-c" 'eir-eval-in-slime)))
-
 ;; scheme
 (require 'scheme) ; if not done elsewhere
 (require 'cmuscheme) ; if not done elsewhere

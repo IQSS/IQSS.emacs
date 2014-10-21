@@ -50,8 +50,6 @@
                      polymode
                      eval-in-repl
                      elpy
-                     cider
-                     slime
                      htmlize
                      pcmpl-args
                      pcmpl-pip
