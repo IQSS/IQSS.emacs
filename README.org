@@ -134,6 +134,7 @@ Implementation of the requirements listed in the previous section can be approac
 
 In my experience option 1 (building up from default Gnu emacs) works well on Linux, so-so on Mac, and is a real pain on Windows. Option 2 (the meta-package approach) tends to result in un-maintainable, complicated configurations that the user doesn't understand and can't configure. Therefore I suggest that we encourage people to start with OS-specific emacs distributions, and that we write relatively minimal config files that sets up the basics, along with documentation and comments explaining how to add related functionality. See [[#Cross-platform-issues][Cross platform issues]] for recommended emacs versions for Windows and OS X.
 
+
 ** Cross-platform issues
   :PROPERTIES:
   :CUSTOM_ID: Cross-platform-issues
@@ -147,12 +148,14 @@ Ideally emacs configuration will "just work" regardless of the operating system 
 
 Note for Linux users: Emacs version $\geq$ 24 is required. If your Linux distro ships old and busted emacs you need to figure out how to install a recent version.
 
+
 ** Implementation
   :PROPERTIES:
   :CUSTOM_ID: Implementation
   :END:
 
 The emacs configuration in the sections below implements the [[#Requirements][Requirements]] listed above.
+
 
 *** Preamble
 
@@ -168,7 +171,6 @@ The emacs configuration in the sections below implements the [[#Requirements][Re
   ;; emacs --no-site-file --no-site-lisp. This is a temporary requirement that
   ;; will eventually be resolved in cooperation with the RCE team.
 #+END_SRC
-
 
 *** Visual tweaks
 Visual changes such as hiding the toolbar and scroll bar need to come first to avoid jarring transitions during startup.
@@ -362,7 +364,6 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
 
 #+END_SRC
 
-
 *** Auto-complete configuration
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
@@ -435,10 +436,89 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
 
 #+END_SRC
 
-
 *** Major modes configuration
 
-**** LaTeX-mode (Typesetting markup language)
+**** General repl (read-eval-print-loop) config
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  ;; require the main file containing common functions
+  (require 'eval-in-repl)
+  (setq comint-process-echoes t)
+#+END_SRC
+
+**** Run R in emacs (ESS)
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  ;;;  ESS (Emacs Speaks Statistics)
+
+  ;; Start R in the working directory by default
+  (setq ess-ask-for-ess-directory nil)
+
+  ;; Scroll down when R generates output
+  (setq comint-scroll-to-bottom-on-input t)
+  (setq comint-scroll-to-bottom-on-output t)
+  (setq comint-move-point-for-output t)
+
+  ;; Make sure ESS is loaded
+  (require 'ess-site)
+
+  ;; extra ESS stuff from https://github.com/gaborcsardi/dot-emacs/blob/master/.emacs
+  (ess-toggle-underscore nil)
+  (defun my-ess-post-run-hook ()
+  (ess-execute-screen-options)
+  (local-set-key "\C-cw" 'ess-execute-screen-options))
+  (add-hook 'ess-post-run-hook 'my-ess-post-run-hook)
+
+
+#+END_SRC
+
+**** Run python in emacs (elpy)
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  ;; Python completion and code checking
+  (setq elpy-modules '(elpy-module-company
+                       elpy-module-eldoc
+                       elpy-module-flymake
+                       elpy-module-pyvenv
+                       elpy-module-highlight-indentation
+                       elpy-module-sane-defaults))
+  (elpy-enable)
+
+  ;; use eval-in-repl to eval visibly in elpy buffers
+  (add-hook 'elpy-mode-hook
+            '(lambda ()
+               (require 'eval-in-repl-python)
+               (define-key elpy-mode-map "\C-c\C-c" 'eir-eval-in-python)))
+
+#+END_SRC
+
+**** emacs lisp REPL (ielm)
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  ;; ielm
+  (require 'eval-in-repl-ielm)
+  ;; For .el files
+  (define-key emacs-lisp-mode-map "\C-c\C-c" 'eir-eval-in-ielm)
+  ;; For *scratch*
+  (define-key lisp-interaction-mode-map "\C-c\C-c" 'eir-eval-in-ielm)
+  ;; For M-x info
+  (define-key Info-mode-map "\C-c\C-c" 'eir-eval-in-ielm)
+
+#+END_SRC
+
+**** Light-weight markup language (Markdown mode)
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+
+  ;;; markdown mode
+
+  ;; Use markdown-mode for files with .markdown or .md extensions
+  (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+  (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
+#+END_SRC
+
+**** Typesetting markup (AucTeX)
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
 
@@ -475,20 +555,7 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
 
 #+END_SRC
 
-
-**** Markdown mode (light-weight markup language)
-
-#+BEGIN_SRC emacs-lisp :tangle init.el
-
-  ;;; markdown mode
-
-  ;; Use markdown-mode for files with .markdown or .md extensions
-  (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-  (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
-
-#+END_SRC
-
-**** Org-mode (Note taking and outlining)
+**** Note taking and outlining (Org-mode)
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
 
@@ -525,28 +592,25 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
   ;; Fontify code blocks in org-mode
   (setq org-src-fontify-natively t)
   (setq org-src-tab-acts-natively t)
+  (setq org-confirm-babel-evaluate nil)
+
+  (require 'org-capture)
+  (require 'org-protocol)
+  (require 'ob-stata)
+
+  ;; set up capture
+  (setq org-default-notes-file (concat org-directory "/notes.org"))
+
+  (setq org-capture-templates
+        '(("t" "Todo" entry (file+headline "~/org/notes.org" "RT Tasks")
+           "* TODO %?\n  %i\n  %a")))
+
+  (define-key global-map "\C-cc" 'org-capture)
 
 #+END_SRC
 
-**** Emacs Speaks Statistics (run R in emacs)
 
-#+BEGIN_SRC emacs-lisp :tangle init.el
-  ;;;  ESS (Emacs Speaks Statistics)
-
-  ;; Start R in the working directory by default
-  (setq ess-ask-for-ess-directory nil)
-
-  ;; Scroll down when R generates output
-  (setq comint-scroll-to-bottom-on-input t)
-  (setq comint-scroll-to-bottom-on-output t)
-  (setq comint-move-point-for-output t)
-
-  ;; Make sure ESS is loaded
-  (require 'ess-site)
-
-#+END_SRC
-
-**** Polymode (multiple modes in one "buffer")
+**** Multiple modes in one "buffer" (polymode)
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
 
@@ -573,7 +637,7 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
 
 #+END_SRC
 
-**** Dired (file browsing)
+**** File browsing (Dired+)
 #+BEGIN_SRC emacs-lisp :tangle init.el
   ;;; Dired and Dired+ configuration
 
@@ -626,11 +690,58 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
                (setq truncate-lines 1)))
 #+END_SRC
 
+**** Shell modes (shell and eshell)
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  ;; shell
+  (require 'essh) ; if not done elsewhere; essh is in the local lisp folder
+  (require 'eval-in-repl-shell)
+  (add-hook 'sh-mode-hook
+            '(lambda()
+               (local-set-key "\C-c\C-c" 'eir-eval-in-shell)))
+
+  ;; auto-complete for shell-mode (linux only)
+  (if (eq system-type 'gnu/linux)
+      (setq explicit-shell-file-name "bash")
+    (setq explicit-bash-args '("-c" "export EMACS=; stty echo; bash"))  
+    (add-hook 'shell-mode-hook
+              '(lambda()
+                 (ansi-color-for-comint-mode-on)
+                 (require 'readline-complete-autoloads)
+                 (require 'readline-complete)            
+                 (add-to-list 'ac-modes 'shell-mode)
+                 (ac-rlc-setup-sources))) 
+    ;; extra completion for eshell
+    (add-hook 'eshell-mode-hook
+              '(lambda()
+                 (require 'pcmpl-args)
+                 (require 'pcmpl-pip))))
+
+#+END_SRC
+
+
 *** Miscellaneous
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
 
   ;;; Misc. Conveniences
+
+  ;; window arrangement history
+  (winner-mode 1)
+
+  ;;; set up unicode
+  (prefer-coding-system       'utf-8)
+  (set-default-coding-systems 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (set-keyboard-coding-system 'utf-8)
+  (setq buffer-file-coding-system 'utf-8)                      
+  (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
+
+  ;; start the server if not already started
+  (add-hook 'after-init-hook
+                    '(lambda ()
+                       (load "server")
+                       (unless (server-running-p) (server-start))))
 
   ;; use regex search by default
   (global-set-key (kbd "C-s") 'isearch-forward-regexp)
@@ -719,18 +830,17 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
   (setq custom-file (concat user-emacs-directory "custom.el"))
   (unless (file-exists-p custom-file)
     (write-region "" nil custom-file))
-  (byte-recompile-file custom-file nil 0 nil)
-  (load (concat user-emacs-directory "custom.elc") 'noerror)
+  (load custom-file 'noerror)
 
   ;; byte-compile init file if needed
   (add-hook 'after-init-hook
             (lambda ()
               (byte-recompile-file user-init-file nil 1 nil)
-              (switch-to-buffer "*scratch*")
-              (delete-other-windows)))
+              (switch-to-buffer "*scratch*")))
 
 
 #+END_SRC
+
 
 ** Implementation issues
 The version of Emacs on the RCE is old and configured in a non-standard way that makes it difficult to implement a sane user config. 

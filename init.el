@@ -229,6 +229,60 @@
 (add-hook 'LaTeX-mode-hook 'outline-minor-mode t)
 (add-hook 'prog-mode-hook 'outline-minor-mode t)
 
+;; require the main file containing common functions
+(require 'eval-in-repl)
+(setq comint-process-echoes t)
+
+;;;  ESS (Emacs Speaks Statistics)
+
+;; Start R in the working directory by default
+(setq ess-ask-for-ess-directory nil)
+
+;; Scroll down when R generates output
+(setq comint-scroll-to-bottom-on-input t)
+(setq comint-scroll-to-bottom-on-output t)
+(setq comint-move-point-for-output t)
+
+;; Make sure ESS is loaded
+(require 'ess-site)
+
+;; extra ESS stuff from https://github.com/gaborcsardi/dot-emacs/blob/master/.emacs
+(ess-toggle-underscore nil)
+(defun my-ess-post-run-hook ()
+(ess-execute-screen-options)
+(local-set-key "\C-cw" 'ess-execute-screen-options))
+(add-hook 'ess-post-run-hook 'my-ess-post-run-hook)
+
+;; Python completion and code checking
+(setq elpy-modules '(elpy-module-company
+                     elpy-module-eldoc
+                     elpy-module-flymake
+                     elpy-module-pyvenv
+                     elpy-module-highlight-indentation
+                     elpy-module-sane-defaults))
+(elpy-enable)
+
+;; use eval-in-repl to eval visibly in elpy buffers
+(add-hook 'elpy-mode-hook
+          '(lambda ()
+             (require 'eval-in-repl-python)
+             (define-key elpy-mode-map "\C-c\C-c" 'eir-eval-in-python)))
+
+;; ielm
+(require 'eval-in-repl-ielm)
+;; For .el files
+(define-key emacs-lisp-mode-map "\C-c\C-c" 'eir-eval-in-ielm)
+;; For *scratch*
+(define-key lisp-interaction-mode-map "\C-c\C-c" 'eir-eval-in-ielm)
+;; For M-x info
+(define-key Info-mode-map "\C-c\C-c" 'eir-eval-in-ielm)
+
+;;; markdown mode
+
+;; Use markdown-mode for files with .markdown or .md extensions
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
 ;;; AucTeX config
 ;; turn on math mode and and index to imenu
 (add-hook 'LaTeX-mode-hook 
@@ -259,12 +313,6 @@
 (add-hook 'bibtex-mode-hook
           '(lambda ()
              (define-key bibtex-mode-map "\M-q" 'bibtex-fill-entry)))
-
-;;; markdown mode
-
-;; Use markdown-mode for files with .markdown or .md extensions
-(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
 (require 'org)
 
@@ -299,19 +347,20 @@
 ;; Fontify code blocks in org-mode
 (setq org-src-fontify-natively t)
 (setq org-src-tab-acts-natively t)
+(setq org-confirm-babel-evaluate nil)
 
-;;;  ESS (Emacs Speaks Statistics)
+(require 'org-capture)
+(require 'org-protocol)
+(require 'ob-stata)
 
-;; Start R in the working directory by default
-(setq ess-ask-for-ess-directory nil)
+;; set up capture
+(setq org-default-notes-file (concat org-directory "/notes.org"))
 
-;; Scroll down when R generates output
-(setq comint-scroll-to-bottom-on-input t)
-(setq comint-scroll-to-bottom-on-output t)
-(setq comint-move-point-for-output t)
+(setq org-capture-templates
+      '(("t" "Todo" entry (file+headline "~/org/notes.org" "RT Tasks")
+         "* TODO %?\n  %i\n  %a")))
 
-;; Make sure ESS is loaded
-(require 'ess-site)
+(define-key global-map "\C-cc" 'org-capture)
 
 ;;; polymode
 
@@ -384,7 +433,48 @@
           '(lambda()
              (setq truncate-lines 1)))
 
+;; shell
+(require 'essh) ; if not done elsewhere; essh is in the local lisp folder
+(require 'eval-in-repl-shell)
+(add-hook 'sh-mode-hook
+          '(lambda()
+             (local-set-key "\C-c\C-c" 'eir-eval-in-shell)))
+
+;; auto-complete for shell-mode (linux only)
+(if (eq system-type 'gnu/linux)
+    (setq explicit-shell-file-name "bash")
+  (setq explicit-bash-args '("-c" "export EMACS=; stty echo; bash"))  
+  (add-hook 'shell-mode-hook
+            '(lambda()
+               (ansi-color-for-comint-mode-on)
+               (require 'readline-complete-autoloads)
+               (require 'readline-complete)            
+               (add-to-list 'ac-modes 'shell-mode)
+               (ac-rlc-setup-sources))) 
+  ;; extra completion for eshell
+  (add-hook 'eshell-mode-hook
+            '(lambda()
+               (require 'pcmpl-args)
+               (require 'pcmpl-pip))))
+
 ;;; Misc. Conveniences
+
+;; window arrangement history
+(winner-mode 1)
+
+;;; set up unicode
+(prefer-coding-system       'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(setq buffer-file-coding-system 'utf-8)                      
+(setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
+
+;; start the server if not already started
+(add-hook 'after-init-hook
+                  '(lambda ()
+                     (load "server")
+                     (unless (server-running-p) (server-start))))
 
 ;; use regex search by default
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)
@@ -473,12 +563,10 @@
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (unless (file-exists-p custom-file)
   (write-region "" nil custom-file))
-(byte-recompile-file custom-file nil 0 nil)
-(load (concat user-emacs-directory "custom.elc") 'noerror)
+(load custom-file 'noerror)
 
 ;; byte-compile init file if needed
 (add-hook 'after-init-hook
           (lambda ()
             (byte-recompile-file user-init-file nil 1 nil)
-            (switch-to-buffer "*scratch*")
-            (delete-other-windows)))
+            (switch-to-buffer "*scratch*")))
