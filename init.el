@@ -206,10 +206,12 @@
   (define-key company-mode-map (kbd "<tab>") 'company-select-next)
   (define-key company-mode-map (kbd "C-p") 'company-select-previous)))
 
-;; elpy tries to over-ride this--try to take the power back.
+;; set up tab-indent-or-complete for elpy (the only place we currently
+;; use company-mode
 (add-hook 'elpy-mode-hook
           (lambda ()
-            (setq company-idle-delay nil)))
+            (setq company-idle-delay nil)
+            (define-key company-mode-map (kbd "<tab>") 'company-indent-for-tab-command)))
 
 ;; disable ac-mode in python-mode because elpy uses company instead
 ;; workaround so auto-complete works with flyspell
