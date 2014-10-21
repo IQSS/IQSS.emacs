@@ -366,53 +366,53 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
 *** Auto-complete configuration
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
-    ;;; Auto-complete
+  ;;; Auto-complete
 
-    ;; Set up autocomplete sources
-    (require 'auto-complete-config)
-    (ac-config-default)
+  ;; Set up autocomplete sources
+  (require 'auto-complete-config)
+  (ac-config-default)
 
-    ;; use tab for completion; don't start automatically
-    (ac-set-trigger-key "TAB")
-    (setq ac-auto-start nil)
-    
-    ;; use C-n and C-p to cycle through completion suggestions
-    (define-key ac-mode-map (kbd "C-n") 'ac-next)
-    (define-key ac-mode-map (kbd "C-p") 'ac-previous)
+  ;; use tab for completion; don't start automatically
+  (ac-set-trigger-key "TAB")
+  (setq ac-auto-start nil)
 
-    ;; required or auto-complete bogs down when flyspell is active
-    (ac-flyspell-workaround)
+  ;; use C-n and C-p to cycle through completion suggestions
+  (define-key ac-mode-map (kbd "C-n") 'ac-next)
+  (define-key ac-mode-map (kbd "C-p") 'ac-previous)
 
-    ;; similar thing, for company mode
-    ;; from https://github.com/company-mode/company-mode/issues/94
-    (eval-after-load "company"
-      '(progn
-         (define-key company-mode-map [remap indent-for-tab-command]
-           'company-indent-for-tab-command)
-         (setq tab-always-indent 'complete)
-         (defvar completion-at-point-functions-saved nil)
-         (defun company-indent-for-tab-command (&optional arg)
-           (interactive "P")
-           (let ((completion-at-point-functions-saved completion-at-point-functions)
-                 (completion-at-point-functions '(company-complete-common-wrapper)))
-             (indent-for-tab-command arg)))
-         (defun company-complete-common-wrapper ()
-           (let ((completion-at-point-functions completion-at-point-functions-saved))
-             (company-complete-common)))
-         (setq company-idle-delay nil)
-      ;; use C-n and C-p to cycle through completions
-      (define-key company-mode-map (kbd "C-n") 'company-select-next)
-      (define-key company-mode-map (kbd "<tab>") 'company-select-next)
-      (define-key company-mode-map (kbd "C-p") 'company-select-previous)))
+  ;; required or auto-complete bogs down when flyspell is active
+  (ac-flyspell-workaround)
 
-    ;; elpy tries to over-ride this--try to take the power back.
-    (add-hook 'elpy-mode-hook
-              (lambda ()
-                (setq company-idle-delay nil)))
+  ;; similar thing, for company mode
+  ;; from https://github.com/company-mode/company-mode/issues/94
+  (eval-after-load "company"
+    '(progn
+       (define-key company-mode-map [remap indent-for-tab-command]
+         'company-indent-for-tab-command)
+       (setq tab-always-indent 'complete)
+       (defvar completion-at-point-functions-saved nil)
+       (defun company-indent-for-tab-command (&optional arg)
+         (interactive "P")
+         (let ((completion-at-point-functions-saved completion-at-point-functions)
+               (completion-at-point-functions '(company-complete-common-wrapper)))
+           (indent-for-tab-command arg)))
+       (defun company-complete-common-wrapper ()
+         (let ((completion-at-point-functions completion-at-point-functions-saved))
+           (company-complete-common)))
+       (setq company-idle-delay nil)
+    ;; use C-n and C-p to cycle through completions
+    (define-key company-mode-map (kbd "C-n") 'company-select-next)
+    (define-key company-mode-map (kbd "<tab>") 'company-select-next)
+    (define-key company-mode-map (kbd "C-p") 'company-select-previous)))
 
-    ;; disable ac-mode in python-mode because elpy uses company instead
-    ;; workaround so auto-complete works with flyspell
-    (setq ac-modes (remove "python-mode" ac-modes))
+  ;; elpy tries to over-ride this--try to take the power back.
+  (add-hook 'elpy-mode-hook
+            (lambda ()
+              (setq company-idle-delay nil)))
+
+  ;; disable ac-mode in python-mode because elpy uses company instead
+  ;; workaround so auto-complete works with flyspell
+  (setq ac-modes (remove 'python-mode ac-modes))
 
 #+END_SRC
 

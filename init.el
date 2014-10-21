@@ -213,7 +213,7 @@
 
 ;; disable ac-mode in python-mode because elpy uses company instead
 ;; workaround so auto-complete works with flyspell
-(setq ac-modes (remove "python-mode" ac-modes))
+(setq ac-modes (remove 'python-mode ac-modes))
 
 ;;; Configure outline minor modes
 ;; Less crazy key bindings for outline-minor-mode
