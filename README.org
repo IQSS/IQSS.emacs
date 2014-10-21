@@ -12,13 +12,9 @@ This is a drop-in replacement for your .emacs.d. It automatically installs and c
 3) Determine your emacs configuration directory. Open emacs and type =C-x f ~/ RET=. This should open a directory listing buffer. Note the path at the top of this file. This is were your =.emacs.d= should go.
 4) Close Emacs.
 6) Back up your existing =~/.emacs= file and =~/.emacs.d= directory (e.g., rename =.emacs= to =OLD.emacs= and rename =.emacs.d= to =OLD.emacs.d=).
-6) Clone one of the following versions into =~.emacs.d=:
-   - master :: Relatively conservative, probably the one you want. \\ =git clone https://github.com/izahn/dotemacs.git -b master ~/.emacs.d=
-   - Gary :: Like master but with large font by default. \\ =git clone https://github.com/izahn/dotemacs.git -b Gary ~/.emacs.d=
-   - izahn :: Master plus more experimental packages and all the bells and whistles. Use
-              at your own risk! \\ =git clone https://github.com/izahn/dotemacs.git -b izahn ~/.emacs.d=
+6) Clone this repository into =~/.emacs.d= by opening a terminal and running =git clone http://github.com/izahn/dotemacs ~/.emacs.d=.
 
-If you don't know how to use git, you can download the one of these zip files: [[https://github.com/izahn/dotemacs/archive/master.zip][master]],  [[https://github.com/izahn/dotemacs/archive/Gary.zip][Gary]] or [[https://github.com/izahn/dotemacs/archive/izahn.zip][izahn]], extract theme and move them into your .emacs.d directory.
+If you don't know how to use git, you can skip step 6 and simply [[https://github.com/izahn/dotemacs/archive/master.zip][download the files as a zip archive]], extract them, and move them into your .emacs.d directory.
 ** First run
 Note that after installing this configuration emacs will be extremely slow to start up the first time. This is due to a one-time scan of the fonts installed on your computer. Just be patient and wait for it to finish--subsequent start-ups will be much faster.
 
