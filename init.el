@@ -122,7 +122,7 @@
 
  ;; set nice ido decorations
  (setq ido-decorations '("
- ▶ " "" "
+ ➔ " "" "
     " "
     ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]" "
  -> " ""))
