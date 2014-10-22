@@ -482,13 +482,11 @@
     (progn 
       (setq explicit-shell-file-name "bash")
       (setq explicit-bash-args '("-c" "export EMACS=; stty echo; bash"))  
-      (add-hook 'shell-mode-hook
-                '(lambda()
-                   (ansi-color-for-comint-mode-on)
-                   (require 'readline-complete-autoloads)
-                   (require 'readline-complete)            
-                   (add-to-list 'ac-modes 'shell-mode)
-                   (ac-rlc-setup-sources))))) 
+      (ansi-color-for-comint-mode-on)
+      (require 'readline-complete-autoloads)
+      (require 'readline-complete)            
+      (add-to-list 'ac-modes 'shell-mode)
+      (ac-rlc-setup-sources))) 
 ;; extra completion for eshell
 (add-hook 'eshell-mode-hook
           '(lambda()
