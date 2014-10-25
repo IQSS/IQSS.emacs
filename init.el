@@ -606,3 +606,4 @@
           (lambda ()
             (byte-recompile-file user-init-file nil 1 nil)
             (switch-to-buffer "*scratch*")))
+(put 'erase-buffer 'disabled nil)
