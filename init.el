@@ -101,27 +101,28 @@
 (unicode-fonts-setup)
 
 ;;; Completion hints for files and buffers buffers
- (setq ido-file-extensions-order '(".R" ".r" ".sh" ".tex" ".bib" ".org" 
-                                   ".py" ".emacs" ".xml" "org.el" ".pdf"
-                                   ".txt" ".html" ".png" ".ini" ".cfg" 
-                                   ".conf"))
+(setq ido-file-extensions-order '(".R" ".r" ".sh" ".tex" ".bib" ".org" 
+                                  ".py" ".emacs" ".xml" "org.el" ".pdf"
+                                  ".txt" ".html" ".png" ".ini" ".cfg" 
+                                  ".conf"))
 
- ;; load ido 
- (require 'ido)
- (ido-mode 1)
- (ido-everywhere 1)
- (setq ido-enable-flex-matching t)
+;; load ido 
+(require 'ido)
+(setq ido-auto-merge-work-directories-length -1) ;; disable auto-merge
+(ido-mode 1)
+(ido-everywhere 1)
+(setq ido-enable-flex-matching t)
 
- ;; use ido everywhere you can
- (require 'ido-ubiquitous)
- (ido-ubiquitous-mode 1)
+;; use ido everywhere you can
+(require 'ido-ubiquitous)
+(ido-ubiquitous-mode 1)
   
- ;; present ido suggestions vertically
- (require 'ido-vertical-mode)
- (ido-vertical-mode 1)
+;; present ido suggestions vertically
+(require 'ido-vertical-mode)
+(ido-vertical-mode 1)
 
- ;; set nice ido decorations
- (setq ido-decorations '("
+;; set nice ido decorations
+(setq ido-decorations '("
  ➔ " "" "
     " "
     ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]" "
@@ -496,6 +497,7 @@
 ;;; Misc. Conveniences
 
 ;; window arrangement history
+(setq winner-dont-bind-my-keys t) 
 (winner-mode 1)
 
 ;;; set up unicode
@@ -606,4 +608,3 @@
           (lambda ()
             (byte-recompile-file user-init-file nil 1 nil)
             (switch-to-buffer "*scratch*")))
-(put 'erase-buffer 'disabled nil)
