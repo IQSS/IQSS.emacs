@@ -740,7 +740,6 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
         (setq explicit-shell-file-name "bash")
         (setq explicit-bash-args '("-c" "-t" "export EMACS=; stty echo; bash"))  
         (ansi-color-for-comint-mode-on)
-        (require 'readline-complete-autoloads)
         (require 'readline-complete)            
         (add-to-list 'ac-modes 'shell-mode)
         (add-hook 'shell-mode-hook 'ac-rlc-setup-sources))) 
