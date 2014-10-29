@@ -150,6 +150,12 @@
 (require 'kill-ring-ido)
 (global-set-key (kbd "M-y") 'kill-ring-ido)
 
+;; show recently opened files
+(require 'recentf)
+(recentf-mode 1)
+(setq ido-use-virtual-buffers 'auto)
+(setq recentf-max-menu-items 50)
+
 ;;; Completion hints for emacs functions
 ;; Horrible work-around to make smex work with emacs < 24.3:
 ;; remove this part when emacs is updated.
@@ -582,7 +588,8 @@
 
 ;; visual line mode
 (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
-(global-visual-line-mode 1) 
+(add-hook 'text-mode-hook 'visual-line-mode 1)
+(add-hook 'prog-mode-hook 'toggle-truncate-lines 1)
 
 ;; don't require two spaces for sentence end.
 (setq sentence-end-double-space nil)
