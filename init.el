@@ -378,11 +378,12 @@
    (emacs-lisp . t)
    (sh . t)
    (dot . t)
-   ;; (latex . t)
-   ;; (octave . t)
-   ;; (ditaa . t)
-   ;; (org . t)
-   ;; (perl . t)
+   (latex . t)
+   (octave . t)
+   (ditaa . t)
+   (org . t)
+   (perl . t)
+   (julia . t)
 ))
 
 ;; Set sensible mode for editing dot files
