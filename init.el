@@ -277,6 +277,9 @@
 (require 'eval-in-repl)
 (setq comint-process-echoes t)
 
+;; truncate lines in comint buffers
+(add-hook 'comint-mode-hook 'toggle-truncate-lines 1)
+
 ;;;  ESS (Emacs Speaks Statistics)
 
 ;; Start R in the working directory by default
@@ -294,7 +297,8 @@
 (ess-toggle-underscore nil)
 (defun my-ess-post-run-hook ()
 (ess-execute-screen-options)
-(local-set-key "\C-cw" 'ess-execute-screen-options))
+(local-set-key "\C-cw" 'ess-execute-screen-options)
+(add-hook 'window-configuration-change-hook 'ess-execute-screen-options))
 (add-hook 'ess-post-run-hook 'my-ess-post-run-hook)
 
 ;; Python completion and code checking
@@ -485,6 +489,22 @@
           '(lambda()
              (local-set-key "\C-c\C-c" 'eir-eval-in-shell)))
 
+
+;; Automatically adjust output width in commint buffers
+;; from http://stackoverflow.com/questions/7987494/emacs-shell-mode-display-is-too-wide-after-splitting-window
+(defun comint-fix-window-size ()
+  "Change process window size."
+  (when (derived-mode-p 'comint-mode)
+    (let ((process (get-buffer-process (current-buffer))))
+      (unless (eq nil process)
+        (set-process-window-size process (window-height) (window-width))))))
+
+(defun my-shell-mode-hook ()
+  ;; add this hook as buffer local, so it runs once per window.
+  (add-hook 'window-configuration-change-hook 'comint-fix-window-size nil t))
+
+(add-hook 'shell-mode-hook 'my-shell-mode-hook)
+
 ;; auto-complete for shell-mode (linux only)
 (if (eq system-type 'gnu/linux)
     (progn 
@@ -587,7 +607,7 @@
 
 (define-key global-map "\M-Q" 'unfill-paragraph)
 
-;; visual line mode
+;; line wrapping
 (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
 (add-hook 'text-mode-hook 'visual-line-mode 1)
 (add-hook 'prog-mode-hook 'toggle-truncate-lines 1)
