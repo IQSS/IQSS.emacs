@@ -296,10 +296,20 @@
 ;; extra ESS stuff from https://github.com/gaborcsardi/dot-emacs/blob/master/.emacs
 (ess-toggle-underscore nil)
 (defun my-ess-post-run-hook ()
-(ess-execute-screen-options)
-(local-set-key "\C-cw" 'ess-execute-screen-options)
-(add-hook 'window-configuration-change-hook 'ess-execute-screen-options))
+  (ess-execute-screen-options)
+  (local-set-key "\C-cw" 'ess-execute-screen-options)
+  (ess-execute-screen-options)
+  )
 (add-hook 'ess-post-run-hook 'my-ess-post-run-hook)
+
+;; also reset output width when window is re-sized
+(defun my-ess-execute-screen-options (foo)
+  (ess-execute-screen-options))
+(add-hook 'inferior-ess-mode-hook
+          (progn
+            (add-to-list
+             'window-size-change-functions
+             'my-ess-execute-screen-options)))
 
 ;; truncate long lines in R source files
 (add-hook 'ess-mode-hook 'toggle-truncate-lines 1)
