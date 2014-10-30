@@ -301,6 +301,9 @@
 (add-hook 'window-configuration-change-hook 'ess-execute-screen-options))
 (add-hook 'ess-post-run-hook 'my-ess-post-run-hook)
 
+;; truncate long lines in R source files
+(add-hook 'ess-mode-hook 'toggle-truncate-lines 1)
+
 ;; Python completion and code checking
 (setq elpy-modules '(elpy-module-company
                      elpy-module-eldoc
