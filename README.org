@@ -484,13 +484,12 @@ Load eval-in-repl for bash, elisp, and python interaction.
   ;; require the main file containing common functions
   (require 'eval-in-repl)
   (setq comint-process-echoes t)
-  
-  ;; truncate lines in comint buffers
-  (add-hook 'comint-mode-hook 'toggle-truncate-lines 1)
-#+END_SRC
 
-#+RESULTS:
-| my-shell-mode-hook | toggle-truncate-lines |
+  ;; truncate lines in comint buffers
+  (add-hook 'comint-mode-hook
+            '(lambda()
+              (setq truncate-lines 1)))
+#+END_SRC
 
 **** Run R in emacs (ESS)
 
@@ -513,7 +512,7 @@ Load eval-in-repl for bash, elisp, and python interaction.
   (defun my-ess-post-run-hook ()
     ;; reset output width when window is re-sized
     (add-hook 'inferior-ess-mode-hook
-              (progn
+              '(lambda()
                 (defun my-ess-execute-screen-options (foo)
                   (ess-execute-screen-options))
                 (add-to-list
@@ -523,7 +522,9 @@ Load eval-in-repl for bash, elisp, and python interaction.
   (add-hook 'ess-post-run-hook 'my-ess-post-run-hook)
 
   ;; truncate long lines in R source files
-  (add-hook 'ess-mode-hook 'toggle-truncate-lines 1)
+  (add-hook 'ess-mode-hook
+            '(lambda()
+              (setq truncate-lines 1)))
 
 #+END_SRC
 
@@ -884,7 +885,9 @@ Load eval-in-repl for bash, elisp, and python interaction.
   ;; line wrapping
   (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
   (add-hook 'text-mode-hook 'visual-line-mode 1)
-  (add-hook 'prog-mode-hook 'toggle-truncate-lines 1)
+  (add-hook 'prog-mode-hook
+            '(lambda()
+                (setq truncate-lines 1)))
 
   ;; don't require two spaces for sentence end.
   (setq sentence-end-double-space nil)

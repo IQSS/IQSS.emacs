@@ -278,7 +278,9 @@
 (setq comint-process-echoes t)
 
 ;; truncate lines in comint buffers
-(add-hook 'comint-mode-hook 'toggle-truncate-lines 1)
+(add-hook 'comint-mode-hook
+          '(lambda()
+            (setq truncate-lines 1)))
 
 ;;;  ESS (Emacs Speaks Statistics)
 
@@ -298,7 +300,7 @@
 (defun my-ess-post-run-hook ()
   ;; reset output width when window is re-sized
   (add-hook 'inferior-ess-mode-hook
-            (progn
+            '(lambda()
               (defun my-ess-execute-screen-options (foo)
                 (ess-execute-screen-options))
               (add-to-list
@@ -308,7 +310,9 @@
 (add-hook 'ess-post-run-hook 'my-ess-post-run-hook)
 
 ;; truncate long lines in R source files
-(add-hook 'ess-mode-hook 'toggle-truncate-lines 1)
+(add-hook 'ess-mode-hook
+          '(lambda()
+            (setq truncate-lines 1)))
 
 ;; Python completion and code checking
 (setq elpy-modules '(elpy-module-company
@@ -619,7 +623,9 @@
 ;; line wrapping
 (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
 (add-hook 'text-mode-hook 'visual-line-mode 1)
-(add-hook 'prog-mode-hook 'toggle-truncate-lines 1)
+(add-hook 'prog-mode-hook
+          '(lambda()
+              (setq truncate-lines 1)))
 
 ;; don't require two spaces for sentence end.
 (setq sentence-end-double-space nil)
