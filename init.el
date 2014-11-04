@@ -301,18 +301,25 @@
   ;; reset output width when window is re-sized
   (add-hook 'inferior-ess-mode-hook
             '(lambda()
-              (defun my-ess-execute-screen-options (foo)
-                (ess-execute-screen-options))
-              (add-to-list
-               'window-size-change-functions
-               'my-ess-execute-screen-options)))
+               (defun my-ess-execute-screen-options (foo)
+                 (ess-execute-screen-options))
+               (add-to-list
+                'window-size-change-functions
+                'my-ess-execute-screen-options)))
   )
 (add-hook 'ess-post-run-hook 'my-ess-post-run-hook)
 
 ;; truncate long lines in R source files
 (add-hook 'ess-mode-hook
           '(lambda()
-            (setq truncate-lines 1)))
+             (setq truncate-lines 1)))
+
+;; try to get sane indentation
+(setq ess-first-continued-statement-offset 2)
+(setq ess-continued-statement-offset 0)
+(setq ess-arg-function-offset-new-line 0)
+(setq ess-arg-function-offset nil)
+(setq ess-default-style 'DEFAULT)
 
 ;; Python completion and code checking
 (setq elpy-modules '(elpy-module-company
