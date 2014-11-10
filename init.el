@@ -560,9 +560,9 @@
                      (load "server")
                      (unless (server-running-p) (server-start))))
 
-;; use regex search by default
-(global-set-key (kbd "C-s") 'isearch-forward-regexp)
-(global-set-key (kbd "C-r") 'isearch-backward-regexp)
+;; ;; use regex search by default
+;; (global-set-key (kbd "C-s") 'isearch-forward-regexp)
+;; (global-set-key (kbd "C-r") 'isearch-backward-regexp)
 
 ;; Use spaces for indentation
 (setq-default indent-tabs-mode nil)
