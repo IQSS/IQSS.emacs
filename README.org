@@ -84,7 +84,6 @@ As of August 5th 2014 there are 2,960 github repositories named or mentioning '.
 
 No, the world does not need another emacs starter kit. Indeed the guy who started the original emacs starter-kit has concluded that the whole idea is [[https://github.com/technomancy/emacs-starter-kit][unworkable]], and that if you want to use emacs you're better off configuring it yourself. I agree, and it's not that hard, even if you don't know emacs-lisp at all. You can copy code fragments from others' configuration on [[http://github.com][github]], from the [[http://emacswiki.org][emacs wiki]], or from [[http://stackoverflow.com][stackoverflow]] and build up your very own emacs configuration. And eventually it will be so perfect you will think "gee I could save people the trouble of configuring emacs, if they would just clone my configuration". So you will put it on github, like everyone else (including me). Sigh.
 
-
 ** Requirements
   :PROPERTIES:
   :CUSTOM_ID: Requirements
