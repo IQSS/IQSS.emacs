@@ -42,7 +42,7 @@
                      smex
                      outline-magic
                      smooth-scroll
-                     auto-complete
+                     company
                      auctex
                      ess 
                      org-plus-contrib
@@ -96,9 +96,11 @@
                         ;; `ispell-comments-and-strings'
                         (flyspell-prog-mode)))))
 
-(require 'persistent-soft)
-(require 'unicode-fonts)
-(unicode-fonts-setup)
+(if (eq system-type 'gnu/linux)
+    (progn
+      (require 'persistent-soft)
+      (require 'unicode-fonts)
+      (unicode-fonts-setup)))
 
 ;;; Completion hints for files and buffers buffers
 (setq ido-file-extensions-order '(".R" ".r" ".sh" ".tex" ".bib" ".org" 
@@ -213,20 +215,20 @@
 
 ;;; Auto-complete
 
-;; Set up autocomplete sources
-(require 'auto-complete-config)
-(ac-config-default)
+;; ;; Set up autocomplete sources
+;; (require 'auto-complete-config)
+;; (ac-config-default)
 
-;; use tab for completion; don't start automatically
-(ac-set-trigger-key "TAB")
-(setq ac-auto-start nil)
+;; ;; use tab for completion; don't start automatically
+;; (ac-set-trigger-key "TAB")
+;; (setq ac-auto-start nil)
 
-;; use C-n and C-p to cycle through completion suggestions
-(define-key ac-mode-map (kbd "C-n") 'ac-next)
-(define-key ac-mode-map (kbd "C-p") 'ac-previous)
+;; ;; use C-n and C-p to cycle through completion suggestions
+;; (define-key ac-mode-map (kbd "C-n") 'ac-next)
+;; (define-key ac-mode-map (kbd "C-p") 'ac-previous)
 
-;; required or auto-complete bogs down when flyspell is active
-(ac-flyspell-workaround)
+;; ;; required or auto-complete bogs down when flyspell is active
+;; (ac-flyspell-workaround)
 
 ;; similar thing, for company mode
 ;; from https://github.com/company-mode/company-mode/issues/94
@@ -246,20 +248,34 @@
          (company-complete-common)))
      (setq company-idle-delay nil)
   ;; use C-n and C-p to cycle through completions
-  (define-key company-mode-map (kbd "C-n") 'company-select-next)
-  (define-key company-mode-map (kbd "<tab>") 'company-select-next)
-  (define-key company-mode-map (kbd "C-p") 'company-select-previous)))
+  (define-key company-active-map (kbd "C-n") 'company-select-next)
+  (define-key company-active-map (kbd "<tab>") 'company-select-next)
+  (define-key company-active-map (kbd "C-p") 'company-select-previous)
+  (setq company-backends '(company-nxml
+                           company-css
+                           company-eclim
+                           company-semantic
+                           company-clang
+                           company-xcode
+                           company-ropemacs
+                           company-cmake
+                           company-capf
+                           company-oddmuse
+                           company-files))
+    ;; set up tab-indent-or-complete
+  (setq company-idle-delay nil)
+  (define-key company-mode-map (kbd "<tab>") 'company-indent-for-tab-command)))
 
-;; set up tab-indent-or-complete for elpy (the only place we currently
-;; use company-mode
-(add-hook 'elpy-mode-hook
-          (lambda ()
-            (setq company-idle-delay nil)
-            (define-key company-mode-map (kbd "<tab>") 'company-indent-for-tab-command)))
 
-;; disable ac-mode in python-mode because elpy uses company instead
-;; workaround so auto-complete works with flyspell
-(setq ac-modes (remove 'python-mode ac-modes))
+;; ;; disable ac-mode in python-mode because elpy uses company instead
+;; ;; workaround so auto-complete works with flyspell
+;; (setq ac-modes (remove 'python-mode ac-modes))
+
+;; company-mode completions for ess
+(require 'company-ess)
+
+;; make sure company-mode is loaded
+(add-hook 'after-init-hook 'global-company-mode)
 
 ;;; Configure outline minor modes
 ;; Less crazy key bindings for outline-minor-mode
@@ -532,8 +548,8 @@
       (setq explicit-bash-args '("-c" "-t" "export EMACS=; stty echo; bash"))  
       (ansi-color-for-comint-mode-on)
       (require 'readline-complete)            
-      (add-to-list 'ac-modes 'shell-mode)
-      (add-hook 'shell-mode-hook 'ac-rlc-setup-sources))) 
+      (push 'company-readline company-backends)
+      (add-hook 'rlc-no-readline-hook (lambda () (company-mode -1)))))
 ;; extra completion for eshell
 (add-hook 'eshell-mode-hook
           '(lambda()
@@ -657,4 +673,3 @@
           (lambda ()
             (byte-recompile-file user-init-file nil 1 nil)
             (switch-to-buffer "*scratch*")))
-(put 'erase-buffer 'disabled nil)
