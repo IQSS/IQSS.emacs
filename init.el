@@ -213,69 +213,39 @@
               (funcall ,ido-cannot-complete-command)))))
     ad-do-it))
 
-;;; Auto-complete
-
-;; ;; Set up autocomplete sources
-;; (require 'auto-complete-config)
-;; (ac-config-default)
-
-;; ;; use tab for completion; don't start automatically
-;; (ac-set-trigger-key "TAB")
-;; (setq ac-auto-start nil)
-
-;; ;; use C-n and C-p to cycle through completion suggestions
-;; (define-key ac-mode-map (kbd "C-n") 'ac-next)
-;; (define-key ac-mode-map (kbd "C-p") 'ac-previous)
-
-;; ;; required or auto-complete bogs down when flyspell is active
-;; (ac-flyspell-workaround)
-
-;; similar thing, for company mode
+;;Use tab to initiate completion in company-mode (see the shell config section for more)
 ;; from https://github.com/company-mode/company-mode/issues/94
-(eval-after-load "company"
-  '(progn
-     (define-key company-mode-map [remap indent-for-tab-command]
-       'company-indent-for-tab-command)
-     (setq tab-always-indent 'complete)
-     (defvar completion-at-point-functions-saved nil)
-     (defun company-indent-for-tab-command (&optional arg)
-       (interactive "P")
-       (let ((completion-at-point-functions-saved completion-at-point-functions)
-             (completion-at-point-functions '(company-complete-common-wrapper)))
-         (indent-for-tab-command arg)))
-     (defun company-complete-common-wrapper ()
-       (let ((completion-at-point-functions completion-at-point-functions-saved))
-         (company-complete-common)))
-     (setq company-idle-delay nil)
-  ;; use C-n and C-p to cycle through completions
-  (define-key company-active-map (kbd "C-n") 'company-select-next)
-  (define-key company-active-map (kbd "<tab>") 'company-select-next)
-  (define-key company-active-map (kbd "C-p") 'company-select-previous)
-  (setq company-backends '(company-nxml
-                           company-css
-                           company-eclim
-                           company-semantic
-                           company-clang
-                           company-xcode
-                           company-ropemacs
-                           company-cmake
-                           company-capf
-                           company-oddmuse
-                           company-files))
-    ;; set up tab-indent-or-complete
-  (setq company-idle-delay nil)
-  (define-key company-mode-map (kbd "<tab>") 'company-indent-for-tab-command)))
+(require 'company)
+;; global company-mode options
+(setq company-idle-delay nil)
+;; use C-n and C-p to cycle through completions
+(define-key company-active-map (kbd "C-n") 'company-select-next)
+(define-key company-active-map (kbd "<tab>") 'company-select-next)
+(define-key company-active-map (kbd "C-p") 'company-select-previous)
 
+;; function to set up tab indent-or-complete for ESS and elpy modes
+(defun my-company-mode-setup ()
+  (company-mode 1)
+  (define-key company-mode-map [remap indent-for-tab-command]
+    'company-indent-for-tab-command)
+  (setq tab-always-indent 'complete)
+  (defvar completion-at-point-functions-saved nil)
+  (defun company-indent-for-tab-command (&optional arg)
+    (interactive "P")
+    (let ((completion-at-point-functions-saved completion-at-point-functions)
+          (completion-at-point-functions '(company-complete-common-wrapper)))
+      (indent-for-tab-command arg)))
+  (defun company-complete-common-wrapper ()
+    (let ((completion-at-point-functions completion-at-point-functions-saved))
+      (company-complete-common)))
+  (define-key company-mode-map (kbd "<tab>") 'company-indent-for-tab-command))
 
-;; ;; disable ac-mode in python-mode because elpy uses company instead
-;; ;; workaround so auto-complete works with flyspell
-;; (setq ac-modes (remove 'python-mode ac-modes))
+;; set up tab-indent-or-complete for elpy and ESS
+(add-hook 'elpy-mode-hook 'my-company-mode-setup)
 
 ;; company-mode completions for ess
 (require 'company-ess)
-
-;; make sure company-mode is loaded
-(add-hook 'after-init-hook 'global-company-mode)
+(add-hook 'ess-mode-hook 'my-company-mode-setup)
 
 ;;; Configure outline minor modes
 ;; Less crazy key bindings for outline-minor-mode
@@ -537,24 +507,29 @@
 
 (defun my-shell-mode-hook ()
   ;; add this hook as buffer local, so it runs once per window.
-  (add-hook 'window-configuration-change-hook 'comint-fix-window-size nil t))
+  (add-hook 'window-configuration-change-hook 'comint-fix-window-size nil t)
+  ;; auto-complete for shell-mode (linux only)
+  ;; Note: not working currently. Bah. Use eshell.
+  (if (eq system-type 'gnu/linux)
+  (progn
+    (setq explicit-shell-file-name "bash")
+    (setq explicit-bash-args '("-c" "-t" "export EMACS=; stty echo; bash"))  
+    (ansi-color-for-comint-mode-on)
+    (require 'readline-complete)            
+    (push 'company-readline company-backends)
+    (company-mode 1)
+    (define-key company-mode-map (kbd "<tab>") 'company-complete)
+    (add-hook 'rlc-no-readline-hook (lambda () (company-mode -1))))))
 
 (add-hook 'shell-mode-hook 'my-shell-mode-hook)
 
-;; auto-complete for shell-mode (linux only)
-(if (eq system-type 'gnu/linux)
-    (progn 
-      (setq explicit-shell-file-name "bash")
-      (setq explicit-bash-args '("-c" "-t" "export EMACS=; stty echo; bash"))  
-      (ansi-color-for-comint-mode-on)
-      (require 'readline-complete)            
-      (push 'company-readline company-backends)
-      (add-hook 'rlc-no-readline-hook (lambda () (company-mode -1)))))
 ;; extra completion for eshell
 (add-hook 'eshell-mode-hook
           '(lambda()
              (require 'pcmpl-args)
-             (require 'pcmpl-pip)))
+             (require 'pcmpl-pip)
+             (company-mode 1)
+             (define-key company-mode-map (kbd "<tab>") 'company-complete-common)))
 
 ;;; Misc. Conveniences
 
