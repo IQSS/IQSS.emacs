@@ -245,7 +245,11 @@
   (defun company-complete-common-wrapper ()
     (let ((completion-at-point-functions completion-at-point-functions-saved))
       (company-complete-common)))
-  (define-key company-mode-map (kbd "<tab>") 'company-indent-for-tab-command))
+  (define-key ess-mode-map (kbd "<tab>") 'company-indent-for-tab-command)
+  (define-key elpy-mode-map (kbd "<tab>") 'company-indent-for-tab-command)
+  (define-key inferior-ess-mode-map (kbd "<tab>") 'company-indent-for-tab-command)
+  (define-key inferior-python-mode-map (kbd "<tab>") 'company-indent-for-tab-command)
+  )
 
 ;; set up tab-indent-or-complete for elpy and ESS
 (add-hook 'elpy-mode-hook 'my-company-mode-setup)
