@@ -96,11 +96,16 @@
                         ;; `ispell-comments-and-strings'
                         (flyspell-prog-mode)))))
 
-(if (eq system-type 'gnu/linux)
-    (progn
-      (require 'persistent-soft)
-      (require 'unicode-fonts)
-      (unicode-fonts-setup)))
+;; unicode-fonts doesn't work well on emacs < 24.3
+(when (>= (string-to-number 
+             (concat 
+              (number-to-string emacs-major-version) 
+              "." 
+              (number-to-string emacs-minor-version)))
+            24.3)
+  (require 'persistent-soft)
+  (require 'unicode-fonts)
+  (unicode-fonts-setup))
 
 ;;; Completion hints for files and buffers buffers
 (setq ido-file-extensions-order '(".R" ".r" ".sh" ".tex" ".bib" ".org" 
@@ -215,19 +220,21 @@
 
 ;;Use tab to initiate completion in company-mode (see the shell config section for more)
 ;; from https://github.com/company-mode/company-mode/issues/94
-(require 'company)
-;; global company-mode options
-(setq company-idle-delay nil)
-;; use C-n and C-p to cycle through completions
-(define-key company-active-map (kbd "C-n") 'company-select-next)
-(define-key company-active-map (kbd "<tab>") 'company-select-next)
-(define-key company-active-map (kbd "C-p") 'company-select-previous)
+(eval-after-load "company"
+  '(progn
+     (setq company-idle-delay nil)
+     ;; use C-n and C-p to cycle through completions
+     (define-key company-mode-map (kbd "<tab>") 'company-complete)
+     (define-key company-active-map (kbd "C-n") 'company-select-next)
+     (define-key company-active-map (kbd "<tab>") 'company-select-next)
+     (define-key company-active-map (kbd "C-p") 'company-select-previous)))
 
 ;; function to set up tab indent-or-complete for ESS and elpy modes
 (defun my-company-mode-setup ()
   (company-mode 1)
   (define-key company-mode-map [remap indent-for-tab-command]
     'company-indent-for-tab-command)
+  (setq company-idle-delay nil)
   (setq tab-always-indent 'complete)
   (defvar completion-at-point-functions-saved nil)
   (defun company-indent-for-tab-command (&optional arg)
@@ -508,20 +515,18 @@
 (defun my-shell-mode-hook ()
   ;; add this hook as buffer local, so it runs once per window.
   (add-hook 'window-configuration-change-hook 'comint-fix-window-size nil t)
+  (company-mode 1))
   ;; auto-complete for shell-mode (linux only)
-  ;; Note: not working currently. Bah. Use eshell.
-  (if (eq system-type 'gnu/linux)
-  (progn
-    (setq explicit-shell-file-name "bash")
-    (setq explicit-bash-args '("-c" "-t" "export EMACS=; stty echo; bash"))  
-    (ansi-color-for-comint-mode-on)
-    (require 'readline-complete)            
-    (push 'company-readline company-backends)
-    (company-mode 1)
-    (define-key company-mode-map (kbd "<tab>") 'company-complete)
-    (add-hook 'rlc-no-readline-hook (lambda () (company-mode -1))))))
-
+(if (eq system-type 'gnu/linux)
+    (progn 
+      (setq explicit-shell-file-name "bash")
+      (setq explicit-bash-args '("-c" "-t" "export EMACS=; stty echo; bash"))  
+      (ansi-color-for-comint-mode-on)
+      (require 'readline-complete)
+      (push 'company-readline company-backends)
+      (add-hook 'rlc-no-readline-hook (lambda () (company-mode -1)))))
 (add-hook 'shell-mode-hook 'my-shell-mode-hook)
+
 
 ;; extra completion for eshell
 (add-hook 'eshell-mode-hook
