@@ -224,39 +224,27 @@
   '(progn
      (setq company-idle-delay nil)
      ;; use C-n and C-p to cycle through completions
-     (define-key company-mode-map (kbd "<tab>") 'company-complete)
+     ;; (define-key company-mode-map (kbd "<tab>") 'company-complete)
      (define-key company-active-map (kbd "C-n") 'company-select-next)
      (define-key company-active-map (kbd "<tab>") 'company-select-next)
-     (define-key company-active-map (kbd "C-p") 'company-select-previous)))
-
-;; function to set up tab indent-or-complete for ESS and elpy modes
-(defun my-company-mode-setup ()
-  (company-mode 1)
-  (define-key company-mode-map [remap indent-for-tab-command]
-    'company-indent-for-tab-command)
-  (setq company-idle-delay nil)
-  (setq tab-always-indent 'complete)
-  (defvar completion-at-point-functions-saved nil)
-  (defun company-indent-for-tab-command (&optional arg)
-    (interactive "P")
-    (let ((completion-at-point-functions-saved completion-at-point-functions)
-          (completion-at-point-functions '(company-complete-common-wrapper)))
-      (indent-for-tab-command arg)))
-  (defun company-complete-common-wrapper ()
-    (let ((completion-at-point-functions completion-at-point-functions-saved))
-      (company-complete-common)))
-  (define-key ess-mode-map (kbd "<tab>") 'company-indent-for-tab-command)
-  (define-key elpy-mode-map (kbd "<tab>") 'company-indent-for-tab-command)
-  (define-key inferior-ess-mode-map (kbd "<tab>") 'company-indent-for-tab-command)
-  (define-key inferior-python-mode-map (kbd "<tab>") 'company-indent-for-tab-command)
-  )
-
-;; set up tab-indent-or-complete for elpy and ESS
-(add-hook 'elpy-mode-hook 'my-company-mode-setup)
+     (define-key company-active-map (kbd "C-p") 'company-select-previous)
+     (define-key company-mode-map [remap indent-for-tab-command]
+       'company-indent-for-tab-command)
+     (setq tab-always-indent 'complete)
+     (defvar completion-at-point-functions-saved nil)
+     (defun company-indent-for-tab-command (&optional arg)
+       (interactive "P")
+       (let ((completion-at-point-functions-saved completion-at-point-functions)
+             (completion-at-point-functions '(company-complete-common-wrapper)))
+         (indent-for-tab-command arg)))
+     (defun company-complete-common-wrapper ()
+       (let ((completion-at-point-functions completion-at-point-functions-saved))
+         (company-complete-common)))))
 
 ;; company-mode completions for ess
 (require 'company-ess)
-(add-hook 'ess-mode-hook 'my-company-mode-setup)
+
+(add-hook 'after-init-hook 'global-company-mode)
 
 ;;; Configure outline minor modes
 ;; Less crazy key bindings for outline-minor-mode
@@ -317,6 +305,10 @@
 (setq ess-arg-function-offset-new-line 0)
 (setq ess-arg-function-offset nil)
 (setq ess-default-style 'DEFAULT)
+
+;; make company completions work in ess mode
+(define-key ess-mode-map [remap ess-indent-or-complete]
+       'company-indent-for-tab-command)
 
 ;; Python completion and code checking
 (setq elpy-modules '(elpy-module-company
@@ -518,8 +510,7 @@
 
 (defun my-shell-mode-hook ()
   ;; add this hook as buffer local, so it runs once per window.
-  (add-hook 'window-configuration-change-hook 'comint-fix-window-size nil t)
-  (company-mode 1))
+  (add-hook 'window-configuration-change-hook 'comint-fix-window-size nil t))
   ;; auto-complete for shell-mode (linux only)
 (if (eq system-type 'gnu/linux)
     (progn 
@@ -529,16 +520,21 @@
       (require 'readline-complete)
       (push 'company-readline company-backends)
       (add-hook 'rlc-no-readline-hook (lambda () (company-mode -1)))))
-(add-hook 'shell-mode-hook 'my-shell-mode-hook)
-
+(add-hook 'shell-mode-hook
+          '(lambda()
+             ;; make company completions work in ess mode
+             (define-key shell-mode-map [remap completion-at-point]
+               'company-complete-common)
+             ;; add this hook as buffer local, so it runs once per window.
+             (add-hook 'window-configuration-change-hook 'comint-fix-window-size nil t)))
 
 ;; extra completion for eshell
 (add-hook 'eshell-mode-hook
           '(lambda()
              (require 'pcmpl-args)
              (require 'pcmpl-pip)
-             (company-mode 1)
-             (define-key company-mode-map (kbd "<tab>") 'company-complete-common)))
+             (define-key eshell-mode-map [remap eshell-pcomplete]
+               'company-complete-common)))
 
 ;;; Misc. Conveniences
 
@@ -649,7 +645,7 @@
 ;; save settings made using the customize interface to a sparate file
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (unless (file-exists-p custom-file)
-  (write-region "" nil custom-file))
+  (write-region ";; Put user configuration here" nil custom-file))
 (load custom-file 'noerror)
 
 ;; byte-compile init file if needed
