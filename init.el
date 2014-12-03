@@ -159,10 +159,14 @@
 (global-set-key (kbd "M-y") 'kill-ring-ido)
 
 ;; show recently opened files
-(require 'recentf)
-(recentf-mode 1)
+(add-hook 'after-init-hook
+          '(lambda()
+             (global-company-mode 1)
+             (require 'recentf)
+             (setq recentf-max-menu-items 50)
+             (recentf-mode 1)))
+
 (setq ido-use-virtual-buffers 'auto)
-(setq recentf-max-menu-items 50)
 
 ;;; Completion hints for emacs functions
 ;; Horrible work-around to make smex work with emacs < 24.3:
