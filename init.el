@@ -539,13 +539,12 @@
              (require 'pcmpl-args)
              (require 'pcmpl-pip)
              (define-key eshell-mode-map [remap eshell-pcomplete]
-               'company-complete-common)))
-
-;; programs that don't work well in eshell and should be run in visual mode
-(add-to-list 'eshell-visual-commands "ssh")
-(add-to-list 'eshell-visual-commands "tail")
-(add-to-list 'eshell-visual-commands "htop")
-(setq eshell-visual-subcommands '(("git" "log" "diff" "show")))
+               'company-complete-common)
+             ;; programs that don't work well in eshell and should be run in visual mode
+             (add-to-list 'eshell-visual-commands "ssh")
+             (add-to-list 'eshell-visual-commands "tail")
+             (add-to-list 'eshell-visual-commands "htop")
+             (setq eshell-visual-subcommands '(("git" "log" "diff" "show")))))
 
 ;;; Misc. Conveniences
 
