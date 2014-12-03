@@ -209,6 +209,7 @@ Visual changes such as hiding the toolbar and scroll bar need to come first to a
                        outline-magic
                        smooth-scroll
                        company
+                       company-math
                        auctex
                        ess 
                        org-plus-contrib
@@ -441,6 +442,10 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
   (require 'company-ess)
 
   (add-hook 'after-init-hook 'global-company-mode)
+
+  ;; enable math completions
+  (add-to-list 'company-backends 'company-math-symbols-unicode)
+  (add-to-list 'company-backends 'company-math-symbols-latex)
 #+END_SRC
 
 *** Outline-magic

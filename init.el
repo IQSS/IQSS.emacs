@@ -43,6 +43,7 @@
                      outline-magic
                      smooth-scroll
                      company
+                     company-math
                      auctex
                      ess 
                      org-plus-contrib
@@ -245,6 +246,10 @@
 (require 'company-ess)
 
 (add-hook 'after-init-hook 'global-company-mode)
+
+;; enable math completions
+(add-to-list 'company-backends 'company-math-symbols-unicode)
+(add-to-list 'company-backends 'company-math-symbols-latex)
 
 ;;; Configure outline minor modes
 ;; Less crazy key bindings for outline-minor-mode
