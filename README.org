@@ -450,6 +450,10 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
   ;; enable math completions
   (add-to-list 'company-backends 'company-math-symbols-unicode)
   (add-to-list 'company-backends 'company-math-symbols-latex)
+
+  ;; disable dabbrev
+  (delete 'company-dabbrev company-backends)
+  (delete 'company-dabbrev-code company-backends)
 #+END_SRC
 
 *** Outline-magic

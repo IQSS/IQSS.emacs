@@ -255,6 +255,10 @@
 (add-to-list 'company-backends 'company-math-symbols-unicode)
 (add-to-list 'company-backends 'company-math-symbols-latex)
 
+;; disable dabbrev
+(delete 'company-dabbrev company-backends)
+(delete 'company-dabbrev-code company-backends)
+
 ;;; Configure outline minor modes
 ;; Less crazy key bindings for outline-minor-mode
 (setq outline-minor-mode-prefix "\C-c\C-o")
