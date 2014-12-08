@@ -245,6 +245,9 @@ Loading the theme should come as early as possible in the init sequence to avoid
   ;; finally a theme I can live with!
   (load-theme 'leuven t) 
   (setq org-fontify-whole-heading-line t)
+  (require 'powerline)
+  (powerline-default-theme)
+  (powerline-default-theme)
 #+END_SRC
 *** Add custom lisp director to load path
 We try to install most things using the package manager, but a few things need to be included in a custom lisp directory. Add it to the path so we can load from it easily.

@@ -71,6 +71,9 @@
 ;; finally a theme I can live with!
 (load-theme 'leuven t) 
 (setq org-fontify-whole-heading-line t)
+(require 'powerline)
+(powerline-default-theme)
+(powerline-default-theme)
 
 ;; add custom lisp directory to path
 (let ((default-directory (concat user-emacs-directory "lisp/")))
