@@ -196,6 +196,7 @@ Visual changes such as hiding the toolbar and scroll bar need to come first to a
 
   ;; Make a list of the packages you want
   (setq package-list '(leuven-theme
+                       powerline
                        persistent-soft
                        unicode-fonts
                        dired+
