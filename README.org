@@ -168,12 +168,11 @@ The emacs configuration in the sections below implements the [[#Requirements][Re
 #+END_SRC
 
 *** Visual tweaks
-Visual changes such as hiding the toolbar and scroll bar need to come first to avoid jarring transitions during startup.
+Visual changes such as hiding the toolbar need to come first to avoid jarring transitions during startup.
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
   ;; hide the toolbar
   (tool-bar-mode 0)
-  (scroll-bar-mode 0)
   ; (menu-bar-mode 0)
   (setq inhibit-splash-screen t)
   (setq inhibit-startup-message t)
