@@ -167,6 +167,19 @@ The emacs configuration in the sections below implements the [[#Requirements][Re
   ;; will eventually be resolved in cooperation with the RCE team.
 #+END_SRC
 
+*** version Check
+It is difficult to support multiple versions of emacs, so we will pick an arbitrary cutoff and throw an error if the version of emacs is "too old".
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (when (< (string-to-number 
+             (concat 
+              (number-to-string emacs-major-version) 
+              "." 
+              (number-to-string emacs-minor-version)))
+            24.2)
+    (error "Your version of emacs is very old and must be upgraded before you can use these packages"))
+#+END_SRC
+
 *** Visual tweaks
 Visual changes such as hiding the toolbar need to come first to avoid jarring transitions during startup.
 

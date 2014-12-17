@@ -10,6 +10,14 @@
 ;; emacs --no-site-file --no-site-lisp. This is a temporary requirement that
 ;; will eventually be resolved in cooperation with the RCE team.
 
+(when (< (string-to-number 
+           (concat 
+            (number-to-string emacs-major-version) 
+            "." 
+            (number-to-string emacs-minor-version)))
+          24.2)
+  (error "Your version of emacs is very old and must be upgraded before you can use these packages"))
+
 ;; hide the toolbar
 (tool-bar-mode 0)
 ; (menu-bar-mode 0)
