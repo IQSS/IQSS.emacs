@@ -192,6 +192,7 @@ Visual changes such as hiding the toolbar need to come first to avoid jarring tr
 #+END_SRC
 
 *** Install useful packages
+The main purpose of these emacs configuration files is to install and configure useful emacs packages. Here we carry out the installation.
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
 
@@ -315,6 +316,7 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
 #+END_SRC
 
 *** Minibuffer hints and completion
+There are several different systems for providing completion hints in emacs. The default pcomplete system shows completions on demand (usually bound to tab key) in an emacs buffer. Here we set up ido-mode, which instead shows these completions on-the-fly in the minibuffer. These completions are primarily used to show available files (e.g., with ~find-file~) and emacs functions (e.g., with ~execute-extended-command~). Completion for in-buffer text (e.g., methods in python-mode, or arguments in R-mode) are handled separately by [[*Auto-complete%20configuration][company-mode]].
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
   ;;; Completion hints for files and buffers buffers
@@ -435,6 +437,7 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
 #+END_SRC
 
 *** Auto-complete configuration
+Here we configure in-buffer text completion using the company-mode package. These completions are available on-demand using the TAB key.
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
   ;;Use tab to initiate completion in company-mode (see the shell config section for more)
@@ -475,6 +478,7 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
 #+END_SRC
 
 *** Outline-magic
+I encourage you to use [[*Note%20taking%20and%20outlining%20(Org-mode)][org-mode]] for note taking and outlining, but it can be convenient to treat arbitrary buffers as outlines. The outline-magic mode can help with that.
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
   ;;; Configure outline minor modes
