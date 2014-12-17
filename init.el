@@ -28,33 +28,35 @@
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
 ;; Make a list of the packages you want
-(setq package-list '(leuven-theme
-                     powerline
-                     persistent-soft
-                     unicode-fonts
-                     dired+
-                     mouse3
-                     ido
-                     ido-ubiquitous
-                     ido-vertical-mode
-                     noflet
-                     kill-ring-ido
-                     smex
-                     outline-magic
-                     smooth-scroll
-                     company
-                     company-math
-                     auctex
-                     ess 
-                     org-plus-contrib
-                     markdown-mode 
-                     polymode
-                     eval-in-repl
-                     elpy
-                     htmlize
-                     pcmpl-args
-                     pcmpl-pip
-                     readline-complete))
+(setq my-package-list '(;; gnu packages
+                        auctex
+                        ;; melpa packages
+                        leuven-theme
+                        powerline
+                        persistent-soft
+                        unicode-fonts
+                        dired+
+                        mouse3
+                        ido-ubiquitous
+                        ido-vertical-mode
+                        noflet
+                        kill-ring-ido
+                        smex
+                        outline-magic
+                        smooth-scroll
+                        company
+                        company-math
+                        ess
+                        markdown-mode
+                        polymode
+                        eval-in-repl
+                        elpy
+                        htmlize
+                        pcmpl-args
+                        pcmpl-pip
+                        readline-complete
+                        ;; org-mode packages
+                        org-plus-contrib))
 
 ;; Activate package autoloads
 (package-initialize)
@@ -64,7 +66,7 @@
   (package-refresh-contents))
 
 ;; Install packages in package-list if they are not already installed
-(dolist (package package-list)
+(dolist (package my-package-list)
   (when (not (package-installed-p package))
     (package-install package)))
 
