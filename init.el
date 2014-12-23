@@ -238,26 +238,26 @@
 
 ;;Use tab to initiate completion in company-mode (see the shell config section for more)
 ;; from https://github.com/company-mode/company-mode/issues/94
-(eval-after-load "company"
-  '(progn
-     (setq company-idle-delay nil)
-     ;; use C-n and C-p to cycle through completions
-     ;; (define-key company-mode-map (kbd "<tab>") 'company-complete)
-     (define-key company-active-map (kbd "C-n") 'company-select-next)
-     (define-key company-active-map (kbd "<tab>") 'company-select-next)
-     (define-key company-active-map (kbd "C-p") 'company-select-previous)
-     (define-key company-mode-map [remap indent-for-tab-command]
-       'company-indent-for-tab-command)
-     (setq tab-always-indent 'complete)
-     (defvar completion-at-point-functions-saved nil)
-     (defun company-indent-for-tab-command (&optional arg)
-       (interactive "P")
-       (let ((completion-at-point-functions-saved completion-at-point-functions)
-             (completion-at-point-functions '(company-complete-common-wrapper)))
-         (indent-for-tab-command arg)))
-     (defun company-complete-common-wrapper ()
-       (let ((completion-at-point-functions completion-at-point-functions-saved))
-         (company-complete-common)))))
+;; (eval-after-load "company"
+;;   '(progn
+;;      (setq company-idle-delay nil)
+;;      ;; use C-n and C-p to cycle through completions
+;;      ;; (define-key company-mode-map (kbd "<tab>") 'company-complete)
+;;      (define-key company-active-map (kbd "C-n") 'company-select-next)
+;;      (define-key company-active-map (kbd "<tab>") 'company-select-next)
+;;      (define-key company-active-map (kbd "C-p") 'company-select-previous)
+;;      (define-key company-mode-map [remap indent-for-tab-command]
+;;        'company-indent-for-tab-command)
+;;      (setq tab-always-indent 'complete)
+;;      (defvar completion-at-point-functions-saved nil)
+;;      (defun company-indent-for-tab-command (&optional arg)
+;;        (interactive "P")
+;;        (let ((completion-at-point-functions-saved completion-at-point-functions)
+;;              (completion-at-point-functions '(company-complete-common-wrapper)))
+;;          (indent-for-tab-command arg)))
+;;      (defun company-complete-common-wrapper ()
+;;        (let ((completion-at-point-functions completion-at-point-functions-saved))
+;;          (company-complete-common)))))
 
 ;; company-mode completions for ess
 (require 'company-ess)
@@ -333,8 +333,8 @@
 (setq ess-default-style 'DEFAULT)
 
 ;; make company completions work in ess mode
-(define-key ess-mode-map [remap ess-indent-or-complete]
-       'company-indent-for-tab-command)
+;;(define-key ess-mode-map [remap ess-indent-or-complete]
+;;       'company-indent-for-tab-command)
 
 ;; Python completion and code checking
 (setq elpy-modules '(elpy-module-company
@@ -549,8 +549,8 @@
 (add-hook 'shell-mode-hook
           '(lambda()
              ;; make company completions work in ess mode
-             (define-key shell-mode-map [remap completion-at-point]
-               'company-complete-common)
+            ;; (define-key shell-mode-map [remap completion-at-point]
+            ;;   'company-complete-common)
              ;; add this hook as buffer local, so it runs once per window.
              (add-hook 'window-configuration-change-hook 'comint-fix-window-size nil t)))
 
@@ -559,8 +559,8 @@
           '(lambda()
              (require 'pcmpl-args)
              (require 'pcmpl-pip)
-             (define-key eshell-mode-map [remap eshell-pcomplete]
-               'company-complete-common)
+             ;;(define-key eshell-mode-map [remap eshell-pcomplete]
+             ;;  'company-complete-common)
              ;; programs that don't work well in eshell and should be run in visual mode
              (add-to-list 'eshell-visual-commands "ssh")
              (add-to-list 'eshell-visual-commands "tail")
