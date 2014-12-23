@@ -667,8 +667,11 @@
 ;; Use CUA mode only for handy rectangle features
 (cua-selection-mode t)
 
-;; windmove is nice but hard to find free key-binding...
-(windmove-default-keybindings 'super)
+;; Make windmove work in org-mode:
+(add-hook 'org-shiftup-final-hook 'windmove-up)
+(add-hook 'org-shiftleft-final-hook 'windmove-left)
+(add-hook 'org-shiftdown-final-hook 'windmove-down)
+(add-hook 'org-shiftright-final-hook 'windmove-right)
 
 ;; The beeping can be annoying--turn it off
 (set-variable 'visible-bell t)
