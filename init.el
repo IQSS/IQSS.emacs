@@ -242,26 +242,24 @@
      ;; don't start automatically 
      (setq company-idle-delay nil)
      ;; complete using C-TAB
-     (global-set-key (kbd "<C-tab>") 'execute-extended-command)
+     (global-set-key (kbd "<C-tab>") 'company-complete)
      ;; use C-n and C-p to cycle through completions
      (define-key company-active-map (kbd "C-n") 'company-select-next)
      (define-key company-active-map (kbd "<tab>") 'company-select-next)
      (define-key company-active-map (kbd "C-p") 'company-select-previous)
      (define-key company-active-map (kbd "<backtab>") 'company-select-previous)
+     ;; enable math completions
+     (add-to-list 'company-backends 'company-math-symbols-unicode)
+     (add-to-list 'company-backends 'company-math-symbols-latex)
+     ;; ;; disable dabbrev
+     ;; (delete 'company-dabbrev company-backends)
+     ;; (delete 'company-dabbrev-code company-backends)
      ))
 
 ;; company-mode completions for ess
 (require 'company-ess)
 
 (add-hook 'after-init-hook 'global-company-mode)
-
-;; enable math completions
-(add-to-list 'company-backends 'company-math-symbols-unicode)
-(add-to-list 'company-backends 'company-math-symbols-latex)
-
-;; disable dabbrev
-(delete 'company-dabbrev company-backends)
-(delete 'company-dabbrev-code company-backends)
 
 ;;; Configure outline minor modes
 ;; Less crazy key bindings for outline-minor-mode
