@@ -241,15 +241,12 @@ The main purpose of these emacs configuration files is to install and configure 
   ;; Activate package autoloads
   (package-initialize)
 
-  ;; Fetch the list of packages available
-  (when (not package-archive-contents)
-    (package-refresh-contents))
-
   ;; Install packages in package-list if they are not already installed
-  (dolist (package my-package-list)
-    (when (not (package-installed-p package))
-      (package-install package)))
-
+  (unless (every #'package-installed-p my-package-list)
+    (package-refresh-contents)
+    (dolist (package my-package-list)
+      (when (not (package-installed-p package))
+        (package-install package))))
 #+END_SRC
 
 #+RESULTS:
