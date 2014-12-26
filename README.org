@@ -197,7 +197,7 @@ The main purpose of these emacs configuration files is to install and configure 
 #+BEGIN_SRC emacs-lisp :tangle init.el
 
   ;;; Install required packages
-
+  (require 'cl)
   ;; load the package manager
   (require 'package)
 

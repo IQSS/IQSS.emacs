@@ -25,7 +25,7 @@
 (setq inhibit-startup-message t)
 
 ;;; Install required packages
-
+(require 'cl)
 ;; load the package manager
 (require 'package)
 
@@ -71,10 +71,10 @@
 
 ;; Install packages in package-list if they are not already installed
 (unless (every #'package-installed-p my-package-list)
-  (package-refresh-contents)
-  (dolist (package my-package-list)
-    (when (not (package-installed-p package))
-      (package-install package))))
+ (package-refresh-contents)
+ (dolist (package my-package-list)
+   (when (not (package-installed-p package))
+     (package-install package))))
 
 ;; finally a theme I can live with!
 (load-theme 'leuven t) 
