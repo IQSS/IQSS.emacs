@@ -96,14 +96,14 @@
   (erase-buffer)
   (delete-other-windows)
   (insert 
-   "Your emacs has been configured for maximum productivity. 
-For best results please restart emacs now.
+   ";; Your emacs has been configured for maximum productivity. 
+  ;; For best results please restart emacs now.
 
-More information about this emacs configuration be found
-at http://github.com/izahn/dotemacs. If you have any problems
-or have a feature request please open a bug report at
-http://github.com/izahn/dotemacs/issues
-"
+  ;; More information about this emacs configuration be found
+  ;; at http://github.com/izahn/dotemacs. If you have any problems
+  ;; or have a feature request please open a bug report at
+  ;; http://github.com/izahn/dotemacs/issues
+  "
    ))
 
 ;; finally a theme I can live with!
