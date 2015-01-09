@@ -195,7 +195,7 @@ Visual changes such as hiding the toolbar need to come first to avoid jarring tr
 The main purpose of these emacs configuration files is to install and configure useful emacs packages. Here we carry out the installation.
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
-    ;;; Install required packages
+  ;;; Install required packages
   (require 'cl)
 
   ;; load site-start early so we can override it later
@@ -268,13 +268,13 @@ The main purpose of these emacs configuration files is to install and configure 
     (delete-other-windows)
     (insert 
      ";; Your emacs has been configured for maximum productivity. 
-    ;; For best results please restart emacs now.
+  ;; For best results please restart emacs now.
 
-    ;; More information about this emacs configuration be found
-    ;; at http://github.com/izahn/dotemacs. If you have any problems
-    ;; or have a feature request please open a bug report at
-    ;; http://github.com/izahn/dotemacs/issues
-    "
+  ;; More information about this emacs configuration be found
+  ;; at http://github.com/izahn/dotemacs. If you have any problems
+  ;; or have a feature request please open a bug report at
+  ;; http://github.com/izahn/dotemacs/issues
+  "
      ))
 #+END_SRC
 
