@@ -69,6 +69,10 @@
 ;; Activate package autoloads
 (package-initialize)
 
+;; make sure stale packages don't get loaded
+(dolist (package my-package-list)
+  (if (featurep package)
+      (unload-feature package t)))
 ;; Install packages in package-list if they are not already installed
 (unless (every #'package-installed-p my-package-list)
   (switch-to-buffer "*scratch*")
@@ -79,9 +83,6 @@
   (redisplay t)
   (redisplay t)
   (package-refresh-contents)
-  (dolist (package my-package-list)
-    (if (featurep package)
-        (unload-feature package t)))
   (dolist (package my-package-list)
     (when (not (package-installed-p package))
       (package-install package)))
