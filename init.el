@@ -25,6 +25,12 @@
 (setq inhibit-startup-message t)
 
 ;;; Install required packages
+(require 'cl)
+
+;; load site-start early so we can override it later
+(load "default" t t)
+;; prevent site-start from running again later
+(setq inhibit-default-init t)
 
 ;; load the package manager
 (require 'package)
@@ -69,12 +75,36 @@
 ;; Activate package autoloads
 (package-initialize)
 
+;; make sure stale packages don't get loaded
+(dolist (package my-package-list)
+  (if (featurep package)
+      (unload-feature package t)))
 ;; Install packages in package-list if they are not already installed
 (unless (every #'package-installed-p my-package-list)
+  (switch-to-buffer "*scratch*")
+  (erase-buffer)
+  (setq my-this-buffer (buffer-name))
+  (delete-other-windows)
+  (insert "Please wait while emacs configures itself...")
+  (redisplay t)
+  (redisplay t)
   (package-refresh-contents)
   (dolist (package my-package-list)
     (when (not (package-installed-p package))
-      (package-install package))))
+      (package-install package)))
+  (switch-to-buffer "*scratch*")
+  (erase-buffer)
+  (delete-other-windows)
+  (insert 
+   ";; Your emacs has been configured for maximum productivity. 
+;; For best results please restart emacs now.
+
+;; More information about this emacs configuration be found
+;; at http://github.com/izahn/dotemacs. If you have any problems
+;; or have a feature request please open a bug report at
+;; http://github.com/izahn/dotemacs/issues
+"
+   ))
 
 ;; finally a theme I can live with!
 (load-theme 'leuven t) 
@@ -242,6 +272,7 @@
      ;; complete using C-TAB
      (global-set-key (kbd "<C-tab>") 'company-complete)
      ;; use C-n and C-p to cycle through completions
+     ;; (define-key company-mode-map (kbd "<tab>") 'company-complete)
      (define-key company-active-map (kbd "C-n") 'company-select-next)
      (define-key company-active-map (kbd "<tab>") 'company-select-next)
      (define-key company-active-map (kbd "C-p") 'company-select-previous)
@@ -258,6 +289,10 @@
 (require 'company-ess)
 
 (add-hook 'after-init-hook 'global-company-mode)
+
+;; enable math completions
+(add-to-list 'company-backends 'company-math-symbols-unicode)
+(add-to-list 'company-backends 'company-math-symbols-latex)
 
 ;;; Configure outline minor modes
 ;; Less crazy key bindings for outline-minor-mode
@@ -665,3 +700,8 @@
           (lambda ()
             (byte-recompile-file user-init-file nil 1 nil)
             (switch-to-buffer "*scratch*")))
+
+;; cleanup
+(switch-to-buffer "*scratch*")
+(delete-other-windows)
+(redisplay t)
