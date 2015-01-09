@@ -71,12 +71,32 @@
 
 ;; Install packages in package-list if they are not already installed
 (unless (every #'package-installed-p my-package-list)
+  (switch-to-buffer "*scratch*")
+  (erase-buffer)
+  (setq my-this-buffer (buffer-name))
+  (delete-other-windows)
+  (insert "Please wait while emacs configures itself...")
+  (redisplay t)
+  (redisplay t)
   (package-refresh-contents)
   (dolist (package my-package-list)
     (if (featurep package)
         (unload-feature package t))
     (when (not (package-installed-p package))
-      (package-install package))))
+      (package-install package)))
+  (switch-to-buffer "*scratch*")
+  (erase-buffer)
+  (delete-other-windows)
+  (insert 
+   "Your emacs has been configured for maximum productivity. 
+For best results please restart emacs now.
+
+More information about this emacs configuration be found
+at http://github.com/izahn/dotemacs. If you have any problems
+or have a feature request please open a bug report at
+http://github.com/izahn/dotemacs/issues
+"
+   ))
 
 ;; finally a theme I can live with!
 (load-theme 'leuven t) 
@@ -687,3 +707,8 @@
           (lambda ()
             (byte-recompile-file user-init-file nil 1 nil)
             (switch-to-buffer "*scratch*")))
+
+;; cleanup
+(switch-to-buffer "*scratch*")
+(delete-other-windows)
+(redisplay t)
