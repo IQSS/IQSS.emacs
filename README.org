@@ -245,6 +245,8 @@ The main purpose of these emacs configuration files is to install and configure 
   (unless (every #'package-installed-p my-package-list)
     (package-refresh-contents)
     (dolist (package my-package-list)
+      (if (featurep package)
+          (unload-feature package t))
       (when (not (package-installed-p package))
         (package-install package))))
 #+END_SRC

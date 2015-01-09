@@ -71,10 +71,12 @@
 
 ;; Install packages in package-list if they are not already installed
 (unless (every #'package-installed-p my-package-list)
- (package-refresh-contents)
- (dolist (package my-package-list)
-   (when (not (package-installed-p package))
-     (package-install package))))
+  (package-refresh-contents)
+  (dolist (package my-package-list)
+    (if (featurep package)
+        (unload-feature package t))
+    (when (not (package-installed-p package))
+      (package-install package))))
 
 ;; finally a theme I can live with!
 (load-theme 'leuven t) 
