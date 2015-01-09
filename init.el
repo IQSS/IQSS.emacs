@@ -26,6 +26,12 @@
 
 ;;; Install required packages
 (require 'cl)
+
+;; load site-start early so we can override it later
+(load "default" t t)
+;; prevent site-start from running again later
+(setq inhibit-default-init t)
+
 ;; load the package manager
 (require 'package)
 
