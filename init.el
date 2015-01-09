@@ -158,6 +158,7 @@
 ;; load ido 
 (require 'ido)
 (setq ido-auto-merge-work-directories-length -1) ;; disable auto-merge
+(setq ido-use-virtual-buffers t) ;; show recent files in buffer menu
 (ido-mode 1)
 (ido-everywhere 1)
 (setq ido-enable-flex-matching t)
@@ -165,25 +166,26 @@
 ;; use ido everywhere you can
 (require 'ido-ubiquitous)
 (ido-ubiquitous-mode 1)
-  
+
 ;; present ido suggestions vertically
 (require 'ido-vertical-mode)
 (ido-vertical-mode 1)
 
 ;; set nice ido decorations
 (setq ido-decorations '("
- ➔ " "" "
-    " "
-    ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]" "
- -> " ""))
+➔ " "" "
+      " "
+      ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]" "
+   -> " ""))
 
 ;; don't use ido for dired
 (setq ido-read-file-name-non-ido '(dired))
 
- ;; color directories blue, firstmatch bold etc.
+;; color directories blue, firstmatch bold etc.
 (set-face-attribute 'ido-first-match nil
                     :weight 'bold 
-                    :height '1.125)
+                    :height '1.125
+                    :foreground "red")
 (set-face-attribute 'ido-only-match nil
                     :weight 'bold 
                     :height '1.125
@@ -209,7 +211,16 @@
 
 (setq ido-use-virtual-buffers 'auto)
 
-;;; Completion hints for emacs functions
+(defun ido-recentf-open ()
+  "Use `ido-completing-read' to find a recent file."
+  (interactive)
+  (if (find-file (ido-completing-read "Find recent file: " recentf-list))
+      (message "Opening file...")
+    (message "Aborting")))
+
+(global-set-key (kbd "C-x C-r") 'ido-recentf-open)
+
+  ;;; Completion hints for emacs functions
 ;; Horrible work-around to make smex work with emacs < 24.3:
 ;; remove this part when emacs is updated.
 ;; Check if Smex is supported
