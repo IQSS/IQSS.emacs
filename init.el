@@ -172,11 +172,7 @@
 (ido-vertical-mode 1)
 
 ;; set nice ido decorations
-(setq ido-decorations '("
-➔ " "" "
-      " "
-      ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]" "
-   -> " ""))
+(setq ido-decorations '("\n➔ " "" "\n " "\n ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]" "\n➔ " ""))
 
 ;; don't use ido for dired
 (setq ido-read-file-name-non-ido '(dired))
@@ -199,6 +195,8 @@
 
 ;; use ido for kill-ring
 (require 'kill-ring-ido)
+(setq kill-ring-ido-shortage-length 20)
+
 (global-set-key (kbd "M-y") 'kill-ring-ido)
 
 ;; show recently opened files

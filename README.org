@@ -15,8 +15,27 @@ This is a drop-in replacement for your .emacs.d. It automatically installs and c
 6) Clone this repository into =~/.emacs.d= by opening a terminal and running =git clone http://github.com/izahn/dotemacs ~/.emacs.d=.
 
 If you don't know how to use git, you can skip step 6 and simply [[https://github.com/izahn/dotemacs/archive/master.zip][download the files as a zip archive]], extract them, and move them into your .emacs.d directory.
+
 ** First run
 Note that after installing this configuration emacs will be extremely slow to start up the first time. This is due to a one-time scan of the fonts installed on your computer. Just be patient and wait for it to finish--subsequent start-ups will be much faster.
+
+** Modified key bindings
+This package adds a few new or modified key bindings to emacs, as described below.
+
+*** Completion keys
+- C-TAB :: Mapped to =company-complete=, use for pop-up completion menu.
+- M-y :: Remapped to =kill-ring-ido= to browse the kill ring interactively.
+- C-x C-r :: Mapped to =ido-recentf-open= to select recent files in the minibuffer.
+- M-x :: Remapped to =smex= to interactively search for interactive functions. Use =M-X= to restrict to commands for the active major mode.
+
+*** Other key bindings
+- C-up :: Mapped to =scroll-down-1=.
+- C-down :: Mapped to =scroll-up-1=.
+- C-c C-c :: Mapped to functions that execute code in several major modes, including shell mode, python mode, ielm mode, lisp-interaction mode, and ess mode.
+- M-Q :: Mapped to =unfill-paragraph=, use to remove line breaks from a paragraph.
+- C-c C-o t :: Mapped to =outline-cycle=, use to hide/show when outline-minor-mode is active (outline-minor mode is enabled in programming modes and in LaTeX-mode).
+- M-q :: Remapped to =bibtex-fill-entry= (bibtex mode only).
+
 
 ** Suggested external programs
   :PROPERTIES:
@@ -369,11 +388,7 @@ There are several different systems for providing completion hints in emacs. The
   (ido-vertical-mode 1)
 
   ;; set nice ido decorations
-  (setq ido-decorations '("
-  ➔ " "" "
-        " "
-        ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]" "
-     -> " ""))
+  (setq ido-decorations '("\n➔ " "" "\n " "\n ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]" "\n➔ " ""))
 
   ;; don't use ido for dired
   (setq ido-read-file-name-non-ido '(dired))
@@ -396,6 +411,8 @@ There are several different systems for providing completion hints in emacs. The
 
   ;; use ido for kill-ring
   (require 'kill-ring-ido)
+  (setq kill-ring-ido-shortage-length 20)
+
   (global-set-key (kbd "M-y") 'kill-ring-ido)
 
   ;; show recently opened files
