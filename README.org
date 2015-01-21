@@ -29,6 +29,7 @@ This package adds a few new or modified key bindings to emacs, as described belo
 - M-x :: Remapped to =smex= to interactively search for interactive functions. Use =M-X= to restrict to commands for the active major mode.
 
 *** Other key bindings
+- E :: Open in external application (dired mode only)
 - C-up :: Mapped to =scroll-down-1=.
 - C-down :: Mapped to =scroll-up-1=.
 - C-c C-c :: Mapped to functions that execute code in several major modes, including shell mode, python mode, ielm mode, lisp-interaction mode, and ess mode.
@@ -822,6 +823,43 @@ Load eval-in-repl for bash, elisp, and python interaction.
   (add-hook 'dired-mode-hook
             '(lambda()
                (setq truncate-lines 1)))
+
+  ;; open files in external programs
+  ;; (from http://ergoemacs.org/emacs/emacs_dired_open_file_in_ext_apps.html
+  (defun xah-open-in-external-app (&optional file)
+    "Open the current file or dired marked files in external app.
+
+  The app is chosen from your OS's preference."
+    (interactive)
+    (let (doIt
+          (myFileList
+           (cond
+            ((string-equal major-mode "dired-mode")
+             (dired-get-marked-files))
+            ((not file) (list (buffer-file-name)))
+            (file (list file)))))
+      (setq doIt (if (<= (length myFileList) 5)
+                     t
+                   (y-or-n-p "Open more than 5 files? "))) 
+      (when doIt
+        (cond
+         ((string-equal system-type "windows-nt")
+          (mapc
+           (lambda (fPath)
+             (w32-shell-execute "open" (replace-regexp-in-string "/" "\\" fPath t t)))
+           myFileList))
+         ((string-equal system-type "darwin")
+          (mapc
+           (lambda (fPath)
+             (shell-command (format "open \"%s\"" fPath)))
+           myFileList))
+         ((string-equal system-type "gnu/linux")
+          (mapc
+           (lambda (fPath)
+             (let ((process-connection-type nil))
+               (start-process "" nil "xdg-open" fPath))) myFileList))))))
+  ;; open files from dired with "E"
+  (define-key dired-mode-map (kbd "E") 'xah-open-in-external-app)
 #+END_SRC
 
 **** Shell modes (shell and eshell)
