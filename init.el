@@ -581,6 +581,10 @@ The app is chosen from your OS's preference."
              (start-process "" nil "xdg-open" fPath))) myFileList))))))
 ;; open files from dired with "E"
 (define-key dired-mode-map (kbd "E") 'xah-open-in-external-app)
+;; use zip/unzip to compress/uncompress zip archives
+(eval-after-load "dired-aux"
+ '(add-to-list 'dired-compress-file-suffixes 
+               '("\\.zip\\'" "" "unzip")))
 
 ;; shell
 (require 'essh) ; if not done elsewhere; essh is in the local lisp folder

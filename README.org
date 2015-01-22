@@ -860,6 +860,11 @@ Load eval-in-repl for bash, elisp, and python interaction.
                (start-process "" nil "xdg-open" fPath))) myFileList))))))
   ;; open files from dired with "E"
   (define-key dired-mode-map (kbd "E") 'xah-open-in-external-app)
+  ;; use zip/unzip to compress/uncompress zip archives
+  (eval-after-load "dired-aux"
+   '(add-to-list 'dired-compress-file-suffixes 
+                 '("\\.zip\\'" "" "unzip")))
+
 #+END_SRC
 
 **** Shell modes (shell and eshell)
