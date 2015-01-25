@@ -296,6 +296,7 @@
 
 ;; company-mode completions for ess
 (require 'company-ess)
+(add-to-list 'company-backends '(company-ess-backend company-capf company-files company-math-symbols-unicode company-dabbrev))
 
 (add-hook 'after-init-hook 'global-company-mode)
 
