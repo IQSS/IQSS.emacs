@@ -287,6 +287,9 @@
      (define-key company-active-map (kbd "C-p") 'company-select-previous)
      (define-key company-active-map (kbd "<backtab>") 'company-select-previous)
      ;; enable math completions
+     (require 'company-math)
+     ;; company-mode completions for ess
+     (require 'company-ess)
      (add-to-list 'company-backends 'company-math-symbols-unicode)
      (add-to-list 'company-backends 'company-math-symbols-latex)
      ;; ;; disable dabbrev
@@ -294,15 +297,7 @@
      ;; (delete 'company-dabbrev-code company-backends)
      ))
 
-;; company-mode completions for ess
-(require 'company-ess)
-(add-to-list 'company-backends '(company-ess-backend company-capf company-files company-math-symbols-unicode company-dabbrev))
-
 (add-hook 'after-init-hook 'global-company-mode)
-
-;; enable math completions
-(add-to-list 'company-backends 'company-math-symbols-unicode)
-(add-to-list 'company-backends 'company-math-symbols-latex)
 
 ;;; Configure outline minor modes
 ;; Less crazy key bindings for outline-minor-mode
@@ -355,7 +350,22 @@
 ;; truncate long lines in R source files
 (add-hook 'ess-mode-hook
           '(lambda()
-             (setq truncate-lines 1)))
+             ;; don't wrap long lines
+             (setq truncate-lines 1)
+             ;; put company-capf at the front of the completion sources list
+             (set (make-local-variable 'company-backends)
+                  (cons 'company-capf company-backends))
+             (delete-dups company-backends)
+             ))
+
+(add-hook 'R-mode-hook
+          '(lambda()
+             ;; make sure completion calls company-ess first
+             (require 'company-ess)
+             (set (make-local-variable 'company-backends)
+                  (cons 'company-ess-backend company-backends))
+             (delete-dups company-backends)
+             ))
 
 ;; try to get sane indentation
 (setq ess-first-continued-statement-offset 2)
@@ -613,9 +623,16 @@ The app is chosen from your OS's preference."
       (setq explicit-shell-file-name "bash")
       (setq explicit-bash-args '("-c" "-t" "export EMACS=; stty echo; bash"))  
       (ansi-color-for-comint-mode-on)
-      (require 'readline-complete)
-      (push 'company-readline company-backends)
+      (add-hook 'shell-mode-hook
+          '(lambda()
+             ;; make sure completion calls company-readline first
+             (require 'readline-complete)
+             (set (make-local-variable 'company-backends)
+                  (cons 'company-readline company-backends))
+             (delete-dups company-backends)
+             ))
       (add-hook 'rlc-no-readline-hook (lambda () (company-mode -1)))))
+
 (add-hook 'shell-mode-hook
           '(lambda()
              ;; add this hook as buffer local, so it runs once per window.
