@@ -69,6 +69,7 @@
                         pcmpl-args
                         pcmpl-pip
                         readline-complete
+                        magit
                         ;; org-mode packages
                         org-plus-contrib))
 
