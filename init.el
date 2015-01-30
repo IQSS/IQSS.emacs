@@ -343,6 +343,9 @@
 ;; Make sure ESS is loaded
 (require 'ess-site)
 
+;; disable ehoing input
+(setq ess-eval-visibly nil)
+
 ;; extra ESS stuff inspired by https://github.com/gaborcsardi/dot-emacs/blob/master/.emacs
 (ess-toggle-underscore nil)
 (defun my-ess-post-run-hook ()
@@ -393,12 +396,12 @@
                      elpy-module-sane-defaults))
 (elpy-enable)
 
-;; use eval-in-repl to eval visibly in elpy buffers
+;; make sure completions don't start automatically
 (add-hook 'elpy-mode-hook
-          '(lambda ()
-             (require 'eval-in-repl-python)
-             (define-key elpy-mode-map "\C-c\C-c" 'eir-eval-in-python)
-             (setq company-idle-delay nil)))
+           '(lambda ()
+;;              (require 'eval-in-repl-python)
+;;              (define-key elpy-mode-map "\C-c\C-c" 'eir-eval-in-python)
+              (setq company-idle-delay nil)))
 
 ;; ielm
 (require 'eval-in-repl-ielm)
