@@ -395,6 +395,11 @@
                      elpy-module-highlight-indentation
                      elpy-module-sane-defaults))
 (elpy-enable)
+;; use ipython if available
+(add-hook 'after-init-hook
+          '(lambda ()
+             (if (executable-find "ipython")
+                 (elpy-use-ipython))))
 
 ;; make sure completions don't start automatically
 (add-hook 'elpy-mode-hook
