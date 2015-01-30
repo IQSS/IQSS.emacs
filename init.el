@@ -312,6 +312,15 @@
 (add-hook 'LaTeX-mode-hook 'outline-minor-mode t)
 (add-hook 'prog-mode-hook 'outline-minor-mode t)
 
+(add-hook 'prog-mode-hook
+          '(lambda()
+             ;; make sure completion calls company-capf first
+             (require 'company-capf)
+             (set (make-local-variable 'company-backends)
+                  (cons 'company-capf company-backends))
+             (delete-dups company-backends)
+             ))
+
 ;; require the main file containing common functions
 (require 'eval-in-repl)
 (setq comint-process-echoes t)
@@ -399,6 +408,16 @@
 (define-key lisp-interaction-mode-map "\C-c\C-c" 'eir-eval-in-ielm)
 ;; For M-x info
 (define-key Info-mode-map "\C-c\C-c" 'eir-eval-in-ielm)
+
+;; Set up completions
+(add-hook 'emacs-lisp-mode-hook
+          '(lambda()
+             ;; make sure completion calls company-elisp first
+             (require 'company-elisp)
+             (set (make-local-variable 'company-backends)
+                  (cons 'company-elisp company-backends))
+             (delete-dups company-backends)
+             ))
 
 ;;; markdown mode
 

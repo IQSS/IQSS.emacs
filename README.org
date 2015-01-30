@@ -545,6 +545,19 @@ I encourage you to use [[*Note%20taking%20and%20outlining%20(Org-mode)][org-mode
 
 *** Major modes configuration
 
+**** Programming mode
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (add-hook 'prog-mode-hook
+            '(lambda()
+               ;; make sure completion calls company-capf first
+               (require 'company-capf)
+               (set (make-local-variable 'company-backends)
+                    (cons 'company-capf company-backends))
+               (delete-dups company-backends)
+               ))
+#+END_SRC
+
+
 **** General repl (read-eval-print-loop) config
 Load eval-in-repl for bash, elisp, and python interaction.
 #+BEGIN_SRC emacs-lisp :tangle init.el
@@ -650,6 +663,15 @@ Load eval-in-repl for bash, elisp, and python interaction.
   ;; For M-x info
   (define-key Info-mode-map "\C-c\C-c" 'eir-eval-in-ielm)
 
+  ;; Set up completions
+  (add-hook 'emacs-lisp-mode-hook
+            '(lambda()
+               ;; make sure completion calls company-elisp first
+               (require 'company-elisp)
+               (set (make-local-variable 'company-backends)
+                    (cons 'company-elisp company-backends))
+               (delete-dups company-backends)
+               ))
 #+END_SRC
 
 **** Light-weight markup language (Markdown mode)
