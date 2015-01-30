@@ -377,12 +377,12 @@
              (delete-dups company-backends)
              ))
 
-;; try to get sane indentation
-(setq ess-first-continued-statement-offset 2)
-(setq ess-continued-statement-offset 0)
-(setq ess-arg-function-offset-new-line 0)
-(setq ess-arg-function-offset nil)
-(setq ess-default-style 'DEFAULT)
+;; ;; try to get sane indentation
+;; (setq ess-first-continued-statement-offset 2)
+;; (setq ess-continued-statement-offset 0)
+;; (setq ess-arg-function-offset-new-line 0)
+;; (setq ess-arg-function-offset nil)
+;; (setq ess-default-style 'DEFAULT)
 
 ;; Python completion and code checking
 (setq elpy-modules '(elpy-module-company
