@@ -312,6 +312,11 @@ Loading the theme should come as early as possible in the init sequence to avoid
   (require 'powerline)
   (powerline-default-theme)
   (powerline-default-theme)
+  ;; theme overrides
+  (set-face-attribute 'org-meta-line nil
+                      :background "#EAEAFF"
+                      :foreground "#008ED1"
+                      :height 0.8)
 #+END_SRC
 *** Add custom lisp director to load path
 We try to install most things using the package manager, but a few things need to be included in a custom lisp directory. Add it to the path so we can load from it easily.

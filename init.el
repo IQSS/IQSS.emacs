@@ -113,6 +113,11 @@
 (require 'powerline)
 (powerline-default-theme)
 (powerline-default-theme)
+;; theme overrides
+(set-face-attribute 'org-meta-line nil
+                    :background "#EAEAFF"
+                    :foreground "#008ED1"
+                    :height 0.8)
 
 ;; add custom lisp directory to path
 (let ((default-directory (concat user-emacs-directory "lisp/")))
