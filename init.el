@@ -45,6 +45,8 @@
 (setq my-package-list '(;; gnu packages
                         auctex
                         ;; melpa packages
+                        async
+                        paradox
                         leuven-theme
                         powerline
                         persistent-soft
@@ -75,6 +77,7 @@
 
 ;; Activate package autoloads
 (package-initialize)
+(setq paradox-execute-asynchronously t)
 
 ;; make sure stale packages don't get loaded
 (dolist (package my-package-list)
@@ -536,6 +539,8 @@
 
 ;;; Dired and Dired+ configuration
 
+;; show details by default
+(setq diredp-hide-details-initially-flag nil)
 ;; load dired+ and mouse3
 (require 'dired+)
 (require 'mouse3)

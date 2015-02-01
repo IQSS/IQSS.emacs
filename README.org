@@ -237,6 +237,8 @@ The main purpose of these emacs configuration files is to install and configure 
   (setq my-package-list '(;; gnu packages
                           auctex
                           ;; melpa packages
+                          async
+                          paradox
                           leuven-theme
                           powerline
                           persistent-soft
@@ -267,6 +269,7 @@ The main purpose of these emacs configuration files is to install and configure 
 
   ;; Activate package autoloads
   (package-initialize)
+  (setq paradox-execute-asynchronously t)
 
   ;; make sure stale packages don't get loaded
   (dolist (package my-package-list)
@@ -817,7 +820,9 @@ Load eval-in-repl for bash, elisp, and python interaction.
 **** File browsing (Dired+)
 #+BEGIN_SRC emacs-lisp :tangle init.el
   ;;; Dired and Dired+ configuration
-
+  
+  ;; show details by default
+  (setq diredp-hide-details-initially-flag nil)
   ;; load dired+ and mouse3
   (require 'dired+)
   (require 'mouse3)
