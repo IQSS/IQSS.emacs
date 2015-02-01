@@ -46,7 +46,7 @@
                         auctex
                         ;; melpa packages
                         async
-                        paradox
+                        ;; paradox
                         leuven-theme
                         powerline
                         persistent-soft
@@ -66,6 +66,7 @@
                         markdown-mode
                         polymode
                         eval-in-repl
+                        pyvenv
                         elpy
                         htmlize
                         pcmpl-args
@@ -110,13 +111,13 @@
    ))
 
 ;; use paradox for better package management
-(require 'paradox)
+;; (require 'paradox)
 ;; install/upgrade asynchronously
-(setq paradox-execute-asynchronously t)
+;; (setq paradox-execute-asynchronously t)
 ;; don't ask to configure github
-(setq paradox-github-token t)
+;; (setq paradox-github-token t)
 ;; upgrade packages
-(paradox-upgrade-packages)
+;; (paradox-upgrade-packages)
 
 ;; finally a theme I can live with!
 (load-theme 'leuven t) 

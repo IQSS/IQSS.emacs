@@ -238,7 +238,7 @@ The main purpose of these emacs configuration files is to install and configure 
                           auctex
                           ;; melpa packages
                           async
-                          paradox
+                          ;; paradox
                           leuven-theme
                           powerline
                           persistent-soft
@@ -258,6 +258,7 @@ The main purpose of these emacs configuration files is to install and configure 
                           markdown-mode
                           polymode
                           eval-in-repl
+                          pyvenv
                           elpy
                           htmlize
                           pcmpl-args
@@ -300,15 +301,16 @@ The main purpose of these emacs configuration files is to install and configure 
   ;; http://github.com/izahn/dotemacs/issues
   "
      ))
-  
+
   ;; use paradox for better package management
-  (require 'paradox)
+  ;; (require 'paradox)
   ;; install/upgrade asynchronously
-  (setq paradox-execute-asynchronously t)
+  ;; (setq paradox-execute-asynchronously t)
   ;; don't ask to configure github
-  (setq paradox-github-token t)
+  ;; (setq paradox-github-token t)
   ;; upgrade packages
-  (paradox-upgrade-packages)
+  ;; (paradox-upgrade-packages)
+
 #+END_SRC
 
 #+RESULTS:
