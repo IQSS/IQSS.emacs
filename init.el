@@ -56,7 +56,7 @@
                         ido-ubiquitous
                         ido-vertical-mode
                         noflet
-                        kill-ring-ido
+                        ;;kill-ring-ido
                         smex
                         outline-magic
                         smooth-scroll
@@ -206,10 +206,10 @@
 (setq ido-vertical-define-keys (quote C-n-C-p-up-down-left-right))
 
 ;; use ido for kill-ring
-(require 'kill-ring-ido)
-(setq kill-ring-ido-shortage-length 20)
+;;(require 'kill-ring-ido)
+;;(setq kill-ring-ido-shortage-length 20)
 
-(global-set-key (kbd "M-y") 'kill-ring-ido)
+;;(global-set-key (kbd "M-y") 'kill-ring-ido)
 
 ;; show recently opened files
 (add-hook 'after-init-hook
