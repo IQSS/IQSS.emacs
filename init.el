@@ -77,7 +77,6 @@
 
 ;; Activate package autoloads
 (package-initialize)
-(setq paradox-execute-asynchronously t)
 
 ;; make sure stale packages don't get loaded
 (dolist (package my-package-list)
@@ -109,6 +108,15 @@
 ;; http://github.com/izahn/dotemacs/issues
 "
    ))
+
+;; use paradox for better package management
+(require 'paradox)
+;; install/upgrade asynchronously
+(setq paradox-execute-asynchronously t)
+;; don't ask to configure github
+(setq paradox-github-token t)
+;; upgrade packages
+(paradox-upgrade-packages)
 
 ;; finally a theme I can live with!
 (load-theme 'leuven t) 
