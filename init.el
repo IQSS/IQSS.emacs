@@ -45,8 +45,9 @@
 (setq my-package-list '(;; gnu packages
                         auctex
                         ;; melpa packages
-                        async
-                        ;; paradox
+                        howdoi
+                        google-this
+                        paradox
                         leuven-theme
                         powerline
                         persistent-soft
@@ -56,7 +57,7 @@
                         ido-ubiquitous
                         ido-vertical-mode
                         noflet
-                        ;;kill-ring-ido
+                        popup-kill-ring
                         smex
                         outline-magic
                         smooth-scroll
@@ -111,13 +112,11 @@
    ))
 
 ;; use paradox for better package management
-;; (require 'paradox)
-;; install/upgrade asynchronously
-;; (setq paradox-execute-asynchronously t)
+(require 'paradox)
+;; do not install/upgrade asynchronously
+(setq paradox-execute-asynchronously nil)
 ;; don't ask to configure github
-;; (setq paradox-github-token t)
-;; upgrade packages
-;; (paradox-upgrade-packages)
+(setq paradox-github-token t)
 
 ;; finally a theme I can live with!
 (load-theme 'leuven t) 
@@ -311,6 +310,13 @@
      ))
 
 (add-hook 'after-init-hook 'global-company-mode)
+
+;; completion for kill ring history
+(require 'popup)
+(require 'pos-tip)
+(require 'popup-kill-ring)
+
+(global-set-key "\M-y" 'popup-kill-ring)
 
 ;;; Configure outline minor modes
 ;; Less crazy key bindings for outline-minor-mode
@@ -692,6 +698,11 @@ The app is chosen from your OS's preference."
              (setq eshell-visual-subcommands '(("git" "log" "diff" "show")))))
 
 ;;; Misc. Conveniences
+
+;; get help from the web
+(require 'google-this)
+(google-this-mode 1)
+(require 'howdoi)
 
 ;; window arrangement history
 (setq winner-dont-bind-my-keys t) 

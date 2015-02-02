@@ -237,8 +237,9 @@ The main purpose of these emacs configuration files is to install and configure 
   (setq my-package-list '(;; gnu packages
                           auctex
                           ;; melpa packages
-                          async
-                          ;; paradox
+                          howdoi
+                          google-this
+                          paradox
                           leuven-theme
                           powerline
                           persistent-soft
@@ -248,7 +249,7 @@ The main purpose of these emacs configuration files is to install and configure 
                           ido-ubiquitous
                           ido-vertical-mode
                           noflet
-                          ;;kill-ring-ido
+                          popup-kill-ring
                           smex
                           outline-magic
                           smooth-scroll
@@ -303,13 +304,11 @@ The main purpose of these emacs configuration files is to install and configure 
      ))
 
   ;; use paradox for better package management
-  ;; (require 'paradox)
-  ;; install/upgrade asynchronously
-  ;; (setq paradox-execute-asynchronously t)
+  (require 'paradox)
+  ;; do not install/upgrade asynchronously
+  (setq paradox-execute-asynchronously nil)
   ;; don't ask to configure github
-  ;; (setq paradox-github-token t)
-  ;; upgrade packages
-  ;; (paradox-upgrade-packages)
+  (setq paradox-github-token t)
 
 #+END_SRC
 
@@ -535,6 +534,13 @@ Here we configure in-buffer text completion using the company-mode package. Thes
        ))
 
   (add-hook 'after-init-hook 'global-company-mode)
+
+  ;; completion for kill ring history
+  (require 'popup)
+  (require 'pos-tip)
+  (require 'popup-kill-ring)
+
+  (global-set-key "\M-y" 'popup-kill-ring)
 
 #+END_SRC
 
@@ -988,6 +994,11 @@ Load eval-in-repl for bash, elisp, and python interaction.
 #+BEGIN_SRC emacs-lisp :tangle init.el
 
   ;;; Misc. Conveniences
+
+  ;; get help from the web
+  (require 'google-this)
+  (google-this-mode 1)
+  (require 'howdoi)
 
   ;; window arrangement history
   (setq winner-dont-bind-my-keys t) 
