@@ -311,7 +311,7 @@
      ;; company-mode completions for ess
      (require 'company-ess)
      (add-to-list 'company-backends 'company-math-symbols-unicode)
-     (add-to-list 'company-backends 'company-math-symbols-latex)
+     ;(add-to-list 'company-backends 'company-math-symbols-latex)
      ;; put company-capf at the beginning of the list
      (require 'company-capf)
      (setq company-backends
@@ -482,7 +482,17 @@
              (TeX-PDF-mode t)
              (LaTeX-math-mode)
              (imenu-add-to-menubar "Index")
-;; Allow paragraph filling in tables
+             ;; completion
+             (setq-local company-backends
+                         (delete-dups (cons 'company-files
+                                            company-backends)))
+             (setq-local company-backends
+                         (delete-dups (cons 'company-math-symbols-unicode
+                                            company-backends)))
+             (setq-local company-backends
+                         (delete-dups (cons '(company-math-symbols-latex company-latex-commands)
+                                            company-backends)))
+             ;; Allow paragraph filling in tables
              (setq LaTeX-indent-environment-list
                    (delq (assoc "table" LaTeX-indent-environment-list)
                          LaTeX-indent-environment-list))
