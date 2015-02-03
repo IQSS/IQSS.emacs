@@ -56,7 +56,7 @@
                         mouse3
                         ido-ubiquitous
                         ido-vertical-mode
-                        noflet
+                        ;; noflet
                         popup-kill-ring
                         smex
                         outline-magic
