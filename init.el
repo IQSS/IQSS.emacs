@@ -298,6 +298,8 @@
   '(progn
      ;; don't start automatically 
      (setq company-idle-delay nil)
+     ;; cancel if input doesn't match
+     (setq company-require-match nil)
      ;; complete using C-TAB
      (global-set-key (kbd "<C-tab>") 'company-complete)
      ;; use C-n and C-p to cycle through completions
