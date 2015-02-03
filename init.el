@@ -720,7 +720,7 @@ The app is chosen from your OS's preference."
 (require 'howdoi)
 
 ;; window arrangement history
-(setq winner-dont-bind-my-keys t) 
+;; (setq winner-dont-bind-my-keys t) 
 (winner-mode 1)
 
 ;;; set up unicode
@@ -816,6 +816,10 @@ The app is chosen from your OS's preference."
 
 ;; Use CUA mode only for handy rectangle features
 (cua-selection-mode t)
+
+;; use windmove
+(when (fboundp 'windmove-default-keybindings)
+  (windmove-default-keybindings))
 
 ;; Make windmove work in org-mode:
 (add-hook 'org-shiftup-final-hook 'windmove-up)

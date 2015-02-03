@@ -1017,7 +1017,7 @@ Load eval-in-repl for bash, elisp, and python interaction.
   (require 'howdoi)
 
   ;; window arrangement history
-  (setq winner-dont-bind-my-keys t) 
+  ;; (setq winner-dont-bind-my-keys t) 
   (winner-mode 1)
 
   ;;; set up unicode
@@ -1113,6 +1113,10 @@ Load eval-in-repl for bash, elisp, and python interaction.
 
   ;; Use CUA mode only for handy rectangle features
   (cua-selection-mode t)
+
+  ;; use windmove
+  (when (fboundp 'windmove-default-keybindings)
+    (windmove-default-keybindings))
 
   ;; Make windmove work in org-mode:
   (add-hook 'org-shiftup-final-hook 'windmove-up)
