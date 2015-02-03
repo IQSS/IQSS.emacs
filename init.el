@@ -304,6 +304,10 @@
      (require 'company-ess)
      (add-to-list 'company-backends 'company-math-symbols-unicode)
      (add-to-list 'company-backends 'company-math-symbols-latex)
+     ;; put company-capf at the beginning of the list
+     (require 'company-capf)
+     (setq company-backends
+          (delete-dups (cons 'company-capf company-backends)))
      ;; theme
      (set-face-attribute 'company-scrollbar-bg nil
                          :background "gray")
