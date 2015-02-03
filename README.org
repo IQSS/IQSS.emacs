@@ -324,6 +324,7 @@ Loading the theme should come as early as possible in the init sequence to avoid
   (require 'powerline)
   (powerline-default-theme)
   (powerline-default-theme)
+  
 #+END_SRC
 *** Add custom lisp director to load path
 We try to install most things using the package manager, but a few things need to be included in a custom lisp directory. Add it to the path so we can load from it easily.
@@ -509,7 +510,7 @@ There are several different systems for providing completion hints in emacs. The
 Here we configure in-buffer text completion using the company-mode package. These completions are available on-demand using the =C-TAB= or =M-x company-complete=.
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
-  ;;Use tab to C-TAB to complete
+  ;;Use C-TAB to complete
   (eval-after-load "company"
     '(progn
        ;; don't start automatically 
@@ -528,6 +529,17 @@ Here we configure in-buffer text completion using the company-mode package. Thes
        (require 'company-ess)
        (add-to-list 'company-backends 'company-math-symbols-unicode)
        (add-to-list 'company-backends 'company-math-symbols-latex)
+       ;; theme
+       (set-face-attribute 'company-scrollbar-bg nil
+                           :background "gray")
+       (set-face-attribute 'company-scrollbar-fg nil
+                           :background "black")
+       (set-face-attribute 'company-tooltip nil
+                           :foreground "black"
+                           :background "lightgray")
+       (set-face-attribute 'company-tooltip-selection nil
+                           :foreground "white"
+                           :background "steelblue")
        ;; ;; disable dabbrev
        ;; (delete 'company-dabbrev company-backends)
        ;; (delete 'company-dabbrev-code company-backends)

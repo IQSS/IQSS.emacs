@@ -285,7 +285,7 @@
               (funcall ,ido-cannot-complete-command)))))
     ad-do-it))
 
-;;Use tab to C-TAB to complete
+;;Use C-TAB to complete
 (eval-after-load "company"
   '(progn
      ;; don't start automatically 
@@ -304,6 +304,17 @@
      (require 'company-ess)
      (add-to-list 'company-backends 'company-math-symbols-unicode)
      (add-to-list 'company-backends 'company-math-symbols-latex)
+     ;; theme
+     (set-face-attribute 'company-scrollbar-bg nil
+                         :background "gray")
+     (set-face-attribute 'company-scrollbar-fg nil
+                         :background "black")
+     (set-face-attribute 'company-tooltip nil
+                         :foreground "black"
+                         :background "lightgray")
+     (set-face-attribute 'company-tooltip-selection nil
+                         :foreground "white"
+                         :background "steelblue")
      ;; ;; disable dabbrev
      ;; (delete 'company-dabbrev company-backends)
      ;; (delete 'company-dabbrev-code company-backends)
