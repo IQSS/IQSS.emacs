@@ -63,6 +63,7 @@
                         smooth-scroll
                         company
                         company-math
+                        company-auctex
                         ess
                         markdown-mode
                         polymode
@@ -310,9 +311,9 @@
      (define-key company-active-map (kbd "<backtab>") 'company-select-previous)
      ;; enable math completions
      (require 'company-math)
+     (add-to-list 'company-backends 'company-math-symbols-unicode)
      ;; company-mode completions for ess
      (require 'company-ess)
-     (add-to-list 'company-backends 'company-math-symbols-unicode)
      ;(add-to-list 'company-backends 'company-math-symbols-latex)
      ;; put company-capf at the beginning of the list
      (require 'company-capf)
@@ -485,15 +486,12 @@
              (LaTeX-math-mode)
              (imenu-add-to-menubar "Index")
              ;; completion
+             (require 'company-auctex)
              (setq-local company-backends
-                         (delete-dups (cons 'company-files
-                                            company-backends)))
-             (setq-local company-backends
-                         (delete-dups (cons 'company-math-symbols-unicode
-                                            company-backends)))
-             (setq-local company-backends
-                         (delete-dups (cons '(company-math-symbols-latex company-latex-commands)
-                                            company-backends)))
+                         (delete-dups (cons '(company-auctex-macros company-auctex-symbols company-auctex-environments)
+                                            (cons 'company-auctex-bibs
+                                                  (cons 'company-auctex-labels
+                                                        company-backends)))))
              ;; Allow paragraph filling in tables
              (setq LaTeX-indent-environment-list
                    (delq (assoc "table" LaTeX-indent-environment-list)
