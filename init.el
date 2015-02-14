@@ -765,9 +765,10 @@ The app is chosen from your OS's preference."
 (setq-default indent-tabs-mode nil)
 
 ;; Make sure copy-and-paste works with other programs
-(setq x-select-enable-clipboard t
-      x-select-enable-primary t
-      save-interprogram-paste-before-kill t)
+;; (not needed in recent emacs?)
+;; (setq x-select-enable-clipboard t
+;;       x-select-enable-primary t
+;;       save-interprogram-paste-before-kill t)
 
 ;; Text pasted with mouse should be inserted at cursor position
 (setq mouse-yank-at-point t)
