@@ -27,6 +27,10 @@
 ;;; Install required packages
 (require 'cl)
 
+;; set things that need to be set before packages load
+; Less crazy key bindings for outline-minor-mode
+(setq outline-minor-mode-prefix "\C-c\C-o")
+
 ;; load site-start early so we can override it later
 (load "default" t t)
 ;; prevent site-start from running again later
