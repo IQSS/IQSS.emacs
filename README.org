@@ -54,7 +54,7 @@ While emacs alone is very powerful, one of it's most important strengths is its 
 - LaTeX :: http://miktex.org/download
 - git :: http://git-scm.com/download/win
 - Pandoc :: https://github.com/jgm/pandoc/releases
-- GhostScript :: http://www.ghostscript.com/download/gsdnld.html
+- GhostScript :: http://www.ghostscript.com/download/gsdnld.html (Make sure to *install the 32 bit version*!)
 
 **** OSX
 - Emacs :: http://vgoulet.act.ulaval.ca/en/emacs/
@@ -95,7 +95,7 @@ It is often convenient to tell git /not/ to track some types of files (e.g., tem
 Pandoc is a program for converting markup files from one markup language to another. Documentation and examples are available on the [[http://johnmacfarlane.net/pandoc/][pandoc website]].
 
 **** GhostScript
-GhostScript is a program for working the postscript and pdf files. While it can be used on its own it is included in this list only because it makes printing from emacs easier, especially on Windows. No configuration should be required.
+GhostScript is a program for working the postscript and pdf files. While it can be used on its own it is included in this list only because it makes printing from emacs easier, especially on Windows. No configuration should be required. Note that *on windows you need the 32 bit version*, the 64 bit version will not work. Windows users will also need to add it to their PATH (see [[http://www.computerhope.com/issues/ch000549.htm]] for instructions).
 
 * Discussion and implementation
 
@@ -368,6 +368,13 @@ We try to install most things using the package manager, but a few things need t
                         (lambda ()
                           ;; `ispell-comments-and-strings'
                           (flyspell-prog-mode)))))
+  ;; ispell should not check code blocks
+  (add-to-list 'ispell-skip-region-alist '(":\\(PROPERTIES\\|LOGBOOK\\):" . ":END:"))
+  (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_SRC" . "#\\+END_SRC"))
+  (add-to-list 'ispell-skip-region-alist '("#\\+begin_src" . "#\\+end_src"))
+  (add-to-list 'ispell-skip-region-alist '("^#\\+begin_example ". "#\\+end_example$"))
+  (add-to-list 'ispell-skip-region-alist '("^#\\+BEGIN_EXAMPLE ". "#\\+END_EXAMPLE$"))
+  (add-to-list 'ispell-skip-region-alist '("^```\\{". "```"))
 #+END_SRC
 
 *** Fonts

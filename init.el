@@ -161,6 +161,13 @@
                       (lambda ()
                         ;; `ispell-comments-and-strings'
                         (flyspell-prog-mode)))))
+;; ispell should not check code blocks
+(add-to-list 'ispell-skip-region-alist '(":\\(PROPERTIES\\|LOGBOOK\\):" . ":END:"))
+(add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_SRC" . "#\\+END_SRC"))
+(add-to-list 'ispell-skip-region-alist '("#\\+begin_src" . "#\\+end_src"))
+(add-to-list 'ispell-skip-region-alist '("^#\\+begin_example ". "#\\+end_example$"))
+(add-to-list 'ispell-skip-region-alist '("^#\\+BEGIN_EXAMPLE ". "#\\+END_EXAMPLE$"))
+(add-to-list 'ispell-skip-region-alist '("^```\\{". "```"))
 
 ;; unicode-fonts doesn't work well on emacs < 24.3
 (when (>= (string-to-number 
