@@ -169,6 +169,18 @@
   (require 'unicode-fonts)
   (unicode-fonts-setup))
 
+(when (eq system-type 'gnu/linux)
+  (setq hfyview-quick-print-in-files-menu t)
+  (require 'hfyview)
+  (setq mygtklp (executable-find "gtklp"))
+  (when mygtklp
+    (setq lpr-command "gtklp")
+    (setq ps-lpr-command "gtklp")))
+
+(when (eq system-type 'darwin)
+  (setq hfyview-quick-print-in-files-menu t)
+  (require 'hfyview))
+
 ;;; Completion hints for files and buffers buffers
 (setq ido-file-extensions-order '(".R" ".r" ".sh" ".tex" ".bib" ".org" 
                                   ".py" ".emacs" ".xml" "org.el" ".pdf"

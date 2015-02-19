@@ -383,6 +383,24 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
 
 #+END_SRC
 
+*** Printing
+If you're using [[http://vgoulet.act.ulaval.ca/en/emacs/windows/][Vincent Goulet's emacs]] on Windows printing should work out of the box. If you're on Linux or Mac the experience of printing from emacs may leave something to be desired. Here we try to make it work a little better by making it easier to preview buffers in a web browser (you can print from there as usual) and by using [[http://sourceforge.net/projects/gtklp/][gtklp]] on Linux if it is available.
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+
+  (when (eq system-type 'gnu/linux)
+    (setq hfyview-quick-print-in-files-menu t)
+    (require 'hfyview)
+    (setq mygtklp (executable-find "gtklp"))
+    (when mygtklp
+      (setq lpr-command "gtklp")
+      (setq ps-lpr-command "gtklp")))
+
+  (when (eq system-type 'darwin)
+    (setq hfyview-quick-print-in-files-menu t)
+    (require 'hfyview))
+#+END_SRC
+
 *** Minibuffer hints and completion
 There are several different systems for providing completion hints in emacs. The default pcomplete system shows completions on demand (usually bound to tab key) in an emacs buffer. Here we set up ido-mode, which instead shows these completions on-the-fly in the minibuffer. These completions are primarily used to show available files (e.g., with ~find-file~) and emacs functions (e.g., with ~execute-extended-command~). Completion for in-buffer text (e.g., methods in python-mode, or arguments in R-mode) are handled separately by [[*Auto-complete%20configuration][company-mode]].
 
