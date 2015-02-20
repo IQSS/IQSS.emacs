@@ -521,6 +521,7 @@
              (turn-on-reftex)
              (TeX-PDF-mode t)
              (LaTeX-math-mode)
+             (TeX-source-correlate-mode t)
              (imenu-add-to-menubar "Index")
              ;; completion
              (setq-local company-backends
