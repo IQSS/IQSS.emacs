@@ -528,10 +528,7 @@
                          (delete-dups (cons 'company-files
                                             company-backends)))
              (setq-local company-backends
-                         (delete-dups (cons 'company-math-symbols-unicode
-                                            company-backends)))
-             (setq-local company-backends
-                         (delete-dups (cons '(company-math-symbols-latex company-latex-commands)
+                         (delete-dups (cons '(company-math-symbols-latex company-latex-commands company-math-symbols-unicode)
                                             company-backends)))
              ;; Allow paragraph filling in tables
              (setq LaTeX-indent-environment-list
