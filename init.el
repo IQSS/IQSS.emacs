@@ -244,7 +244,7 @@
 
 ;; show recently opened files
 (add-hook 'after-init-hook
-          '(lambda()
+          (lambda()
              (global-company-mode 1)
              (require 'recentf)
              (setq recentf-max-menu-items 50)
@@ -309,7 +309,7 @@
 ;; (from http://www.emacswiki.org/Smex#toc6)
 (defadvice smex (around space-inserts-hyphen activate compile)
   (let ((ido-cannot-complete-command 
-         `(lambda ()
+         (lambda ()
             (interactive)
             (if (string= " " (this-command-keys))
                 (insert ?-)
@@ -374,18 +374,17 @@
           (lambda () 
             (require 'outline-magic)
             (define-key outline-minor-mode-map "\C-c\C-o\t" 'outline-cycle)))
-;; turn on for some modes:
-(add-hook 'LaTeX-mode-hook 'outline-minor-mode t)
-(add-hook 'prog-mode-hook 'outline-minor-mode t)
 
 (add-hook 'prog-mode-hook
-          '(lambda()
+          (lambda()
+            ;; turn on outline minor mode:
+            (add-hook 'prog-mode-hook 'outline-minor-mode)
              ;; make sure completion calls company-capf first
-             (require 'company-capf)
-             (set (make-local-variable 'company-backends)
-                  (cons 'company-capf company-backends))
-             (delete-dups company-backends)
-             ))
+            (require 'company-capf)
+            (set (make-local-variable 'company-backends)
+                 (cons 'company-capf company-backends))
+            (delete-dups company-backends)
+            ))
 
 ;; require the main file containing common functions
 (require 'eval-in-repl)
@@ -393,7 +392,7 @@
 
 ;; truncate lines in comint buffers
 (add-hook 'comint-mode-hook
-          '(lambda()
+          (lambda()
             (setq truncate-lines 1)))
 
 ;;;  ESS (Emacs Speaks Statistics)
@@ -417,7 +416,7 @@
 (defun my-ess-post-run-hook ()
   ;; reset output width when window is re-sized
   (add-hook 'inferior-ess-mode-hook
-            '(lambda()
+            (lambda()
                (defun my-ess-execute-screen-options (foo)
                  (ess-execute-screen-options))
                (add-to-list
@@ -428,7 +427,7 @@
 
 ;; truncate long lines in R source files
 (add-hook 'ess-mode-hook
-          '(lambda()
+          (lambda()
              ;; don't wrap long lines
              (setq truncate-lines 1)
              ;; put company-capf at the front of the completion sources list
@@ -438,7 +437,7 @@
              ))
 
 (add-hook 'R-mode-hook
-          '(lambda()
+          (lambda()
              ;; make sure completion calls company-ess first
              (require 'company-ess)
              (set (make-local-variable 'company-backends)
@@ -478,13 +477,13 @@
 (elpy-enable)
 ;; use ipython if available
 (add-hook 'after-init-hook
-          '(lambda ()
+          (lambda ()
              (if (executable-find "ipython")
                  (elpy-use-ipython))))
 
 ;; make sure completions don't start automatically
 (add-hook 'elpy-mode-hook
-           '(lambda ()
+           (lambda ()
 ;;              (require 'eval-in-repl-python)
 ;;              (define-key elpy-mode-map "\C-c\C-c" 'eir-eval-in-python)
               (setq company-idle-delay nil)))
@@ -500,7 +499,7 @@
 
 ;; Set up completions
 (add-hook 'emacs-lisp-mode-hook
-          '(lambda()
+          (lambda()
              ;; make sure completion calls company-elisp first
              (require 'company-elisp)
              (set (make-local-variable 'company-backends)
@@ -517,12 +516,13 @@
 ;;; AucTeX config
 ;; turn on math mode and and index to imenu
 (add-hook 'LaTeX-mode-hook 
-          '(lambda ()
+          (lambda ()
              (turn-on-reftex)
              (TeX-PDF-mode t)
              (LaTeX-math-mode)
              (TeX-source-correlate-mode t)
              (imenu-add-to-menubar "Index")
+             (outline-minor-mode)
              ;; completion
              (setq-local company-backends
                          (delete-dups (cons 'company-files
@@ -553,7 +553,7 @@
 (setq reftex-use-multiple-selection-buffers t)
 (setq reftex-plug-into-AUCTeX t)
 (add-hook 'bibtex-mode-hook
-          '(lambda ()
+          (lambda ()
              (define-key bibtex-mode-map "\M-q" 'bibtex-fill-entry)))
 
 (require 'org)
@@ -675,7 +675,7 @@
         (rename-buffer (concat name "/") t))))
 (add-hook 'dired-mode-hook 'ensure-buffer-name-ends-in-slash)
 (add-hook 'dired-mode-hook
-          '(lambda()
+          (lambda()
              (setq truncate-lines 1)))
 
 ;; open files in external programs
@@ -723,7 +723,7 @@ The app is chosen from your OS's preference."
 (require 'essh) ; if not done elsewhere; essh is in the local lisp folder
 (require 'eval-in-repl-shell)
 (add-hook 'sh-mode-hook
-          '(lambda()
+          (lambda()
              (local-set-key "\C-c\C-c" 'eir-eval-in-shell)))
 
 
@@ -746,7 +746,7 @@ The app is chosen from your OS's preference."
       (setq explicit-bash-args '("-c" "-t" "export EMACS=; stty echo; bash"))  
       (ansi-color-for-comint-mode-on)
       (add-hook 'shell-mode-hook
-          '(lambda()
+          (lambda()
              ;; make sure completion calls company-readline first
              (require 'readline-complete)
              (set (make-local-variable 'company-backends)
@@ -756,13 +756,13 @@ The app is chosen from your OS's preference."
       (add-hook 'rlc-no-readline-hook (lambda () (company-mode -1)))))
 
 (add-hook 'shell-mode-hook
-          '(lambda()
+          (lambda()
              ;; add this hook as buffer local, so it runs once per window.
              (add-hook 'window-configuration-change-hook 'comint-fix-window-size nil t)))
 
 ;; extra completion for eshell
 (add-hook 'eshell-mode-hook
-          '(lambda()
+          (lambda()
              (require 'pcmpl-args)
              (require 'pcmpl-pip)
              ;; programs that don't work well in eshell and should be run in visual mode
@@ -792,7 +792,7 @@ The app is chosen from your OS's preference."
 
 ;; start the server if not already started
 (add-hook 'after-init-hook
-                  '(lambda ()
+                  (lambda ()
                      (load "server")
                      (unless (server-running-p) (server-start))))
 
@@ -868,7 +868,7 @@ The app is chosen from your OS's preference."
 (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
 (add-hook 'text-mode-hook 'visual-line-mode 1)
 (add-hook 'prog-mode-hook
-          '(lambda()
+          (lambda()
               (setq truncate-lines 1)))
 
 ;; don't require two spaces for sentence end.
