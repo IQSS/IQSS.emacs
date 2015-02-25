@@ -1,6 +1,8 @@
 #+AUTHOR:  Ista Zahn
 #+TITLE: Requirements for a sane emacs config for social scientists
 
+#+PROPERTY: header-args:emacs-lisp    :tangle init.el
+
 * Quick start
 
 ** What is this?
@@ -174,7 +176,7 @@ The emacs configuration in the sections below implements the [[#Requirements][Re
 
 *** Preamble
 
-#+BEGIN_SRC emacs-lisp :tangle init.el
+#+BEGIN_SRC emacs-lisp
   ;;; COMMENTARY
 
   ;; This emacs configuration file sets some convenient defaults and activates 
@@ -190,7 +192,7 @@ The emacs configuration in the sections below implements the [[#Requirements][Re
 *** version Check
 It is difficult to support multiple versions of emacs, so we will pick an arbitrary cutoff and throw an error if the version of emacs is "too old".
 
-#+BEGIN_SRC emacs-lisp :tangle init.el
+#+BEGIN_SRC emacs-lisp
   (when (< (string-to-number 
              (concat 
               (number-to-string emacs-major-version) 
@@ -203,7 +205,7 @@ It is difficult to support multiple versions of emacs, so we will pick an arbitr
 *** Visual tweaks
 Visual changes such as hiding the toolbar need to come first to avoid jarring transitions during startup.
 
-#+BEGIN_SRC emacs-lisp :tangle init.el
+#+BEGIN_SRC emacs-lisp
   ;; hide the toolbar
   (tool-bar-mode 0)
   ; (menu-bar-mode 0)
@@ -214,7 +216,7 @@ Visual changes such as hiding the toolbar need to come first to avoid jarring tr
 *** Install useful packages
 The main purpose of these emacs configuration files is to install and configure useful emacs packages. Here we carry out the installation.
 
-#+BEGIN_SRC emacs-lisp :tangle init.el
+#+BEGIN_SRC emacs-lisp
 
   ;;; Install required packages
   (require 'cl)
@@ -329,7 +331,7 @@ The main purpose of these emacs configuration files is to install and configure 
 *** Load theme
 Loading the theme should come as early as possible in the init sequence to avoid jarring visual changes during startup, but must come after loading packages because we use a custom theme that needs to be installed first.
 
-#+BEGIN_SRC emacs-lisp :tangle init.el
+#+BEGIN_SRC emacs-lisp
   ;; finally a theme I can live with!
   (load-theme 'leuven t) 
   (setq org-fontify-whole-heading-line t)
@@ -340,7 +342,7 @@ Loading the theme should come as early as possible in the init sequence to avoid
 #+END_SRC
 *** Add custom lisp director to load path
 We try to install most things using the package manager, but a few things need to be included in a custom lisp directory. Add it to the path so we can load from it easily.
-#+BEGIN_SRC emacs-lisp :tangle init.el
+#+BEGIN_SRC emacs-lisp
   ;; add custom lisp directory to path
   (let ((default-directory (concat user-emacs-directory "lisp/")))
     (setq load-path
@@ -354,7 +356,7 @@ We try to install most things using the package manager, but a few things need t
 #+END_SRC
 *** Spell checking
 
-#+BEGIN_SRC emacs-lisp :tangle init.el
+#+BEGIN_SRC emacs-lisp
   ;; enable on-the-fly spell checking
   (add-hook 'after-init-hook
             (lambda ()
@@ -381,7 +383,7 @@ We try to install most things using the package manager, but a few things need t
 *** Fonts
 Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we set fallback fonts for different Unicode blocks, dramatically increasing the number of characters Emacs will display.
 
-#+BEGIN_SRC emacs-lisp :tangle init.el
+#+BEGIN_SRC emacs-lisp
   ;; unicode-fonts doesn't work well on emacs < 24.3
   (when (>= (string-to-number 
                (concat 
@@ -398,7 +400,7 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
 *** Printing
 If you're using [[http://vgoulet.act.ulaval.ca/en/emacs/windows/][Vincent Goulet's emacs]] on Windows printing should work out of the box. If you're on Linux or Mac the experience of printing from emacs may leave something to be desired. Here we try to make it work a little better by making it easier to preview buffers in a web browser (you can print from there as usual) and by using [[http://sourceforge.net/projects/gtklp/][gtklp]] on Linux if it is available.
 
-#+BEGIN_SRC emacs-lisp :tangle init.el
+#+BEGIN_SRC emacs-lisp
 
   (when (eq system-type 'gnu/linux)
     (setq hfyview-quick-print-in-files-menu t)
@@ -416,7 +418,7 @@ If you're using [[http://vgoulet.act.ulaval.ca/en/emacs/windows/][Vincent Goulet
 *** Minibuffer hints and completion
 There are several different systems for providing completion hints in emacs. The default pcomplete system shows completions on demand (usually bound to tab key) in an emacs buffer. Here we set up ido-mode, which instead shows these completions on-the-fly in the minibuffer. These completions are primarily used to show available files (e.g., with ~find-file~) and emacs functions (e.g., with ~execute-extended-command~). Completion for in-buffer text (e.g., methods in python-mode, or arguments in R-mode) are handled separately by [[*Auto-complete%20configuration][company-mode]].
 
-#+BEGIN_SRC emacs-lisp :tangle init.el
+#+BEGIN_SRC emacs-lisp
   ;;; Completion hints for files and buffers buffers
   (setq ido-file-extensions-order '(".R" ".r" ".sh" ".tex" ".bib" ".org" 
                                     ".py" ".emacs" ".xml" "org.el" ".pdf"
@@ -546,7 +548,7 @@ There are several different systems for providing completion hints in emacs. The
 *** Auto-complete configuration
 Here we configure in-buffer text completion using the company-mode package. These completions are available on-demand using the =C-TAB= or =M-x company-complete=.
 
-#+BEGIN_SRC emacs-lisp :tangle init.el
+#+BEGIN_SRC emacs-lisp
   ;;Use C-TAB to complete
   (eval-after-load "company"
     '(progn
@@ -602,7 +604,7 @@ Here we configure in-buffer text completion using the company-mode package. Thes
 *** Outline-magic
 I encourage you to use [[*Note%20taking%20and%20outlining%20(Org-mode)][org-mode]] for note taking and outlining, but it can be convenient to treat arbitrary buffers as outlines. The outline-magic mode can help with that.
 
-#+BEGIN_SRC emacs-lisp :tangle init.el
+#+BEGIN_SRC emacs-lisp
   ;;; Configure outline minor modes
   ;; Less crazy key bindings for outline-minor-mode
   (setq outline-minor-mode-prefix "\C-c\C-o")
@@ -616,7 +618,7 @@ I encourage you to use [[*Note%20taking%20and%20outlining%20(Org-mode)][org-mode
 *** Major modes configuration
 
 **** Programming mode
-#+BEGIN_SRC emacs-lisp :tangle init.el
+#+BEGIN_SRC emacs-lisp
   (add-hook 'prog-mode-hook
             (lambda()
               ;; turn on outline minor mode:
@@ -632,7 +634,7 @@ I encourage you to use [[*Note%20taking%20and%20outlining%20(Org-mode)][org-mode
 
 **** General repl (read-eval-print-loop) config
 Load eval-in-repl for bash, elisp, and python interaction.
-#+BEGIN_SRC emacs-lisp :tangle init.el
+#+BEGIN_SRC emacs-lisp
   ;; require the main file containing common functions
   (require 'eval-in-repl)
   (setq comint-process-echoes t)
@@ -645,7 +647,7 @@ Load eval-in-repl for bash, elisp, and python interaction.
 
 **** Run R in emacs (ESS)
 
-#+BEGIN_SRC emacs-lisp :tangle init.el
+#+BEGIN_SRC emacs-lisp
   ;;;  ESS (Emacs Speaks Statistics)
 
   ;; Start R in the working directory by default
@@ -722,7 +724,7 @@ Load eval-in-repl for bash, elisp, and python interaction.
 
 **** Run python in emacs (elpy)
 
-#+BEGIN_SRC emacs-lisp :tangle init.el
+#+BEGIN_SRC emacs-lisp
   ;; Python completion and code checking
   (setq elpy-modules '(elpy-module-company
                        elpy-module-eldoc
@@ -748,7 +750,7 @@ Load eval-in-repl for bash, elisp, and python interaction.
 
 **** emacs lisp REPL (ielm)
 
-#+BEGIN_SRC emacs-lisp :tangle init.el
+#+BEGIN_SRC emacs-lisp
   ;; ielm
   (require 'eval-in-repl-ielm)
   ;; For .el files
@@ -771,7 +773,7 @@ Load eval-in-repl for bash, elisp, and python interaction.
 
 **** Light-weight markup language (Markdown mode)
 
-#+BEGIN_SRC emacs-lisp :tangle init.el
+#+BEGIN_SRC emacs-lisp
 
   ;;; markdown mode
 
@@ -783,7 +785,7 @@ Load eval-in-repl for bash, elisp, and python interaction.
 
 **** Typesetting markup (AucTeX)
 
-#+BEGIN_SRC emacs-lisp :tangle init.el
+#+BEGIN_SRC emacs-lisp
 
   ;;; AucTeX config
   ;; turn on math mode and and index to imenu
@@ -829,7 +831,7 @@ Load eval-in-repl for bash, elisp, and python interaction.
 
 **** Note taking and outlining (Org-mode)
 
-#+BEGIN_SRC emacs-lisp :tangle init.el
+#+BEGIN_SRC emacs-lisp
 
   (require 'org)
 
@@ -885,7 +887,7 @@ Load eval-in-repl for bash, elisp, and python interaction.
 
 **** Multiple modes in one "buffer" (polymode)
 
-#+BEGIN_SRC emacs-lisp :tangle init.el
+#+BEGIN_SRC emacs-lisp
 
   ;;; polymode
 
@@ -911,7 +913,7 @@ Load eval-in-repl for bash, elisp, and python interaction.
 #+END_SRC
 
 **** File browsing (Dired+)
-#+BEGIN_SRC emacs-lisp :tangle init.el
+#+BEGIN_SRC emacs-lisp
   ;;; Dired and Dired+ configuration
   
   ;; show details by default
@@ -1009,7 +1011,7 @@ Load eval-in-repl for bash, elisp, and python interaction.
 
 **** Shell modes (shell and eshell)
 
-#+BEGIN_SRC emacs-lisp :tangle init.el
+#+BEGIN_SRC emacs-lisp
   ;; shell
   (require 'essh) ; if not done elsewhere; essh is in the local lisp folder
   (require 'eval-in-repl-shell)
@@ -1068,7 +1070,7 @@ Load eval-in-repl for bash, elisp, and python interaction.
 
 *** Miscellaneous
 
-#+BEGIN_SRC emacs-lisp :tangle init.el
+#+BEGIN_SRC emacs-lisp
 
   ;;; Misc. Conveniences
 
