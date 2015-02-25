@@ -48,6 +48,7 @@
 ;; Make a list of the packages you want
 (setq my-package-list '(;; gnu packages
                         auctex
+                        windresize
                         ;; melpa packages
                         howdoi
                         google-this
@@ -874,7 +875,9 @@ The app is chosen from your OS's preference."
 ;; Use CUA mode only for handy rectangle features
 (cua-selection-mode t)
 
-;; use windmove
+;; use windresize for changing window size
+(require 'windresize)
+;; use windmove for navigating windows
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
 

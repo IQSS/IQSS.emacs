@@ -240,6 +240,7 @@ The main purpose of these emacs configuration files is to install and configure 
   ;; Make a list of the packages you want
   (setq my-package-list '(;; gnu packages
                           auctex
+                          windresize
                           ;; melpa packages
                           howdoi
                           google-this
@@ -1175,7 +1176,9 @@ Load eval-in-repl for bash, elisp, and python interaction.
   ;; Use CUA mode only for handy rectangle features
   (cua-selection-mode t)
 
-  ;; use windmove
+  ;; use windresize for changing window size
+  (require 'windresize)
+  ;; use windmove for navigating windows
   (when (fboundp 'windmove-default-keybindings)
     (windmove-default-keybindings))
 
