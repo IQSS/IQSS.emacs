@@ -50,6 +50,7 @@
                         auctex
                         windresize
                         ;; melpa packages
+                        anzu
                         howdoi
                         google-this
                         ;; paradox ;; requires emacs >= 24.4
@@ -772,6 +773,9 @@ The app is chosen from your OS's preference."
              (setq eshell-visual-subcommands '(("git" "log" "diff" "show")))))
 
 ;;; Misc. Conveniences
+
+;; show number of matches in mode line when searching
+(global-anzu-mode +1)
 
 ;; get help from the web
 (require 'google-this)

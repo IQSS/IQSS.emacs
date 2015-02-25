@@ -244,6 +244,7 @@ The main purpose of these emacs configuration files is to install and configure 
                           auctex
                           windresize
                           ;; melpa packages
+                          anzu
                           howdoi
                           google-this
                           ;; paradox ;; requires emacs >= 24.4
@@ -1075,6 +1076,9 @@ Load eval-in-repl for bash, elisp, and python interaction.
 #+BEGIN_SRC emacs-lisp
 
   ;;; Misc. Conveniences
+
+  ;; show number of matches in mode line when searching
+  (global-anzu-mode +1)
 
   ;; get help from the web
   (require 'google-this)
