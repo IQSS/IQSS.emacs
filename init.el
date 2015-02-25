@@ -556,11 +556,13 @@
 
 (require 'org)
 
+;; increase imenu depth to include third level headings
+(setq org-imenu-depth 3)
 ;; Load additional export formats
-;; (require 'ox-odt)
-;; (require 'ox-md)
+(require 'ox-odt)
+(require 'ox-md)
 ;; (require 'ox-freemind)
-;; (require 'ox-bibtex)
+(require 'ox-bibtex)
 
 ;; Update images from babel code blocks automatically
 (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
