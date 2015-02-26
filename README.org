@@ -243,6 +243,7 @@ The main purpose of these emacs configuration files is to install and configure 
   (setq my-package-list '(;; gnu packages
                           auctex
                           windresize
+                          diff-hl
                           ;; melpa packages
                           anzu
                           howdoi
@@ -918,7 +919,10 @@ Load eval-in-repl for bash, elisp, and python interaction.
 **** File browsing (Dired+)
 #+BEGIN_SRC emacs-lisp
   ;;; Dired and Dired+ configuration
-  
+  ;; show git status in dired
+  (require 'diff-hl)
+  (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
+
   ;; show details by default
   (setq diredp-hide-details-initially-flag nil)
   ;; load dired+ and mouse3

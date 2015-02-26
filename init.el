@@ -49,6 +49,7 @@
 (setq my-package-list '(;; gnu packages
                         auctex
                         windresize
+                        diff-hl
                         ;; melpa packages
                         anzu
                         howdoi
@@ -628,6 +629,9 @@
   (add-to-list 'auto-mode-alist '("\\.cppR" . poly-c++r-mode)))
 
 ;;; Dired and Dired+ configuration
+;; show git status in dired
+(require 'diff-hl)
+(add-hook 'dired-mode-hook 'diff-hl-dired-mode)
 
 ;; show details by default
 (setq diredp-hide-details-initially-flag nil)
