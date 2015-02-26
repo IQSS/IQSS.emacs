@@ -25,13 +25,10 @@
 (add-to-list 'fancy-startup-text '("\nYou are running a customized Emacs configuration. See "  :link
   ("here"
    #[257 "\300\301!\207"
-         [browse-url-emacs "https://raw.githubusercontent.com/izahn/dotemacs/master/README.org"]
+         [browse-url-default-browser "http://github.com/izahn/dotemacs/"]
          3 "\n\n(fn BUTTON)"]
-   "Browse http://github.com/izahn/dotemacs")
+   "Open the README file")
   "\nfor information about these customizations.\n"))
-
-;; start up maximized
-(add-hook 'after-init-hook 'toggle-frame-maximized)
 
 ;;; Install required packages
 (require 'cl)
