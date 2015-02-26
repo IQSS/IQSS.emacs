@@ -21,8 +21,14 @@
 ;; hide the toolbar
 (tool-bar-mode 0)
 ; (menu-bar-mode 0)
-(setq inhibit-splash-screen t)
-(setq inhibit-startup-message t)
+                                        ;(setq inhibit-startup-screen t)
+(add-to-list 'fancy-startup-text '("You are running a customized Emacs configuration. See "  :link
+  ("here"
+   #[257 "\300\301!\207"
+         [browse-url-emacs "https://raw.githubusercontent.com/izahn/dotemacs/master/README.org"]
+         3 "\n\n(fn BUTTON)"]
+   "Browse http://github.com/izahn/dotemacs")
+  "\nfor information about these customizations.\n\n"))
 
 ;;; Install required packages
 (require 'cl)
