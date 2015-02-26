@@ -631,7 +631,10 @@
 ;;; Dired and Dired+ configuration
 ;; show git status in dired
 (require 'diff-hl)
-(add-hook 'dired-mode-hook 'diff-hl-dired-mode)
+(add-hook 'dired-mode-hook 
+          (lambda()
+            (diff-hl-dired-mode)
+            (diff-hl-margin-mode)))
 
 ;; show details by default
 (setq diredp-hide-details-initially-flag nil)
