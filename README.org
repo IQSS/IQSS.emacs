@@ -211,13 +211,16 @@ Visual changes such as hiding the toolbar need to come first to avoid jarring tr
   (tool-bar-mode 0)
   ; (menu-bar-mode 0)
                                           ;(setq inhibit-startup-screen t)
-  (add-to-list 'fancy-startup-text '("You are running a customized Emacs configuration. See "  :link
+  (add-to-list 'fancy-startup-text '("\nYou are running a customized Emacs configuration. See "  :link
     ("here"
      #[257 "\300\301!\207"
            [browse-url-emacs "https://raw.githubusercontent.com/izahn/dotemacs/master/README.org"]
            3 "\n\n(fn BUTTON)"]
      "Browse http://github.com/izahn/dotemacs")
-    "\nfor information about these customizations.\n\n"))
+    "\nfor information about these customizations.\n"))
+
+  ;; start up maximized
+  (add-hook 'after-init-hook 'toggle-frame-maximized)
 #+END_SRC
 
 *** Install useful packages
