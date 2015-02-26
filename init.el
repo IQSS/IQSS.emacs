@@ -151,19 +151,15 @@
          load-path)))
 
 ;; enable on-the-fly spell checking
-(add-hook 'after-init-hook
+(add-hook 'text-mode-hook
           (lambda ()
-            (add-hook 'text-mode-hook
-                      (lambda ()
-                        (flyspell-mode 1)))))
+            (flyspell-mode 1)))
 
 ;; prevent flyspell from finding mistakes in the code
-(add-hook 'after-init-hook
+(add-hook 'prog-mode-hook
           (lambda ()
-            (add-hook 'prog-mode-hook
-                      (lambda ()
-                        ;; `ispell-comments-and-strings'
-                        (flyspell-prog-mode)))))
+            ;; `ispell-comments-and-strings'
+            (flyspell-prog-mode)))
 ;; ispell should not check code blocks
 (add-to-list 'ispell-skip-region-alist '(":\\(PROPERTIES\\|LOGBOOK\\):" . ":END:"))
 (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_SRC" . "#\\+END_SRC"))
@@ -246,12 +242,9 @@
 ;;(global-set-key (kbd "M-y") 'kill-ring-ido)
 
 ;; show recently opened files
-(add-hook 'after-init-hook
-          (lambda()
-             (global-company-mode 1)
-             (require 'recentf)
-             (setq recentf-max-menu-items 50)
-             (recentf-mode 1)))
+(require 'recentf)
+(setq recentf-max-menu-items 50)
+(recentf-mode 1)
 
 (setq ido-use-virtual-buffers 'auto)
 
@@ -319,7 +312,8 @@
               (funcall ,ido-cannot-complete-command)))))
     ad-do-it))
 
-;;Use C-TAB to complete
+;;Use C-TAB to complete. We put this in eval-after-load 
+;; because otherwise some modes will try to override our settings.
 (eval-after-load "company"
   '(progn
      ;; don't start automatically 
@@ -479,10 +473,8 @@
                      elpy-module-sane-defaults))
 (elpy-enable)
 ;; use ipython if available
-(add-hook 'after-init-hook
-          (lambda ()
-             (if (executable-find "ipython")
-                 (elpy-use-ipython))))
+(if (executable-find "ipython")
+    (elpy-use-ipython))
 
 ;; make sure completions don't start automatically
 (add-hook 'elpy-mode-hook
@@ -561,10 +553,12 @@
 ;; increase imenu depth to include third level headings
 (setq org-imenu-depth 3)
 ;; Load additional export formats
-(require 'ox-odt)
-(require 'ox-md)
-;; (require 'ox-freemind)
-(require 'ox-bibtex)
+(add-hook 'org-mode-hook
+          (lambda()
+            (require 'ox-odt)
+            (require 'ox-md)
+            ;; (require 'ox-freemind)
+            (require 'ox-bibtex)))
 
 ;; Update images from babel code blocks automatically
 (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
@@ -802,10 +796,9 @@ The app is chosen from your OS's preference."
 (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 
 ;; start the server if not already started
-(add-hook 'after-init-hook
-                  (lambda ()
-                     (load "server")
-                     (unless (server-running-p) (server-start))))
+(load "server")
+(unless (server-running-p)
+  (server-start))
 
 ;; ;; use regex search by default
 ;; (global-set-key (kbd "C-s") 'isearch-forward-regexp)
@@ -908,14 +901,3 @@ The app is chosen from your OS's preference."
 (unless (file-exists-p custom-file)
   (write-region ";; Put user configuration here" nil custom-file))
 (load custom-file 'noerror)
-
-;; byte-compile init file if needed
-(add-hook 'after-init-hook
-          (lambda ()
-            (byte-recompile-file user-init-file nil 1 nil)
-            (switch-to-buffer "*scratch*")))
-
-;; cleanup
-(switch-to-buffer "*scratch*")
-(delete-other-windows)
-(redisplay t)
