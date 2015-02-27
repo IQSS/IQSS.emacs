@@ -18,6 +18,9 @@
           24.2)
   (error "Your version of emacs is very old and must be upgraded before you can use these packages"))
 
+;; make sure we start maximized
+(setq initial-frame-alist '((fullscreen . maximized)))
+
 ;; hide the toolbar
 (tool-bar-mode 0)
 ; (menu-bar-mode 0)
