@@ -1,5 +1,5 @@
 #+AUTHOR:  Ista Zahn
-#+TITLE: Requirements for a sane emacs config for social scientists
+#+TITLE: An emacs config for social scientists
 
 #+STARTUP: showall
 #+PROPERTY: header-args:emacs-lisp    :tangle init.el
