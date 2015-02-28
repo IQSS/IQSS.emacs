@@ -21,6 +21,9 @@
 ;; make sure we start maximized
 (setq initial-frame-alist '((fullscreen . maximized)))
 
+;; use bar cursor
+(setq-default cursor-type 'bar) 
+
 ;; hide the toolbar
 (tool-bar-mode 0)
 ; (menu-bar-mode 0)
