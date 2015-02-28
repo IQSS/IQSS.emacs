@@ -892,16 +892,12 @@ The app is chosen from your OS's preference."
 
 ;; use windresize for changing window size
 (require 'windresize)
+
 ;; use windmove for navigating windows
-(when (fboundp 'windmove-default-keybindings)
-  (windmove-default-keybindings 'meta))
-
-;; Make windmove work in org-mode:
-(add-hook 'org-metaup-hook 'windmove-up)
-(add-hook 'org-metaleft-hook 'windmove-left)
-(add-hook 'org-metadown-hook 'windmove-down)
-(add-hook 'org-metaright-hook 'windmove-right)
-
+(global-set-key (kbd "<M-S-left>")  'windmove-left)
+(global-set-key (kbd "<M-S-right>") 'windmove-right)
+(global-set-key (kbd "<M-S-up>")    'windmove-up)
+(global-set-key (kbd "<M-S-down>")  'windmove-down)
 ;; The beeping can be annoying--turn it off
 (set-variable 'visible-bell t)
 
