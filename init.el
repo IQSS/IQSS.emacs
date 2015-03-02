@@ -20,11 +20,15 @@
 
 ;; make sure we start maximized
 (setq initial-frame-alist '((fullscreen . maximized)))
+(modify-frame-parameters
+   nil
+   `((fullscreen ., 'maximized)))
 
 ;; hide the toolbar
 (tool-bar-mode 0)
-; (menu-bar-mode 0)
-                                        ;(setq inhibit-startup-screen t)
+;; (menu-bar-mode 0)
+;; (setq inhibit-startup-screen t)
+
 (add-to-list 'fancy-startup-text '("\nYou are running a customized Emacs configuration. See "  :link
   ("here"
    #[257 "\300\301!\207"
