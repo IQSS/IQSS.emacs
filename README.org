@@ -5,6 +5,7 @@
 #+STARTUP: showall
 #+PROPERTY: header-args:emacs-lisp    :tangle init.el
 
+#+NAME: Preamble
 #+BEGIN_SRC emacs-lisp :results silent :exports none :tangle no
   (require 'ox-gfm)
 #+END_SRC
@@ -25,7 +26,7 @@ This is a drop-in replacement for your .emacs.d. It automatically installs and c
 If you don't know how to use git, you can skip step 6 and simply [[https://github.com/izahn/dotemacs/archive/master.zip][download the files as a zip archive]], extract them, and move them into your .emacs.d directory.
 
 ** First run
-Note that after installing this configuration emacs will be extremely slow to start up the first time. This is due to a one-time scan of the fonts installed on your computer. Just be patient and wait for it to finish--subsequent start-ups will be much faster.
+Note that after installing this configuration emacs will be extremely slow to start up the first time. This is due to package installation, and to a one-time scan of the fonts installed on your computer. Just be patient and wait for it to finish--subsequent start-ups will be much faster.
 
 ** Modified key bindings
 This configuration loads a lot of useful emacs packages (see [[*Install%20useful%20packages][here]] for the list), many of which add key bindings. Documenting them all here would be too much (see the documentation for each package if you need the details), so this section describes only those key bindings that we explicitly added or changed.
@@ -124,65 +125,35 @@ As of August 5th 2014 there are 2,960 github repositories named or mentioning '.
 
 No, the world does not need another emacs starter kit. Indeed the guy who started the original emacs starter-kit has concluded that the whole idea is [[https://github.com/technomancy/emacs-starter-kit][unworkable]], and that if you want to use emacs you're better off configuring it yourself. I agree, and it's not that hard, even if you don't know emacs-lisp at all. You can copy code fragments from others' configuration on [[http://github.com][github]], from the [[http://emacswiki.org][emacs wiki]], or from [[http://stackoverflow.com][stackoverflow]] and build up your very own emacs configuration. And eventually it will be so perfect you will think "gee I could save people the trouble of configuring emacs, if they would just clone my configuration". So you will put it on github, like everyone else (including me). Sigh.
 
+On the other hand it may be that this emacs configuration is what you want after all. It turns on many nice features of emacs, and adds many more. Anyway it does not hurt to give it a try.
+
+
 ** Requirements
   :PROPERTIES:
   :CUSTOM_ID: Requirements
   :END:
 
-Emacs is many things to many people, being perhaps the most configurable text editor ever created. However, there are some common tools that social scientists often make use of that are not accessible in emacs by default. It is therefore desirable to create a base configuration that enables the features that social scientists are likely to find useful. The table below lists some of these requirements, and describes how they can be made available in emacs.
+Emacs is many things to many people, being perhaps the most configurable text editor ever created. However, there are some common tools that social scientists often make use of that are not accessible in emacs by default. It is therefore desirable to create a base configuration that enables the features that social scientists are likely to find useful. The table below lists some of these requirements, and describes how they are made available in emacs.
  
 
-| Requirement                 | Categories         | Requester  | Solution           | Notes                                                     |
-|-----------------------------+--------------------+------------+--------------------+-----------------------------------------------------------|
-| LaTeX editing/compilation   | Document prep      | Gary[fn:1] | AucTeX/RefTeX      | Installed and turned on                                   |
-| Font locking                | Look-n-feel        | Gary       | font-lock-mode     | Built-in, turned on                                       |
-| Spell checking              | Convenience        | Gary       | ispell/flyspell    | Built-in, turned on                                       |
-| Outline/structure editing   | Convenience        | Gary       | outline-minor-mode | Built-in, turned on                                       |
-| Revision control            | Version management | Gary       | VC-mode            | Built-in, turned on                                       |
-| Edit/evaluate R/Stata/SAS   | Data analysis      | Ista       | ESS                | Installed and activated                                   |
-| Easier file/buffer/access   | Convenience        | Ista       | ido                | Installed, turned on                                      |
-| Reproducible research       | Data analysis      | Ista       | org-mode, polymode | Installed, polymode (Melpa) not working on RCE            |
-| Copy/paste with other apps  | Convenience        | Ista       | x-select           | Built-in, turned on                                       |
-| Word wrapping               | Look-n-feel        | Ista       | visual-line-mode   | Built-in, turned on                                       |
-|                             |                    |            |                    |                                                           |
-
-It will be hard to avoid the temptation for feature-creep; every emacs user has certain things they really like, but we don't want this to turn into a super-set of all the things that anyone likes. The table below list some things that would be nice to have but are controversial, trivial,  or not widely used.
-
-| Requirement                        | Categories  | Requester | Solution               | Notes                                            |
-|------------------------------------+-------------+-----------+------------------------+--------------------------------------------------|
-| Command hinting/completion         | Convenience | Ista      | smex                   | Installed and turned on                          |
-| Programming auto-completion        | Convenience | Ista      | auto-complete/Company  | Installed and turned on                          |
-| Keep backup files out of the way   | Convenience | Ista      | backup-directory-alist | Built-in, turned on                              |
-| Quieter startup                    | Look-n-feel | Ista      | inhibit-startup*       | Built-in, off by default                         |
-| Cleaner interface                  | Look-n-feel | Ista      | tool-bar-mode          | Built-in, off by default                         |
-| Highlight matched/mismatched paren | Convenience | Ista      | show-paren-mode        | Built-in, turned on                              |
-
-
-** Implementation options
-  :PROPERTIES:
-  :CUSTOM_ID: Implementation-options
-  :END:
-Implementation of the requirements listed in the previous section can be approached from a few different starting places. 
-1) We can start from the default emacs and add the required functionality.
-2) We can start from a meta-package (probably http://kieranhealy.org/resources/emacs-starter-kit/ but other options exist) and (optionally) remove things we don't need.
-3) We can start with specialized emacs distributions for different operating systems and add required functionality.
-
-In my experience option 1 (building up from default Gnu emacs) works well on Linux, so-so on Mac, and is a real pain on Windows. Option 2 (the meta-package approach) tends to result in un-maintainable, complicated configurations that the user doesn't understand and can't configure. Therefore I suggest that we encourage people to start with OS-specific emacs distributions, and that we write relatively minimal config files that sets up the basics, along with documentation and comments explaining how to add related functionality. See [[#Cross-platform-issues][Cross platform issues]] for recommended emacs versions for Windows and OS X.
-
-
-** Cross-platform issues
-  :PROPERTIES:
-  :CUSTOM_ID: Cross-platform-issues
-  :END:
-
-Ideally emacs configuration will "just work" regardless of the operating system (Windows, OSX, Linux, etc.) emacs is running on. In practice there are some tweaks required to get things working on Mac, and especially, Windows. These platform-specific issues can be largely avoided by starting with platform-specific versions of emacs.
-
-- Emacs for Windows :: http://vgoulet.act.ulaval.ca/en/emacs/
-- Emacs for OS X :: http://vgoulet.act.ulaval.ca/en/emacs/
-- Emacs for Linux :: Use your package manager, or see http://www.gnu.org/software/emacs/
-
-Note for Linux users: Emacs version $\geq$ 24 is required. If your Linux distro ships old and busted emacs you need to figure out how to install a recent version.
-
+| Requirement                        | Categories         | Solution           | Notes                                          |                          |
+|------------------------------------+--------------------+--------------------+------------------------------------------------+--------------------------|
+| LaTeX editing/compilation          | Document prep      | AucTeX/RefTeX      | Installed and turned on                        |                          |
+| Font locking                       | Look-n-feel        | font-lock-mode     | Built-in, turned on                            |                          |
+| Spell checking                     | Convenience        | ispell/flyspell    | Built-in, turned on                            |                          |
+| Outline/structure editing          | Convenience        | outline-minor-mode | Built-in, turned on                            |                          |
+| Revision control                   | Version management | VC-mode/magit      | VC-mode, turned on, magit installed/activated  |                          |
+| Edit/evaluate R/Stata/SAS          | Data analysis      | ESS                | Installed and activated                        |                          |
+| Easier file/buffer/access          | Convenience        | ido                | Installed, turned on                           |                          |
+| Reproducible research              | Data analysis      | org-mode, polymode | Installed, polymode (Melpa) not working on RCE |                          |
+| Copy/paste with other apps         | Convenience        | x-select           | Built-in, turned on                            |                          |
+| Word wrapping                      | Look-n-feel        | visual-line-mode   | Built-in, turned on                            |                          |
+| Command hinting/completion         | Convenience        | Ista               | smex                                           | Installed and turned on  |
+| Programming auto-completion        | Convenience        | Ista               | auto-complete/Company                          | Installed and turned on  |
+| Keep backup files out of the way   | Convenience        | Ista               | backup-directory-alist                         | Built-in, turned on      |
+| Cleaner interface                  | Look-n-feel        | Ista               | tool-bar-mode                                  | Built-in, off by default |
+| Highlight matched/mismatched paren | Convenience        | Ista               | show-paren-mode                                | Built-in, turned on      |
+|------------------------------------+--------------------+--------------------+------------------------------------------------+--------------------------|
 
 ** Implementation
   :PROPERTIES:
@@ -1307,22 +1278,6 @@ Load eval-in-repl for bash, elisp, and python interaction.
   (load custom-file 'noerror)
 
 #+END_SRC
-
-
-** Implementation issues
-The version of Emacs on the RCE is old and configured in a non-standard way that makes it difficult to implement a sane user config. 
-
-Part of the problem is that RCE does not run the latest released emacs; another problem is that a site-wide configuration file activates the package system, adds third-party package repositories, and installs some packages. Normally the package system is not activated until after the users init file, doing it in the reverse order (as is currently done on the RCE) causes problems. These issues cause breakages for the command-hinter =smex=, the literate programming support provided by =polymode=, and interfere with the installation of the latest org-mode.
-
-Both the "old emacs" and "strange emacs configuration" problems need to be corrected at the system admin level on the RCE. For the moment if you want to use this configuration on the RCE you need to start emacs with =emacs --no-site-file --no-site-lisp= so that the latest org-mode can be installed. The emacs configuration implemented here includes a dirty hack to make =smex= work on older emacs, so the only remaining issue is that =polymode= will not work on the RCE until the emacs installed there is updated. The configuration simply checks the emacs version and only activates =polymode= if it is supported.
-
-
-** Next steps
-  :PROPERTIES:
-  :CUSTOM_ID: Next-steps
-  :END:
-
-The next steps are to 1) review the requirements list to add/delete requirements needed, 2) update the configuration file to add any additional requirements added in step 2, and 3) test/evaluate the configuration and revise until it performs as desired.
 
 
 * Footnotes

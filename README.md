@@ -11,8 +11,6 @@
 - [Discussion and implementation](#discussion-and-implementation)
   - [What the world needs now&#x2026;](#what-the-world-needs-now&#x2026;)
   - [Requirements](#requirements)
-  - [Implementation options](#implementation-options)
-  - [Cross-platform issues](#cross-platform-issues)
   - [Implementation](#implementation)
     - [Preamble](#preamble)
     - [version Check](#version-check)
@@ -28,8 +26,6 @@
     - [Outline-magic](#outline-magic)
     - [Major modes configuration](#major-modes-configuration)
     - [Miscellaneous](#miscellaneous)
-  - [Implementation issues](#implementation-issues)
-  - [Next steps](#next-steps)
 
 
 
@@ -52,7 +48,7 @@ If you don't know how to use git, you can skip step 6 and simply [download the f
 
 ## First run<a id="sec-1-3" name="sec-1-3"></a>
 
-Note that after installing this configuration emacs will be extremely slow to start up the first time. This is due to a one-time scan of the fonts installed on your computer. Just be patient and wait for it to finish&#x2013;subsequent start-ups will be much faster.
+Note that after installing this configuration emacs will be extremely slow to start up the first time. This is due to package installation, and to a one-time scan of the fonts installed on your computer. Just be patient and wait for it to finish&#x2013;subsequent start-ups will be much faster.
 
 ## Modified key bindings<a id="sec-1-4" name="sec-1-4"></a>
 
@@ -163,10 +159,12 @@ As of August 5th 2014 there are 2,960 github repositories named or mentioning '.
 
 No, the world does not need another emacs starter kit. Indeed the guy who started the original emacs starter-kit has concluded that the whole idea is [unworkable](https://github.com/technomancy/emacs-starter-kit), and that if you want to use emacs you're better off configuring it yourself. I agree, and it's not that hard, even if you don't know emacs-lisp at all. You can copy code fragments from others' configuration on [github](http://github.com), from the [emacs wiki](http://emacswiki.org), or from [stackoverflow](http://stackoverflow.com) and build up your very own emacs configuration. And eventually it will be so perfect you will think "gee I could save people the trouble of configuring emacs, if they would just clone my configuration". So you will put it on github, like everyone else (including me). Sigh.
 
+On the other hand it may be that this emacs configuration is what you want after all. It turns on many nice features of emacs, and adds many more. Anyway it does not hurt to give it a try.
+
 ## Requirements<a id="Requirements" name="Requirements"></a>
 
 
-Emacs is many things to many people, being perhaps the most configurable text editor ever created. However, there are some common tools that social scientists often make use of that are not accessible in emacs by default. It is therefore desirable to create a base configuration that enables the features that social scientists are likely to find useful. The table below lists some of these requirements, and describes how they can be made available in emacs.
+Emacs is many things to many people, being perhaps the most configurable text editor ever created. However, there are some common tools that social scientists often make use of that are not accessible in emacs by default. It is therefore desirable to create a base configuration that enables the features that social scientists are likely to find useful. The table below lists some of these requirements, and describes how they are made available in emacs.
 
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
@@ -186,9 +184,9 @@ Emacs is many things to many people, being perhaps the most configurable text ed
 <tr>
 <th scope="col" class="left">Requirement</th>
 <th scope="col" class="left">Categories</th>
-<th scope="col" class="left">Requester</th>
 <th scope="col" class="left">Solution</th>
 <th scope="col" class="left">Notes</th>
+<th scope="col" class="left">&#xa0;</th>
 </tr>
 </thead>
 
@@ -196,130 +194,93 @@ Emacs is many things to many people, being perhaps the most configurable text ed
 <tr>
 <td class="left">LaTeX editing/compilation</td>
 <td class="left">Document prep</td>
-<td class="left">Gary<sup><a id="fnr.1" name="fnr.1" class="footref" href="#fn.1">1</a></sup></td>
 <td class="left">AucTeX/RefTeX</td>
 <td class="left">Installed and turned on</td>
+<td class="left">&#xa0;</td>
 </tr>
 
 
 <tr>
 <td class="left">Font locking</td>
 <td class="left">Look-n-feel</td>
-<td class="left">Gary</td>
 <td class="left">font-lock-mode</td>
 <td class="left">Built-in, turned on</td>
+<td class="left">&#xa0;</td>
 </tr>
 
 
 <tr>
 <td class="left">Spell checking</td>
 <td class="left">Convenience</td>
-<td class="left">Gary</td>
 <td class="left">ispell/flyspell</td>
 <td class="left">Built-in, turned on</td>
+<td class="left">&#xa0;</td>
 </tr>
 
 
 <tr>
 <td class="left">Outline/structure editing</td>
 <td class="left">Convenience</td>
-<td class="left">Gary</td>
 <td class="left">outline-minor-mode</td>
 <td class="left">Built-in, turned on</td>
+<td class="left">&#xa0;</td>
 </tr>
 
 
 <tr>
 <td class="left">Revision control</td>
 <td class="left">Version management</td>
-<td class="left">Gary</td>
-<td class="left">VC-mode</td>
-<td class="left">Built-in, turned on</td>
+<td class="left">VC-mode/magit</td>
+<td class="left">VC-mode, turned on, magit installed/activated</td>
+<td class="left">&#xa0;</td>
 </tr>
 
 
 <tr>
 <td class="left">Edit/evaluate R/Stata/SAS</td>
 <td class="left">Data analysis</td>
-<td class="left">Ista</td>
 <td class="left">ESS</td>
 <td class="left">Installed and activated</td>
+<td class="left">&#xa0;</td>
 </tr>
 
 
 <tr>
 <td class="left">Easier file/buffer/access</td>
 <td class="left">Convenience</td>
-<td class="left">Ista</td>
 <td class="left">ido</td>
 <td class="left">Installed, turned on</td>
+<td class="left">&#xa0;</td>
 </tr>
 
 
 <tr>
 <td class="left">Reproducible research</td>
 <td class="left">Data analysis</td>
-<td class="left">Ista</td>
 <td class="left">org-mode, polymode</td>
 <td class="left">Installed, polymode (Melpa) not working on RCE</td>
+<td class="left">&#xa0;</td>
 </tr>
 
 
 <tr>
 <td class="left">Copy/paste with other apps</td>
 <td class="left">Convenience</td>
-<td class="left">Ista</td>
 <td class="left">x-select</td>
 <td class="left">Built-in, turned on</td>
+<td class="left">&#xa0;</td>
 </tr>
 
 
 <tr>
 <td class="left">Word wrapping</td>
 <td class="left">Look-n-feel</td>
-<td class="left">Ista</td>
 <td class="left">visual-line-mode</td>
 <td class="left">Built-in, turned on</td>
-</tr>
-
-
-<tr>
-<td class="left">&#xa0;</td>
-<td class="left">&#xa0;</td>
-<td class="left">&#xa0;</td>
-<td class="left">&#xa0;</td>
 <td class="left">&#xa0;</td>
 </tr>
-</tbody>
-</table>
-
-It will be hard to avoid the temptation for feature-creep; every emacs user has certain things they really like, but we don't want this to turn into a super-set of all the things that anyone likes. The table below list some things that would be nice to have but are controversial, trivial,  or not widely used.
-
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
-<colgroup>
-<col  class="left" />
-
-<col  class="left" />
-
-<col  class="left" />
-
-<col  class="left" />
-
-<col  class="left" />
-</colgroup>
-<thead>
-<tr>
-<th scope="col" class="left">Requirement</th>
-<th scope="col" class="left">Categories</th>
-<th scope="col" class="left">Requester</th>
-<th scope="col" class="left">Solution</th>
-<th scope="col" class="left">Notes</th>
-</tr>
-</thead>
-
-<tbody>
 <tr>
 <td class="left">Command hinting/completion</td>
 <td class="left">Convenience</td>
@@ -348,15 +309,6 @@ It will be hard to avoid the temptation for feature-creep; every emacs user has 
 
 
 <tr>
-<td class="left">Quieter startup</td>
-<td class="left">Look-n-feel</td>
-<td class="left">Ista</td>
-<td class="left">inhibit-startup\*</td>
-<td class="left">Built-in, off by default</td>
-</tr>
-
-
-<tr>
 <td class="left">Cleaner interface</td>
 <td class="left">Look-n-feel</td>
 <td class="left">Ista</td>
@@ -375,34 +327,12 @@ It will be hard to avoid the temptation for feature-creep; every emacs user has 
 </tbody>
 </table>
 
-## Implementation options<a id="Implementation-options" name="Implementation-options"></a>
-
-
-Implementation of the requirements listed in the previous section can be approached from a few different starting places. 
-
-1.  We can start from the default emacs and add the required functionality.
-2.  We can start from a meta-package (probably <http://kieranhealy.org/resources/emacs-starter-kit/> but other options exist) and (optionally) remove things we don't need.
-3.  We can start with specialized emacs distributions for different operating systems and add required functionality.
-
-In my experience option 1 (building up from default Gnu emacs) works well on Linux, so-so on Mac, and is a real pain on Windows. Option 2 (the meta-package approach) tends to result in un-maintainable, complicated configurations that the user doesn't understand and can't configure. Therefore I suggest that we encourage people to start with OS-specific emacs distributions, and that we write relatively minimal config files that sets up the basics, along with documentation and comments explaining how to add related functionality. See Cross platform issues (See section 2.4) for recommended emacs versions for Windows and OS X.
-
-## Cross-platform issues<a id="Cross-platform-issues" name="Cross-platform-issues"></a>
-
-
-Ideally emacs configuration will "just work" regardless of the operating system (Windows, OSX, Linux, etc.) emacs is running on. In practice there are some tweaks required to get things working on Mac, and especially, Windows. These platform-specific issues can be largely avoided by starting with platform-specific versions of emacs.
-
--   **Emacs for Windows:** <http://vgoulet.act.ulaval.ca/en/emacs/>
--   **Emacs for OS X:** <http://vgoulet.act.ulaval.ca/en/emacs/>
--   **Emacs for Linux:** Use your package manager, or see <http://www.gnu.org/software/emacs/>
-
-Note for Linux users: Emacs version \(\geq\) 24 is required. If your Linux distro ships old and busted emacs you need to figure out how to install a recent version.
-
 ## Implementation<a id="Implementation" name="Implementation"></a>
 
 
 The emacs configuration in the sections below implements the Requirements (See section 2.2) listed above.
 
-### Preamble<a id="sec-2-5-1" name="sec-2-5-1"></a>
+### Preamble<a id="sec-2-3-1" name="sec-2-3-1"></a>
 
 ```lisp
 ;;; COMMENTARY
@@ -417,7 +347,7 @@ The emacs configuration in the sections below implements the Requirements (See s
 ;; will eventually be resolved in cooperation with the RCE team.
 ```
 
-### version Check<a id="sec-2-5-2" name="sec-2-5-2"></a>
+### version Check<a id="sec-2-3-2" name="sec-2-3-2"></a>
 
 It is difficult to support multiple versions of emacs, so we will pick an arbitrary cutoff and throw an error if the version of emacs is "too old".
 
@@ -431,7 +361,7 @@ It is difficult to support multiple versions of emacs, so we will pick an arbitr
   (error "Your version of emacs is very old and must be upgraded before you can use these packages"))
 ```
 
-### Visual tweaks<a id="sec-2-5-3" name="sec-2-5-3"></a>
+### Visual tweaks<a id="sec-2-3-3" name="sec-2-3-3"></a>
 
 Visual changes such as hiding the toolbar need to come first to avoid jarring transitions during startup.
 
@@ -456,7 +386,7 @@ Visual changes such as hiding the toolbar need to come first to avoid jarring tr
   "\nfor information about these customizations.\n"))
 ```
 
-### Install useful packages<a id="sec-2-5-4" name="sec-2-5-4"></a>
+### Install useful packages<a id="sec-2-3-4" name="sec-2-3-4"></a>
 
 The main purpose of these emacs configuration files is to install and configure useful emacs packages. Here we carry out the installation.
 
@@ -571,7 +501,7 @@ The main purpose of these emacs configuration files is to install and configure 
   (setq paradox-github-token t))
 ```
 
-### Load theme<a id="sec-2-5-5" name="sec-2-5-5"></a>
+### Load theme<a id="sec-2-3-5" name="sec-2-3-5"></a>
 
 Loading the theme should come as early as possible in the init sequence to avoid jarring visual changes during startup, but must come after loading packages because we use a custom theme that needs to be installed first.
 
@@ -658,7 +588,7 @@ Loading the theme should come as early as possible in the init sequence to avoid
 (powerline-my-theme)
 ```
 
-### Add custom lisp director to load path<a id="sec-2-5-6" name="sec-2-5-6"></a>
+### Add custom lisp director to load path<a id="sec-2-3-6" name="sec-2-3-6"></a>
 
 We try to install most things using the package manager, but a few things need to be included in a custom lisp directory. Add it to the path so we can load from it easily.
 
@@ -674,7 +604,7 @@ We try to install most things using the package manager, but a few things need t
          load-path)))
 ```
 
-### Spell checking<a id="sec-2-5-7" name="sec-2-5-7"></a>
+### Spell checking<a id="sec-2-3-7" name="sec-2-3-7"></a>
 
 ```lisp
 ;; enable on-the-fly spell checking
@@ -696,7 +626,7 @@ We try to install most things using the package manager, but a few things need t
 (add-to-list 'ispell-skip-region-alist '("^```\\{". "```"))
 ```
 
-### Fonts<a id="sec-2-5-8" name="sec-2-5-8"></a>
+### Fonts<a id="sec-2-3-8" name="sec-2-3-8"></a>
 
 Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we set fallback fonts for different Unicode blocks, dramatically increasing the number of characters Emacs will display.
 
@@ -713,7 +643,7 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
   (unicode-fonts-setup))
 ```
 
-### Printing<a id="sec-2-5-9" name="sec-2-5-9"></a>
+### Printing<a id="sec-2-3-9" name="sec-2-3-9"></a>
 
 If you're using [Vincent Goulet's emacs](http://vgoulet.act.ulaval.ca/en/emacs/windows/) on Windows printing should work out of the box. If you're on Linux or Mac the experience of printing from emacs may leave something to be desired. Here we try to make it work a little better by making it easier to preview buffers in a web browser (you can print from there as usual) and by using [gtklp](http://sourceforge.net/projects/gtklp/) on Linux if it is available.
 
@@ -731,7 +661,7 @@ If you're using [Vincent Goulet's emacs](http://vgoulet.act.ulaval.ca/en/emacs/w
   (require 'hfyview))
 ```
 
-### Minibuffer hints and completion<a id="sec-2-5-10" name="sec-2-5-10"></a>
+### Minibuffer hints and completion<a id="sec-2-3-10" name="sec-2-3-10"></a>
 
 There are several different systems for providing completion hints in emacs. The default pcomplete system shows completions on demand (usually bound to tab key) in an emacs buffer. Here we set up ido-mode, which instead shows these completions on-the-fly in the minibuffer. These completions are primarily used to show available files (e.g., with `find-file`) and emacs functions (e.g., with `execute-extended-command`). Completion for in-buffer text (e.g., methods in python-mode, or arguments in R-mode) are handled separately by company-mode.
 
@@ -858,7 +788,7 @@ There are several different systems for providing completion hints in emacs. The
     ad-do-it))
 ```
 
-### Auto-complete configuration<a id="sec-2-5-11" name="sec-2-5-11"></a>
+### Auto-complete configuration<a id="sec-2-3-11" name="sec-2-3-11"></a>
 
 Here we configure in-buffer text completion using the company-mode package. These completions are available on-demand using the `C-TAB` or `M-x company-complete`.
 
@@ -915,7 +845,7 @@ Here we configure in-buffer text completion using the company-mode package. Thes
 (global-set-key "\M-y" 'popup-kill-ring)
 ```
 
-### Outline-magic<a id="sec-2-5-12" name="sec-2-5-12"></a>
+### Outline-magic<a id="sec-2-3-12" name="sec-2-3-12"></a>
 
 I encourage you to use org-mode for note taking and outlining, but it can be convenient to treat arbitrary buffers as outlines. The outline-magic mode can help with that.
 
@@ -930,7 +860,7 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
             (define-key outline-minor-mode-map "\C-c\C-o\t" 'outline-cycle)))
 ```
 
-### Major modes configuration<a id="sec-2-5-13" name="sec-2-5-13"></a>
+### Major modes configuration<a id="sec-2-3-13" name="sec-2-3-13"></a>
 
 1.  Programming mode
 
@@ -1379,7 +1309,7 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
                  (setq eshell-visual-subcommands '(("git" "log" "diff" "show")))))
     ```
 
-### Miscellaneous<a id="sec-2-5-14" name="sec-2-5-14"></a>
+### Miscellaneous<a id="sec-2-3-14" name="sec-2-3-14"></a>
 
 ```lisp
 ;;; Misc. Conveniences
@@ -1507,16 +1437,3 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
   (write-region ";; Put user configuration here" nil custom-file))
 (load custom-file 'noerror)
 ```
-
-## Implementation issues<a id="sec-2-6" name="sec-2-6"></a>
-
-The version of Emacs on the RCE is old and configured in a non-standard way that makes it difficult to implement a sane user config. 
-
-Part of the problem is that RCE does not run the latest released emacs; another problem is that a site-wide configuration file activates the package system, adds third-party package repositories, and installs some packages. Normally the package system is not activated until after the users init file, doing it in the reverse order (as is currently done on the RCE) causes problems. These issues cause breakages for the command-hinter `smex`, the literate programming support provided by `polymode`, and interfere with the installation of the latest org-mode.
-
-Both the "old emacs" and "strange emacs configuration" problems need to be corrected at the system admin level on the RCE. For the moment if you want to use this configuration on the RCE you need to start emacs with `emacs --no-site-file --no-site-lisp` so that the latest org-mode can be installed. The emacs configuration implemented here includes a dirty hack to make `smex` work on older emacs, so the only remaining issue is that `polymode` will not work on the RCE until the emacs installed there is updated. The configuration simply checks the emacs version and only activates `polymode` if it is supported.
-
-## Next steps<a id="Next-steps" name="Next-steps"></a>
-
-
-The next steps are to 1) review the requirements list to add/delete requirements needed, 2) update the configuration file to add any additional requirements added in step 2, and 3) test/evaluate the configuration and revise until it performs as desired.
