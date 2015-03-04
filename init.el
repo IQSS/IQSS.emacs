@@ -152,6 +152,11 @@
 
 ;; mode line theme
 (require 'powerline)
+;; face for remote files in modeline
+(defface my-mode-line-attention
+'((t (:foreground "magenta" :weight bold)))
+ "face for calling attention to modeline")
+
 ;; highlight hostname if on remote
 (defconst my-mode-line-buffer-identification
   '(:eval
@@ -168,12 +173,12 @@
         "")
       'face
       (if (file-remote-p default-directory 'host)
-          'mode-line-highlight
+          'my-mode-line-attention
         'mode-line-buffer-id))
    (propertize ": %b"
                'face
                  (if (file-remote-p default-directory 'host)
-                     'mode-line-highlight
+                     'my-mode-line-attention
                    'mode-line-buffer-id)))))
 
 ;; powerline theme using above info about remote hosts.
