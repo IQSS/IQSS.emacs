@@ -2,6 +2,7 @@
 /*
 # except
 !/README.org
+!/README.md
 !/init.el
 !/init.elc
 !/lisp
