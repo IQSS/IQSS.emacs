@@ -92,8 +92,19 @@ R is a free language and environment for statistical computing. It works well ou
 LaTeX is a typesetting system that excels at formatting structured documents. LaTeX files are written in plain text using a markup syntax, and this markup is used to format the typeset document. LaTeX works well out of the box and does not typically require much in the way of configuration. If you want to learn more about LaTeX try [[http://www.andy-roberts.net/writing/latex][these LaTeX tutorials]] by Andrew Roberts.
 
 **** git
-[[http://git-scm.com/][git]] is a revision control system that allows you to track changes, merge changes with those made by collaborators, revert to previous versions, and more. While git can be used without any configuration, it is a good idea to at least set your user name and email; instructions for doing so are available at [[http://git-scm.com/book/en/Getting-Started-First-Time-Git-Setup]]; a detailed introduction to git is available at [[http://git-scm.com/book/en/]]. Many git users host their repositories on [[http://github.com]]; helpful guides are available at [[https://guides.github.com/]]. 
+
+***** Initial configuration
+[[http://git-scm.com/][git]] is a revision control system that allows you to track changes, merge changes with those made by collaborators, revert to previous versions, and more. While git can be used without any configuration, it is a good idea to at least set your user name and email; instructions for doing so are available at [[http://git-scm.com/book/en/Getting-Started-First-Time-Git-Setup]]; a detailed introduction to git is available at [[http://git-scm.com/book/en/]]. Once installed you can use git from the command line; on Windows use the =git bash= application, on other platforms use your regular terminal emulator.
+
 It is often convenient to tell git /not/ to track some types of files (e.g., temporary files, or large binary files). LaTeX users in particular may be annoyed that git tries to track their .aux, .log, and other ephemeral files produced by LaTeX. You can tell git to ignore certain types of files by listing the in a .gitignore file. Details on .gitignore files are available at [[http://git-scm.com/docs/gitignore]], and many useful templates (including one designed for LaTeX users) are available at [[https://github.com/github/gitignore]].
+
+
+***** github
+Many git users host their repositories on [[http://github.com]]; helpful guides are available at [[https://guides.github.com/]]. You can [[https://help.github.com/articles/which-remote-url-should-i-use/][clone from and push to github over https]], and that is the recommended method; no configuration is required. If for some reason you prefer to use ssh you will need an ssh key pair; see [[https://help.github.com/articles/generating-ssh-keys/]] for instructions.
+
+***** Using git from emacs
+This Emacs configuration includes [[https://magit.github.io/][magit]], and interface to git for Emacs. Documentation is available at [[https://github.com/magit/magit#getting-started]].
+
 
 **** Pandoc
 Pandoc is a program for converting markup files from one markup language to another. Documentation and examples are available on the [[http://johnmacfarlane.net/pandoc/][pandoc website]].
