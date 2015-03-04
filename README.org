@@ -209,7 +209,7 @@ It is difficult to support multiple versions of emacs, so we will pick an arbitr
 Visual changes such as hiding the toolbar need to come first to avoid jarring transitions during startup.
 
 #+BEGIN_SRC emacs-lisp
-  ;; make sure we start maximized (TODO: not working on windows?)
+  ;; make sure we start maximized (requires emacs >= 24.4)
   (setq initial-frame-alist '((fullscreen . maximized)))
   (modify-frame-parameters
      nil

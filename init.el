@@ -18,7 +18,7 @@
           24.2)
   (error "Your version of emacs is very old and must be upgraded before you can use these packages"))
 
-;; make sure we start maximized (TODO: not working on windows?)
+;; make sure we start maximized (requires emacs >= 24.4)
 (setq initial-frame-alist '((fullscreen . maximized)))
 (modify-frame-parameters
    nil
