@@ -512,6 +512,11 @@ Loading the theme should come as early as possible in the init sequence to avoid
 
 ;; mode line theme
 (require 'powerline)
+;; face for remote files in modeline
+(defface my-mode-line-attention
+'((t (:foreground "magenta" :weight bold)))
+ "face for calling attention to modeline")
+
 ;; highlight hostname if on remote
 (defconst my-mode-line-buffer-identification
   '(:eval
@@ -528,12 +533,12 @@ Loading the theme should come as early as possible in the init sequence to avoid
         "")
       'face
       (if (file-remote-p default-directory 'host)
-          'mode-line-highlight
+          'my-mode-line-attention
         'mode-line-buffer-id))
    (propertize ": %b"
                'face
                  (if (file-remote-p default-directory 'host)
-                     'mode-line-highlight
+                     'my-mode-line-attention
                    'mode-line-buffer-id)))))
 
 ;; powerline theme using above info about remote hosts.
@@ -895,77 +900,84 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
 3.  Run R in emacs (ESS)
 
     ```lisp
-    ;;;  ESS (Emacs Speaks Statistics)
+      ;;;  ESS (Emacs Speaks Statistics)
     
-    ;; Start R in the working directory by default
-    (setq ess-ask-for-ess-directory nil)
+      ;; Start R in the working directory by default
+      (setq ess-ask-for-ess-directory nil)
     
-    ;; Scroll down when R generates output
-    (setq comint-scroll-to-bottom-on-input t)
-    (setq comint-scroll-to-bottom-on-output t)
-    (setq comint-move-point-for-output t)
+      ;; Scroll down when R generates output
+      (setq comint-scroll-to-bottom-on-input t)
+      (setq comint-scroll-to-bottom-on-output t)
+      (setq comint-move-point-for-output t)
     
-    ;; Make sure ESS is loaded
-    (require 'ess-site)
+      ;; Make sure ESS is loaded
+      (require 'ess-site)
     
-    ;; disable ehoing input
-    (setq ess-eval-visibly nil)
+      ;; disable ehoing input
+      (setq ess-eval-visibly nil)
     
-    ;; extra ESS stuff inspired by https://github.com/gaborcsardi/dot-emacs/blob/master/.emacs
-    (ess-toggle-underscore nil)
-    (defun my-ess-post-run-hook ()
-      ;; reset output width when window is re-sized
-      (add-hook 'inferior-ess-mode-hook
+      ;; extra ESS stuff inspired by https://github.com/gaborcsardi/dot-emacs/blob/master/.emacs
+      (ess-toggle-underscore nil)
+      (defun my-ess-post-run-hook ()
+        ;; reset output width when window is re-sized
+        (add-hook 'inferior-ess-mode-hook
+                  (lambda()
+                     (defun my-ess-execute-screen-options (foo)
+                       (ess-execute-screen-options))
+                     (add-to-list
+                      'window-size-change-functions
+                      'my-ess-execute-screen-options)))
+        )
+      (add-hook 'ess-post-run-hook 'my-ess-post-run-hook)
+    (add-hook 'ess-mode-hook (lambda () ))
+      ;; truncate long lines in R source files
+      (add-hook 'ess-mode-hook
                 (lambda()
-                   (defun my-ess-execute-screen-options (foo)
-                     (ess-execute-screen-options))
-                   (add-to-list
-                    'window-size-change-functions
-                    'my-ess-execute-screen-options)))
-      )
-    (add-hook 'ess-post-run-hook 'my-ess-post-run-hook)
+                   ;; don't wrap long lines
+                   (setq truncate-lines 1)
+                   ;; better (but still not right) indentation
+                   (setq ess-first-continued-statement-offset 2)
+                   (setq ess-continued-statement-offset 0)
+                   (setq ess-arg-function-offset nil)
+                   (setq ess-arg-function-offset-new-line nil)
+                   (setq ess-continued-statement-offset 0)
+                   (setq ess-expression-offset nil)
+                   ;; put company-capf at the front of the completion sources list
+                   (set (make-local-variable 'company-backends)
+                        (cons 'company-capf company-backends))
+                   (delete-dups company-backends)
+                   ))
     
-    ;; truncate long lines in R source files
-    (add-hook 'ess-mode-hook
-              (lambda()
-                 ;; don't wrap long lines
-                 (setq truncate-lines 1)
-                 ;; put company-capf at the front of the completion sources list
-                 (set (make-local-variable 'company-backends)
-                      (cons 'company-capf company-backends))
-                 (delete-dups company-backends)
-                 ))
+      (add-hook 'R-mode-hook
+                (lambda()
+                   ;; make sure completion calls company-ess first
+                   (require 'company-ess)
+                   (set (make-local-variable 'company-backends)
+                        (cons 'company-ess-backend company-backends))
+                   (delete-dups company-backends)
+                   ))
     
-    (add-hook 'R-mode-hook
-              (lambda()
-                 ;; make sure completion calls company-ess first
-                 (require 'company-ess)
-                 (set (make-local-variable 'company-backends)
-                      (cons 'company-ess-backend company-backends))
-                 (delete-dups company-backends)
-                 ))
+      ;; enable 
+      (setq ess-R-font-lock-keywords
+         (quote
+          ((ess-R-fl-keyword:modifiers . t)
+           (ess-R-fl-keyword:fun-defs . t)
+           (ess-R-fl-keyword:keywords . t)
+           (ess-R-fl-keyword:assign-ops . t)
+           (ess-R-fl-keyword:constants . t)
+           (ess-fl-keyword:fun-calls . t)
+           (ess-fl-keyword:numbers . t)
+           (ess-fl-keyword:operators . t)
+           (ess-fl-keyword:delimiters . t)
+           (ess-fl-keyword:= . t)
+           (ess-R-fl-keyword:F&T . t))))
     
-    ;; enable 
-    (setq ess-R-font-lock-keywords
-       (quote
-        ((ess-R-fl-keyword:modifiers . t)
-         (ess-R-fl-keyword:fun-defs . t)
-         (ess-R-fl-keyword:keywords . t)
-         (ess-R-fl-keyword:assign-ops . t)
-         (ess-R-fl-keyword:constants . t)
-         (ess-fl-keyword:fun-calls . t)
-         (ess-fl-keyword:numbers . t)
-         (ess-fl-keyword:operators . t)
-         (ess-fl-keyword:delimiters . t)
-         (ess-fl-keyword:= . t)
-         (ess-R-fl-keyword:F&T . t))))
-    
-    ;; ;; try to get sane indentation
-    ;; (setq ess-first-continued-statement-offset 2)
-    ;; (setq ess-continued-statement-offset 0)
-    ;; (setq ess-arg-function-offset-new-line 0)
-    ;; (setq ess-arg-function-offset nil)
-    ;; (setq ess-default-style 'DEFAULT)
+      ;; ;; try to get sane indentation
+      ;; (setq ess-first-continued-statement-offset 2)
+      ;; (setq ess-continued-statement-offset 0)
+      ;; (setq ess-arg-function-offset-new-line 0)
+      ;; (setq ess-arg-function-offset nil)
+      ;; (setq ess-default-style 'DEFAULT)
     ```
 
 4.  Run python in emacs (elpy)
