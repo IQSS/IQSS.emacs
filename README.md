@@ -984,17 +984,18 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
 4.  Run python in emacs (anaconda-mode)
 
     ```lisp
-    (require 'anaconda-mode)
-    (require 'company-anaconda)
-    (add-hook 'python-mode-hook 'anaconda-mode)
-    (add-hook 'python-mode-hook 'eldoc-mode)
-    (add-hook 'python-mode-hook
-              (lambda()
-                (setq-local company-backends
-                            (cons 'company-anaconda company-backends))))
-    ;; use ipython if available
-    (if (executable-find "ipython")
-       (setq python-shell-interpreter "ipython"))
+    (when (executable-find "pip")
+      (require 'anaconda-mode)
+      (require 'company-anaconda)
+      (add-hook 'python-mode-hook 'anaconda-mode)
+      (add-hook 'python-mode-hook 'eldoc-mode)
+      (add-hook 'python-mode-hook
+                (lambda()
+                  (setq-local company-backends
+                              (cons 'company-anaconda company-backends))))
+      ;; use ipython if available
+      (if (executable-find "ipython")
+          (setq python-shell-interpreter "ipython")))
     ```
 
 5.  emacs lisp REPL (ielm)
