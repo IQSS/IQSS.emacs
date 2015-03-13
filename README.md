@@ -58,7 +58,6 @@ This configuration loads a lot of useful emacs packages (see here for the list),
 
 -   **C-TAB:** Mapped to `company-complete`, use for pop-up completion menu.
 
-
 -   **C-x C-r:** Mapped to `ido-recentf-open` to select recent files in the minibuffer.
 -   **M-x:** Remapped to `smex` to interactively search for interactive functions. Use `M-X` (note the capital "X") to restrict to commands for the active major mode.
 
@@ -443,6 +442,7 @@ The main purpose of these emacs configuration files is to install and configure 
                         eval-in-repl
                         pyvenv
                         anaconda-mode
+                        exec-path-from-shell
                         company-anaconda
                         htmlize
                         pcmpl-args
@@ -608,6 +608,10 @@ We try to install most things using the package manager, but a few things need t
             (copy-sequence (normal-top-level-add-to-load-path '(".")))
             (normal-top-level-add-subdirs-to-load-path)))
          load-path)))
+
+;; on OSX Emacs needs help setting up the system paths
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
 ```
 
 ### Spell checking<a id="sec-2-3-7" name="sec-2-3-7"></a>

@@ -89,6 +89,7 @@
                         eval-in-repl
                         pyvenv
                         anaconda-mode
+                        exec-path-from-shell
                         company-anaconda
                         htmlize
                         pcmpl-args
@@ -242,6 +243,10 @@
             (copy-sequence (normal-top-level-add-to-load-path '(".")))
             (normal-top-level-add-subdirs-to-load-path)))
          load-path)))
+
+;; on OSX Emacs needs help setting up the system paths
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
 
 ;; enable on-the-fly spell checking
 (add-hook 'text-mode-hook

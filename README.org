@@ -273,6 +273,7 @@ The main purpose of these emacs configuration files is to install and configure 
                           eval-in-repl
                           pyvenv
                           anaconda-mode
+                          exec-path-from-shell
                           company-anaconda
                           htmlize
                           pcmpl-args
@@ -437,6 +438,10 @@ We try to install most things using the package manager, but a few things need t
               (copy-sequence (normal-top-level-add-to-load-path '(".")))
               (normal-top-level-add-subdirs-to-load-path)))
            load-path)))
+
+  ;; on OSX Emacs needs help setting up the system paths
+  (when (memq window-system '(mac ns))
+    (exec-path-from-shell-initialize))
 
 #+END_SRC
 *** Spell checking
