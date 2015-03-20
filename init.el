@@ -29,14 +29,6 @@
 ;; (menu-bar-mode 0)
 ;; (setq inhibit-startup-screen t)
 
-(add-to-list 'fancy-startup-text '("\nYou are running a customized Emacs configuration. See "  :link
-  ("here"
-   #[257 "\300\301!\207"
-         [browse-url-default-browser "http://github.com/izahn/dotemacs/"]
-         3 "\n\n(fn BUTTON)"]
-   "Open the README file")
-  "\nfor information about these customizations.\n"))
-
 ;;; Install required packages
 (require 'cl)
 
@@ -121,17 +113,23 @@
       (package-install package)))
   (switch-to-buffer "*scratch*")
   (erase-buffer)
-  (delete-other-windows)
-  (insert 
-   ";; Your emacs has been configured for maximum productivity. 
-;; For best results please restart emacs now.
+  (add-to-list 'fancy-startup-text
+               '("Your emacs has been configured for maximum productivity. 
+For best results please restart emacs now.
+More information about this emacs configuration be found
+at http://github.com/izahn/dotemacs. If you have any problems
+or have a feature request please open a bug report at
+http://github.com/izahn/dotemacs/issues
+")))
 
-;; More information about this emacs configuration be found
-;; at http://github.com/izahn/dotemacs. If you have any problems
-;; or have a feature request please open a bug report at
-;; http://github.com/izahn/dotemacs/issues
-"
-   ))
+(add-to-list 'fancy-startup-text
+             '("\nYou are running a customized Emacs configuration. See "  :link
+               ("here"
+                #[257 "\300\301!\207"
+                      [browse-url-default-browser "http://github.com/izahn/dotemacs/"]
+                      3 "\n\n(fn BUTTON)"]
+                "Open the README file")
+               "\nfor information about these customizations.\n"))
 
 ;; finally a theme I can live with!
 (load-theme 'leuven t) 
