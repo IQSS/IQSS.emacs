@@ -100,6 +100,7 @@
 
 ;; Activate package autoloads
 (package-initialize)
+(setq package-initialize nil)
 
 ;; make sure stale packages don't get loaded
 (dolist (package my-package-list)
