@@ -58,6 +58,7 @@ This configuration loads a lot of useful emacs packages (see here for the list),
 
 -   **C-TAB:** Mapped to `company-complete`, use for pop-up completion menu.
 
+
 -   **C-x C-r:** Mapped to `ido-recentf-open` to select recent files in the minibuffer.
 -   **M-x:** Remapped to `smex` to interactively search for interactive functions. Use `M-X` (note the capital "X") to restrict to commands for the active major mode.
 
@@ -420,7 +421,6 @@ The main purpose of these emacs configuration files is to install and configure 
                         anzu
                         howdoi
                         google-this
-                        ;; paradox ;; requires emacs >= 24.4
                         leuven-theme
                         powerline
                         persistent-soft
@@ -485,21 +485,6 @@ The main purpose of these emacs configuration files is to install and configure 
 ;; http://github.com/izahn/dotemacs/issues
 "
    ))
-
-;; use paradox for better package management (emacs >= 24.4 only)
-(unless (< (string-to-number 
-           (concat 
-            (number-to-string emacs-major-version) 
-            "." 
-            (number-to-string emacs-minor-version)))
-           24.4)
-  (when (not (package-installed-p 'paradox))
-    (package-install 'paradox))
-  (require 'paradox)
-  ;; do not install/upgrade asynchronously
-  (setq paradox-execute-asynchronously nil)
-  ;; don't ask to configure github
-  (setq paradox-github-token t))
 ```
 
 ### Load theme<a id="sec-2-3-5" name="sec-2-3-5"></a>

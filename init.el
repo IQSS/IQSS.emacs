@@ -67,7 +67,6 @@
                         anzu
                         howdoi
                         google-this
-                        ;; paradox ;; requires emacs >= 24.4
                         leuven-theme
                         powerline
                         persistent-soft
@@ -132,21 +131,6 @@
 ;; http://github.com/izahn/dotemacs/issues
 "
    ))
-
-;; use paradox for better package management (emacs >= 24.4 only)
-(unless (< (string-to-number 
-           (concat 
-            (number-to-string emacs-major-version) 
-            "." 
-            (number-to-string emacs-minor-version)))
-           24.4)
-  (when (not (package-installed-p 'paradox))
-    (package-install 'paradox))
-  (require 'paradox)
-  ;; do not install/upgrade asynchronously
-  (setq paradox-execute-asynchronously nil)
-  ;; don't ask to configure github
-  (setq paradox-github-token t))
 
 ;; finally a theme I can live with!
 (load-theme 'leuven t) 
