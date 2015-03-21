@@ -1329,11 +1329,6 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
 (setq buffer-file-coding-system 'utf-8)                      
 (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 
-;; start the server if not already started
-(load "server")
-(unless (server-running-p)
-  (server-start))
-
 ;; ;; use regex search by default
 ;; (global-set-key (kbd "C-s") 'isearch-forward-regexp)
 ;; (global-set-key (kbd "C-r") 'isearch-backward-regexp)
@@ -1382,7 +1377,7 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
 
 (setq global-font-lock-mode 1) ; everything should use fonts
 (setq font-lock-maximum-decoration t) ;; decorate as much as possible
-(add-hook 'prog-mode-hook 'show-paren-mode t) ;; highlight matching paren
+(show-paren-mode 1) ;; highlight matching paren
 
 ;; smooth scrolling with C-up/C-down
 (require 'smooth-scroll)
