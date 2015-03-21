@@ -111,7 +111,7 @@
   (dolist (package my-package-list)
     (when (not (package-installed-p package))
       (package-install package)))
-  (switch-to-buffer "*scratch*")
+    (switch-to-buffer "*scratch*")
   (erase-buffer)
   (add-to-list 'fancy-startup-text
                '("Your emacs has been configured for maximum productivity. 
@@ -930,7 +930,7 @@ The app is chosen from your OS's preference."
 
 (setq global-font-lock-mode 1) ; everything should use fonts
 (setq font-lock-maximum-decoration t) ;; decorate as much as possible
-(show-paren-mode t) ;; highlight matching paren
+(show-paren-mode 1) ;; highlight matching paren
 
 ;; smooth scrolling with C-up/C-down
 (require 'smooth-scroll)

@@ -465,7 +465,7 @@ The main purpose of these emacs configuration files is to install and configure 
   (dolist (package my-package-list)
     (when (not (package-installed-p package))
       (package-install package)))
-  (switch-to-buffer "*scratch*")
+    (switch-to-buffer "*scratch*")
   (erase-buffer)
   (add-to-list 'fancy-startup-text
                '("Your emacs has been configured for maximum productivity. 
@@ -1382,7 +1382,7 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
 
 (setq global-font-lock-mode 1) ; everything should use fonts
 (setq font-lock-maximum-decoration t) ;; decorate as much as possible
-(show-paren-mode t) ;; highlight matching paren
+(add-hook 'prog-mode-hook 'show-paren-mode t) ;; highlight matching paren
 
 ;; smooth scrolling with C-up/C-down
 (require 'smooth-scroll)
