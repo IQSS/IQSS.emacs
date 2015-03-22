@@ -133,7 +133,11 @@ http://github.com/izahn/dotemacs/issues
 
 ;; finally a theme I can live with!
 (load-theme 'leuven t) 
-(setq org-fontify-whole-heading-line t)
+;; but it still needs a few tweeks
+(setq org-fontify-whole-heading-line nil)
+(set-face-attribute ' org-meta-line nil
+                      :background nil
+                      :foreground "#B0B0B0")
 
 ;; mode line theme
 (require 'powerline)
