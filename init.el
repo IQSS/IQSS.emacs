@@ -648,7 +648,10 @@ http://github.com/izahn/dotemacs/issues
 
 ;; Update images from babel code blocks automatically
 (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
-
+;; use company in org mode
+(add-hook 'org-mode-hook
+          (lambda()
+            (define-key org-mode-map (kbd "<C-tab>") 'company-complete)))
 ;; Enable common programming language support in org-mode
 (org-babel-do-load-languages
  'org-babel-load-languages
