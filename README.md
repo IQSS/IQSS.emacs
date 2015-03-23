@@ -410,6 +410,7 @@ The main purpose of these emacs configuration files is to install and configure 
                         windresize
                         diff-hl
                         ;; melpa packages
+                        diminish
                         multi-term
                         anzu
                         howdoi
@@ -1076,7 +1077,7 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
     ;; increase imenu depth to include third level headings
     (setq org-imenu-depth 3)
     ;; Load additional export formats
-    (require 'ox-odt)
+    ;;(require 'ox-odt)
     (require 'ox-md)
     ;; (require 'ox-freemind)
     (require 'ox-bibtex)
@@ -1328,7 +1329,7 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
 ;; (setq winner-dont-bind-my-keys t) 
 (winner-mode 1)
 
-;;; set up unicode
+  ;;; set up unicode
 (prefer-coding-system       'utf-8)
 (set-default-coding-systems 'utf-8)
 (set-terminal-coding-system 'utf-8)
@@ -1353,8 +1354,8 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
 (setq mouse-yank-at-point t)
 
 ;; Mouse scrolling behavior
-  (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
-  (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
+(setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
 
 ;; Put backups in a separate folder
 (setq backup-directory-alist `(("." . ,(concat user-emacs-directory
@@ -1409,7 +1410,7 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
 (add-hook 'text-mode-hook 'visual-line-mode 1)
 (add-hook 'prog-mode-hook
           (lambda()
-              (setq truncate-lines 1)))
+            (setq truncate-lines 1)))
 
 ;; don't require two spaces for sentence end.
 (setq sentence-end-double-space nil)
@@ -1433,4 +1434,12 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
 (unless (file-exists-p custom-file)
   (write-region ";; Put user configuration here" nil custom-file))
 (load custom-file 'noerror)
+
+;; clean up the mode line
+(require 'diminish)
+(diminish 'company-mode)
+(diminish 'anzu-mode)
+(diminish 'google-this-mode)
+(diminish 'outline-minor-mode)
+(diminish 'smooth-scroll-mode)
 ```
