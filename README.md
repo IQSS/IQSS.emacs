@@ -495,9 +495,6 @@ Loading the theme should come as early as possible in the init sequence to avoid
 (load-theme 'leuven t) 
 ;; but it still needs a few tweeks
 (setq org-fontify-whole-heading-line nil)
-(set-face-attribute ' org-meta-line nil
-                      :background nil
-                      :foreground "#B0B0B0")
 
 ;; mode line theme
 (require 'powerline)
@@ -1071,16 +1068,17 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
 
     ```lisp
     (require 'org)
-    
+    (set-face-attribute 'org-meta-line nil
+                        :background nil
+                        :foreground "#B0B0B0")
+    (setq org-startup-indented t)
     ;; increase imenu depth to include third level headings
     (setq org-imenu-depth 3)
     ;; Load additional export formats
-    (add-hook 'org-mode-hook
-              (lambda()
-                (require 'ox-odt)
-                (require 'ox-md)
-                ;; (require 'ox-freemind)
-                (require 'ox-bibtex)))
+    (require 'ox-odt)
+    (require 'ox-md)
+    ;; (require 'ox-freemind)
+    (require 'ox-bibtex)
     
     ;; Update images from babel code blocks automatically
     (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
