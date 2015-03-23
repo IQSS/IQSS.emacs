@@ -410,6 +410,7 @@ The main purpose of these emacs configuration files is to install and configure 
                         windresize
                         diff-hl
                         ;; melpa packages
+                        multi-term
                         anzu
                         howdoi
                         google-this
@@ -1250,9 +1251,13 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
                    '("\\.zip\\'" "" "unzip")))
     ```
 
-11. Shell modes (shell and eshell)
+11. Shell modes (term, shell and eshell)
 
     ```lisp
+    ;; term
+    (require 'multi-term)
+    (define-key term-mode-map (kbd "C-j") 'term-char-mode)
+    (define-key term-raw-map (kbd "C-j") 'term-line-mode)
     ;; shell
     (require 'essh) ; if not done elsewhere; essh is in the local lisp folder
     (require 'eval-in-repl-shell)

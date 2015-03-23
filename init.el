@@ -56,6 +56,7 @@
                         windresize
                         diff-hl
                         ;; melpa packages
+                        multi-term
                         anzu
                         howdoi
                         google-this
@@ -805,6 +806,10 @@ The app is chosen from your OS's preference."
  '(add-to-list 'dired-compress-file-suffixes 
                '("\\.zip\\'" "" "unzip")))
 
+;; term
+(require 'multi-term)
+(define-key term-mode-map (kbd "C-j") 'term-char-mode)
+(define-key term-raw-map (kbd "C-j") 'term-line-mode)
 ;; shell
 (require 'essh) ; if not done elsewhere; essh is in the local lisp folder
 (require 'eval-in-repl-shell)

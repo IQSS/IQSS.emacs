@@ -240,6 +240,7 @@ The main purpose of these emacs configuration files is to install and configure 
                           windresize
                           diff-hl
                           ;; melpa packages
+                          multi-term
                           anzu
                           howdoi
                           google-this
@@ -1087,9 +1088,13 @@ Load eval-in-repl for bash, elisp, and python interaction.
 
 #+END_SRC
 
-**** Shell modes (shell and eshell)
+**** Shell modes (term, shell and eshell)
 
 #+BEGIN_SRC emacs-lisp
+  ;; term
+  (require 'multi-term)
+  (define-key term-mode-map (kbd "C-j") 'term-char-mode)
+  (define-key term-raw-map (kbd "C-j") 'term-line-mode)
   ;; shell
   (require 'essh) ; if not done elsewhere; essh is in the local lisp folder
   (require 'eval-in-repl-shell)
