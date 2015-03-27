@@ -196,16 +196,23 @@ Visual changes such as hiding the toolbar need to come first to avoid jarring tr
 
 #+BEGIN_SRC emacs-lisp
   ;; restore frames
-  ;;(desktop-save-mode 1)
+  (setq desktop-load-locked-desktop nil)
+  (setq desktop-buffers-not-to-save "^.*$")
+  (setq desktop-files-not-to-save "^.*$")
+  (setq desktop-save t)
+  (desktop-save-mode 1)
 
   ;; hide the toolbar
   (tool-bar-mode 0)
   ;; (menu-bar-mode 0)
-;; always use fancy-startup, even on small screens
-(defun always-use-fancy-splash-screens-p () 1)
-(defalias 'use-fancy-splash-screens-p 'always-use-fancy-splash-screens-p)
-;; restore frame layout
-(desktop-save-mode)
+  ;; always use fancy-startup, even on small screens
+  (defun always-use-fancy-splash-screens-p () 1)
+  (defalias 'use-fancy-splash-screens-p 'always-use-fancy-splash-screens-p)
+  (add-hook 'after-init-hook
+            (lambda()
+              (fancy-startup-screen t)
+              (switch-to-buffer "*GNU Emacs*")
+              (delete-other-windows)))
 #+END_SRC
 
 *** Install useful packages
