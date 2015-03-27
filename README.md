@@ -366,71 +366,24 @@ It is difficult to support multiple versions of emacs, so we will pick an arbitr
 Visual changes such as hiding the toolbar need to come first to avoid jarring transitions during startup.
 
 ```lisp
-;; restore frames (from http://ck.kennt-wayne.de/2011/jul/emacs-restore-last-frame-size-on-startup)
-(defun save-framegeometry ()
-  "Gets the current frame's geometry and saves to ~/.emacs.d/framegeometry."
-  (let (
-        (framegeometry-left (frame-parameter (selected-frame) 'left))
-        (framegeometry-top (frame-parameter (selected-frame) 'top))
-        (framegeometry-width (frame-parameter (selected-frame) 'width))
-        (framegeometry-height (frame-parameter (selected-frame) 'height))
-        (framegeometry-file (expand-file-name "~/.emacs.d/framegeometry"))
-        )
-
-    (when (not (number-or-marker-p framegeometry-left))
-      (setq framegeometry-left 0))
-    (when (not (number-or-marker-p framegeometry-top))
-      (setq framegeometry-top 0))
-    (when (not (number-or-marker-p framegeometry-width))
-      (setq framegeometry-width 0))
-    (when (not (number-or-marker-p framegeometry-height))
-      (setq framegeometry-height 0))
-
-    (with-temp-buffer
-      (insert
-       ";;; This is the previous emacs frame's geometry.\n"
-       ";;; Last generated " (current-time-string) ".\n"
-       "(setq initial-frame-alist\n"
-       "      '(\n"
-       (format "        (top . %d)\n" (max framegeometry-top 0))
-       (format "        (left . %d)\n" (max framegeometry-left 0))
-       (format "        (width . %d)\n" (max framegeometry-width 0))
-       (format "        (height . %d)))\n" (max framegeometry-height 0)))
-      (when (file-writable-p framegeometry-file)
-        (write-file framegeometry-file))))
-  )
-
-(defun load-framegeometry ()
-  "Loads ~/.emacs.d/framegeometry which should load the previous frame's geometry."
-  (let ((framegeometry-file (expand-file-name "~/.emacs.d/framegeometry")))
-    (when (file-readable-p framegeometry-file)
-      (load-file framegeometry-file)))
-  )
-
-;; Special work to do ONLY when there is a window system being used
-(if window-system
-    (progn
-      (add-hook 'after-init-hook 'load-framegeometry)
-      (add-hook 'kill-emacs-hook 'save-framegeometry))
-  )
-
-;; (setq desktop-load-locked-desktop nil)
-;; (setq desktop-buffers-not-to-save "^.*$")
-;; (setq desktop-files-not-to-save "^.*$")
-;; (setq desktop-save t)
-;; (desktop-save-mode 1)
+;; use desktop mode, but only for frame layout
+(setq desktop-load-locked-desktop nil)
+(setq desktop-buffers-not-to-save "^.*$")
+(setq desktop-files-not-to-save "^.*$")
+(setq desktop-save t)
+(desktop-save-mode 1)
+;; always use fancy-startup, even on small screens
+(defun always-use-fancy-splash-screens-p () 1)
+(defalias 'use-fancy-splash-screens-p 'always-use-fancy-splash-screens-p)
+(add-hook 'after-init-hook
+          (lambda()
+            (if inhibit-startup-screen
+                (switch-to-buffer "*scratch*")
+              (add-hook 'desktop-after-read-hook 'fancy-startup-screen))))
 
 ;; hide the toolbar
 (tool-bar-mode 0)
 ;; (menu-bar-mode 0)
-;; always use fancy-startup, even on small screens
-(defun always-use-fancy-splash-screens-p () 1)
-(defalias 'use-fancy-splash-screens-p 'always-use-fancy-splash-screens-p)
-;; (add-hook 'after-init-hook
-;;           (lambda()
-;;             (fancy-startup-screen t)
-;;             (switch-to-buffer "*GNU Emacs*")
-;;             (delete-other-windows)))
 ```
 
 ### Install useful packages<a id="sec-2-3-4" name="sec-2-3-4"></a>
@@ -438,6 +391,16 @@ Visual changes such as hiding the toolbar need to come first to avoid jarring tr
 The main purpose of these emacs configuration files is to install and configure useful emacs packages. Here we carry out the installation.
 
 ```lisp
+;; set coding system so emacs doesn't choke on melpa file listings
+(set-language-environment 'utf-8)
+(set-keyboard-coding-system 'utf-8-mac) ; For old Carbon emacs on OS X only
+(setq locale-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(unless (eq system-type 'windows-nt)
+  (set-selection-coding-system 'utf-8))
+(prefer-coding-system 'utf-8)
+
 ;;; Install required packages
 (require 'cl)
 
