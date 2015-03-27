@@ -19,11 +19,14 @@
   (error "Your version of emacs is very old and must be upgraded before you can use these packages"))
 
 ;; restore frames
-;;(desktop-save-mode 1)
+  ;;(desktop-save-mode 1)
 
-;; hide the toolbar
-(tool-bar-mode 0)
-;; (menu-bar-mode 0)
+  ;; hide the toolbar
+  (tool-bar-mode 0)
+  ;; (menu-bar-mode 0)
+;; always use fancy-startup, even on small screens
+(defun always-use-fancy-splash-screens-p () 1)
+(defalias 'use-fancy-splash-screens-p 'always-use-fancy-splash-screens-p)
 
 ;;; Install required packages
 (require 'cl)

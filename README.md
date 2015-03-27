@@ -366,12 +366,15 @@ It is difficult to support multiple versions of emacs, so we will pick an arbitr
 Visual changes such as hiding the toolbar need to come first to avoid jarring transitions during startup.
 
 ```lisp
-;; restore frames
-;;(desktop-save-mode 1)
+  ;; restore frames
+  ;;(desktop-save-mode 1)
 
-;; hide the toolbar
-(tool-bar-mode 0)
-;; (menu-bar-mode 0)
+  ;; hide the toolbar
+  (tool-bar-mode 0)
+  ;; (menu-bar-mode 0)
+;; always use fancy-startup, even on small screens
+(defun always-use-fancy-splash-screens-p () 1)
+(defalias 'use-fancy-splash-screens-p 'always-use-fancy-splash-screens-p)
 ```
 
 ### Install useful packages<a id="sec-2-3-4" name="sec-2-3-4"></a>
