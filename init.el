@@ -94,7 +94,7 @@
 (unless (eq system-type 'windows-nt)
 (set-selection-coding-system 'utf-8))
 (prefer-coding-system 'utf-8)
-(setq package-check-signature nil)
+
 
 ;;; Install required packages
 (require 'cl)
