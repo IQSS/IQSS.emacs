@@ -366,16 +366,22 @@ It is difficult to support multiple versions of emacs, so we will pick an arbitr
 Visual changes such as hiding the toolbar need to come first to avoid jarring transitions during startup.
 
 ```lisp
-;; make sure we start maximized (requires emacs >= 24.4)
-(setq initial-frame-alist '((fullscreen . maximized)))
-(modify-frame-parameters
-   nil
-   `((fullscreen ., 'maximized)))
+;; restore frames
+(setq desktop-load-locked-desktop nil)
+(setq desktop-buffers-not-to-save "^.*$")
+(setq desktop-files-not-to-save "^.*$")
+(setq desktop-save t)
+(desktop-save-mode 1)
 
 ;; hide the toolbar
 (tool-bar-mode 0)
 ;; (menu-bar-mode 0)
-;; (setq inhibit-startup-screen t)
+;; always use fancy-startup, even on small screens
+(defun always-use-fancy-splash-screens-p () 1)
+(defalias 'use-fancy-splash-screens-p 'always-use-fancy-splash-screens-p)
+(add-hook 'after-init-hook
+          (lambda()
+            (fancy-startup-screen t)))
 ```
 
 ### Install useful packages<a id="sec-2-3-4" name="sec-2-3-4"></a>
@@ -1360,9 +1366,16 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
 (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
 
-;; Put backups in a separate folder
-(setq backup-directory-alist `(("." . ,(concat user-emacs-directory
-                                               "backups"))))
+;; from https://github.com/bbatsov/prelude
+;; store all backup and autosave files in the tmp dir
+(setq backup-directory-alist
+`((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+`((".*" ,temporary-file-directory t)))
+;; autosave the undo-tree history
+(setq undo-tree-history-directory-alist
+`((".*" . ,temporary-file-directory)))
+(setq undo-tree-auto-save-history t)
 
 ;; Apropos commands should search everything
 (setq apropos-do-all t)
