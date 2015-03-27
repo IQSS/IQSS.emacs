@@ -18,16 +18,12 @@
           24.2)
   (error "Your version of emacs is very old and must be upgraded before you can use these packages"))
 
-;; make sure we start maximized (requires emacs >= 24.4)
-(setq initial-frame-alist '((fullscreen . maximized)))
-(modify-frame-parameters
-   nil
-   `((fullscreen ., 'maximized)))
+;; restore frames
+;;(desktop-save-mode 1)
 
 ;; hide the toolbar
 (tool-bar-mode 0)
 ;; (menu-bar-mode 0)
-;; (setq inhibit-startup-screen t)
 
 ;;; Install required packages
 (require 'cl)
