@@ -1012,9 +1012,9 @@ The app is chosen from your OS's preference."
 (load custom-file 'noerror)
 
 ;; ;; clean up the mode line
-;; (require 'diminish)
+(require 'diminish)
 ;; (diminish 'company-mode)
-;; (diminish 'anzu-mode)
-;; (diminish 'google-this-mode)
-;; (diminish 'outline-minor-mode)
-;; (diminish 'smooth-scroll-mode)
+(diminish 'anzu-mode)
+(diminish 'google-this-mode)
+(diminish 'outline-minor-mode)
+(diminish 'smooth-scroll-mode)

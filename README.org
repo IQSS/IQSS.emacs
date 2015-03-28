@@ -1172,7 +1172,7 @@ Load eval-in-repl for bash, elisp, and python interaction.
 #+END_SRC
 
 
-*** Miscellaneous
+*** COMMENT Miscellaneous
 
 #+BEGIN_SRC emacs-lisp
 
@@ -1304,12 +1304,12 @@ Load eval-in-repl for bash, elisp, and python interaction.
   (load custom-file 'noerror)
 
   ;; ;; clean up the mode line
-  ;; (require 'diminish)
+  (require 'diminish)
   ;; (diminish 'company-mode)
-  ;; (diminish 'anzu-mode)
-  ;; (diminish 'google-this-mode)
-  ;; (diminish 'outline-minor-mode)
-  ;; (diminish 'smooth-scroll-mode)
+  (diminish 'anzu-mode)
+  (diminish 'google-this-mode)
+  (diminish 'outline-minor-mode)
+  (diminish 'smooth-scroll-mode)
 
 #+END_SRC
 
