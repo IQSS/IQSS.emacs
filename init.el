@@ -1011,10 +1011,10 @@ The app is chosen from your OS's preference."
   (write-region ";; Put user configuration here" nil custom-file))
 (load custom-file 'noerror)
 
-;; clean up the mode line
-(require 'diminish)
-(diminish 'company-mode)
-(diminish 'anzu-mode)
-(diminish 'google-this-mode)
-(diminish 'outline-minor-mode)
-(diminish 'smooth-scroll-mode)
+;; ;; clean up the mode line
+;; (require 'diminish)
+;; (diminish 'company-mode)
+;; (diminish 'anzu-mode)
+;; (diminish 'google-this-mode)
+;; (diminish 'outline-minor-mode)
+;; (diminish 'smooth-scroll-mode)

@@ -1463,11 +1463,11 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
   (write-region ";; Put user configuration here" nil custom-file))
 (load custom-file 'noerror)
 
-;; clean up the mode line
-(require 'diminish)
-(diminish 'company-mode)
-(diminish 'anzu-mode)
-(diminish 'google-this-mode)
-(diminish 'outline-minor-mode)
-(diminish 'smooth-scroll-mode)
+;; ;; clean up the mode line
+;; (require 'diminish)
+;; (diminish 'company-mode)
+;; (diminish 'anzu-mode)
+;; (diminish 'google-this-mode)
+;; (diminish 'outline-minor-mode)
+;; (diminish 'smooth-scroll-mode)
 ```
