@@ -496,7 +496,9 @@ http://github.com/izahn/dotemacs/issues
 ")))
 
 (add-to-list 'fancy-startup-text
-             '("\nYou are running a customized Emacs configuration. See "  :link
+             '(:face
+               (variable-pitch default)
+               "\nYou are running a customized Emacs configuration. See "  :link
                ("here"
                 #[257 "\300\301!\207"
                       [browse-url-default-browser "http://github.com/izahn/dotemacs/"]
