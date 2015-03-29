@@ -452,16 +452,18 @@ We try to install most things using the package manager, but a few things need t
 
 #+BEGIN_SRC emacs-lisp
   ;; enable on-the-fly spell checking
-  (add-hook 'text-mode-hook
-            (lambda ()
-              (flyspell-mode 1)))
+  (add-hook 'emacs-startup-hook
+            (lambda()
+              (add-hook 'text-mode-hook
+                        (lambda ()
+                          (flyspell-mode 1)))
+              ;; prevent flyspell from finding mistakes in the code
+              (add-hook 'prog-mode-hook
+                        (lambda ()
+                          ;; `ispell-comments-and-strings'
+                          (flyspell-prog-mode)))))
 
-  ;; prevent flyspell from finding mistakes in the code
-  (add-hook 'prog-mode-hook
-            (lambda ()
-              ;; `ispell-comments-and-strings'
-              (flyspell-prog-mode)))
-  ;; ispell should not check code blocks
+  ;; ispell should not check code blocks in org mode
   (add-to-list 'ispell-skip-region-alist '(":\\(PROPERTIES\\|LOGBOOK\\):" . ":END:"))
   (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_SRC" . "#\\+END_SRC"))
   (add-to-list 'ispell-skip-region-alist '("#\\+begin_src" . "#\\+end_src"))

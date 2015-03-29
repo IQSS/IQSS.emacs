@@ -622,16 +622,18 @@ We try to install most things using the package manager, but a few things need t
 
 ```lisp
 ;; enable on-the-fly spell checking
-(add-hook 'text-mode-hook
-          (lambda ()
-            (flyspell-mode 1)))
+(add-hook 'emacs-startup-hook
+          (lambda()
+            (add-hook 'text-mode-hook
+                      (lambda ()
+                        (flyspell-mode 1)))
+            ;; prevent flyspell from finding mistakes in the code
+            (add-hook 'prog-mode-hook
+                      (lambda ()
+                        ;; `ispell-comments-and-strings'
+                        (flyspell-prog-mode)))))
 
-;; prevent flyspell from finding mistakes in the code
-(add-hook 'prog-mode-hook
-          (lambda ()
-            ;; `ispell-comments-and-strings'
-            (flyspell-prog-mode)))
-;; ispell should not check code blocks
+;; ispell should not check code blocks in org mode
 (add-to-list 'ispell-skip-region-alist '(":\\(PROPERTIES\\|LOGBOOK\\):" . ":END:"))
 (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_SRC" . "#\\+END_SRC"))
 (add-to-list 'ispell-skip-region-alist '("#\\+begin_src" . "#\\+end_src"))
@@ -809,45 +811,44 @@ Here we configure in-buffer text completion using the company-mode package. Thes
 ```lisp
 ;;Use C-TAB to complete. We put this in eval-after-load 
 ;; because otherwise some modes will try to override our settings.
-(eval-after-load "company"
-  '(progn
-     ;; don't start automatically 
-     (setq company-idle-delay nil)
-     ;; cancel if input doesn't match
-     (setq company-require-match nil)
-     ;; complete using C-TAB
-     (global-set-key (kbd "<C-tab>") 'company-complete)
-     ;; use C-n and C-p to cycle through completions
-     ;; (define-key company-mode-map (kbd "<tab>") 'company-complete)
-     (define-key company-active-map (kbd "C-n") 'company-select-next)
-     (define-key company-active-map (kbd "<tab>") 'company-select-next)
-     (define-key company-active-map (kbd "C-p") 'company-select-previous)
-     (define-key company-active-map (kbd "<backtab>") 'company-select-previous)
-     ;; enable math completions
-     (require 'company-math)
-     ;; company-mode completions for ess
-     (require 'company-ess)
-     (add-to-list 'company-backends 'company-math-symbols-unicode)
-     ;(add-to-list 'company-backends 'company-math-symbols-latex)
-     ;; put company-capf at the beginning of the list
-     (require 'company-capf)
-     (setq company-backends
-          (delete-dups (cons 'company-capf company-backends)))
-     ;; theme
-     (set-face-attribute 'company-scrollbar-bg nil
-                         :background "gray")
-     (set-face-attribute 'company-scrollbar-fg nil
-                         :background "black")
-     (set-face-attribute 'company-tooltip nil
-                         :foreground "black"
-                         :background "lightgray")
-     (set-face-attribute 'company-tooltip-selection nil
-                         :foreground "white"
-                         :background "steelblue")
-     ;; ;; disable dabbrev
-     ;; (delete 'company-dabbrev company-backends)
-     ;; (delete 'company-dabbrev-code company-backends)
-     ))
+(require 'company)
+;; don't start automatically 
+(setq company-idle-delay nil)
+;; cancel if input doesn't match
+(setq company-require-match nil)
+;; complete using C-TAB
+(global-set-key (kbd "<C-tab>") 'company-complete)
+;; use C-n and C-p to cycle through completions
+;; (define-key company-mode-map (kbd "<tab>") 'company-complete)
+(define-key company-active-map (kbd "C-n") 'company-select-next)
+(define-key company-active-map (kbd "<tab>") 'company-complete-common)
+(define-key company-active-map (kbd "C-p") 'company-select-previous)
+(define-key company-active-map (kbd "<backtab>") 'company-select-previous)
+;; enable math completions
+(require 'company-math)
+;; company-mode completions for ess
+(require 'company-ess)
+(add-to-list 'company-backends 'company-math-symbols-unicode)
+;;(add-to-list 'company-backends 'company-math-symbols-latex)
+;; put company-capf at the beginning of the list
+(require 'company-capf)
+(setq company-backends
+      (delete-dups (cons 'company-capf company-backends)))
+;; theme
+(set-face-attribute 'company-scrollbar-bg nil
+                    :background "gray")
+(set-face-attribute 'company-scrollbar-fg nil
+                    :background "black")
+(set-face-attribute 'company-tooltip nil
+                    :foreground "black"
+                    :background "lightgray")
+(set-face-attribute 'company-tooltip-selection nil
+                    :foreground "white"
+                    :background "steelblue")
+;; ;; disable dabbrev
+;; (delete 'company-dabbrev company-backends)
+;; (delete 'company-dabbrev-code company-backends)
+
 
 (add-hook 'after-init-hook 'global-company-mode)
 
