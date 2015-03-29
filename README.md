@@ -487,7 +487,9 @@ The main purpose of these emacs configuration files is to install and configure 
     (switch-to-buffer "*scratch*")
   (erase-buffer)
   (add-to-list 'fancy-startup-text
-               '("Your emacs has been configured for maximum productivity. 
+               '(:face
+                 (variable-pitch default)
+                 "Your emacs has been configured for maximum productivity. 
 For best results please restart emacs now.
 More information about this emacs configuration be found
 at http://github.com/izahn/dotemacs. If you have any problems
