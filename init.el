@@ -30,7 +30,8 @@
 (add-hook 'after-init-hook
           (lambda()
             (if inhibit-startup-screen
-                (switch-to-buffer "*scratch*")
+                (add-hook 'emacs-startup-hook 
+                          (lambda() (switch-to-buffer "*scratch*")))
               (add-hook 'desktop-after-read-hook 'fancy-startup-screen))))
 
 ;; hide the toolbar
