@@ -377,7 +377,8 @@ Visual changes such as hiding the toolbar need to come first to avoid jarring tr
 (add-hook 'after-init-hook
           (lambda()
             (if inhibit-startup-screen
-                (switch-to-buffer "*scratch*")
+                (add-hook 'emacs-startup-hook 
+                          (lambda() (switch-to-buffer "*scratch*")))
               (add-hook 'desktop-after-read-hook 'fancy-startup-screen))))
 
 ;; hide the toolbar
