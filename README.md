@@ -832,7 +832,7 @@ Here we configure in-buffer text completion using the company-mode package. Thes
 ;; enable math completions
 (require 'company-math)
 ;; company-mode completions for ess
-(require 'company-ess)
+;; (require 'company-ess)
 (add-to-list 'company-backends 'company-math-symbols-unicode)
 ;;(add-to-list 'company-backends 'company-math-symbols-latex)
 ;; put company-capf at the beginning of the list
@@ -963,14 +963,14 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
                 (delete-dups company-backends)
                 ))
     
-    (add-hook 'R-mode-hook
-              (lambda()
-                ;; make sure completion calls company-ess first
-                (require 'company-ess)
-                (set (make-local-variable 'company-backends)
-                     (cons 'company-ess-backend company-backends))
-                (delete-dups company-backends)
-                ))
+    ;; (add-hook 'R-mode-hook
+    ;;           (lambda()
+    ;;             ;; make sure completion calls company-ess first
+    ;;             (require 'company-ess)
+    ;;             (set (make-local-variable 'company-backends)
+    ;;                  (cons 'company-ess-backend company-backends))
+    ;;             (delete-dups company-backends)
+    ;;             ))
     
     ;; enable 
     (setq ess-R-font-lock-keywords
