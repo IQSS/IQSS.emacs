@@ -196,10 +196,13 @@ Visual changes such as hiding the toolbar need to come first to avoid jarring tr
 
 #+BEGIN_SRC emacs-lisp
   ;; use desktop mode, but only for frame layout
-  (setq desktop-load-locked-desktop nil)
+  (setq desktop-load-locked-desktop t)
   (setq desktop-buffers-not-to-save "^.*$")
   (setq desktop-files-not-to-save "^.*$")
   (setq desktop-save t)
+  (setq desktop-auto-save-timeout nil)
+  (setq desktop-globals-to-save nil)
+  (setq desktop-locals-to-save nil)
   (desktop-save-mode 1)
   ;; always use fancy-startup, even on small screens
   (defun always-use-fancy-splash-screens-p () 1)
