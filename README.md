@@ -1099,55 +1099,43 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
     (setq org-startup-indented t)
     ;; increase imenu depth to include third level headings
     (setq org-imenu-depth 3)
-    ;; Load additional export formats
-    ;;(require 'ox-odt)
-    (require 'ox-md)
-    ;; (require 'ox-freemind)
-    (require 'ox-bibtex)
-    
-    ;; Update images from babel code blocks automatically
-    (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
-    ;; use company in org mode
-    (add-hook 'org-mode-hook
-              (lambda()
-                (define-key org-mode-map (kbd "<C-tab>") 'company-complete)))
-    ;; Enable common programming language support in org-mode
-    (org-babel-do-load-languages
-     'org-babel-load-languages
-     '((R . t)
-       (python . t)
-       (matlab . t)
-       (emacs-lisp . t)
-       (sh . t)
-       (dot . t)
-       (latex . t)
-       (octave . t)
-       (ditaa . t)
-       (org . t)
-       (perl . t)
-       (julia . t)
-    ))
-    
     ;; Set sensible mode for editing dot files
     (add-to-list 'org-src-lang-modes '("dot" . graphviz-dot))
     
-    ;; Fontify code blocks in org-mode
-    (setq org-src-fontify-natively t)
-    (setq org-src-tab-acts-natively t)
-    (setq org-confirm-babel-evaluate nil)
-    
-    (require 'org-capture)
-    (require 'org-protocol)
-    (require 'ob-stata)
-    
-    ;; set up capture
-    (setq org-default-notes-file (concat org-directory "/notes.org"))
-    
-    (setq org-capture-templates
-          '(("t" "Todo" entry (file+headline "~/org/notes.org" "RT Tasks")
-             "* TODO %?\n  %i\n  %a")))
-    
-    (define-key global-map "\C-cc" 'org-capture)
+    ;; Update images from babel code blocks automatically
+    (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
+    ;; configure org-mode when opening first org-mode file
+    (add-hook 'org-mode-hook
+              (lambda()
+                (define-key org-mode-map (kbd "<C-tab>") 'company-complete)
+                ;; Load additional export formats
+                (require 'ox-odt)
+                (require 'ox-md)
+                (require 'ox-freemind)
+                (require 'ox-bibtex)
+                ;; Enable common programming language support in org-mode
+                (org-babel-do-load-languages
+                 'org-babel-load-languages
+                 '((R . t)
+                   (python . t)
+                   (matlab . t)
+                   (emacs-lisp . t)
+                   (sh . t)
+                   (dot . t)
+                   (latex . t)
+                   (octave . t)
+                   (ditaa . t)
+                   (org . t)
+                   (perl . t)
+                   (julia . t)
+                   ))
+                ;; Fontify code blocks in org-mode
+                (setq org-src-fontify-natively t)
+                (setq org-src-tab-acts-natively t)
+                (setq org-confirm-babel-evaluate nil)
+                (require 'org-capture)
+                (require 'org-protocol)
+                (require 'ob-stata)))
     ```
 
 9.  Multiple modes in one "buffer" (polymode)
