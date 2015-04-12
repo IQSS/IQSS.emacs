@@ -590,10 +590,10 @@ http://github.com/izahn/dotemacs/issues
   (add-hook 'python-mode-hook
             (lambda()
               (setq-local company-backends
-                          (cons 'company-anaconda company-backends))))
+                          (cons 'company-anaconda company-backends)))))
   ;; use ipython if available
-  (if (executable-find "ipython")
-      (setq python-shell-interpreter "ipython")))
+(if (executable-find "ipython")
+    (setq python-shell-interpreter "ipython"))
 
 ;; ielm
 (require 'eval-in-repl-ielm)
@@ -703,7 +703,25 @@ http://github.com/izahn/dotemacs/issues
             (setq org-confirm-babel-evaluate nil)
             (require 'org-capture)
             (require 'org-protocol)
-            (require 'ob-stata)))
+            (require 'ob-stata)
+            (when (executable-find "ipython")
+              (setq org-babel-python-command
+                    "ipython --pylab --pdb --nosep --classic --no-banner --no-confirm-exit")
+              ;; https://github.com/jorgenschaefer/elpy/issues/191
+              ;; https://lists.gnu.org/archive/html/emacs-orgmode/2014-03/msg00405.html
+              ;; make IPython work w/ Org
+              (defadvice org-babel-python-evaluate
+                  (around org-python-use-cpaste
+                          (session body &optional result-type result-params preamble) activate)
+                "Add a %cpaste and '--' to the body, so that ipython does the right thing."
+                (setq body (concat "%cpaste -q\n" body "\n--\n"))
+                ad-do-it
+                (if (stringp ad-return-value)
+                    (setq ad-return-value
+                          (replace-regexp-in-string
+                           "\\(^Pasting code; enter '--' alone on the line to stop or use Ctrl-D\.[\r\n]:*\\)"
+                           ""
+                           ad-return-value)))))))
 
 ;;; polymode
 
