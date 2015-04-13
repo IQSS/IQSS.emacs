@@ -1013,9 +1013,12 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
                 (lambda()
                   (setq-local company-backends
                               (cons 'company-anaconda company-backends)))))
-      ;; use ipython if available
-    (if (executable-find "ipython")
-        (setq python-shell-interpreter "ipython"))
+      ;; use ipython if available (but not on windows; see 
+      ;; https://github.com/emacs-mirror/emacs/blob/master/lisp/progmodes/python.el
+    (when (executable-find "ipython")
+      (unless (eq system-type 'windows-nt)
+        (setq python-shell-interpreter "ipython"
+           python-shell-interpreter-args "-i")))
     ```
 
 5.  emacs lisp REPL (ielm)
