@@ -524,18 +524,14 @@ http://github.com/izahn/dotemacs/issues
 
 ;; extra ESS stuff inspired by https://github.com/gaborcsardi/dot-emacs/blob/master/.emacs
 (ess-toggle-underscore nil)
-(defun my-ess-post-run-hook ()
-  ;; reset output width when window is re-sized
-  (add-hook 'inferior-ess-mode-hook
-            (lambda()
-              (defun my-ess-execute-screen-options (foo)
-                (ess-execute-screen-options))
-              (add-to-list
-               'window-size-change-functions
-               'my-ess-execute-screen-options)))
-  )
-(add-hook 'ess-post-run-hook 'my-ess-post-run-hook)
-(add-hook 'ess-mode-hook (lambda () ))
+(defun my-ess-execute-screen-options (foo)
+              (ess-execute-screen-options))
+(add-hook 'inferior-ess-mode-hook
+          (lambda()
+            (setq-local
+             window-size-change-functions
+             '(my-ess-execute-screen-options))))
+
 ;; truncate long lines in R source files
 (add-hook 'ess-mode-hook
           (lambda()
@@ -594,12 +590,19 @@ http://github.com/izahn/dotemacs/issues
             (lambda()
               (setq-local company-backends
                           (cons 'company-anaconda company-backends)))))
-  ;; use ipython if available (but not on windows; see 
-  ;; https://github.com/emacs-mirror/emacs/blob/master/lisp/progmodes/python.el
-(when (executable-find "ipython")
+;; use ipython if available (but not on windows; see 
+;; https://github.com/emacs-mirror/emacs/blob/master/lisp/progmodes/python.el
+;; and only on recent versions of emacs
+(when (and (>= (string-to-number 
+                (concat 
+                 (number-to-string emacs-major-version) 
+                 "." 
+                 (number-to-string emacs-minor-version)))
+               24.4)
+           (executable-find "ipython"))
   (unless (eq system-type 'windows-nt)
     (setq python-shell-interpreter "ipython"
-       python-shell-interpreter-args "-i")))
+          python-shell-interpreter-args "-i")))
 
 ;; ielm
 (require 'eval-in-repl-ielm)
