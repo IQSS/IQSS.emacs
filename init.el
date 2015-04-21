@@ -544,20 +544,11 @@ http://github.com/izahn/dotemacs/issues
             (setq ess-arg-function-offset-new-line nil)
             (setq ess-continued-statement-offset 0)
             (setq ess-expression-offset nil)
-            ;; put company-capf at the front of the completion sources list
-            (set (make-local-variable 'company-backends)
-                 (cons 'company-capf company-backends))
-            (delete-dups company-backends)
+            ;; ;; put company-capf at the front of the completion sources list
+            ;; (set (make-local-variable 'company-backends)
+            ;;      (cons 'company-capf company-backends))
+            ;; (delete-dups company-backends)
             ))
-
-;; (add-hook 'R-mode-hook
-;;           (lambda()
-;;             ;; make sure completion calls company-ess first
-;;             (require 'company-ess)
-;;             (set (make-local-variable 'company-backends)
-;;                  (cons 'company-ess-backend company-backends))
-;;             (delete-dups company-backends)
-;;             ))
 
 ;; enable 
 (setq ess-R-font-lock-keywords
@@ -573,13 +564,6 @@ http://github.com/izahn/dotemacs/issues
         (ess-fl-keyword:delimiters . t)
         (ess-fl-keyword:= . t)
         (ess-R-fl-keyword:F&T . t))))
-
-;; ;; try to get sane indentation
-;; (setq ess-first-continued-statement-offset 2)
-;; (setq ess-continued-statement-offset 0)
-;; (setq ess-arg-function-offset-new-line 0)
-;; (setq ess-arg-function-offset nil)
-;; (setq ess-default-style 'DEFAULT)
 
 (when (executable-find "pip")
   (require 'anaconda-mode)
