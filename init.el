@@ -279,9 +279,8 @@ http://github.com/izahn/dotemacs/issues
 (add-to-list 'ispell-skip-region-alist '(":\\(PROPERTIES\\|LOGBOOK\\):" . ":END:"))
 (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_SRC" . "#\\+END_SRC"))
 (add-to-list 'ispell-skip-region-alist '("#\\+begin_src" . "#\\+end_src"))
-(add-to-list 'ispell-skip-region-alist '("^#\\+begin_example ". "#\\+end_example$"))
-(add-to-list 'ispell-skip-region-alist '("^#\\+BEGIN_EXAMPLE ". "#\\+END_EXAMPLE$"))
-(add-to-list 'ispell-skip-region-alist '("^```\\{". "```"))
+(add-to-list 'ispell-skip-region-alist '("^#\\+begin_example " . "#\\+end_example$"))
+(add-to-list 'ispell-skip-region-alist '("^#\\+BEGIN_EXAMPLE " . "#\\+END_EXAMPLE$"))
 
 ;; unicode-fonts doesn't work well on emacs < 24.3
 (when (>= (string-to-number 
@@ -526,11 +525,12 @@ http://github.com/izahn/dotemacs/issues
 (ess-toggle-underscore nil)
 (defun my-ess-execute-screen-options (foo)
               (ess-execute-screen-options))
-(add-hook 'inferior-ess-mode-hook
-          (lambda()
-            (setq-local
-             window-size-change-functions
-             '(my-ess-execute-screen-options))))
+;; (add-hook 'inferior-ess-mode-hook
+;;           (lambda()
+;;             (setq-local
+;;              window-size-change-functions
+;;              '(my-ess-execute-screen-options))))
+(add-to-list 'window-size-change-functions 'my-ess-execute-screen-options)
 
 ;; truncate long lines in R source files
 (add-hook 'ess-mode-hook

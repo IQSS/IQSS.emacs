@@ -478,9 +478,8 @@ We try to install most things using the package manager, but a few things need t
   (add-to-list 'ispell-skip-region-alist '(":\\(PROPERTIES\\|LOGBOOK\\):" . ":END:"))
   (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_SRC" . "#\\+END_SRC"))
   (add-to-list 'ispell-skip-region-alist '("#\\+begin_src" . "#\\+end_src"))
-  (add-to-list 'ispell-skip-region-alist '("^#\\+begin_example ". "#\\+end_example$"))
-  (add-to-list 'ispell-skip-region-alist '("^#\\+BEGIN_EXAMPLE ". "#\\+END_EXAMPLE$"))
-  (add-to-list 'ispell-skip-region-alist '("^```\\{". "```"))
+  (add-to-list 'ispell-skip-region-alist '("^#\\+begin_example " . "#\\+end_example$"))
+  (add-to-list 'ispell-skip-region-alist '("^#\\+BEGIN_EXAMPLE " . "#\\+END_EXAMPLE$"))
 #+END_SRC
 
 *** Fonts
@@ -768,11 +767,12 @@ Load eval-in-repl for bash, elisp, and python interaction.
   (ess-toggle-underscore nil)
   (defun my-ess-execute-screen-options (foo)
                 (ess-execute-screen-options))
-  (add-hook 'inferior-ess-mode-hook
-            (lambda()
-              (setq-local
-               window-size-change-functions
-               '(my-ess-execute-screen-options))))
+  ;; (add-hook 'inferior-ess-mode-hook
+  ;;           (lambda()
+  ;;             (setq-local
+  ;;              window-size-change-functions
+  ;;              '(my-ess-execute-screen-options))))
+  (add-to-list 'window-size-change-functions 'my-ess-execute-screen-options)
 
   ;; truncate long lines in R source files
   (add-hook 'ess-mode-hook
