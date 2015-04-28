@@ -938,13 +938,23 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
     
     ;; extra ESS stuff inspired by https://github.com/gaborcsardi/dot-emacs/blob/master/.emacs
     (ess-toggle-underscore nil)
+    
+    
+    (defun my-ess-fix-width ()
+      (if (string= ess-language "S")
+          (ess-eval-linewise (format "options(width=%d, length=99999)"
+                                     (- (window-width) 2))
+                             t nil nil 'wait-prompt)))
+    
     (defun my-ess-execute-screen-options (foo)
-                  (ess-execute-screen-options))
-    ;; (add-hook 'inferior-ess-mode-hook
-    ;;           (lambda()
-    ;;             (setq-local
-    ;;              window-size-change-functions
-    ;;              '(my-ess-execute-screen-options))))
+      "cycle through windows whose major mode is inferior-ess-mode and fix width"
+      (interactive)
+      (setq my-windows-list (window-list))
+        (while my-windows-list
+          (when (with-selected-window (car my-windows-list) (string= "inferior-ess-mode" major-mode))
+            (with-selected-window (car my-windows-list) (my-ess-fix-width)))
+          (setq my-windows-list (cdr my-windows-list))))
+    
     (add-to-list 'window-size-change-functions 'my-ess-execute-screen-options)
     
     ;; truncate long lines in R source files
