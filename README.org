@@ -766,20 +766,13 @@ Load eval-in-repl for bash, elisp, and python interaction.
   ;; extra ESS stuff inspired by https://github.com/gaborcsardi/dot-emacs/blob/master/.emacs
   (ess-toggle-underscore nil)
 
-
-  (defun my-ess-fix-width ()
-    (if (string= ess-language "S")
-        (ess-eval-linewise (format "options(width=%d, length=99999)"
-                                   (- (window-width) 2))
-                           t nil nil 'wait-prompt)))
-
   (defun my-ess-execute-screen-options (foo)
     "cycle through windows whose major mode is inferior-ess-mode and fix width"
     (interactive)
     (setq my-windows-list (window-list))
       (while my-windows-list
         (when (with-selected-window (car my-windows-list) (string= "inferior-ess-mode" major-mode))
-          (with-selected-window (car my-windows-list) (my-ess-fix-width)))
+          (with-selected-window (car my-windows-list) (ess-execute-screen-options t)))
         (setq my-windows-list (cdr my-windows-list))))
 
   (add-to-list 'window-size-change-functions 'my-ess-execute-screen-options)

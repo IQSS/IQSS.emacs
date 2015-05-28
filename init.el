@@ -524,20 +524,13 @@ http://github.com/izahn/dotemacs/issues
 ;; extra ESS stuff inspired by https://github.com/gaborcsardi/dot-emacs/blob/master/.emacs
 (ess-toggle-underscore nil)
 
-
-(defun my-ess-fix-width ()
-  (if (string= ess-language "S")
-      (ess-eval-linewise (format "options(width=%d, length=99999)"
-                                 (- (window-width) 2))
-                         t nil nil 'wait-prompt)))
-
 (defun my-ess-execute-screen-options (foo)
   "cycle through windows whose major mode is inferior-ess-mode and fix width"
   (interactive)
   (setq my-windows-list (window-list))
     (while my-windows-list
       (when (with-selected-window (car my-windows-list) (string= "inferior-ess-mode" major-mode))
-        (with-selected-window (car my-windows-list) (my-ess-fix-width)))
+        (with-selected-window (car my-windows-list) (ess-execute-screen-options t)))
       (setq my-windows-list (cdr my-windows-list))))
 
 (add-to-list 'window-size-change-functions 'my-ess-execute-screen-options)
@@ -547,13 +540,13 @@ http://github.com/izahn/dotemacs/issues
           (lambda()
             ;; don't wrap long lines
             (setq truncate-lines 1)
-            ;; better (but still not right) indentation
-            (setq ess-first-continued-statement-offset 2)
-            (setq ess-continued-statement-offset 0)
-            (setq ess-arg-function-offset nil)
-            (setq ess-arg-function-offset-new-line nil)
-            (setq ess-continued-statement-offset 0)
-            (setq ess-expression-offset nil)
+            ;; ;; better (but still not right) indentation
+            ;; (setq ess-first-continued-statement-offset 2)
+            ;; (setq ess-continued-statement-offset 0)
+            ;; (setq ess-arg-function-offset nil)
+            ;; (setq ess-arg-function-offset-new-line nil)
+            ;; (setq ess-continued-statement-offset 0)
+            ;; (setq ess-expression-offset nil)
             ;; ;; put company-capf at the front of the completion sources list
             ;; (set (make-local-variable 'company-backends)
             ;;      (cons 'company-capf company-backends))
