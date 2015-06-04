@@ -540,13 +540,13 @@ http://github.com/izahn/dotemacs/issues
           (lambda()
             ;; don't wrap long lines
             (setq truncate-lines 1)
-            ;; ;; better (but still not right) indentation
-            ;; (setq ess-first-continued-statement-offset 2)
-            ;; (setq ess-continued-statement-offset 0)
-            ;; (setq ess-arg-function-offset nil)
-            ;; (setq ess-arg-function-offset-new-line nil)
-            ;; (setq ess-continued-statement-offset 0)
-            ;; (setq ess-expression-offset nil)
+            ;; better (but still not right) indentation
+            (setq ess-first-continued-statement-offset 2)
+            (setq ess-continued-statement-offset 0)
+            (setq ess-arg-function-offset nil)
+            (setq ess-arg-function-offset-new-line nil)
+            (setq ess-continued-statement-offset 0)
+            (setq ess-expression-offset nil)
             ;; ;; put company-capf at the front of the completion sources list
             ;; (set (make-local-variable 'company-backends)
             ;;      (cons 'company-capf company-backends))
