@@ -541,32 +541,32 @@ http://github.com/izahn/dotemacs/issues
             ;; don't wrap long lines
             (setq truncate-lines 1)
             ;; better (but still not right) indentation
-            (setq ess-first-continued-statement-offset 2)
-            (setq ess-continued-statement-offset 0)
-            (setq ess-arg-function-offset nil)
-            (setq ess-arg-function-offset-new-line nil)
-            (setq ess-continued-statement-offset 0)
-            (setq ess-expression-offset nil)
+            ;(setq ess-first-continued-statement-offset 2)
+            ;(setq ess-continued-statement-offset 0)
+            ;(setq ess-arg-function-offset nil)
+            ;(setq ess-arg-function-offset-new-line nil)
+            ;(setq ess-expression-offset nil)
+
             ;; ;; put company-capf at the front of the completion sources list
             ;; (set (make-local-variable 'company-backends)
             ;;      (cons 'company-capf company-backends))
             ;; (delete-dups company-backends)
             ))
 
-;; enable 
-(setq ess-R-font-lock-keywords
-      (quote
-       ((ess-R-fl-keyword:modifiers . t)
-        (ess-R-fl-keyword:fun-defs . t)
-        (ess-R-fl-keyword:keywords . t)
-        (ess-R-fl-keyword:assign-ops . t)
-        (ess-R-fl-keyword:constants . t)
-        (ess-fl-keyword:fun-calls . t)
-        (ess-fl-keyword:numbers . t)
-        (ess-fl-keyword:operators . t)
-        (ess-fl-keyword:delimiters . t)
-        (ess-fl-keyword:= . t)
-        (ess-R-fl-keyword:F&T . t))))
+;; ;; enable all kinds of highlighting
+;; (setq ess-R-font-lock-keywords
+;;       (quote
+;;        ((ess-R-fl-keyword:modifiers . t)
+;;         (ess-R-fl-keyword:fun-defs . t)
+;;         (ess-R-fl-keyword:keywords . t)
+;;         (ess-R-fl-keyword:assign-ops . t)
+;;         (ess-R-fl-keyword:constants . t)
+;;         (ess-fl-keyword:fun-calls . t)
+;;         (ess-fl-keyword:numbers . t)
+;;         (ess-fl-keyword:operators . t)
+;;         (ess-fl-keyword:delimiters . t)
+;;         (ess-fl-keyword:= . t)
+;;         (ess-R-fl-keyword:F&T . t))))
 
 (when (executable-find "pip")
   (require 'anaconda-mode)
