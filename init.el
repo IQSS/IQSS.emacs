@@ -95,7 +95,7 @@
                         ido-ubiquitous
                         ido-vertical-mode
                         ;; noflet
-                        popup-kill-ring
+                        browse-kill-ring
                         smex
                         outline-magic
                         smooth-scroll
@@ -470,15 +470,8 @@ http://github.com/izahn/dotemacs/issues
 (add-hook 'after-init-hook 'global-company-mode)
 
 ;; completion for kill ring history
-(require 'popup)
-(require 'pos-tip)
-(require 'popup-kill-ring)
-(global-set-key "\M-y" 'popup-kill-ring)
-(setq popup-kill-ring-item-size-min nil)
-(setq popup-kill-ring-popup-width 50)
-(setq popup-kill-ring-item-min-width 0)
-(setq popup-kill-ring-interactive-insert 1)
-(setq popup-kill-ring-timeout 99999999)
+(require 'browse-kill-ring)
+(browse-kill-ring-default-keybindings)
 
 ;;; Configure outline minor modes
 ;; Less crazy key bindings for outline-minor-mode

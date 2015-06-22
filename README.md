@@ -56,7 +56,7 @@ This configuration loads a lot of useful emacs packages (see here for the list),
 ### Completion keys<a id="sec-1-4-1" name="sec-1-4-1"></a>
 
 -   **C-TAB:** Mapped to `company-complete`, use for pop-up completion menu.
--   **M-y:** Remapped to `kill-ring-ido` to browse the kill ring interactively.
+-   **M-y:** Remapped to `browse-kill-ring` to browse the kill ring interactively.
 -   **C-x C-r:** Mapped to `ido-recentf-open` to select recent files in the minibuffer.
 -   **M-x:** Remapped to `smex` to interactively search for interactive functions. Use `M-X` (note the capital "X") to restrict to commands for the active major mode.
 
@@ -447,7 +447,7 @@ The main purpose of these emacs configuration files is to install and configure 
                         ido-ubiquitous
                         ido-vertical-mode
                         ;; noflet
-                        popup-kill-ring
+                        browse-kill-ring
                         smex
                         outline-magic
                         smooth-scroll
@@ -862,15 +862,8 @@ Here we configure in-buffer text completion using the company-mode package. Thes
 (add-hook 'after-init-hook 'global-company-mode)
 
 ;; completion for kill ring history
-(require 'popup)
-(require 'pos-tip)
-(require 'popup-kill-ring)
-(global-set-key "\M-y" 'popup-kill-ring)
-(setq popup-kill-ring-item-size-min nil)
-(setq popup-kill-ring-popup-width 50)
-(setq popup-kill-ring-item-min-width 0)
-(setq popup-kill-ring-interactive-insert 1)
-(setq popup-kill-ring-timeout 99999999)
+(require 'browse-kill-ring)
+(browse-kill-ring-default-keybindings)
 ```
 
 ### Outline-magic<a id="sec-2-3-12" name="sec-2-3-12"></a>
