@@ -56,8 +56,7 @@ This configuration loads a lot of useful emacs packages (see here for the list),
 ### Completion keys<a id="sec-1-4-1" name="sec-1-4-1"></a>
 
 -   **C-TAB:** Mapped to `company-complete`, use for pop-up completion menu.
-
-
+-   **M-y:** Remapped to `kill-ring-ido` to browse the kill ring interactively.
 -   **C-x C-r:** Mapped to `ido-recentf-open` to select recent files in the minibuffer.
 -   **M-x:** Remapped to `smex` to interactively search for interactive functions. Use `M-X` (note the capital "X") to restrict to commands for the active major mode.
 
@@ -866,8 +865,12 @@ Here we configure in-buffer text completion using the company-mode package. Thes
 (require 'popup)
 (require 'pos-tip)
 (require 'popup-kill-ring)
-
 (global-set-key "\M-y" 'popup-kill-ring)
+(setq popup-kill-ring-item-size-max 50)
+(setq popup-kill-ring-popup-width 50)
+(setq popup-kill-ring-item-min-width 50)
+(setq popup-kill-ring-interactive-insert 1)
+(setq popup-kill-ring-timeout 99999999)
 ```
 
 ### Outline-magic<a id="sec-2-3-12" name="sec-2-3-12"></a>
@@ -956,32 +959,32 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
                 ;; don't wrap long lines
                 (setq truncate-lines 1)
                 ;; better (but still not right) indentation
-                (setq ess-first-continued-statement-offset 2)
-                (setq ess-continued-statement-offset 0)
-                (setq ess-arg-function-offset nil)
-                (setq ess-arg-function-offset-new-line nil)
-                (setq ess-continued-statement-offset 0)
-                (setq ess-expression-offset nil)
+                ;(setq ess-first-continued-statement-offset 2)
+                ;(setq ess-continued-statement-offset 0)
+                ;(setq ess-arg-function-offset nil)
+                ;(setq ess-arg-function-offset-new-line nil)
+                ;(setq ess-expression-offset nil)
+    
                 ;; ;; put company-capf at the front of the completion sources list
                 ;; (set (make-local-variable 'company-backends)
                 ;;      (cons 'company-capf company-backends))
                 ;; (delete-dups company-backends)
                 ))
     
-    ;; enable 
-    (setq ess-R-font-lock-keywords
-          (quote
-           ((ess-R-fl-keyword:modifiers . t)
-            (ess-R-fl-keyword:fun-defs . t)
-            (ess-R-fl-keyword:keywords . t)
-            (ess-R-fl-keyword:assign-ops . t)
-            (ess-R-fl-keyword:constants . t)
-            (ess-fl-keyword:fun-calls . t)
-            (ess-fl-keyword:numbers . t)
-            (ess-fl-keyword:operators . t)
-            (ess-fl-keyword:delimiters . t)
-            (ess-fl-keyword:= . t)
-            (ess-R-fl-keyword:F&T . t))))
+    ;; ;; enable all kinds of highlighting
+    ;; (setq ess-R-font-lock-keywords
+    ;;       (quote
+    ;;        ((ess-R-fl-keyword:modifiers . t)
+    ;;         (ess-R-fl-keyword:fun-defs . t)
+    ;;         (ess-R-fl-keyword:keywords . t)
+    ;;         (ess-R-fl-keyword:assign-ops . t)
+    ;;         (ess-R-fl-keyword:constants . t)
+    ;;         (ess-fl-keyword:fun-calls . t)
+    ;;         (ess-fl-keyword:numbers . t)
+    ;;         (ess-fl-keyword:operators . t)
+    ;;         (ess-fl-keyword:delimiters . t)
+    ;;         (ess-fl-keyword:= . t)
+    ;;         (ess-R-fl-keyword:F&T . t))))
     ```
 
 4.  Run python in emacs (anaconda-mode)
