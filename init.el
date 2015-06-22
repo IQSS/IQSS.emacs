@@ -474,9 +474,9 @@ http://github.com/izahn/dotemacs/issues
 (require 'pos-tip)
 (require 'popup-kill-ring)
 (global-set-key "\M-y" 'popup-kill-ring)
-(setq popup-kill-ring-item-size-max 50)
+(setq popup-kill-ring-item-size-min nil)
 (setq popup-kill-ring-popup-width 50)
-(setq popup-kill-ring-item-min-width 50)
+(setq popup-kill-ring-item-min-width 0)
 (setq popup-kill-ring-interactive-insert 1)
 (setq popup-kill-ring-timeout 99999999)
 
