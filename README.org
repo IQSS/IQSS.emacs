@@ -33,9 +33,9 @@ This configuration loads a lot of useful emacs packages (see [[*Install%20useful
 
 *** Completion keys
 - C-TAB :: Mapped to =company-complete=, use for pop-up completion menu.
-- M-y :: Remapped to =browse-kill-ring= to browse the kill ring interactively.
-- C-x C-r :: Mapped to =ido-recentf-open= to select recent files in the minibuffer.
-- M-x :: Remapped to =smex= to interactively search for interactive functions. Use =M-X= (note the capital "X") to restrict to commands for the active major mode.
+- M-y :: Remapped to =helm-show-kill-ring= to browse the kill ring interactively.
+- C-x f :: Mapped to =helm-recentf= to select recently opened files.
+- M-x :: Remapped to =helm-M-x= to interactively search for interactive functions.
 
 *** Other key bindings
 - E :: Open in external application (dired mode only)
@@ -136,24 +136,24 @@ On the other hand it may be that this emacs configuration is what you want after
 Emacs is many things to many people, being perhaps the most configurable text editor ever created. However, there are some common tools that social scientists often make use of that are not accessible in emacs by default. It is therefore desirable to create a base configuration that enables the features that social scientists are likely to find useful. The table below lists some of these requirements, and describes how they are made available in emacs.
  
 
-| Requirement                        | Categories         | Solution           | Notes                                          |                          |
-|------------------------------------+--------------------+--------------------+------------------------------------------------+--------------------------|
-| LaTeX editing/compilation          | Document prep      | AucTeX/RefTeX      | Installed and turned on                        |                          |
-| Font locking                       | Look-n-feel        | font-lock-mode     | Built-in, turned on                            |                          |
-| Spell checking                     | Convenience        | ispell/flyspell    | Built-in, turned on                            |                          |
-| Outline/structure editing          | Convenience        | outline-minor-mode | Built-in, turned on                            |                          |
-| Revision control                   | Version management | VC-mode/magit      | VC-mode, turned on, magit installed/activated  |                          |
-| Edit/evaluate R/Stata/SAS          | Data analysis      | ESS                | Installed and activated                        |                          |
-| Easier file/buffer/access          | Convenience        | ido                | Installed, turned on                           |                          |
-| Reproducible research              | Data analysis      | org-mode, polymode | Installed, polymode (Melpa) not working on RCE |                          |
-| Copy/paste with other apps         | Convenience        | x-select           | Built-in, turned on                            |                          |
-| Word wrapping                      | Look-n-feel        | visual-line-mode   | Built-in, turned on                            |                          |
-| Command hinting/completion         | Convenience        | Ista               | smex                                           | Installed and turned on  |
-| Programming auto-completion        | Convenience        | Ista               | auto-complete/Company                          | Installed and turned on  |
-| Keep backup files out of the way   | Convenience        | Ista               | backup-directory-alist                         | Built-in, turned on      |
-| Cleaner interface                  | Look-n-feel        | Ista               | tool-bar-mode                                  | Built-in, off by default |
-| Highlight matched/mismatched paren | Convenience        | Ista               | show-paren-mode                                | Built-in, turned on      |
-|------------------------------------+--------------------+--------------------+------------------------------------------------+--------------------------|
+| Requirement                        | Categories         | Solution               | Notes                                          |
+|------------------------------------+--------------------+------------------------+------------------------------------------------|
+| LaTeX editing/compilation          | Document prep      | AucTeX/RefTeX          | Installed and turned on                        |
+| Font locking                       | Look-n-feel        | font-lock-mode         | Built-in, turned on                            |
+| Spell checking                     | Convenience        | ispell/flyspell        | Built-in, turned on                            |
+| Outline/structure editing          | Convenience        | outline-minor-mode     | Built-in, turned on                            |
+| Revision control                   | Version management | VC-mode/magit          | VC-mode, turned on, magit installed/activated  |
+| Edit/evaluate R/Stata/SAS          | Data analysis      | ESS                    | Installed and activated                        |
+| Easier file/buffer/access          | Convenience        | helm                   | Installed, turned on                           |
+| Reproducible research              | Data analysis      | org-mode, polymode     | Installed, polymode (Melpa) not working on RCE |
+| Copy/paste with other apps         | Convenience        | x-select               | Built-in, turned on                            |
+| Word wrapping                      | Look-n-feel        | visual-line-mode       | Built-in, turned on                            |
+| Command hinting/completion         | Convenience        | helm                   | Installed and turned on                        |
+| Programming auto-completion        | Convenience        | auto-complete/Company  | Installed and turned on                        |
+| Keep backup files out of the way   | Convenience        | backup-directory-alist | Built-in, turned on                            |
+| Cleaner interface                  | Look-n-feel        | tool-bar-mode          | Built-in, off by default                       |
+| Highlight matched/mismatched paren | Convenience        | show-paren-mode        | Built-in, turned on                            |
+|------------------------------------+--------------------+------------------------+------------------------------------------------|
 
 ** Implementation
   :PROPERTIES:
@@ -278,11 +278,6 @@ The main purpose of these emacs configuration files is to install and configure 
                           unicode-fonts
                           dired+
                           mouse3
-                          ido-ubiquitous
-                          ido-vertical-mode
-                          ;; noflet
-                          browse-kill-ring
-                          smex
                           outline-magic
                           smooth-scroll
                           company
@@ -521,129 +516,70 @@ If you're using [[http://vgoulet.act.ulaval.ca/en/emacs/windows/][Vincent Goulet
 #+END_SRC
 
 *** Minibuffer hints and completion
-There are several different systems for providing completion hints in emacs. The default pcomplete system shows completions on demand (usually bound to tab key) in an emacs buffer. Here we set up ido-mode, which instead shows these completions on-the-fly in the minibuffer. These completions are primarily used to show available files (e.g., with ~find-file~) and emacs functions (e.g., with ~execute-extended-command~). Completion for in-buffer text (e.g., methods in python-mode, or arguments in R-mode) are handled separately by [[*Auto-complete%20configuration][company-mode]].
+There are several different systems for providing completion hints in emacs. The default pcomplete system shows completions on demand (usually bound to tab key) in an emacs buffer. Here we set up helm-mode, which instead shows these completions on-the-fly in. These completions are primarily used to show available files (e.g., with ~find-file~) and emacs functions (e.g., with ~execute-extended-command~). Completion for in-buffer text (e.g., methods in python-mode, or arguments in R-mode) are handled separately by [[*Auto-complete%20configuration][company-mode]].
 
 #+BEGIN_SRC emacs-lisp
-  ;;; Completion hints for files and buffers buffers
-  (setq ido-file-extensions-order '(".R" ".r" ".sh" ".tex" ".bib" ".org" 
-                                    ".py" ".emacs" ".xml" "org.el" ".pdf"
-                                    ".txt" ".html" ".png" ".ini" ".cfg" 
-                                    ".conf"))
+    ;;; Completion hints for files and buffers buffers
+  (require 'helm-config)
+  ;; helm global-map
+  (global-set-key (kbd "M-x")                          'undefined)
+  (global-set-key (kbd "M-x")                          'helm-M-x)
+  (global-set-key (kbd "C-x b")                        'helm-buffers-list)
+  (global-set-key (kbd "M-y")                          'helm-show-kill-ring)
+  (global-set-key (kbd "C-c f")                        'helm-recentf)
+  (global-set-key (kbd "C-x C-f")                      'helm-find-files)
+  (global-set-key (kbd "C-c <SPC>")                    'helm-all-mark-rings)
+  (global-set-key (kbd "C-x r b")                      'helm-filtered-bookmarks)
+  (global-set-key (kbd "C-h r")                        'helm-info-emacs)
+  (global-set-key (kbd "C-:")                          'helm-eval-expression-with-eldoc)
+  (global-set-key (kbd "C-,")                          'helm-calcul-expression)
+  (global-set-key (kbd "C-h i")                        'helm-info-at-point)
+  (global-set-key (kbd "C-x C-d")                      'helm-browse-project)
+  (global-set-key (kbd "<f1>")                         'helm-resume)
+  (global-set-key (kbd "C-h C-f")                      'helm-apropos)
+  (global-set-key (kbd "<f5> s")                       'helm-find)
+  (global-set-key (kbd "<f2>")                         'helm-execute-kmacro)
+  (global-set-key (kbd "C-c g")                        'helm-gid)
+  (global-set-key (kbd "C-c i")                        'helm-imenu-in-all-buffers)
+  (define-key global-map [remap jump-to-register]      'helm-register)
+  (define-key global-map [remap list-buffers]          'helm-buffers-list)
+  (define-key global-map [remap dabbrev-expand]        'helm-dabbrev)
+  (define-key global-map [remap find-tag]              'helm-etags-select)
+  (define-key global-map [remap xref-find-definitions] 'helm-etags-select)
+  (add-hook 'comint-mode-hook
+            (lambda()
+              (define-key comint-mode-map (kbd "M-p")
+                'helm-comint-input-ring)))
 
-  ;; load ido 
-  (require 'ido)
-  (setq ido-auto-merge-work-directories-length -1) ;; disable auto-merge
-  (setq ido-use-virtual-buffers t) ;; show recent files in buffer menu
-  (ido-mode 1)
-  (ido-everywhere 1)
-  (setq ido-enable-flex-matching t)
-
-  ;; use ido everywhere you can
-  (require 'ido-ubiquitous)
-  (ido-ubiquitous-mode 1)
-
-  ;; present ido suggestions vertically
-  (require 'ido-vertical-mode)
-  (ido-vertical-mode 1)
-
-  ;; set nice ido decorations
-  (setq ido-decorations '("\n➔ " "" "\n " "\n ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]" "\n➔ " ""))
-
-  ;; don't use ido for dired
-  (setq ido-read-file-name-non-ido '(dired))
-
-  ;; color directories blue, firstmatch bold etc.
-  (set-face-attribute 'ido-first-match nil
-                      :weight 'bold 
-                      :height '1.125
-                      :foreground "red")
-  (set-face-attribute 'ido-only-match nil
-                      :weight 'bold 
-                      :height '1.125
-                      :foreground "ForestGreen")
-
-  (set-face-attribute 'ido-subdir nil
-                      :foreground "blue")
-
-  ;; set sensible keys for id in vertical mode
-  (setq ido-vertical-define-keys (quote C-n-C-p-up-down-left-right))
-
-  ;; use ido for kill-ring
-  ;;(require 'kill-ring-ido)
-  ;;(setq kill-ring-ido-shortage-length 20)
-
-  ;;(global-set-key (kbd "M-y") 'kill-ring-ido)
-
-  ;; show recently opened files
-  (require 'recentf)
-  (setq recentf-max-menu-items 50)
-  (recentf-mode 1)
-
-  (setq ido-use-virtual-buffers 'auto)
-
-  (defun ido-recentf-open ()
-    "Use `ido-completing-read' to find a recent file."
-    (interactive)
-    (if (find-file (ido-completing-read "Find recent file: " recentf-list))
-        (message "Opening file...")
-      (message "Aborting")))
-
-  (global-set-key (kbd "C-x C-r") 'ido-recentf-open)
-
-    ;;; Completion hints for emacs functions
-  ;; Horrible work-around to make smex work with emacs < 24.3:
-  ;; remove this part when emacs is updated.
-  ;; Check if Smex is supported
-  (when (equal (cons 1 1)
-               (ignore-errors
-                 (subr-arity (symbol-function 'execute-extended-command))))
-    (defun execute-extended-command (prefixarg &optional command-name)
-      "Read function name, then read its arguments and call it."
-      (interactive (list current-prefix-arg (read-extended-command)))
-      (if (null command-name)
-          (setq command-name (let ((current-prefix-arg prefixarg)) ; for prompt
-                               (read-extended-command))))
-      (let* ((function (and (stringp command-name) (intern-soft command-name)))
-             (binding (and suggest-key-bindings
-                           (not executing-kbd-macro)
-                           (where-is-internal function overriding-local-map t))))
-        (unless (commandp function)
-          (error "`%s' is not a valid command name" command-name))
-        (setq this-command function)
-        (setq real-this-command function)
-        (let ((prefix-arg prefixarg))
-          (command-execute function 'record))
-        (when binding
-          (let* ((waited
-                  (sit-for (cond
-                            ((zerop (length (current-message))) 0)
-                            ((numberp suggest-key-bindings) suggest-key-bindings)
-                            (t 2)))))
-            (when (and waited (not (consp unread-command-events)))
-              (with-temp-message
-                  (format "You can run the command `%s' with %s"
-                          function (key-description binding))
-                (sit-for (if (numberp suggest-key-bindings)
-                             suggest-key-bindings
-                           2)))))))))
-  ;; end horrible hack
-
-  (smex-initialize)
-  (global-set-key (kbd "M-x") 'smex)
-  (global-set-key (kbd "M-X") 'smex-major-mode-commands)
-  ;; This is your old M-x.
-  (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
-
-  ;; modify smex so that typing a space will insert a hyphen 
-  ;; (from http://www.emacswiki.org/Smex#toc6)
-  (defadvice smex (around space-inserts-hyphen activate compile)
-    (let ((ido-cannot-complete-command 
-           (lambda ()
-              (interactive)
-              (if (string= " " (this-command-keys))
-                  (insert ?-)
-                (funcall ,ido-cannot-complete-command)))))
-      ad-do-it))
+  (add-hook 'helm-after-initialize-hook
+            (lambda()
+              ;; complete with enter
+              (defun fu/helm-find-files-navigate-forward (orig-fun &rest args)
+                (if (file-directory-p (helm-get-selection))
+                    (apply orig-fun args)
+                  (helm-maybe-exit-minibuffer)))
+              (advice-add 'helm-execute-persistent-action :around #'fu/helm-find-files-navigate-forward)
+              (define-key helm-find-files-map (kbd "<return>") 'helm-execute-persistent-action)
+              ;; backspace deletes whole word
+              (define-key helm-find-files-map (kbd "<backspace>") 'backward-kill-word)
+              ;; fuzzy match
+              (setq helm-recentf-fuzzy-match t
+                    helm-buffers-fuzzy-matching t
+                    helm-recentf-fuzzy-match t
+                    helm-buffers-fuzzy-matching t
+                    helm-locate-fuzzy-match t
+                    helm-M-x-fuzzy-match t
+                    helm-semantic-fuzzy-match t
+                    helm-imenu-fuzzy-match t
+                    helm-apropos-fuzzy-match t
+                    helm-lisp-fuzzy-completion t)
+              ;; make helm window smaller
+              (helm-autoresize-mode 1)
+              (setq helm-autoresize-max-height 30 helm-autoresize-min-height 30)
+              ;; always display in new buffer below
+              (setq helm-always-two-windows t)
+              ;; don't confuse me with extra instructions
+              (setq helm-display-header-line nil)))
 
 #+END_SRC
 
