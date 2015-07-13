@@ -62,7 +62,7 @@
 (setq outline-minor-mode-prefix "\C-c\C-o")
 (setq outline-minor-mode-prefix "\C-c\C-o")
 (add-hook 'outline-minor-mode-hook
-              (lambda () (local-set-key "\C-c\C-c"
+              (lambda () (local-set-key "\C-c\C-o"
                                         outline-mode-prefix-map)))
 
 ;; load site-start early so we can override it later
