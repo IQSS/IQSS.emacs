@@ -330,10 +330,6 @@ http://github.com/izahn/dotemacs/issues
 (define-key global-map [remap dabbrev-expand]        'helm-dabbrev)
 (define-key global-map [remap find-tag]              'helm-etags-select)
 (define-key global-map [remap xref-find-definitions] 'helm-etags-select)
-(add-hook 'comint-mode-hook
-          (lambda()
-            (define-key comint-mode-map (kbd "M-p")
-              'helm-comint-input-ring)))
 
 (add-hook 'helm-after-initialize-hook
           (lambda()
