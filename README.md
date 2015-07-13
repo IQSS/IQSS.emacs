@@ -412,6 +412,9 @@ The main purpose of these emacs configuration files is to install and configure 
 ;; set things that need to be set before packages load
 ; Less crazy key bindings for outline-minor-mode
 (setq outline-minor-mode-prefix "\C-c\C-o")
+(add-hook 'outline-minor-mode-hook
+          (lambda () (local-set-key "\C-c\C-o"
+                                    outline-mode-prefix-map)))
 
 ;; load site-start early so we can override it later
 (load "default" t t)

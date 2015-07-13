@@ -227,126 +227,126 @@ Visual changes such as hiding the toolbar need to come first to avoid jarring tr
 The main purpose of these emacs configuration files is to install and configure useful emacs packages. Here we carry out the installation.
 
 #+BEGIN_SRC emacs-lisp
-    ;; set coding system so emacs doesn't choke on melpa file listings
-    (set-language-environment 'utf-8)
-    (set-keyboard-coding-system 'utf-8-mac) ; For old Carbon emacs on OS X only
-    (setq locale-coding-system 'utf-8)
-    (set-default-coding-systems 'utf-8)
-    (set-terminal-coding-system 'utf-8)
-    (unless (eq system-type 'windows-nt)
-      (set-selection-coding-system 'utf-8))
-    (prefer-coding-system 'utf-8)
+  ;; set coding system so emacs doesn't choke on melpa file listings
+  (set-language-environment 'utf-8)
+  (set-keyboard-coding-system 'utf-8-mac) ; For old Carbon emacs on OS X only
+  (setq locale-coding-system 'utf-8)
+  (set-default-coding-systems 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (unless (eq system-type 'windows-nt)
+    (set-selection-coding-system 'utf-8))
+  (prefer-coding-system 'utf-8)
 
-    ;;; Install required packages
-    (require 'cl)
+  ;;; Install required packages
+  (require 'cl)
 
-    ;; set things that need to be set before packages load
-    ; Less crazy key bindings for outline-minor-mode
-    (setq outline-minor-mode-prefix "\C-c\C-o")
-    (add-hook 'outline-minor-mode-hook
-              (lambda () (local-set-key "\C-c\C-o"
-                                        outline-mode-prefix-map)))))
+  ;; set things that need to be set before packages load
+  ; Less crazy key bindings for outline-minor-mode
+  (setq outline-minor-mode-prefix "\C-c\C-o")
+  (add-hook 'outline-minor-mode-hook
+            (lambda () (local-set-key "\C-c\C-o"
+                                      outline-mode-prefix-map)))
 
-    ;; load site-start early so we can override it later
-    (load "default" t t)
-    ;; prevent site-start from running again later
-    (setq inhibit-default-init t)
+  ;; load site-start early so we can override it later
+  (load "default" t t)
+  ;; prevent site-start from running again later
+  (setq inhibit-default-init t)
 
-    ;; load the package manager
-    (require 'package)
+  ;; load the package manager
+  (require 'package)
 
-    ;; Add additional package sources
-    (add-to-list 'package-archives 
-                 '("org" . "http://orgmode.org/elpa/") t)
-    (add-to-list 'package-archives 
-                 '("melpa" . "http://melpa.milkbox.net/packages/") t)
+  ;; Add additional package sources
+  (add-to-list 'package-archives 
+               '("org" . "http://orgmode.org/elpa/") t)
+  (add-to-list 'package-archives 
+               '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
-    ;; Make a list of the packages you want
-    (setq my-package-list '(;; gnu packages
-                            auctex
-                            windresize
-                            diff-hl
-                            ;; melpa packages
-                            diminish
-                            multi-term
-                            anzu
-                            howdoi
-                            google-this
-                            leuven-theme
-                            powerline
-                            persistent-soft
-                            unicode-fonts
-                            dired+
-                            mouse3
-                            ido-ubiquitous
-                            ido-vertical-mode
-                            ;; noflet
-                            browse-kill-ring
-                            smex
-                            outline-magic
-                            smooth-scroll
-                            company
-                            company-math
-                            ess
-                            markdown-mode
-                            polymode
-                            eval-in-repl
-                            pyvenv
-                            anaconda-mode
-                            exec-path-from-shell
-                            company-anaconda
-                            htmlize
-                            pcmpl-args
-                            pcmpl-pip
-                            readline-complete
-                            magit
-                            ;; org-mode packages
-                            org-plus-contrib))
+  ;; Make a list of the packages you want
+  (setq my-package-list '(;; gnu packages
+                          auctex
+                          windresize
+                          diff-hl
+                          ;; melpa packages
+                          diminish
+                          multi-term
+                          anzu
+                          howdoi
+                          google-this
+                          leuven-theme
+                          powerline
+                          persistent-soft
+                          unicode-fonts
+                          dired+
+                          mouse3
+                          ido-ubiquitous
+                          ido-vertical-mode
+                          ;; noflet
+                          browse-kill-ring
+                          smex
+                          outline-magic
+                          smooth-scroll
+                          company
+                          company-math
+                          ess
+                          markdown-mode
+                          polymode
+                          eval-in-repl
+                          pyvenv
+                          anaconda-mode
+                          exec-path-from-shell
+                          company-anaconda
+                          htmlize
+                          pcmpl-args
+                          pcmpl-pip
+                          readline-complete
+                          magit
+                          ;; org-mode packages
+                          org-plus-contrib))
 
-    ;; Activate package autoloads
-    (package-initialize)
-    (setq package-initialize nil)
+  ;; Activate package autoloads
+  (package-initialize)
+  (setq package-initialize nil)
 
-    ;; make sure stale packages don't get loaded
+  ;; make sure stale packages don't get loaded
+  (dolist (package my-package-list)
+    (if (featurep package)
+        (unload-feature package t)))
+  ;; Install packages in package-list if they are not already installed
+  (unless (every #'package-installed-p my-package-list)
+    (switch-to-buffer "*scratch*")
+    (erase-buffer)
+    (setq my-this-buffer (buffer-name))
+    (delete-other-windows)
+    (insert "Please wait while emacs configures itself...")
+    (redisplay t)
+    (redisplay t)
+    (package-refresh-contents)
     (dolist (package my-package-list)
-      (if (featurep package)
-          (unload-feature package t)))
-    ;; Install packages in package-list if they are not already installed
-    (unless (every #'package-installed-p my-package-list)
+      (when (not (package-installed-p package))
+        (package-install package)))
       (switch-to-buffer "*scratch*")
-      (erase-buffer)
-      (setq my-this-buffer (buffer-name))
-      (delete-other-windows)
-      (insert "Please wait while emacs configures itself...")
-      (redisplay t)
-      (redisplay t)
-      (package-refresh-contents)
-      (dolist (package my-package-list)
-        (when (not (package-installed-p package))
-          (package-install package)))
-        (switch-to-buffer "*scratch*")
-      (erase-buffer)
-      (add-to-list 'fancy-startup-text
-                   '(:face
-                     (variable-pitch default)
-                     "Your emacs has been configured for maximum productivity. 
-    For best results please restart emacs now.
-    More information about this emacs configuration be found
-    at http://github.com/izahn/dotemacs. If you have any problems
-    or have a feature request please open a bug report at
-    http://github.com/izahn/dotemacs/issues
-    ")))
-
+    (erase-buffer)
     (add-to-list 'fancy-startup-text
                  '(:face
                    (variable-pitch default)
-                   "\nYou are running a customized Emacs configuration. See "  :link
-                   ("here"
-                    #[257 "\300\301!\207"
-                          [browse-url-default-browser "http://github.com/izahn/dotemacs/"]
-                          3 "\n\n(fn BUTTON)"]
-                    "Open the README file")
-                   "\nfor information about these customizations.\n"))
+                   "Your emacs has been configured for maximum productivity. 
+  For best results please restart emacs now.
+  More information about this emacs configuration be found
+  at http://github.com/izahn/dotemacs. If you have any problems
+  or have a feature request please open a bug report at
+  http://github.com/izahn/dotemacs/issues
+  ")))
+
+  (add-to-list 'fancy-startup-text
+               '(:face
+                 (variable-pitch default)
+                 "\nYou are running a customized Emacs configuration. See "  :link
+                 ("here"
+                  #[257 "\300\301!\207"
+                        [browse-url-default-browser "http://github.com/izahn/dotemacs/"]
+                        3 "\n\n(fn BUTTON)"]
+                  "Open the README file")
+                 "\nfor information about these customizations.\n"))
 
 #+END_SRC
 
