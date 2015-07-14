@@ -546,7 +546,7 @@ There are several different systems for providing completion hints in emacs. The
   (define-key global-map [remap dabbrev-expand]        'helm-dabbrev)
   (define-key global-map [remap find-tag]              'helm-etags-select)
   (define-key global-map [remap xref-find-definitions] 'helm-etags-select)
-
+  ;; make return do the right thing
   (add-hook 'helm-after-initialize-hook
             (lambda()
               ;; complete with enter
