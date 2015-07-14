@@ -344,7 +344,21 @@ http://github.com/izahn/dotemacs/issues
             (advice-add 'helm-execute-persistent-action :around #'fu/helm-find-files-navigate-forward)
             (define-key helm-find-files-map (kbd "<return>") 'helm-execute-persistent-action)
             ;; backspace deletes whole word
-            (define-key helm-find-files-map (kbd "<backspace>") 'backward-kill-word) 
+            (define-key helm-find-files-map (kbd "<backspace>") 'backward-kill-word)
+            ;;; make C-d open dired buffer a-la ido-mode
+            ;; first unset C-d
+            (define-key helm-find-files-map (kbd "C-d") 'undefined)
+            ;; function to open selection in dired
+            (defun old-dired (&optional no-op)
+              (dired (helm-get-selection)))
+            ;; add to helm source 
+            (helm-add-action-to-source "Fallback dired"
+                                       'old-dired
+                                       helm-source-find-files)
+            ;; bind to C-d
+            (define-key helm-find-files-map (kbd "C-d")
+              (lambda () (interactive)
+                (helm-quit-and-execute-action 'old-dired)))
             ;; fuzzy match
             (setq helm-recentf-fuzzy-match t
                   helm-buffers-fuzzy-matching t

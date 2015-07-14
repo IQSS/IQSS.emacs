@@ -521,7 +521,7 @@ If you're using [[http://vgoulet.act.ulaval.ca/en/emacs/windows/][Vincent Goulet
 There are several different systems for providing completion hints in emacs. The default pcomplete system shows completions on demand (usually bound to tab key) in an emacs buffer. Here we set up helm-mode, which instead shows these completions on-the-fly in. These completions are primarily used to show available files (e.g., with ~find-file~) and emacs functions (e.g., with ~execute-extended-command~). Completion for in-buffer text (e.g., methods in python-mode, or arguments in R-mode) are handled separately by [[*Auto-complete%20configuration][company-mode]].
 
 #+BEGIN_SRC emacs-lisp
-    ;;; Completion hints for files and buffers buffers
+  ;;; Completion hints for files and buffers buffers
   (require 'helm-config)
   (helm-mode 1)
   ;; helm global-map
@@ -560,7 +560,21 @@ There are several different systems for providing completion hints in emacs. The
               (advice-add 'helm-execute-persistent-action :around #'fu/helm-find-files-navigate-forward)
               (define-key helm-find-files-map (kbd "<return>") 'helm-execute-persistent-action)
               ;; backspace deletes whole word
-              (define-key helm-find-files-map (kbd "<backspace>") 'backward-kill-word) 
+              (define-key helm-find-files-map (kbd "<backspace>") 'backward-kill-word)
+              ;;; make C-d open dired buffer a-la ido-mode
+              ;; first unset C-d
+              (define-key helm-find-files-map (kbd "C-d") 'undefined)
+              ;; function to open selection in dired
+              (defun old-dired (&optional no-op)
+                (dired (helm-get-selection)))
+              ;; add to helm source 
+              (helm-add-action-to-source "Fallback dired"
+                                         'old-dired
+                                         helm-source-find-files)
+              ;; bind to C-d
+              (define-key helm-find-files-map (kbd "C-d")
+                (lambda () (interactive)
+                  (helm-quit-and-execute-action 'old-dired)))
               ;; fuzzy match
               (setq helm-recentf-fuzzy-match t
                     helm-buffers-fuzzy-matching t
