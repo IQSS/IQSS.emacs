@@ -344,7 +344,7 @@ http://github.com/izahn/dotemacs/issues
             (advice-add 'helm-execute-persistent-action :around #'fu/helm-find-files-navigate-forward)
             (define-key helm-find-files-map (kbd "<return>") 'helm-execute-persistent-action)
             ;; backspace deletes whole word
-            (define-key helm-find-files-map (kbd "<backspace>") 'backward-kill-word)
+            (define-key helm-find-files-map (kbd "<backspace>") 'backward-kill-word) 
             ;; fuzzy match
             (setq helm-recentf-fuzzy-match t
                   helm-buffers-fuzzy-matching t
