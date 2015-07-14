@@ -418,6 +418,8 @@ The main purpose of these emacs configuration files is to install and configure 
                         windresize
                         diff-hl
                         ;; melpa packages
+                        helm
+                        helm-descbinds
                         diminish
                         multi-term
                         anzu
@@ -673,6 +675,7 @@ There are several different systems for providing completion hints in emacs. The
 ```lisp
   ;;; Completion hints for files and buffers buffers
 (require 'helm-config)
+(helm-mode 1)
 ;; helm global-map
 (global-set-key (kbd "M-x")                          'undefined)
 (global-set-key (kbd "M-x")                          'helm-M-x)
@@ -698,7 +701,7 @@ There are several different systems for providing completion hints in emacs. The
 (define-key global-map [remap dabbrev-expand]        'helm-dabbrev)
 (define-key global-map [remap find-tag]              'helm-etags-select)
 (define-key global-map [remap xref-find-definitions] 'helm-etags-select)
-
+;; make return do the right thing
 (add-hook 'helm-after-initialize-hook
           (lambda()
             ;; complete with enter
@@ -724,10 +727,17 @@ There are several different systems for providing completion hints in emacs. The
             ;; make helm window smaller
             (helm-autoresize-mode 1)
             (setq helm-autoresize-max-height 30 helm-autoresize-min-height 30)
+            ;; learn my usage patterns
+            (helm-adaptative-mode 1)
             ;; always display in new buffer below
             (setq helm-always-two-windows t)
             ;; don't confuse me with extra instructions
             (setq helm-display-header-line nil)))
+
+;;; Helm extras
+;; describe active keybindings
+(require 'helm-descbinds)
+(helm-descbinds-mode)
 ```
 
 ### Auto-complete configuration<a id="sec-2-3-11" name="sec-2-3-11"></a>

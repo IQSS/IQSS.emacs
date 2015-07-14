@@ -84,6 +84,8 @@
                         windresize
                         diff-hl
                         ;; melpa packages
+                        helm
+                        helm-descbinds
                         diminish
                         multi-term
                         anzu
@@ -305,6 +307,7 @@ http://github.com/izahn/dotemacs/issues
 
 ;;; Completion hints for files and buffers buffers
 (require 'helm-config)
+(helm-mode 1)
 ;; helm global-map
 (global-set-key (kbd "M-x")                          'undefined)
 (global-set-key (kbd "M-x")                          'helm-M-x)
@@ -330,7 +333,7 @@ http://github.com/izahn/dotemacs/issues
 (define-key global-map [remap dabbrev-expand]        'helm-dabbrev)
 (define-key global-map [remap find-tag]              'helm-etags-select)
 (define-key global-map [remap xref-find-definitions] 'helm-etags-select)
-
+;; make return do the right thing
 (add-hook 'helm-after-initialize-hook
           (lambda()
             ;; complete with enter
@@ -356,10 +359,17 @@ http://github.com/izahn/dotemacs/issues
             ;; make helm window smaller
             (helm-autoresize-mode 1)
             (setq helm-autoresize-max-height 30 helm-autoresize-min-height 30)
+            ;; learn my usage patterns
+            (helm-adaptative-mode 1)
             ;; always display in new buffer below
             (setq helm-always-two-windows t)
             ;; don't confuse me with extra instructions
             (setq helm-display-header-line nil)))
+
+;;; Helm extras
+;; describe active keybindings
+(require 'helm-descbinds)
+(helm-descbinds-mode)
 
 ;;Use C-TAB to complete. We put this in eval-after-load 
 ;; because otherwise some modes will try to override our settings.
