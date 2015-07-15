@@ -84,6 +84,7 @@
                         windresize
                         diff-hl
                         ;; melpa packages
+                        auctex-latexmk
                         diminish
                         multi-term
                         anzu
