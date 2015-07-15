@@ -448,10 +448,6 @@ http://github.com/izahn/dotemacs/issues
 
 (add-hook 'after-init-hook 'global-company-mode)
 
-;; completion for kill ring history
-(require 'browse-kill-ring)
-(browse-kill-ring-default-keybindings)
-
 ;;; Configure outline minor modes
 ;; Less crazy key bindings for outline-minor-mode
 (setq outline-minor-mode-prefix "\C-c\C-o")

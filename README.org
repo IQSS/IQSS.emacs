@@ -668,10 +668,6 @@ Here we configure in-buffer text completion using the company-mode package. Thes
 
 
   (add-hook 'after-init-hook 'global-company-mode)
-
-  ;; completion for kill ring history
-  (require 'browse-kill-ring)
-  (browse-kill-ring-default-keybindings)
 #+END_SRC
 
 *** Outline-magic
