@@ -1085,6 +1085,10 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
     (add-hook 'bibtex-mode-hook
               (lambda ()
                  (define-key bibtex-mode-map "\M-q" 'bibtex-fill-entry)))
+    
+    ;; enable latexmk
+    (require 'auctex-latexmk)
+    (auctex-latexmk-setup)
     ```
 
 8.  Note taking and outlining (Org-mode)

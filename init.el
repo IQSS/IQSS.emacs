@@ -656,6 +656,10 @@ http://github.com/izahn/dotemacs/issues
           (lambda ()
              (define-key bibtex-mode-map "\M-q" 'bibtex-fill-entry)))
 
+;; enable latexmk
+(require 'auctex-latexmk)
+(auctex-latexmk-setup)
+
 (require 'org)
 (set-face-attribute 'org-meta-line nil
                     :background nil

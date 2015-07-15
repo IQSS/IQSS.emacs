@@ -919,6 +919,10 @@ Load eval-in-repl for bash, elisp, and python interaction.
   (add-hook 'bibtex-mode-hook
             (lambda ()
                (define-key bibtex-mode-map "\M-q" 'bibtex-fill-entry)))
+  
+  ;; enable latexmk
+  (require 'auctex-latexmk)
+  (auctex-latexmk-setup)
 
 #+END_SRC
 
