@@ -377,23 +377,26 @@ http://github.com/izahn/dotemacs/issues
              helm-apropos-fuzzy-match t
              helm-lisp-fuzzy-completion t
              ;; ignore file case
-             (setq helm-read-file-name-case-fold-search t)
-             ;; less dominating header
-             (set-face-attribute 'helm-ff-dotted-directory nil
-                                 :foreground "DimGray")
-             (set-face-attribute 'helm-source-header nil
-                                 :background "deep sky blue"
-                                 :foreground "white"
-                                 :family "Sans Serif"))
+             helm-read-file-name-case-fold-search t
+             ;; less ambitious matching
+             helm-ff-smart-completion nil
+             ;; always display in new buffer below
+             helm-always-two-windows t
+             ;; don't confuse me with extra instructions
+             helm-display-header-line nil)
+            ;; less dominating header
+            (set-face-attribute 'helm-ff-dotted-directory nil
+                                :foreground "DimGray")
+            (set-face-attribute 'helm-source-header nil
+                                :background "deep sky blue"
+                                :foreground "white"
+                                :family "Sans Serif"
+                                :height 1.0)
             ;; make helm window smaller
             (helm-autoresize-mode 1)
             (setq helm-autoresize-max-height 30 helm-autoresize-min-height 30)
             ;; learn my usage patterns
-            (helm-adaptative-mode 1)
-            ;; always display in new buffer below
-            (setq helm-always-two-windows t)
-            ;; don't confuse me with extra instructions
-            (setq helm-display-header-line nil)))
+            (helm-adaptative-mode 1)))
 
 ;;; Helm extras
 ;; describe active keybindings
