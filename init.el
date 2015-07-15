@@ -86,6 +86,7 @@
                         ;; melpa packages
                         helm
                         helm-descbinds
+                        helm-bibtex
                         diminish
                         multi-term
                         anzu
@@ -385,6 +386,8 @@ http://github.com/izahn/dotemacs/issues
 (require 'helm-descbinds)
 (helm-descbinds-mode)
 
+(require 'helm-bibtex)
+
 ;;Use C-TAB to complete. We put this in eval-after-load 
 ;; because otherwise some modes will try to override our settings.
 (require 'company)
@@ -427,10 +430,6 @@ http://github.com/izahn/dotemacs/issues
 
 
 (add-hook 'after-init-hook 'global-company-mode)
-
-;; completion for kill ring history
-(require 'browse-kill-ring)
-(browse-kill-ring-default-keybindings)
 
 ;;; Configure outline minor modes
 ;; Less crazy key bindings for outline-minor-mode

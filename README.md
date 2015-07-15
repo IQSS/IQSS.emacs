@@ -420,6 +420,7 @@ The main purpose of these emacs configuration files is to install and configure 
                         ;; melpa packages
                         helm
                         helm-descbinds
+                        helm-bibtex
                         diminish
                         multi-term
                         anzu
@@ -752,6 +753,8 @@ There are several different systems for providing completion hints in emacs. The
 ;; describe active keybindings
 (require 'helm-descbinds)
 (helm-descbinds-mode)
+
+(require 'helm-bibtex)
 ```
 
 ### Auto-complete configuration<a id="sec-2-3-11" name="sec-2-3-11"></a>
@@ -801,10 +804,6 @@ Here we configure in-buffer text completion using the company-mode package. Thes
 
 
 (add-hook 'after-init-hook 'global-company-mode)
-
-;; completion for kill ring history
-(require 'browse-kill-ring)
-(browse-kill-ring-default-keybindings)
 ```
 
 ### Outline-magic<a id="sec-2-3-12" name="sec-2-3-12"></a>
