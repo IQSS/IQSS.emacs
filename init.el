@@ -660,6 +660,9 @@ http://github.com/izahn/dotemacs/issues
 ;; enable latexmk
 (require 'auctex-latexmk)
 (auctex-latexmk-setup)
+;; bad hack to give pdf by default
+(unless (file-exists-p "~/.latexmkrc")
+    (write-region "# compile to pdf\n$pdf_mode = 1;\n" nil "~/.latexmkrc"))
 
 (require 'org)
 (set-face-attribute 'org-meta-line nil
