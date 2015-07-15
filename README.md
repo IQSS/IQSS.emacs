@@ -748,15 +748,15 @@ There are several different systems for providing completion hints in emacs. The
              ;; ignore file case
              helm-read-file-name-case-fold-search t
              ;; less ambitious matching
-             helm-ff-smart-completion nil
+             ;helm-ff-smart-completion nil
              ;; always display in new buffer below
              helm-always-two-windows t
              ;; don't confuse me with extra instructions
              helm-display-header-line nil)
             ;; less dominating header
             (set-face-attribute 'helm-ff-dotted-directory nil
-                                :foreground "DimGray"
-                                :background nil)
+                                :background nil
+                                :foreground "DimGray")
             (set-face-attribute 'helm-source-header nil
                                 :background "deep sky blue"
                                 :foreground "white"

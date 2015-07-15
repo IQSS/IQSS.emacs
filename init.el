@@ -380,7 +380,7 @@ http://github.com/izahn/dotemacs/issues
              ;; ignore file case
              helm-read-file-name-case-fold-search t
              ;; less ambitious matching
-             helm-ff-smart-completion nil
+             ;helm-ff-smart-completion nil
              ;; always display in new buffer below
              helm-always-two-windows t
              ;; don't confuse me with extra instructions
