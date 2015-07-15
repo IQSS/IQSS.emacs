@@ -385,7 +385,6 @@ http://github.com/izahn/dotemacs/issues
 ;; describe active keybindings
 (require 'helm-descbinds)
 (helm-descbinds-mode)
-
 (require 'helm-bibtex)
 
 ;;Use C-TAB to complete. We put this in eval-after-load 

@@ -753,7 +753,6 @@ There are several different systems for providing completion hints in emacs. The
 ;; describe active keybindings
 (require 'helm-descbinds)
 (helm-descbinds-mode)
-
 (require 'helm-bibtex)
 ```
 
