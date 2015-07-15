@@ -418,6 +418,7 @@ The main purpose of these emacs configuration files is to install and configure 
                         windresize
                         diff-hl
                         ;; melpa packages
+                        auctex-latexmk
                         helm
                         helm-descbinds
                         helm-bibtex
@@ -820,6 +821,10 @@ Here we configure in-buffer text completion using the company-mode package. Thes
 
 
 (add-hook 'after-init-hook 'global-company-mode)
+
+;; completion for kill ring history
+(require 'browse-kill-ring)
+(browse-kill-ring-default-keybindings)
 ```
 
 ### Outline-magic<a id="sec-2-3-12" name="sec-2-3-12"></a>
@@ -1038,6 +1043,13 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
     (add-hook 'bibtex-mode-hook
               (lambda ()
                  (define-key bibtex-mode-map "\M-q" 'bibtex-fill-entry)))
+    
+    ;; enable latexmk
+    (require 'auctex-latexmk)
+    (auctex-latexmk-setup)
+    ;; bad hack to give pdf by default
+    (unless (file-exists-p "~/.latexmkrc")
+        (write-region "# compile to pdf\n$pdf_mode = 1;\n" nil "~/.latexmkrc"))
     ```
 
 8.  Note taking and outlining (Org-mode)

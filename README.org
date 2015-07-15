@@ -267,6 +267,7 @@ The main purpose of these emacs configuration files is to install and configure 
                           windresize
                           diff-hl
                           ;; melpa packages
+                          auctex-latexmk
                           helm
                           helm-descbinds
                           helm-bibtex
@@ -668,6 +669,9 @@ Here we configure in-buffer text completion using the company-mode package. Thes
 
   (add-hook 'after-init-hook 'global-company-mode)
 
+  ;; completion for kill ring history
+  (require 'browse-kill-ring)
+  (browse-kill-ring-default-keybindings)
 #+END_SRC
 
 *** Outline-magic
@@ -890,6 +894,13 @@ Load eval-in-repl for bash, elisp, and python interaction.
   (add-hook 'bibtex-mode-hook
             (lambda ()
                (define-key bibtex-mode-map "\M-q" 'bibtex-fill-entry)))
+
+  ;; enable latexmk
+  (require 'auctex-latexmk)
+  (auctex-latexmk-setup)
+  ;; bad hack to give pdf by default
+  (unless (file-exists-p "~/.latexmkrc")
+      (write-region "# compile to pdf\n$pdf_mode = 1;\n" nil "~/.latexmkrc"))
 
 #+END_SRC
 

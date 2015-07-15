@@ -84,6 +84,7 @@
                         windresize
                         diff-hl
                         ;; melpa packages
+                        auctex-latexmk
                         helm
                         helm-descbinds
                         helm-bibtex
@@ -447,6 +448,10 @@ http://github.com/izahn/dotemacs/issues
 
 (add-hook 'after-init-hook 'global-company-mode)
 
+;; completion for kill ring history
+(require 'browse-kill-ring)
+(browse-kill-ring-default-keybindings)
+
 ;;; Configure outline minor modes
 ;; Less crazy key bindings for outline-minor-mode
 (setq outline-minor-mode-prefix "\C-c\C-o")
@@ -626,6 +631,13 @@ http://github.com/izahn/dotemacs/issues
 (add-hook 'bibtex-mode-hook
           (lambda ()
              (define-key bibtex-mode-map "\M-q" 'bibtex-fill-entry)))
+
+;; enable latexmk
+(require 'auctex-latexmk)
+(auctex-latexmk-setup)
+;; bad hack to give pdf by default
+(unless (file-exists-p "~/.latexmkrc")
+    (write-region "# compile to pdf\n$pdf_mode = 1;\n" nil "~/.latexmkrc"))
 
 (require 'org)
 (set-face-attribute 'org-meta-line nil
