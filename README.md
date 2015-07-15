@@ -1047,6 +1047,8 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
     ;; enable latexmk
     (require 'auctex-latexmk)
     (auctex-latexmk-setup)
+    ;; make latexmk the default
+    (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "LatexMk")))
     ;; bad hack to give pdf by default
     (unless (file-exists-p "~/.latexmkrc")
         (write-region "# compile to pdf\n$pdf_mode = 1;\n" nil "~/.latexmkrc"))
