@@ -554,6 +554,7 @@ There are several different systems for providing completion hints in emacs. The
   (add-hook 'helm-after-initialize-hook
             (lambda()
               ;; complete with enter
+              ;; (see http://emacs.stackexchange.com/questions/3798/how-do-i-make-pressing-ret-in-helm-find-files-open-the-directory)
               (defun fu/helm-find-files-navigate-forward (orig-fun &rest args)
                 (if (file-directory-p (helm-get-selection))
                     (apply orig-fun args)
@@ -561,7 +562,11 @@ There are several different systems for providing completion hints in emacs. The
               (advice-add 'helm-execute-persistent-action :around #'fu/helm-find-files-navigate-forward)
               (define-key helm-find-files-map (kbd "<return>") 'helm-execute-persistent-action)
               ;; backspace deletes whole word
-              (define-key helm-find-files-map (kbd "<backspace>") 'backward-kill-word)
+              (defun fu/helm-find-files-navigate-back (orig-fun &rest args)
+                (if (= (length helm-pattern) (length (helm-find-files-initial-input)))
+                    (helm-find-files-up-one-level 1)
+                  (apply orig-fun args)))
+              (advice-add 'helm-ff-delete-char-backward :around #'fu/helm-find-files-navigate-back)
               ;;; make C-d open dired buffer a-la ido-mode
               ;; first unset C-d
               (define-key helm-find-files-map (kbd "C-d") 'undefined)
@@ -576,17 +581,26 @@ There are several different systems for providing completion hints in emacs. The
               (define-key helm-find-files-map (kbd "C-d")
                 (lambda () (interactive)
                   (helm-quit-and-execute-action 'old-dired)))
-              ;; fuzzy match
-              (setq helm-recentf-fuzzy-match t
-                    helm-buffers-fuzzy-matching t
-                    helm-recentf-fuzzy-match t
-                    helm-buffers-fuzzy-matching t
-                    helm-locate-fuzzy-match t
-                    helm-M-x-fuzzy-match t
-                    helm-semantic-fuzzy-match t
-                    helm-imenu-fuzzy-match t
-                    helm-apropos-fuzzy-match t
-                    helm-lisp-fuzzy-completion t)
+              (setq ;; fuzzy match
+               helm-recentf-fuzzy-match t
+               helm-buffers-fuzzy-matching t
+               helm-recentf-fuzzy-match t
+               helm-buffers-fuzzy-matching t
+               helm-locate-fuzzy-match t
+               helm-M-x-fuzzy-match t
+               helm-semantic-fuzzy-match t
+               helm-imenu-fuzzy-match t
+               helm-apropos-fuzzy-match t
+               helm-lisp-fuzzy-completion t
+               ;; ignore file case
+               (setq helm-read-file-name-case-fold-search t)
+               ;; less dominating header
+               (set-face-attribute 'helm-ff-dotted-directory nil
+                                   :foreground "DimGray")
+               (set-face-attribute 'helm-source-header nil
+                                   :background "deep sky blue"
+                                   :foreground "white"
+                                   :family "Sans Serif"))
               ;; make helm window smaller
               (helm-autoresize-mode 1)
               (setq helm-autoresize-max-height 30 helm-autoresize-min-height 30)
