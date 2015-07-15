@@ -95,11 +95,7 @@
                         unicode-fonts
                         dired+
                         mouse3
-                        ido-ubiquitous
-                        ido-vertical-mode
-                        ;; noflet
-                        browse-kill-ring
-                        smex
+                        icicles
                         outline-magic
                         smooth-scroll
                         company
@@ -309,125 +305,35 @@ http://github.com/izahn/dotemacs/issues
   (require 'hfyview))
 
 ;;; Completion hints for files and buffers buffers
-(setq ido-file-extensions-order '(".R" ".r" ".sh" ".tex" ".bib" ".org" 
-                                  ".py" ".emacs" ".xml" "org.el" ".pdf"
-                                  ".txt" ".html" ".png" ".ini" ".cfg" 
-                                  ".conf"))
-
-;; load ido 
-(require 'ido)
-(setq ido-auto-merge-work-directories-length -1) ;; disable auto-merge
-(setq ido-use-virtual-buffers t) ;; show recent files in buffer menu
-(ido-mode 1)
-(ido-everywhere 1)
-(setq ido-enable-flex-matching t)
-
-;; use ido everywhere you can
-(require 'ido-ubiquitous)
-(ido-ubiquitous-mode 1)
-
-;; present ido suggestions vertically
-(require 'ido-vertical-mode)
-(ido-vertical-mode 1)
-
-;; set nice ido decorations
-(setq ido-decorations '("\n➔ " "" "\n " "\n ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]" "\n➔ " ""))
-
-;; don't use ido for dired
-(setq ido-read-file-name-non-ido '(dired))
-
-;; color directories blue, firstmatch bold etc.
-(set-face-attribute 'ido-first-match nil
-                    :weight 'bold 
-                    :height '1.125
-                    :foreground "red")
-(set-face-attribute 'ido-only-match nil
-                    :weight 'bold 
-                    :height '1.125
-                    :foreground "ForestGreen")
-
-(set-face-attribute 'ido-subdir nil
-                    :foreground "blue")
-
-;; set sensible keys for id in vertical mode
-(setq ido-vertical-define-keys (quote C-n-C-p-up-down-left-right))
-
-;; use ido for kill-ring
-;;(require 'kill-ring-ido)
-;;(setq kill-ring-ido-shortage-length 20)
-
-;;(global-set-key (kbd "M-y") 'kill-ring-ido)
-
-;; show recently opened files
-(require 'recentf)
-(setq recentf-max-menu-items 50)
-(recentf-mode 1)
-
-(setq ido-use-virtual-buffers 'auto)
-
-(defun ido-recentf-open ()
-  "Use `ido-completing-read' to find a recent file."
-  (interactive)
-  (if (find-file (ido-completing-read "Find recent file: " recentf-list))
-      (message "Opening file...")
-    (message "Aborting")))
-
-(global-set-key (kbd "C-x C-r") 'ido-recentf-open)
-
-  ;;; Completion hints for emacs functions
-;; Horrible work-around to make smex work with emacs < 24.3:
-;; remove this part when emacs is updated.
-;; Check if Smex is supported
-(when (equal (cons 1 1)
-             (ignore-errors
-               (subr-arity (symbol-function 'execute-extended-command))))
-  (defun execute-extended-command (prefixarg &optional command-name)
-    "Read function name, then read its arguments and call it."
-    (interactive (list current-prefix-arg (read-extended-command)))
-    (if (null command-name)
-        (setq command-name (let ((current-prefix-arg prefixarg)) ; for prompt
-                             (read-extended-command))))
-    (let* ((function (and (stringp command-name) (intern-soft command-name)))
-           (binding (and suggest-key-bindings
-                         (not executing-kbd-macro)
-                         (where-is-internal function overriding-local-map t))))
-      (unless (commandp function)
-        (error "`%s' is not a valid command name" command-name))
-      (setq this-command function)
-      (setq real-this-command function)
-      (let ((prefix-arg prefixarg))
-        (command-execute function 'record))
-      (when binding
-        (let* ((waited
-                (sit-for (cond
-                          ((zerop (length (current-message))) 0)
-                          ((numberp suggest-key-bindings) suggest-key-bindings)
-                          (t 2)))))
-          (when (and waited (not (consp unread-command-events)))
-            (with-temp-message
-                (format "You can run the command `%s' with %s"
-                        function (key-description binding))
-              (sit-for (if (numberp suggest-key-bindings)
-                           suggest-key-bindings
-                         2)))))))))
-;; end horrible hack
-
-(smex-initialize)
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
-;; This is your old M-x.
-(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
-
-;; modify smex so that typing a space will insert a hyphen 
-;; (from http://www.emacswiki.org/Smex#toc6)
-(defadvice smex (around space-inserts-hyphen activate compile)
-  (let ((ido-cannot-complete-command 
-         (lambda ()
-            (interactive)
-            (if (string= " " (this-command-keys))
-                (insert ?-)
-              (funcall ,ido-cannot-complete-command)))))
-    ad-do-it))
+(require 'icicles)
+(icy-mode 1)
+;;
+;; Initial height decrease for text in buffer `*Completions*'. (0.75 by default)
+;; http://www.emacswiki.org/emacs/Icicles_-_Customization_and_General_Tips#icicle-Completions-text-scale-decrease
+(setq icicle-Completions-text-scale-decrease 0.0)
+;;
+;;; Default cycling mode to be used before you hit ‘TAB’ or ‘S-TAB’.
+;; prefix or apropos (fuzzy matching)
+(setq icicle-default-cycling-mode 'apropos)
+;;
+;;; Key configuration for modal cycling within minibuffer
+;; No need for configuration. They already work if configured for apropos-cycle.
+;; (add-to-list 'icicle-modal-cycle-up-keys   (kbd "C-p"))
+;; (add-to-list 'icicle-modal-cycle-down-keys (kbd "C-n"))
+;;
+;;; Key configuration for cycling fuzzy matching
+;; icicle-apropos-complete-keys: S-tab by default
+(setq icicle-apropos-complete-keys (list (kbd "<tab>")))
+;; icicle-apropos-cycle-previous/next-keys: [next]/[prior] by default
+(setq icicle-apropos-cycle-previous-keys (list (kbd "<A-tab>") (kbd "C-p") (kbd "<prior>")))
+(setq icicle-apropos-cycle-next-keys     (list                 (kbd "C-n") (kbd "<next>")))
+;;
+;;; Key configuration for cycling prefix matching
+;; icicle-prefix-complete-keys: tab by default
+(setq icicle-prefix-complete-keys (list (kbd "<S-tab>")))
+;; icicle-prefix-cycle-previous/next-keys: [home]/[end] by default
+(setq icicle-prefix-cycle-previous-keys (list (kbd "<S-A-tab>") (kbd "<home>")))
+(setq icicle-prefix-cycle-next-keys     (list                   (kbd "<end>")))
 
 ;;Use C-TAB to complete. We put this in eval-after-load 
 ;; because otherwise some modes will try to override our settings.
