@@ -387,6 +387,7 @@ http://github.com/izahn/dotemacs/issues
              helm-display-header-line nil)
             ;; less dominating header
             (set-face-attribute 'helm-ff-dotted-directory nil
+                                :background nil
                                 :foreground "DimGray")
             (set-face-attribute 'helm-source-header nil
                                 :background "deep sky blue"
