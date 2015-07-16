@@ -735,16 +735,14 @@ There are several different systems for providing completion hints in emacs. The
               (lambda () (interactive)
                 (helm-quit-and-execute-action 'old-dired)))
             (setq ;; fuzzy match
-             ;; helm-recentf-fuzzy-match t
-             ;; helm-buffers-fuzzy-matching t
-             ;; helm-recentf-fuzzy-match t
-             ;; helm-buffers-fuzzy-matching t
-             ;; helm-locate-fuzzy-match t
-             ;; helm-M-x-fuzzy-match t
-             ;; helm-semantic-fuzzy-match t
-             ;; helm-imenu-fuzzy-match t
-             ;; helm-apropos-fuzzy-match t
-             ;; helm-lisp-fuzzy-completion t
+             helm-recentf-fuzzy-match t
+             helm-buffers-fuzzy-matching t
+             helm-locate-fuzzy-match t
+             helm-M-x-fuzzy-match t
+             helm-semantic-fuzzy-match t
+             helm-imenu-fuzzy-match t
+             helm-apropos-fuzzy-match t
+             helm-lisp-fuzzy-completion t
              ;; ignore file case (doesn't seem to work, bug?)
              helm-case-fold-search t
              helm-read-file-name-case-fold-search t
