@@ -967,21 +967,6 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
                 ;;      (cons 'company-capf company-backends))
                 ;; (delete-dups company-backends)
                 ))
-    
-    ;; ;; enable all kinds of highlighting
-    ;; (setq ess-R-font-lock-keywords
-    ;;       (quote
-    ;;        ((ess-R-fl-keyword:modifiers . t)
-    ;;         (ess-R-fl-keyword:fun-defs . t)
-    ;;         (ess-R-fl-keyword:keywords . t)
-    ;;         (ess-R-fl-keyword:assign-ops . t)
-    ;;         (ess-R-fl-keyword:constants . t)
-    ;;         (ess-fl-keyword:fun-calls . t)
-    ;;         (ess-fl-keyword:numbers . t)
-    ;;         (ess-fl-keyword:operators . t)
-    ;;         (ess-fl-keyword:delimiters . t)
-    ;;         (ess-fl-keyword:= . t)
-    ;;         (ess-R-fl-keyword:F&T . t))))
     ```
 
 4.  Run python in emacs (anaconda-mode)
@@ -1009,6 +994,10 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
       (unless (eq system-type 'windows-nt)
         (setq python-shell-interpreter "ipython"
               python-shell-interpreter-args "-i")))
+    
+    ;; fix printing issue in python buffers
+    ;; see http://debbugs.gnu.org/cgi/bugreport.cgi?bug=21077
+    (setq python-shell-enable-font-lock nil)
     ```
 
 5.  emacs lisp REPL (ielm)

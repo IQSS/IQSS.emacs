@@ -554,21 +554,6 @@ http://github.com/izahn/dotemacs/issues
             ;; (delete-dups company-backends)
             ))
 
-;; ;; enable all kinds of highlighting
-;; (setq ess-R-font-lock-keywords
-;;       (quote
-;;        ((ess-R-fl-keyword:modifiers . t)
-;;         (ess-R-fl-keyword:fun-defs . t)
-;;         (ess-R-fl-keyword:keywords . t)
-;;         (ess-R-fl-keyword:assign-ops . t)
-;;         (ess-R-fl-keyword:constants . t)
-;;         (ess-fl-keyword:fun-calls . t)
-;;         (ess-fl-keyword:numbers . t)
-;;         (ess-fl-keyword:operators . t)
-;;         (ess-fl-keyword:delimiters . t)
-;;         (ess-fl-keyword:= . t)
-;;         (ess-R-fl-keyword:F&T . t))))
-
 (when (executable-find "pip")
   (require 'anaconda-mode)
   (require 'company-anaconda)
@@ -591,6 +576,10 @@ http://github.com/izahn/dotemacs/issues
   (unless (eq system-type 'windows-nt)
     (setq python-shell-interpreter "ipython"
           python-shell-interpreter-args "-i")))
+
+;; fix printing issue in python buffers
+;; see http://debbugs.gnu.org/cgi/bugreport.cgi?bug=21077
+(setq python-shell-enable-font-lock nil)
 
 ;; ielm
 (require 'eval-in-repl-ielm)
@@ -980,8 +969,6 @@ The app is chosen from your OS's preference."
 (line-number-mode 1)    ; makes the line number show up
 (column-number-mode 1)  ; makes the column number show up
 
-(setq global-font-lock-mode 1) ; everything should use fonts
-(setq font-lock-maximum-decoration t) ;; decorate as much as possible
 (show-paren-mode 1) ;; highlight matching paren
 
 ;; smooth scrolling with C-up/C-down
