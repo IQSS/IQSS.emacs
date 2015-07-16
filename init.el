@@ -377,10 +377,10 @@ http://github.com/izahn/dotemacs/issues
              helm-imenu-fuzzy-match t
              helm-apropos-fuzzy-match t
              helm-lisp-fuzzy-completion t
-             ;; ignore file case
+             ;; ignore file case (doesn't seem to work, bug?)
+             helm-case-fold-search t
              helm-read-file-name-case-fold-search t
-             ;; less ambitious matching
-             ;helm-ff-smart-completion nil
+             helm-file-name-case-fold-search t
              ;; always display in new buffer below
              helm-always-two-windows t
              ;; don't confuse me with extra instructions
@@ -398,7 +398,7 @@ http://github.com/izahn/dotemacs/issues
             (helm-autoresize-mode 1)
             (setq helm-autoresize-max-height 30 helm-autoresize-min-height 30)
             ;; learn my usage patterns
-            (helm-adaptative-mode 1)))
+            (helm-adaptive-mode 1)))
 
 ;;; Helm extras
 ;; describe active keybindings
