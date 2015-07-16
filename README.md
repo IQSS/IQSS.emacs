@@ -442,9 +442,8 @@ The main purpose of these emacs configuration files is to install and configure 
                         polymode
                         eval-in-repl
                         pyvenv
-                        anaconda-mode
+                        elpy
                         exec-path-from-shell
-                        company-anaconda
                         htmlize
                         pcmpl-args
                         pcmpl-pip
@@ -922,31 +921,27 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
                 ))
     ```
 
-4.  Run python in emacs (anaconda-mode)
+4.  Run python in emacs (elpy)
 
     ```lisp
-    (when (executable-find "pip")
-      (require 'anaconda-mode)
-      (require 'company-anaconda)
-      (add-hook 'python-mode-hook 'anaconda-mode)
-      (add-hook 'python-mode-hook 'eldoc-mode)
-      (add-hook 'python-mode-hook
-                (lambda()
-                  (setq-local company-backends
-                              (cons 'company-anaconda company-backends)))))
-    ;; use ipython if available (but not on windows; see 
-    ;; https://github.com/emacs-mirror/emacs/blob/master/lisp/progmodes/python.el
-    ;; and only on recent versions of emacs
-    (when (and (>= (string-to-number 
-                    (concat 
-                     (number-to-string emacs-major-version) 
-                     "." 
-                     (number-to-string emacs-minor-version)))
-                   24.4)
-               (executable-find "ipython"))
-      (unless (eq system-type 'windows-nt)
-        (setq python-shell-interpreter "ipython"
-              python-shell-interpreter-args "-i")))
+    ;; Python completion and code checking
+    (setq elpy-modules '(elpy-module-company
+                         elpy-module-eldoc
+                         elpy-module-flymake
+                         elpy-module-pyvenv
+                         elpy-module-highlight-indentation
+                         elpy-module-sane-defaults))
+    (elpy-enable)
+    ;; use ipython if available
+    (if (executable-find "ipython")
+        (elpy-use-ipython))
+    
+    ;; make sure completions don't start automatically
+    (add-hook 'elpy-mode-hook
+               (lambda ()
+    ;;              (require 'eval-in-repl-python)
+    ;;              (define-key elpy-mode-map "\C-c\C-c" 'eir-eval-in-python)
+                  (setq company-idle-delay nil)))
     
     ;; fix printing issue in python buffers
     ;; see http://debbugs.gnu.org/cgi/bugreport.cgi?bug=21077
