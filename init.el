@@ -390,10 +390,10 @@ http://github.com/izahn/dotemacs/issues
                                 :background nil
                                 :foreground "DimGray")
             (set-face-attribute 'helm-source-header nil
-                                :background "deep sky blue"
+                                :background "LightGray"
                                 :foreground "white"
                                 :family "Sans Serif"
-                                :height 1.0)
+                                :height 0.9)
             ;; make helm window smaller
             (helm-autoresize-mode 1)
             (setq helm-autoresize-max-height 30 helm-autoresize-min-height 30)
