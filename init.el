@@ -84,6 +84,7 @@
                         windresize
                         diff-hl
                         ;; melpa packages
+                        ace-window
                         auctex-latexmk
                         diminish
                         multi-term
@@ -1000,7 +1001,12 @@ The app is chosen from your OS's preference."
 ;; use windresize for changing window size
 (require 'windresize)
 
-;; use windmove for navigating windows
+;; use ace-window for navigating windows
+(global-set-key (kbd "M-C-p") 'ace-window)
+
+;; aw-keys - the sequence of leading characters for each window:
+(setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+
 (global-set-key (kbd "<M-S-left>")  'windmove-left)
 (global-set-key (kbd "<M-S-right>") 'windmove-right)
 (global-set-key (kbd "<M-S-up>")    'windmove-up)

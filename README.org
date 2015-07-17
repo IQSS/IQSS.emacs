@@ -267,6 +267,8 @@ The main purpose of these emacs configuration files is to install and configure 
                           windresize
                           diff-hl
                           ;; melpa packages
+                          ace-window
+                          hydra
                           auctex-latexmk
                           diminish
                           multi-term
@@ -1290,7 +1292,12 @@ Load eval-in-repl for bash, elisp, and python interaction.
   ;; use windresize for changing window size
   (require 'windresize)
 
-  ;; use windmove for navigating windows
+  ;; use ace-window for navigating windows
+  (global-set-key (kbd "M-C-p") 'ace-window)
+
+  ;; aw-keys - the sequence of leading characters for each window:
+  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+
   (global-set-key (kbd "<M-S-left>")  'windmove-left)
   (global-set-key (kbd "<M-S-right>") 'windmove-right)
   (global-set-key (kbd "<M-S-up>")    'windmove-up)

@@ -436,6 +436,7 @@ The main purpose of these emacs configuration files is to install and configure 
                         windresize
                         diff-hl
                         ;; melpa packages
+                        ace-window
                         auctex-latexmk
                         diminish
                         multi-term
