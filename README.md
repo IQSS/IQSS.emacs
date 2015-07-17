@@ -898,21 +898,6 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
 (global-set-key (kbd "C-y") #'hydra-yank-pop/yank)
 
 ;; better outline mode
-;; clear out previous C-c C-o bindings
-(global-set-key (kbd "C-c C-o") nil)
-(global-set-key (kbd "C-c C-o C-f") nil)
-(add-hook 'LaTeX-mode-hook
-          (lambda()
-            (define-key LaTeX-mode-map (kbd "C-c C-o") nil)
-            (define-key LaTeX-mode-map (kbd "C-c C-o C-f") nil)
-            (define-key latex-mode-map (kbd "C-c C-o") nil)
-            (define-key latex-mode-map (kbd "C-c C-o C-f") nil)))
-(add-hook 'latex-mode-hook
-          (lambda()
-            (define-key LaTeX-mode-map (kbd "C-c C-o") nil)
-            (define-key LaTeX-mode-map (kbd "C-c C-o C-f") nil)
-            (define-key latex-mode-map (kbd "C-c C-o") nil)
-            (define-key latex-mode-map (kbd "C-c C-o C-f") nil)))
 ;; define hydra
 (defhydra hydra-outline (:color pink :hint nil)
   "
@@ -949,9 +934,19 @@ _d_: subtree
   ("b" outline-backward-same-level)       ; Backward - same level
   ("z" nil "leave"))
 
-;; bind to C-c C-o
-
-(global-set-key (kbd "C-c c-o") 'hydra-outline/body) ; by example
+;; clear out previous C-c C-o bindings
+(global-set-key (kbd "C-c C-o") nil)
+(global-set-key (kbd "C-c C-o C-f") nil)
+;; make it work whenever outline-minor mode is on
+(add-hook 'outline-minor-mode-hook
+          (lambda()
+            (define-key outline-minor-mode-map (kbd "C-c C-o") 'hydra-outline/body)))
+;; make sure it works in LaTeX mode
+(add-hook 'LaTeX-mode-hook
+          (lambda()
+            (define-key LaTeX-mode-map (kbd "C-c C-o") nil)
+            (define-key LaTeX-mode-map (kbd "C-c C-o C-f") nil)
+            (define-key LaTeX-mode-map (kbd "C-c C-o") 'hydra-outline/body)))
 ```
 
 ### Major modes configuration<a id="sec-2-3-14" name="sec-2-3-14"></a>
