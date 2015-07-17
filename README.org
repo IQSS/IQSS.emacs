@@ -853,15 +853,22 @@ I encourage you to use [[*Note%20taking%20and%20outlining%20(Org-mode)][org-mode
     ("z" nil "leave"))
   (global-set-key (kbd "C-c r") 'hydra-rectangle/body)
 
-
-
-
-
-
-
-
-                                                
-
+  (defhydra hydra-toggle-option ;;TODO add more options
+    (:color blue :hint nil)
+    "
+  _a_bbrev-mode: %`abbrev-mode
+  _d_ebug-on-error: %`debug-on-error
+  auto-_f_ill-mode: %`auto-fill-function
+  de_b_ug-on-quit: %`debug-on-quit
+  _t_runcate-lines: %`truncate-lines
+  "
+    ("a" abbrev-mode )
+    ("d" toggle-debug-on-error )
+    ("f" auto-fill-mode )
+    ("g" toggle-debug-on-quit )
+    ("t" toggle-truncate-lines )
+    ("z" nil "quit"))
+  (global-set-key (kbd "C-c s") 'hydra-toggle-option/body)
 
 #+END_SRC
 

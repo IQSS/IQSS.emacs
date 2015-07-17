@@ -622,6 +622,23 @@ _h_   _l_    _k_ill (cut)     _y_ank (paste)
   ("z" nil "leave"))
 (global-set-key (kbd "C-c r") 'hydra-rectangle/body)
 
+(defhydra hydra-toggle-option ;;TODO add more options
+  (:color blue :hint nil)
+  "
+_a_bbrev-mode: %`abbrev-mode
+_d_ebug-on-error: %`debug-on-error
+auto-_f_ill-mode: %`auto-fill-function
+de_b_ug-on-quit: %`debug-on-quit
+_t_runcate-lines: %`truncate-lines
+"
+  ("a" abbrev-mode )
+  ("d" toggle-debug-on-error )
+  ("f" auto-fill-mode )
+  ("g" toggle-debug-on-quit )
+  ("t" toggle-truncate-lines )
+  ("z" nil "quit"))
+(global-set-key (kbd "C-c s") 'hydra-toggle-option/body)
+
 (add-hook 'prog-mode-hook
           (lambda()
             ;; turn on outline minor mode:
