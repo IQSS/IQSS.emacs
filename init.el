@@ -505,7 +505,7 @@ _t_: body          _e_: entry       _n_: next visible
 _o_: other         _i_: children    _p_: previous visible
 _c_: entry         _k_: branches    _f_: forward same level
 _l_: leaves        _s_: subtree     _b_: backward same level
-_d_: subtree
+_d_: subtree                        _RET_: new heading 
 
 "
   ;; Cycle
@@ -529,6 +529,7 @@ _d_: subtree
   ("p" outline-previous-visible-heading)  ; Previous
   ("f" outline-forward-same-level)        ; Forward - same level
   ("b" outline-backward-same-level)       ; Backward - same level
+  ("<return>" outline-insert-heading)     ;; New heading
   ("z" nil "leave"))
 
 ;; clear out previous C-c C-o bindings
@@ -544,6 +545,31 @@ _d_: subtree
             (define-key LaTeX-mode-map (kbd "C-c C-o") nil)
             (define-key LaTeX-mode-map (kbd "C-c C-o C-f") nil)
             (define-key LaTeX-mode-map (kbd "C-c C-o") 'hydra-outline/body)))
+
+;; Window movement hydra
+(defhydra hydra-window (:color red
+                               :hint nil)
+  "
+  ^Move^        ^Split^              ^History
+  ^^^^^^----------------------------------------
+  _r_: right    _v_: vertical        _U_: undo
+  _l_: left     _h_: horizontal      _R_: redo
+  _u_: up       _1_: remove splits 
+  _d_: down 
+
+  "
+  ("r" windmove-right)
+  ("l" windmove-left)
+  ("u" windmove-up)
+  ("d" windmove-down)
+  ("v" split-window-right)
+  ("h" split-window-below)
+  ("U" winner-undo)
+  ("R" winner-redo) ;;Fixme, not working?
+  ("1" delete-other-windows)
+  ("z" nil "leave"))
+;; bind to C-x w
+(global-set-key (kbd "C-x w") 'hydra-window/body)
 
 (add-hook 'prog-mode-hook
           (lambda()
