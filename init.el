@@ -105,6 +105,7 @@
                         smooth-scroll
                         company
                         company-math
+                        guide-key
                         ess
                         markdown-mode
                         polymode
@@ -428,6 +429,11 @@ http://github.com/izahn/dotemacs/issues
                 (insert ?-)
               (funcall ,ido-cannot-complete-command)))))
     ad-do-it))
+
+;; guide-key
+(require 'guide-key)
+(setq guide-key/guide-key-sequence t)
+(guide-key-mode 1)  ; Enable guide-key-mode
 
 ;;Use C-TAB to complete. We put this in eval-after-load 
 ;; because otherwise some modes will try to override our settings.

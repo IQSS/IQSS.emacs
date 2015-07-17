@@ -457,6 +457,7 @@ The main purpose of these emacs configuration files is to install and configure 
                         smooth-scroll
                         company
                         company-math
+                        guide-key
                         ess
                         markdown-mode
                         polymode
@@ -814,6 +815,11 @@ There are several different systems for providing completion hints in emacs. The
                 (insert ?-)
               (funcall ,ido-cannot-complete-command)))))
     ad-do-it))
+
+;; guide-key
+(require 'guide-key)
+(setq guide-key/guide-key-sequence t)
+(guide-key-mode 1)  ; Enable guide-key-mode
 ```
 
 ### Auto-complete configuration<a id="sec-2-3-11" name="sec-2-3-11"></a>
