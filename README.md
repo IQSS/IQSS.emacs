@@ -990,6 +990,41 @@ _d_: subtree                        _RET_: new heading
   ("z" nil "leave"))
 ;; bind to C-x g
 (global-set-key (kbd "C-c g") 'hydra-git/body)
+
+;; rectangle hydra (TODO convert to cua rectangle functions)
+(defhydra hydra-rectangle (:body-pre (rectangle-mark-mode 1)
+                                     :color red
+                                     :hint nil
+                           :post (deactivate-mark))
+  "
+Use hlkj or arrows for movement, highlighted keys for action.
+
+  ^_k_^      _c_opy           _r_eplace with
+_h_   _l_    _k_ill (cut)     _y_ank (paste) 
+  ^_j_^      _d_elete         _R_eset 
+^^^^         _e_xchange       _u_ndo  
+^^^^         ^ ^               ^^
+"
+  ("h" backward-char)
+  ("l" forward-char)
+  ("k" previous-line)
+  ("j" next-line)
+  ("<left>" backward-char)
+  ("<right>" forward-char)
+  ("<up>" previous-line)
+  ("<down>" next-line)
+  ("c" copy-rectangle-as-kill)
+  ("d" delete-rectangle)
+  ("e" exchange-point-and-mark)
+  ("R" (if (region-active-p)
+           (deactivate-mark)
+         (rectangle-mark-mode 1)))
+  ("y" yank-rectangle)
+  ("u" undo)
+  ("r" string-rectangle)
+  ("k" kill-rectangle)
+  ("z" nil "leave"))
+(global-set-key (kbd "C-c r") 'hydra-rectangle/body)
 ```
 
 ### Major modes configuration<a id="sec-2-3-14" name="sec-2-3-14"></a>
