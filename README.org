@@ -242,11 +242,7 @@ The main purpose of these emacs configuration files is to install and configure 
 
   ;; set things that need to be set before packages load
   ; Less crazy key bindings for outline-minor-mode
-  (setq outline-minor-mode-prefix "\C-c\C-o")
-  (add-hook 'outline-minor-mode-hook
-            (lambda () (local-set-key "\C-c\C-o"
-                                      outline-mode-prefix-map)))
-
+  ;; (setq outline-minor-mode-prefix "\C-c\C-o") not needed with hydra
   ;; load site-start early so we can override it later
   (load "default" t t)
   ;; prevent site-start from running again later
@@ -284,6 +280,7 @@ The main purpose of these emacs configuration files is to install and configure 
                           ;; noflet
                           browse-kill-ring
                           smex
+                          hydra
                           outline-magic
                           smooth-scroll
                           company
@@ -705,12 +702,84 @@ I encourage you to use [[*Note%20taking%20and%20outlining%20(Org-mode)][org-mode
 #+BEGIN_SRC emacs-lisp
   ;;; Configure outline minor modes
   ;; Less crazy key bindings for outline-minor-mode
-  (setq outline-minor-mode-prefix "\C-c\C-o")
+  ;; (setq outline-minor-mode-prefix "\C-c\C-o") ;; not needed with hydra
   ;; load outline-magic along with outline-minor-mode
   (add-hook 'outline-minor-mode-hook 
             (lambda () 
-              (require 'outline-magic)
-              (define-key outline-minor-mode-map "\C-c\C-o\t" 'outline-cycle)))
+              (require 'outline-magic)))
+#+END_SRC
+
+*** Convenience key maps (hydra)
+#+BEGIN_SRC emacs-lisp
+  (require 'hydra)
+
+  ;; better yanking
+  (defhydra hydra-yank-pop ()
+    "yank"
+    ("C-y" yank nil)
+    ("M-y" yank-pop nil)
+    ("y" (yank-pop 1) "next")
+    ("Y" (yank-pop -1) "prev")
+    ("l" helm-show-kill-ring "list" :color blue))   ; or browse-kill-ring
+  (global-set-key (kbd "M-y") #'hydra-yank-pop/yank-pop)
+  (global-set-key (kbd "C-y") #'hydra-yank-pop/yank)
+
+  ;; better outline mode
+  ;; clear out previous C-c C-o bindings
+  (global-set-key (kbd "C-c C-o") nil)
+  (global-set-key (kbd "C-c C-o C-f") nil)
+  (add-hook 'LaTeX-mode-hook
+            (lambda()
+              (define-key LaTeX-mode-map (kbd "C-c C-o") nil)
+              (define-key LaTeX-mode-map (kbd "C-c C-o C-f") nil)
+              (define-key latex-mode-map (kbd "C-c C-o") nil)
+              (define-key latex-mode-map (kbd "C-c C-o C-f") nil)))
+  (add-hook 'latex-mode-hook
+            (lambda()
+              (define-key LaTeX-mode-map (kbd "C-c C-o") nil)
+              (define-key LaTeX-mode-map (kbd "C-c C-o C-f") nil)
+              (define-key latex-mode-map (kbd "C-c C-o") nil)
+              (define-key latex-mode-map (kbd "C-c C-o C-f") nil)))
+  ;; define hydra
+  (defhydra hydra-outline (:color pink :hint nil)
+    "
+  ^Hide^             ^Show^           ^Move
+  ^^^^^^------------------------------------------------------
+  _q_: sublevels     _a_: all         _u_: up
+  _t_: body          _e_: entry       _n_: next visible
+  _o_: other         _i_: children    _p_: previous visible
+  _c_: entry         _k_: branches    _f_: forward same level
+  _l_: leaves        _s_: subtree     _b_: backward same level
+  _d_: subtree
+
+  "
+    ;; Cycle
+    ("<tab>" outline-cycle)  ; cycle visibility
+    ;; Hide
+    ("q" hide-sublevels)    ; Hide everything but the top-level headings
+    ("t" hide-body)         ; Hide everything but headings (all body lines)
+    ("o" hide-other)        ; Hide other branches
+    ("c" hide-entry)        ; Hide this entry's body
+    ("l" hide-leaves)       ; Hide body lines in this entry and sub-entries
+    ("d" hide-subtree)      ; Hide everything in this entry and sub-entries
+    ;; Show
+    ("a" show-all)          ; Show (expand) everything
+    ("e" show-entry)        ; Show this heading's body
+    ("i" show-children)     ; Show this heading's immediate child sub-headings
+    ("k" show-branches)     ; Show all sub-headings under this heading
+    ("s" show-subtree)      ; Show (expand) everything in this heading & below
+    ;; Move
+    ("u" outline-up-heading)                ; Up
+    ("n" outline-next-visible-heading)      ; Next
+    ("p" outline-previous-visible-heading)  ; Previous
+    ("f" outline-forward-same-level)        ; Forward - same level
+    ("b" outline-backward-same-level)       ; Backward - same level
+    ("z" nil "leave"))
+
+  ;; bind to C-c C-o
+  
+  (global-set-key (kbd "C-c c-o") 'hydra-outline/body) ; by example
+
 #+END_SRC
 
 *** Major modes configuration
