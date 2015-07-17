@@ -4,6 +4,7 @@
   - [First run](#first-run)
   - [Modified key bindings](#modified-key-bindings)
     - [Completion keys](#completion-keys)
+    - [Hydra key maps](#hydra-key-maps)
     - [Other key bindings](#other-key-bindings)
   - [Suggested external programs](#suggested-external-programs)
     - [External program download and installation](#external-program-download-and-installation)
@@ -61,9 +62,18 @@ This configuration loads a lot of useful emacs packages (see here for the list),
 -   **C-x C-r:** Mapped to `ido-recentf-open` to select recent files in the minibuffer.
 -   **M-x:** Remapped to `smex` to interactively search for interactive functions. Use `M-X` (note the capital "X") to restrict to commands for the active major mode.
 
-### Other key bindings<a id="sec-1-4-2" name="sec-1-4-2"></a>
+### Hydra key maps<a id="sec-1-4-2" name="sec-1-4-2"></a>
 
--   **C-c C-o:** outline navigation (outline-minor-mode only)
+`hydra` allows us to arrange groups of keybindings in a really convenient way. It's kind of hard to explain; just try it and see if you like it.
+
+-   **C-c o:** outline navigation (outline-minor-mode only)
+-   **C-c r:** rectangle operations
+-   **C-c w:** window management
+-   **C-y:** kill ring (clipboard) management
+-   **C-c s:** quick access to emacs settings
+
+### Other key bindings<a id="sec-1-4-3" name="sec-1-4-3"></a>
+
 -   **E:** Open in external application (dired mode only)
 -   **C-up:** Mapped to `scroll-down-1`.
 -   **C-down:** Mapped to `scroll-up-1`.

@@ -37,8 +37,15 @@ This configuration loads a lot of useful emacs packages (see [[*Install%20useful
 - C-x C-r :: Mapped to =ido-recentf-open= to select recent files in the minibuffer.
 - M-x :: Remapped to =smex= to interactively search for interactive functions. Use =M-X= (note the capital "X") to restrict to commands for the active major mode.
 
+*** Hydra key maps
+=hydra= allows us to arrange groups of keybindings in a really convenient way. It's kind of hard to explain; just try it and see if you like it.
+- C-c o :: outline navigation (outline-minor-mode only)
+- C-c r :: rectangle operations
+- C-c w :: window management
+- C-y :: kill ring (clipboard) management
+- C-c s :: quick access to emacs settings 
+
 *** Other key bindings
-- C-c C-o :: outline navigation (outline-minor-mode only)
 - E :: Open in external application (dired mode only)
 - C-up :: Mapped to =scroll-down-1=.
 - C-down :: Mapped to =scroll-up-1=.
