@@ -565,6 +565,28 @@ _d_: subtree                        _RET_: new heading
 ;; bind to C-x w
 (global-set-key (kbd "C-c w") 'hydra-window/body)
 
+;; git hydra
+(defhydra hydra-git (:color red
+                               :hint nil)
+  "
+   _s_tatus    stage _i_tem      stage _a_ll 
+   _c_ommit    _A_mend _p_ull    _P_ush _f_etch  
+   _i_nit      _d_iff
+  "
+  ("s" magit-status)
+  ("i" magit-stage-item)
+  ("a" magit-stage-all)
+  ("c" magit-commit)
+  ("A" magit-amend)
+  ("p" magit-pull)
+  ("P" magit-push)
+  ("f" magit-fetch)
+  ("I" magit-init)
+  ("d" magit-diff-working-tree)
+  ("z" nil "leave"))
+;; bind to C-x g
+(global-set-key (kbd "C-c g") 'hydra-git/body)
+
 (add-hook 'prog-mode-hook
           (lambda()
             ;; turn on outline minor mode:
