@@ -504,7 +504,7 @@ _t_: body          _e_: entry       _n_: next visible
 _o_: other         _i_: children    _p_: previous visible
 _c_: entry         _k_: branches    _f_: forward same level
 _l_: leaves        _s_: subtree     _b_: backward same level
-_d_: subtree                        _RET_: new heading 
+_d_: subtree                        _<return>_: new heading 
 
 "
   ;; Cycle
@@ -627,14 +627,14 @@ _h_   _l_    _k_ill (cut)     _y_ank (paste)
   "
 _a_bbrev-mode: %`abbrev-mode
 _d_ebug-on-error: %`debug-on-error
-auto-_f_ill-mode: %`auto-fill-function
 de_b_ug-on-quit: %`debug-on-quit
+auto-_f_ill-mode: %`auto-fill-function
 _t_runcate-lines: %`truncate-lines
 "
   ("a" abbrev-mode )
   ("d" toggle-debug-on-error )
   ("f" auto-fill-mode )
-  ("g" toggle-debug-on-quit )
+  ("b" toggle-debug-on-quit )
   ("t" toggle-truncate-lines )
   ("z" nil "quit"))
 (global-set-key (kbd "C-c s") 'hydra-toggle-option/body)
