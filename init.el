@@ -490,7 +490,7 @@ http://github.com/izahn/dotemacs/issues
   ("M-y" yank-pop nil)
   ("y" (yank-pop 1) "next")
   ("Y" (yank-pop -1) "prev")
-  ("l" helm-show-kill-ring "list" :color blue))   ; or browse-kill-ring
+  ("M-y" browse-kill-ring "list" :color blue))   ; or helm-show-kill-ring 
 (global-set-key (kbd "M-y") #'hydra-yank-pop/yank-pop)
 (global-set-key (kbd "C-y") #'hydra-yank-pop/yank)
 
