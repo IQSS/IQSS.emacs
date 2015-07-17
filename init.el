@@ -558,7 +558,7 @@ http://github.com/izahn/dotemacs/issues
                      elpy-module-eldoc
                      elpy-module-flymake
                      elpy-module-pyvenv
-                     elpy-module-highlight-indentation
+                     ;;  elpy-module-highlight-indentation ;breaks older emacs
                      elpy-module-sane-defaults))
 (elpy-enable)
 ;; use ipython if available
