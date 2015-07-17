@@ -63,6 +63,7 @@ This configuration loads a lot of useful emacs packages (see here for the list),
 
 ### Other key bindings<a id="sec-1-4-2" name="sec-1-4-2"></a>
 
+-   **C-c C-o:** outline navigation (outline-minor-mode only)
 -   **E:** Open in external application (dired mode only)
 -   **C-up:** Mapped to `scroll-down-1`.
 -   **C-down:** Mapped to `scroll-up-1`.
