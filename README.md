@@ -413,7 +413,7 @@ The main purpose of these emacs configuration files is to install and configure 
 
 ;; set things that need to be set before packages load
 ; Less crazy key bindings for outline-minor-mode
-;; (setq outline-minor-mode-prefix "\C-c\C-o") not needed with hydra
+(setq outline-minor-mode-prefix "\C-c\C-o")
 ;; load site-start early so we can override it later
 (load "default" t t)
 ;; prevent site-start from running again later
@@ -874,12 +874,11 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
 
 ```lisp
 ;;; Configure outline minor modes
-;; Less crazy key bindings for outline-minor-mode
-;; (setq outline-minor-mode-prefix "\C-c\C-o") ;; not needed with hydra
 ;; load outline-magic along with outline-minor-mode
 (add-hook 'outline-minor-mode-hook 
-          (lambda () 
-            (require 'outline-magic)))
+          (lambda ()
+            ;; Less crazy key bindings for outline-minor-mode
+            (setq outline-minor-mode-prefix "\C-c\C-o")))
 ```
 
 ### Convenience key maps (hydra)<a id="sec-2-3-13" name="sec-2-3-13"></a>
@@ -936,19 +935,14 @@ _d_: subtree                        _RET_: new heading
   ("<return>" outline-insert-heading)     ;; New heading
   ("z" nil "leave"))
 
-;; clear out previous C-c C-o bindings
-(global-set-key (kbd "C-c C-o") nil)
-(global-set-key (kbd "C-c C-o C-f") nil)
 ;; make it work whenever outline-minor mode is on
 (add-hook 'outline-minor-mode-hook
           (lambda()
-            (define-key outline-minor-mode-map (kbd "C-c C-o") 'hydra-outline/body)))
+            (define-key outline-minor-mode-map (kbd "C-c o") 'hydra-outline/body)))
 ;; make sure it works in LaTeX mode
 (add-hook 'LaTeX-mode-hook
           (lambda()
-            (define-key LaTeX-mode-map (kbd "C-c C-o") nil)
-            (define-key LaTeX-mode-map (kbd "C-c C-o C-f") nil)
-            (define-key LaTeX-mode-map (kbd "C-c C-o") 'hydra-outline/body)))
+            (define-key LaTeX-mode-map (kbd "C-c o") 'hydra-outline/body)))
 
 ;; Window movement hydra
 (defhydra hydra-window (:color red
@@ -973,7 +967,7 @@ _d_: subtree                        _RET_: new heading
   ("1" delete-other-windows)
   ("z" nil "leave"))
 ;; bind to C-x w
-(global-set-key (kbd "C-x w") 'hydra-window/body)
+(global-set-key (kbd "C-c w") 'hydra-window/body)
 ```
 
 ### Major modes configuration<a id="sec-2-3-14" name="sec-2-3-14"></a>
