@@ -1014,7 +1014,7 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
     (setq-default TeX-master nil)
     ;; Add beamer frames to outline list
     (setq TeX-outline-extra
-          '(("\\\\begin{frame}\n\\|\\\\begin{frame}.*{.*}\\|[       ]*\\\\frametitle\\b" 3)))
+         ¯ '((".*\\\\begin{frame}\n\\|.*\\\\begin{frame}\\[.*\\]\\|.*\\\\begin{frame}.*{.*}\\|.*[       ]*\\\\frametitle\\b" 3)))
     ;; reftex settings
     (setq reftex-enable-partial-scans t)
     (setq reftex-save-parse-info t)
