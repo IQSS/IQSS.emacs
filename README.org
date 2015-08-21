@@ -917,6 +917,7 @@ Load eval-in-repl for bash, elisp, and python interaction.
 
 #+BEGIN_SRC emacs-lisp
   (require 'org)
+  (setq org-export-babel-evaluate nil)
   (set-face-attribute 'org-meta-line nil
                       :background nil
                       :foreground "#B0B0B0")
