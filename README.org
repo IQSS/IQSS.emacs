@@ -1176,7 +1176,7 @@ Load eval-in-repl for bash, elisp, and python interaction.
 #+END_SRC
 
 
-*** COMMENT Miscellaneous
+*** Miscellaneous
 
 #+BEGIN_SRC emacs-lisp
 
