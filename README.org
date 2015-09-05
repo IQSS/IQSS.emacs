@@ -1027,7 +1027,8 @@ Load eval-in-repl for bash, elisp, and python interaction.
     (require 'mouse3)
 
     ;; set dired listing options
-    (setq dired-listing-switches "-alDhp")
+    (if (eq system-type 'gnu/linux)
+        (setq dired-listing-switches "-alDhp"))
 
     ;; more subdued colors
     (set-face-attribute 'diredp-ignored-file-name nil
