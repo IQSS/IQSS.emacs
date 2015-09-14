@@ -1,43 +1,42 @@
-- [Quick start](#quick-start)
-  - [What is this?](#what-is-this?)
-  - [How to I install it?](#how-to-i-install-it?)
-  - [First run](#first-run)
-  - [Modified key bindings](#modified-key-bindings)
-    - [Completion keys](#completion-keys)
-    - [Other key bindings](#other-key-bindings)
-  - [Suggested external programs](#suggested-external-programs)
-    - [External program download and installation](#external-program-download-and-installation)
-    - [External program configuration and use](#external-program-configuration-and-use)
-- [Discussion and implementation](#discussion-and-implementation)
-  - [What the world needs now&#x2026;](#what-the-world-needs-now&#x2026;)
-  - [Requirements](#requirements)
-  - [Implementation](#implementation)
-    - [Preamble](#preamble)
-    - [version Check](#version-check)
-    - [Visual tweaks](#visual-tweaks)
-    - [Install useful packages](#install-useful-packages)
-    - [Load theme](#load-theme)
-    - [Add custom lisp director to load path](#add-custom-lisp-director-to-load-path)
-    - [Spell checking](#spell-checking)
-    - [Fonts](#fonts)
-    - [Printing](#printing)
-    - [Minibuffer hints and completion](#minibuffer-hints-and-completion)
-    - [Auto-complete configuration](#auto-complete-configuration)
-    - [Outline-magic](#outline-magic)
-    - [Major modes configuration](#major-modes-configuration)
-    - [Miscellaneous](#miscellaneous)
+- [Quick start](#sec-1)
+  - [What is this?](#sec-1-1)
+  - [How to I install it?](#sec-1-2)
+  - [First run](#sec-1-3)
+  - [Modified key bindings](#sec-1-4)
+    - [Completion keys](#sec-1-4-1)
+    - [Other key bindings](#sec-1-4-2)
+  - [Suggested external programs](#sec-1-5)
+    - [External program download and installation](#sec-1-5-1)
+    - [External program configuration and use](#sec-1-5-2)
+- [Discussion and implementation](#sec-2)
+  - [What the world needs now&#x2026;](#sec-2-1)
+  - [Requirements](#sec-2-2)
+  - [Implementation](#sec-2-3)
+    - [Preamble](#sec-2-3-1)
+    - [Version check](#sec-2-3-2)
+    - [Visual tweaks](#sec-2-3-3)
+    - [Install useful packages](#sec-2-3-4)
+    - [Load theme](#sec-2-3-5)
+    - [Add custom lisp directory to load path](#sec-2-3-6)
+    - [Spell checking](#sec-2-3-7)
+    - [Fonts](#sec-2-3-8)
+    - [Printing](#sec-2-3-9)
+    - [Minibuffer hints and completion](#sec-2-3-10)
+    - [Auto-complete configuration](#sec-2-3-11)
+    - [Outline-magic](#sec-2-3-12)
+    - [Major modes configuration](#sec-2-3-13)
+    - [Miscellaneous](#sec-2-3-14)
 
 
+# Quick start<a id="orgheadline22"></a>
 
-# Quick start<a id="sec-1" name="sec-1"></a>
-
-## What is this?<a id="sec-1-1" name="sec-1-1"></a>
+## What is this?<a id="orgheadline1"></a>
 
 This is a drop-in replacement for your .emacs.d. It automatically installs and configures several emacs packages useful for working with LaTeX documents, and for writing code for statistical analysis in R, Stata, SAS, and Julia. It also turns on several built-in features of emacs such as spell checking and syntax highlighting.
 
-## How to I install it?<a id="sec-1-2" name="sec-1-2"></a>
+## How to I install it?<a id="orgheadline2"></a>
 
-1.  Make sure emacs >= version 24.3 is installed on your computer. See  Suggested-external-programs (See section 1.5) for installation instructions.
+1.  Make sure emacs >= version 24.3 is installed on your computer. See Suggested-external-programs (See section 1.5) for installation instructions.
 2.  Make sure you have [git](http://git-scm.com/downloads) installed on your computer. If you don't know what git is you might be interested in John McDonnell's [git tutorial](http://nyuccl.org/pages/GitTutorial/).
 3.  Determine your emacs configuration directory. Open emacs and type `C-x f ~/ RET`. This should open a directory listing buffer. Note the path at the top of this file. This is were your `.emacs.d` should go.
 4.  Close Emacs.
@@ -46,22 +45,22 @@ This is a drop-in replacement for your .emacs.d. It automatically installs and c
 
 If you don't know how to use git, you can skip step 6 and simply [download the files as a zip archive](https://github.com/izahn/dotemacs/archive/master.zip), extract them, and move them into your .emacs.d directory.
 
-## First run<a id="sec-1-3" name="sec-1-3"></a>
+## First run<a id="orgheadline3"></a>
 
 Note that after installing this configuration emacs will be extremely slow to start up the first time. This is due to package installation, and to a one-time scan of the fonts installed on your computer. Just be patient and wait for it to finish&#x2013;subsequent start-ups will be much faster.
 
-## Modified key bindings<a id="sec-1-4" name="sec-1-4"></a>
+## Modified key bindings<a id="orgheadline6"></a>
 
-This configuration loads a lot of useful emacs packages (see here for the list), many of which add key bindings. Documenting them all here would be too much (see the documentation for each package if you need the details), so this section describes only those key bindings that we explicitly added or changed.
+This configuration loads a lot of useful emacs packages (seeSuggested external programs (See section 1.5) for the list), many of which add key bindings. Documenting them all here would be too much (see the documentation for each package if you need the details), so this section describes only those key bindings that we explicitly added or changed.
 
-### Completion keys<a id="sec-1-4-1" name="sec-1-4-1"></a>
+### Completion keys<a id="orgheadline4"></a>
 
 -   **C-TAB:** Mapped to `company-complete`, use for pop-up completion menu.
 -   **M-y:** Remapped to `helm-show-kill-ring` to browse the kill ring interactively.
 -   **C-x f:** Mapped to `helm-recentf` to select recently opened files.
 -   **M-x:** Remapped to `helm-M-x` to interactively search for interactive functions.
 
-### Other key bindings<a id="sec-1-4-2" name="sec-1-4-2"></a>
+### Other key bindings<a id="orgheadline5"></a>
 
 -   **E:** Open in external application (dired mode only)
 -   **C-up:** Mapped to `scroll-down-1`.
@@ -72,12 +71,11 @@ This configuration loads a lot of useful emacs packages (see here for the list),
 -   **M-q:** Remapped to `bibtex-fill-entry` (bibtex mode only).
 -   **S-M-right:** (shift + meta + right arrow key) mapped to `windmove-right`; selects the window to the right of the currently active window. `S-M-left`, `S-M-up` and `S-M-down` also mapped to the corresponding windmove functions.
 
-## Suggested external programs<a id="Suggested-external-programs" name="Suggested-external-programs"></a>
-
+## Suggested external programs<a id="orgheadline21"></a>
 
 Some of the requirements listed in Requirements (See section 2.2) make use of software that must be installed outside of emacs. And of course you will need emacs itself! 
 
-### External program download and installation<a id="sec-1-5-1" name="sec-1-5-1"></a>
+### External program download and installation<a id="orgheadline10"></a>
 
 While emacs alone is very powerful, one of it's most important strengths is its ability to inter-operate with other software programs. Links to the download pages for several programs that can be used from with emacs are provided below (they are also very useful on their own!). Installation of all these programs follows normal conventions on each platform, just download, run the installer, and follow the instructions.
 
@@ -108,13 +106,13 @@ While emacs alone is very powerful, one of it's most important strengths is its 
     -   **Pandoc:** Use your package manager, or see <http://johnmacfarlane.net/pandoc/installing.html#all-platforms>
     -   **GhostScript:** Use your package manager, or see <http://www.ghostscript.com/download/gsdnld.html>
 
-### External program configuration and use<a id="sec-1-5-2" name="sec-1-5-2"></a>
+### External program configuration and use<a id="orgheadline20"></a>
 
 While a detailed instructions on how to use these programs would take years, you can get started with the quickly. Here are some quick pointers and links to more detailed tutorials.
 
 1.  Emacs
 
-    Emacs configuration is complex, and we will not go into it here except to say that the main configuration file is named `init.el` and can usually be found in a directory named `.emacs.d`, which is usually in your home directory. As mentioned in (See section ) and  (See section ) there are many pre-packaged emacs configurations that you can use simply by copying them to your `.emacs.d` directory.
+    Emacs configuration is complex, and we will not go into it here except to say that the main configuration file is named `init.el` and can usually be found in a directory named `.emacs.d`, which is usually in your home directory. As mentioned in Quick start (See section 1) and  (See section 2) there are many pre-packaged emacs configurations that you can use simply by copying them to your `.emacs.d` directory.
     
     You can almost just start emacs and start typing as you would in any other text editor, though you should be aware that Emacs uses different keyboard shortcuts than those you may be accustomed to. There is a introductory tutorial built into Emacs that you can access from the Help menu; IBM provides another excellent [emacs tutorial](http://www.ibm.com/developerworks/aix/tutorials/au-emacs1/index.html).
 
@@ -150,9 +148,9 @@ While a detailed instructions on how to use these programs would take years, you
 
     GhostScript is a program for working the postscript and pdf files. While it can be used on its own it is included in this list only because it makes printing from emacs easier, especially on Windows. No configuration should be required. Note that **on windows you need the 32 bit version**, the 64 bit version will not work. Windows users will also need to add it to their PATH (see <http://www.computerhope.com/issues/ch000549.htm> for instructions).
 
-# Discussion and implementation<a id="sec-2" name="sec-2"></a>
+# Discussion and implementation<a id="orgheadline51"></a>
 
-## What the world needs now&#x2026;<a id="sec-2-1" name="sec-2-1"></a>
+## What the world needs now&#x2026;<a id="orgheadline23"></a>
 
 As of August 5th 2014 there are 2,960 github repositories named or mentioning '.emacs.d', and another 627 named or mentioning "dotemacs". Some of these are just personal emacs configurations, but many take pains to provide documentation and instruction for adopting them as your very own emacs configuration. And that's not to mention the [starter-kits](https://github.com/search?q=emacs-starter-kit&type=Repositories&ref=searchresults), [preludes](https://github.com/search?q=emacs+prelude&type=Repositories&ref=searchresults) and [oh my emacs](https://github.com/search?q=emacs+oh+my&type=Repositories&ref=searchresults) of the world! With all these options, does the world really need yet another emacs configuration? 
 
@@ -160,8 +158,7 @@ No, the world does not need another emacs starter kit. Indeed the guy who starte
 
 On the other hand it may be that this emacs configuration is what you want after all. It turns on many nice features of emacs, and adds many more. Anyway it does not hurt to give it a try.
 
-## Requirements<a id="Requirements" name="Requirements"></a>
-
+## Requirements<a id="orgheadline24"></a>
 
 Emacs is many things to many people, being perhaps the most configurable text editor ever created. However, there are some common tools that social scientists often make use of that are not accessible in emacs by default. It is therefore desirable to create a base configuration that enables the features that social scientists are likely to find useful. The table below lists some of these requirements, and describes how they are made available in emacs.
 
@@ -169,153 +166,152 @@ Emacs is many things to many people, being perhaps the most configurable text ed
 
 
 <colgroup>
-<col  class="left" />
+<col  class="org-left" />
 
-<col  class="left" />
+<col  class="org-left" />
 
-<col  class="left" />
+<col  class="org-left" />
 
-<col  class="left" />
+<col  class="org-left" />
 </colgroup>
 <thead>
 <tr>
-<th scope="col" class="left">Requirement</th>
-<th scope="col" class="left">Categories</th>
-<th scope="col" class="left">Solution</th>
-<th scope="col" class="left">Notes</th>
+<th scope="col" class="org-left">Requirement</th>
+<th scope="col" class="org-left">Categories</th>
+<th scope="col" class="org-left">Solution</th>
+<th scope="col" class="org-left">Notes</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
-<td class="left">LaTeX editing/compilation</td>
-<td class="left">Document prep</td>
-<td class="left">AucTeX/RefTeX</td>
-<td class="left">Installed and turned on</td>
+<td class="org-left">LaTeX editing/compilation</td>
+<td class="org-left">Document prep</td>
+<td class="org-left">AucTeX/RefTeX</td>
+<td class="org-left">Installed and turned on</td>
 </tr>
 
 
 <tr>
-<td class="left">Font locking</td>
-<td class="left">Look-n-feel</td>
-<td class="left">font-lock-mode</td>
-<td class="left">Built-in, turned on</td>
+<td class="org-left">Font locking</td>
+<td class="org-left">Look-n-feel</td>
+<td class="org-left">font-lock-mode</td>
+<td class="org-left">Built-in, turned on</td>
 </tr>
 
 
 <tr>
-<td class="left">Spell checking</td>
-<td class="left">Convenience</td>
-<td class="left">ispell/flyspell</td>
-<td class="left">Built-in, turned on</td>
+<td class="org-left">Spell checking</td>
+<td class="org-left">Convenience</td>
+<td class="org-left">ispell/flyspell</td>
+<td class="org-left">Built-in, turned on</td>
 </tr>
 
 
 <tr>
-<td class="left">Outline/structure editing</td>
-<td class="left">Convenience</td>
-<td class="left">outline-minor-mode</td>
-<td class="left">Built-in, turned on</td>
+<td class="org-left">Outline/structure editing</td>
+<td class="org-left">Convenience</td>
+<td class="org-left">outline-minor-mode</td>
+<td class="org-left">Built-in, turned on</td>
 </tr>
 
 
 <tr>
-<td class="left">Revision control</td>
-<td class="left">Version management</td>
-<td class="left">VC-mode/magit</td>
-<td class="left">VC-mode, turned on, magit installed/activated</td>
+<td class="org-left">Revision control</td>
+<td class="org-left">Version management</td>
+<td class="org-left">VC-mode/magit</td>
+<td class="org-left">VC-mode, turned on, magit installed/activated</td>
 </tr>
 
 
 <tr>
-<td class="left">Edit/evaluate R/Stata/SAS</td>
-<td class="left">Data analysis</td>
-<td class="left">ESS</td>
-<td class="left">Installed and activated</td>
+<td class="org-left">Edit/evaluate R/Stata/SAS</td>
+<td class="org-left">Data analysis</td>
+<td class="org-left">ESS</td>
+<td class="org-left">Installed and activated</td>
 </tr>
 
 
 <tr>
-<td class="left">Easier file/buffer/access</td>
-<td class="left">Convenience</td>
-<td class="left">helm</td>
-<td class="left">Installed, turned on</td>
+<td class="org-left">Easier file/buffer/access</td>
+<td class="org-left">Convenience</td>
+<td class="org-left">helm</td>
+<td class="org-left">Installed, turned on</td>
 </tr>
 
 
 <tr>
-<td class="left">Reproducible research</td>
-<td class="left">Data analysis</td>
-<td class="left">org-mode, polymode</td>
-<td class="left">Installed, polymode (Melpa) not working on RCE</td>
+<td class="org-left">Reproducible research</td>
+<td class="org-left">Data analysis</td>
+<td class="org-left">org-mode, polymode</td>
+<td class="org-left">Installed, polymode (Melpa) not working on RCE</td>
 </tr>
 
 
 <tr>
-<td class="left">Copy/paste with other apps</td>
-<td class="left">Convenience</td>
-<td class="left">x-select</td>
-<td class="left">Built-in, turned on</td>
+<td class="org-left">Copy/paste with other apps</td>
+<td class="org-left">Convenience</td>
+<td class="org-left">x-select</td>
+<td class="org-left">Built-in, turned on</td>
 </tr>
 
 
 <tr>
-<td class="left">Word wrapping</td>
-<td class="left">Look-n-feel</td>
-<td class="left">visual-line-mode</td>
-<td class="left">Built-in, turned on</td>
+<td class="org-left">Word wrapping</td>
+<td class="org-left">Look-n-feel</td>
+<td class="org-left">visual-line-mode</td>
+<td class="org-left">Built-in, turned on</td>
 </tr>
 
 
 <tr>
-<td class="left">Command hinting/completion</td>
-<td class="left">Convenience</td>
-<td class="left">helm</td>
-<td class="left">Installed and turned on</td>
+<td class="org-left">Command hinting/completion</td>
+<td class="org-left">Convenience</td>
+<td class="org-left">helm</td>
+<td class="org-left">Installed and turned on</td>
 </tr>
 
 
 <tr>
-<td class="left">Programming auto-completion</td>
-<td class="left">Convenience</td>
-<td class="left">auto-complete/Company</td>
-<td class="left">Installed and turned on</td>
+<td class="org-left">Programming auto-completion</td>
+<td class="org-left">Convenience</td>
+<td class="org-left">auto-complete/Company</td>
+<td class="org-left">Installed and turned on</td>
 </tr>
 
 
 <tr>
-<td class="left">Keep backup files out of the way</td>
-<td class="left">Convenience</td>
-<td class="left">backup-directory-alist</td>
-<td class="left">Built-in, turned on</td>
+<td class="org-left">Keep backup files out of the way</td>
+<td class="org-left">Convenience</td>
+<td class="org-left">backup-directory-alist</td>
+<td class="org-left">Built-in, turned on</td>
 </tr>
 
 
 <tr>
-<td class="left">Cleaner interface</td>
-<td class="left">Look-n-feel</td>
-<td class="left">tool-bar-mode</td>
-<td class="left">Built-in, off by default</td>
+<td class="org-left">Cleaner interface</td>
+<td class="org-left">Look-n-feel</td>
+<td class="org-left">tool-bar-mode</td>
+<td class="org-left">Built-in, off by default</td>
 </tr>
 
 
 <tr>
-<td class="left">Highlight matched/mismatched paren</td>
-<td class="left">Convenience</td>
-<td class="left">show-paren-mode</td>
-<td class="left">Built-in, turned on</td>
+<td class="org-left">Highlight matched/mismatched paren</td>
+<td class="org-left">Convenience</td>
+<td class="org-left">show-paren-mode</td>
+<td class="org-left">Built-in, turned on</td>
 </tr>
 </tbody>
 </table>
 
-## Implementation<a id="Implementation" name="Implementation"></a>
-
+## Implementation<a id="orgheadline50"></a>
 
 The emacs configuration in the sections below implements the Requirements (See section 2.2) listed above.
 
-### Preamble<a id="sec-2-3-1" name="sec-2-3-1"></a>
+### Preamble<a id="orgheadline25"></a>
 
-```lisp
+```emacs-lisp
 ;;; COMMENTARY
 
 ;; This emacs configuration file sets some convenient defaults and activates 
@@ -328,11 +324,11 @@ The emacs configuration in the sections below implements the Requirements (See s
 ;; will eventually be resolved in cooperation with the RCE team.
 ```
 
-### version Check<a id="sec-2-3-2" name="sec-2-3-2"></a>
+### Version check<a id="orgheadline26"></a>
 
 It is difficult to support multiple versions of emacs, so we will pick an arbitrary cutoff and throw an error if the version of emacs is "too old".
 
-```lisp
+```emacs-lisp
 (when (< (string-to-number 
            (concat 
             (number-to-string emacs-major-version) 
@@ -342,11 +338,11 @@ It is difficult to support multiple versions of emacs, so we will pick an arbitr
   (error "Your version of emacs is very old and must be upgraded before you can use these packages"))
 ```
 
-### Visual tweaks<a id="sec-2-3-3" name="sec-2-3-3"></a>
+### Visual tweaks<a id="orgheadline27"></a>
 
 Visual changes such as hiding the toolbar need to come first to avoid jarring transitions during startup.
 
-```lisp
+```emacs-lisp
 ;; use desktop mode, but only for frame layout
 ;; and only if running in windowed mode
 (when (display-graphic-p)
@@ -374,11 +370,11 @@ Visual changes such as hiding the toolbar need to come first to avoid jarring tr
 ;; (menu-bar-mode 0)
 ```
 
-### Install useful packages<a id="sec-2-3-4" name="sec-2-3-4"></a>
+### Install useful packages<a id="orgheadline28"></a>
 
 The main purpose of these emacs configuration files is to install and configure useful emacs packages. Here we carry out the installation.
 
-```lisp
+```emacs-lisp
 ;; set coding system so emacs doesn't choke on melpa file listings
 (set-language-environment 'utf-8)
 (set-keyboard-coding-system 'utf-8-mac) ; For old Carbon emacs on OS X only
@@ -499,11 +495,11 @@ http://github.com/izahn/dotemacs/issues
                "\nfor information about these customizations.\n"))
 ```
 
-### Load theme<a id="sec-2-3-5" name="sec-2-3-5"></a>
+### Load theme<a id="orgheadline29"></a>
 
 Loading the theme should come as early as possible in the init sequence to avoid jarring visual changes during startup, but must come after loading packages because we use a custom theme that needs to be installed first.
 
-```lisp
+```emacs-lisp
 ;; finally a theme I can live with!
 (load-theme 'leuven t) 
 ;; but it still needs a few tweeks
@@ -592,11 +588,11 @@ Loading the theme should come as early as possible in the init sequence to avoid
 (powerline-my-theme)
 ```
 
-### Add custom lisp director to load path<a id="sec-2-3-6" name="sec-2-3-6"></a>
+### Add custom lisp directory to load path<a id="orgheadline30"></a>
 
 We try to install most things using the package manager, but a few things need to be included in a custom lisp directory. Add it to the path so we can load from it easily.
 
-```lisp
+```emacs-lisp
 ;; add custom lisp directory to path
 (let ((default-directory (concat user-emacs-directory "lisp/")))
   (setq load-path
@@ -612,9 +608,9 @@ We try to install most things using the package manager, but a few things need t
   (exec-path-from-shell-initialize))
 ```
 
-### Spell checking<a id="sec-2-3-7" name="sec-2-3-7"></a>
+### Spell checking<a id="orgheadline31"></a>
 
-```lisp
+```emacs-lisp
 ;; enable on-the-fly spell checking
 (add-hook 'emacs-startup-hook
           (lambda()
@@ -635,11 +631,11 @@ We try to install most things using the package manager, but a few things need t
 (add-to-list 'ispell-skip-region-alist '("^#\\+BEGIN_EXAMPLE " . "#\\+END_EXAMPLE$"))
 ```
 
-### Fonts<a id="sec-2-3-8" name="sec-2-3-8"></a>
+### Fonts<a id="orgheadline32"></a>
 
 Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we set fallback fonts for different Unicode blocks, dramatically increasing the number of characters Emacs will display.
 
-```lisp
+```emacs-lisp
 ;; unicode-fonts doesn't work well on emacs < 24.3
 (when (>= (string-to-number 
              (concat 
@@ -652,11 +648,11 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
   (unicode-fonts-setup))
 ```
 
-### Printing<a id="sec-2-3-9" name="sec-2-3-9"></a>
+### Printing<a id="orgheadline33"></a>
 
 If you're using [Vincent Goulet's emacs](http://vgoulet.act.ulaval.ca/en/emacs/windows/) on Windows printing should work out of the box. If you're on Linux or Mac the experience of printing from emacs may leave something to be desired. Here we try to make it work a little better by making it easier to preview buffers in a web browser (you can print from there as usual) and by using [gtklp](http://sourceforge.net/projects/gtklp/) on Linux if it is available.
 
-```lisp
+```emacs-lisp
 (when (eq system-type 'gnu/linux)
   (setq hfyview-quick-print-in-files-menu t)
   (require 'hfyview)
@@ -670,11 +666,11 @@ If you're using [Vincent Goulet's emacs](http://vgoulet.act.ulaval.ca/en/emacs/w
   (require 'hfyview))
 ```
 
-### Minibuffer hints and completion<a id="sec-2-3-10" name="sec-2-3-10"></a>
+### Minibuffer hints and completion<a id="orgheadline34"></a>
 
-There are several different systems for providing completion hints in emacs. The default pcomplete system shows completions on demand (usually bound to tab key) in an emacs buffer. Here we set up helm-mode, which instead shows these completions on-the-fly in. These completions are primarily used to show available files (e.g., with `find-file`) and emacs functions (e.g., with `execute-extended-command`). Completion for in-buffer text (e.g., methods in python-mode, or arguments in R-mode) are handled separately by company-mode.
+There are several different systems for providing completion hints in emacs. The default pcomplete system shows completions on demand (usually bound to tab key) in an emacs buffer. Here we set up ido-mode, which instead shows these completions on-the-fly in the minibuffer. These completions are primarily used to show available files (e.g., with `find-file`) and emacs functions (e.g., with `execute-extended-command`). Completion for in-buffer text (e.g., methods in python-mode, or arguments in R-mode) are handled separately by company-mode (See section 2.3.11).
 
-```lisp
+```emacs-lisp
 ;;; Completion hints for files and buffers buffers
 (require 'helm-config)
 (helm-mode 1)
@@ -774,11 +770,11 @@ There are several different systems for providing completion hints in emacs. The
 (require 'helm-bibtex)
 ```
 
-### Auto-complete configuration<a id="sec-2-3-11" name="sec-2-3-11"></a>
+### Auto-complete configuration<a id="orgheadline35"></a>
 
 Here we configure in-buffer text completion using the company-mode package. These completions are available on-demand using the `C-TAB` or `M-x company-complete`.
 
-```lisp
+```emacs-lisp
 ;;Use C-TAB to complete. We put this in eval-after-load 
 ;; because otherwise some modes will try to override our settings.
 (require 'company)
@@ -823,11 +819,11 @@ Here we configure in-buffer text completion using the company-mode package. Thes
 (add-hook 'after-init-hook 'global-company-mode)
 ```
 
-### Outline-magic<a id="sec-2-3-12" name="sec-2-3-12"></a>
+### Outline-magic<a id="orgheadline37"></a>
 
-I encourage you to use org-mode for note taking and outlining, but it can be convenient to treat arbitrary buffers as outlines. The outline-magic mode can help with that.
+I encourage you to use [org-mode](#orgheadline36) for note taking and outlining, but it can be convenient to treat arbitrary buffers as outlines. The outline-magic mode can help with that.
 
-```lisp
+```emacs-lisp
 ;;; Configure outline minor modes
 ;; Less crazy key bindings for outline-minor-mode
 (setq outline-minor-mode-prefix "\C-c\C-o")
@@ -838,11 +834,11 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
             (define-key outline-minor-mode-map "\C-c\C-o\t" 'outline-cycle)))
 ```
 
-### Major modes configuration<a id="sec-2-3-13" name="sec-2-3-13"></a>
+### Major modes configuration<a id="orgheadline48"></a>
 
 1.  Programming mode
 
-    ```lisp
+    ```emacs-lisp
     (add-hook 'prog-mode-hook
               (lambda()
                 ;; turn on outline minor mode:
@@ -859,7 +855,7 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
 
     Load eval-in-repl for bash, elisp, and python interaction.
     
-    ```lisp
+    ```emacs-lisp
     ;; require the main file containing common functions
     (require 'eval-in-repl)
     (setq comint-process-echoes t)
@@ -872,7 +868,7 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
 
 3.  Run R in emacs (ESS)
 
-    ```lisp
+    ```emacs-lisp
       ;;;  ESS (Emacs Speaks Statistics)
     
     ;; Start R in the working directory by default
@@ -924,7 +920,7 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
 
 4.  Run python in emacs (elpy)
 
-    ```lisp
+    ```emacs-lisp
     ;; Python completion and code checking
     (setq elpy-modules '(elpy-module-company
                          elpy-module-eldoc
@@ -951,7 +947,7 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
 
 5.  emacs lisp REPL (ielm)
 
-    ```lisp
+    ```emacs-lisp
     ;; ielm
     (require 'eval-in-repl-ielm)
     ;; For .el files
@@ -974,7 +970,7 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
 
 6.  Light-weight markup language (Markdown mode)
 
-    ```lisp
+    ```emacs-lisp
     ;;; markdown mode
     
     ;; Use markdown-mode for files with .markdown or .md extensions
@@ -984,7 +980,7 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
 
 7.  Typesetting markup (AucTeX)
 
-    ```lisp
+    ```emacs-lisp
     ;;; AucTeX config
     ;; turn on math mode and and index to imenu
     (add-hook 'LaTeX-mode-hook 
@@ -1015,7 +1011,7 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
     (setq-default TeX-master nil)
     ;; Add beamer frames to outline list
     (setq TeX-outline-extra
-         '((".*\\\\begin{frame}\n\\|.*\\\\begin{frame}\\[.*\\]\\|.*\\\\begin{frame}.*{.*}\\|.*[       ]*\\\\frametitle\\b" 3)))
+          '((".*\\\\begin{frame}\n\\|.*\\\\begin{frame}\\[.*\\]\\|.*\\\\begin{frame}.*{.*}\\|.*[       ]*\\\\frametitle\\b" 3)))
     ;; reftex settings
     (setq reftex-enable-partial-scans t)
     (setq reftex-save-parse-info t)
@@ -1037,7 +1033,7 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
 
 8.  Note taking and outlining (Org-mode)
 
-    ```lisp
+    ```emacs-lisp
     (require 'org)
     (setq org-export-babel-evaluate nil)
     (set-face-attribute 'org-meta-line nil
@@ -1105,7 +1101,7 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
 
 9.  Multiple modes in one "buffer" (polymode)
 
-    ```lisp
+    ```emacs-lisp
     ;;; polymode
     
     ;; polymode requires emacs >= 24.3, does not work on the RCE. 
@@ -1130,7 +1126,7 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
 
 10. File browsing (Dired+)
 
-    ```lisp
+    ```emacs-lisp
     ;;; Dired and Dired+ configuration
     ;; show git status in dired
     (require 'diff-hl)
@@ -1146,7 +1142,8 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
     (require 'mouse3)
     
     ;; set dired listing options
-    (setq dired-listing-switches "-alDhp")
+    (if (eq system-type 'gnu/linux)
+        (setq dired-listing-switches "-alDhp"))
     
     ;; more subdued colors
     (set-face-attribute 'diredp-ignored-file-name nil
@@ -1233,7 +1230,7 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
 
 11. Shell modes (term, shell and eshell)
 
-    ```lisp
+    ```emacs-lisp
     ;; term
     (require 'multi-term)
     (define-key term-mode-map (kbd "C-j") 'term-char-mode)
@@ -1291,9 +1288,9 @@ I encourage you to use org-mode for note taking and outlining, but it can be con
                  (setq eshell-visual-subcommands '(("git" "log" "diff" "show")))))
     ```
 
-### Miscellaneous<a id="sec-2-3-14" name="sec-2-3-14"></a>
+### Miscellaneous<a id="orgheadline49"></a>
 
-```lisp
+```emacs-lisp
 ;;; Misc. Conveniences
 
 ;; show number of matches in mode line when searching

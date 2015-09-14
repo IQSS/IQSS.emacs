@@ -1,4 +1,3 @@
-
 ;;; COMMENTARY
 
 ;; This emacs configuration file sets some convenient defaults and activates 
@@ -721,7 +720,8 @@ http://github.com/izahn/dotemacs/issues
 (require 'mouse3)
 
 ;; set dired listing options
-(setq dired-listing-switches "-alDhp")
+(if (eq system-type 'gnu/linux)
+    (setq dired-listing-switches "-alDhp"))
 
 ;; more subdued colors
 (set-face-attribute 'diredp-ignored-file-name nil
