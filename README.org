@@ -11,12 +11,21 @@
 #+END_SRC
 
 * Quick start
+:PROPERTIES:
+:CUSTOM_ID: quick-start
+:END:
 
 ** What is this?
+:PROPERTIES:
+:CUSTOM_ID: what-is-this
+:END:
 This is a drop-in replacement for your .emacs.d. It automatically installs and configures several emacs packages useful for working with LaTeX documents, and for writing code for statistical analysis in R, Stata, SAS, and Julia. It also turns on several built-in features of emacs such as spell checking and syntax highlighting.
 
 ** How to I install it?
-1) Make sure emacs >= version 24.3 is installed on your computer. See  [[#Suggested-external-programs][Suggested-external-programs]] for installation instructions.
+:PROPERTIES:
+:CUSTOM_ID: how-do-i-install-it
+:END:
+1) Make sure emacs >= version 24.3 is installed on your computer. See [[#suggested-external-programs][Suggested-external-programs]] for installation instructions.
 2) Make sure you have [[http://git-scm.com/downloads][git]] installed on your computer. If you don't know what git is you might be interested in John McDonnell's [[http://nyuccl.org/pages/GitTutorial/][git tutorial]].
 3) Determine your emacs configuration directory. Open emacs and type =C-x f ~/ RET=. This should open a directory listing buffer. Note the path at the top of this file. This is were your =.emacs.d= should go.
 4) Close Emacs.
@@ -26,12 +35,21 @@ This is a drop-in replacement for your .emacs.d. It automatically installs and c
 If you don't know how to use git, you can skip step 6 and simply [[https://github.com/izahn/dotemacs/archive/master.zip][download the files as a zip archive]], extract them, and move them into your .emacs.d directory.
 
 ** First run
+:PROPERTIES:
+:CUSTOM_ID: first-run
+:END:
 Note that after installing this configuration emacs will be extremely slow to start up the first time. This is due to package installation, and to a one-time scan of the fonts installed on your computer. Just be patient and wait for it to finish--subsequent start-ups will be much faster.
 
 ** Modified key bindings
-This configuration loads a lot of useful emacs packages (see [[*Install%20useful%20packages][here]] for the list), many of which add key bindings. Documenting them all here would be too much (see the documentation for each package if you need the details), so this section describes only those key bindings that we explicitly added or changed.
+:PROPERTIES:
+:CUSTOM_ID: modified-key-bindings
+:END:
+This configuration loads a lot of useful emacs packages (see[[#suggested-external-programs][Suggested external programs]] for the list), many of which add key bindings. Documenting them all here would be too much (see the documentation for each package if you need the details), so this section describes only those key bindings that we explicitly added or changed.
 
 *** Completion keys
+:PROPERTIES:
+:CUSTOM_ID: completion-keys
+:END:
 - C-TAB :: Mapped to =company-complete=, use for pop-up completion menu.
 - M-y :: Remapped to =browse-kill-ring= to browse the kill ring interactively.
 - C-x C-r :: Mapped to =ido-recentf-open= to select recent files in the minibuffer.
@@ -46,6 +64,9 @@ This configuration loads a lot of useful emacs packages (see [[*Install%20useful
 - C-c s :: quick access to emacs settings 
 
 *** Other key bindings
+:PROPERTIES:
+:CUSTOM_ID: other-key-bindings
+:END:
 - E :: Open in external application (dired mode only)
 - C-up :: Mapped to =scroll-down-1=.
 - C-down :: Mapped to =scroll-up-1=.
@@ -59,15 +80,20 @@ This configuration loads a lot of useful emacs packages (see [[*Install%20useful
 
 ** Suggested external programs
   :PROPERTIES:
-  :CUSTOM_ID: Suggested-external-programs
+  :CUSTOM_ID: suggested-external-programs
   :END:
-
-Some of the requirements listed in [[#Requirements][Requirements]] make use of software that must be installed outside of emacs. And of course you will need emacs itself! 
+Some of the requirements listed in [[#requirements][Requirements]] make use of software that must be installed outside of emacs. And of course you will need emacs itself! 
 
 *** External program download and installation
+:PROPERTIES:
+:CUSTOM_ID: external-program-download-and-installation
+:END:
 While emacs alone is very powerful, one of it's most important strengths is its ability to inter-operate with other software programs. Links to the download pages for several programs that can be used from with emacs are provided below (they are also very useful on their own!). Installation of all these programs follows normal conventions on each platform, just download, run the installer, and follow the instructions.
 
 **** Windows
+:PROPERTIES:
+:CUSTOM_ID: windows
+:END:
 - Emacs :: http://vgoulet.act.ulaval.ca/en/emacs/
 - R :: http://cran.r-project.org/bin/windows/base/
 - LaTeX :: http://miktex.org/download
@@ -76,6 +102,9 @@ While emacs alone is very powerful, one of it's most important strengths is its 
 - GhostScript :: http://www.ghostscript.com/download/gsdnld.html (Make sure to *install the 32 bit version*!)
 
 **** OSX
+:PROPERTIES:
+:CUSTOM_ID: osx
+:END:
 - Emacs :: http://vgoulet.act.ulaval.ca/en/emacs/
 - R :: http://cran.r-project.org/bin/macosx/
 - LaTeX :: http://tug.org/mactex/
@@ -84,6 +113,9 @@ While emacs alone is very powerful, one of it's most important strengths is its 
 - GhostScript :: http://pages.uoregon.edu/koch/
 
 **** Linux
+:PROPERTIES:
+:CUSTOM_ID: linux
+:END:
 - Emacs :: Use your package manager, or see http://www.gnu.org/software/emacs/#Obtaining
 - R :: Use your package manager, or see http://cran.r-project.org/bin/linux/
 - LaTeX :: Use your package manager, or see https://www.tug.org/texlive/quickinstall.html
@@ -92,20 +124,35 @@ While emacs alone is very powerful, one of it's most important strengths is its 
 - GhostScript :: Use your package manager, or see http://www.ghostscript.com/download/gsdnld.html
 
 *** External program configuration and use
+:PROPERTIES:
+:CUSTOM_ID: external-program-configuration-and-use
+:END:
 While a detailed instructions on how to use these programs would take years, you can get started with the quickly. Here are some quick pointers and links to more detailed tutorials.
 
 **** Emacs
-Emacs configuration is complex, and we will not go into it here except to say that the main configuration file is named =init.el= and can usually be found in a directory named =.emacs.d=, which is usually in your home directory. As mentioned in [[#Quickstart]] and  [[#Discussion-and-implementation]] there are many pre-packaged emacs configurations that you can use simply by copying them to your =.emacs.d= directory.
+:PROPERTIES:
+:CUSTOM_ID: emacs
+:END:
+Emacs configuration is complex, and we will not go into it here except to say that the main configuration file is named =init.el= and can usually be found in a directory named =.emacs.d=, which is usually in your home directory. As mentioned in [[#quick-start][Quick start]] and  [[#discussion-and-implementation]] there are many pre-packaged emacs configurations that you can use simply by copying them to your =.emacs.d= directory.
 
 You can almost just start emacs and start typing as you would in any other text editor, though you should be aware that Emacs uses different keyboard shortcuts than those you may be accustomed to. There is a introductory tutorial built into Emacs that you can access from the Help menu; IBM provides another excellent [[http://www.ibm.com/developerworks/aix/tutorials/au-emacs1/index.html][emacs tutorial]].
 
 **** R
+:PROPERTIES:
+:CUSTOM_ID: r
+:END:
 R is a free language and environment for statistical computing. It works well out of the box and does not require much in the way of configuration. If you want to learn more about R the [[http://r-project.org][official R website]] is a good place to start and includes many excellent [[http://cran.r-project.org/manuals.html][manuals]] and [[http://cran.r-project.org/other-docs.html][tutorials]].
 
 **** LaTeX
+:PROPERTIES:
+:CUSTOM_ID: latex
+:END:
 LaTeX is a typesetting system that excels at formatting structured documents. LaTeX files are written in plain text using a markup syntax, and this markup is used to format the typeset document. LaTeX works well out of the box and does not typically require much in the way of configuration. If you want to learn more about LaTeX try [[http://www.andy-roberts.net/writing/latex][these LaTeX tutorials]] by Andrew Roberts.
 
 **** git
+:PROPERTIES:
+:CUSTOM_ID: git
+:END:
 
 ***** Initial configuration
 [[http://git-scm.com/][git]] is a revision control system that allows you to track changes, merge changes with those made by collaborators, revert to previous versions, and more. While git can be used without any configuration, it is a good idea to at least set your user name and email; instructions for doing so are available at [[http://git-scm.com/book/en/Getting-Started-First-Time-Git-Setup]]; a detailed introduction to git is available at [[http://git-scm.com/book/en/]]. Once installed you can use git from the command line; on Windows use the =git bash= application, on other platforms use your regular terminal emulator.
@@ -121,14 +168,26 @@ This Emacs configuration includes [[https://magit.github.io/][magit]], and inter
 
 
 **** Pandoc
+:PROPERTIES:
+:CUSTOM_ID: pandoc
+:END:
 Pandoc is a program for converting markup files from one markup language to another. Documentation and examples are available on the [[http://johnmacfarlane.net/pandoc/][pandoc website]].
 
 **** GhostScript
+:PROPERTIES:
+:CUSTOM_ID: ghostscript
+:END:
 GhostScript is a program for working the postscript and pdf files. While it can be used on its own it is included in this list only because it makes printing from emacs easier, especially on Windows. No configuration should be required. Note that *on windows you need the 32 bit version*, the 64 bit version will not work. Windows users will also need to add it to their PATH (see [[http://www.computerhope.com/issues/ch000549.htm]] for instructions).
 
 * Discussion and implementation
+:PROPERTIES:
+:CUSTOM_ID: discussion-and-implementation
+:END:
 
 ** What the world needs now...
+:PROPERTIES:
+:CUSTOM_ID: what-the-world-needs-now
+:END:
 As of August 5th 2014 there are 2,960 github repositories named or mentioning '.emacs.d', and another 627 named or mentioning "dotemacs". Some of these are just personal emacs configurations, but many take pains to provide documentation and instruction for adopting them as your very own emacs configuration. And that's not to mention the [[https://github.com/search?q=emacs-starter-kit&type=Repositories&ref=searchresults][starter-kits]], [[https://github.com/search?q=emacs+prelude&type=Repositories&ref=searchresults][preludes]] and [[https://github.com/search?q=emacs+oh+my&type=Repositories&ref=searchresults][oh my emacs]] of the world! With all these options, does the world really need yet another emacs configuration? 
 
 No, the world does not need another emacs starter kit. Indeed the guy who started the original emacs starter-kit has concluded that the whole idea is [[https://github.com/technomancy/emacs-starter-kit][unworkable]], and that if you want to use emacs you're better off configuring it yourself. I agree, and it's not that hard, even if you don't know emacs-lisp at all. You can copy code fragments from others' configuration on [[http://github.com][github]], from the [[http://emacswiki.org][emacs wiki]], or from [[http://stackoverflow.com][stackoverflow]] and build up your very own emacs configuration. And eventually it will be so perfect you will think "gee I could save people the trouble of configuring emacs, if they would just clone my configuration". So you will put it on github, like everyone else (including me). Sigh.
@@ -138,7 +197,7 @@ On the other hand it may be that this emacs configuration is what you want after
 
 ** Requirements
   :PROPERTIES:
-  :CUSTOM_ID: Requirements
+  :CUSTOM_ID: requirements
   :END:
 
 Emacs is many things to many people, being perhaps the most configurable text editor ever created. However, there are some common tools that social scientists often make use of that are not accessible in emacs by default. It is therefore desirable to create a base configuration that enables the features that social scientists are likely to find useful. The table below lists some of these requirements, and describes how they are made available in emacs.
@@ -165,13 +224,16 @@ Emacs is many things to many people, being perhaps the most configurable text ed
 
 ** Implementation
   :PROPERTIES:
-  :CUSTOM_ID: Implementation
+  :CUSTOM_ID: implementation
   :END:
 
-The emacs configuration in the sections below implements the [[#Requirements][Requirements]] listed above.
+The emacs configuration in the sections below implements the [[#requirements][Requirements]] listed above.
 
 
 *** Preamble
+:PROPERTIES:
+:CUSTOM_ID: preamble
+:END:
 
 #+BEGIN_SRC emacs-lisp
   ;;; COMMENTARY
@@ -186,7 +248,10 @@ The emacs configuration in the sections below implements the [[#Requirements][Re
   ;; will eventually be resolved in cooperation with the RCE team.
 #+END_SRC
 
-*** version Check
+*** Version check
+:PROPERTIES:
+:CUSTOM_ID: version-check
+:END:
 It is difficult to support multiple versions of emacs, so we will pick an arbitrary cutoff and throw an error if the version of emacs is "too old".
 
 #+BEGIN_SRC emacs-lisp
@@ -200,6 +265,9 @@ It is difficult to support multiple versions of emacs, so we will pick an arbitr
 #+END_SRC
 
 *** Visual tweaks
+:PROPERTIES:
+:CUSTOM_ID: visual-tweaks
+:END:
 Visual changes such as hiding the toolbar need to come first to avoid jarring transitions during startup.
 
 #+BEGIN_SRC emacs-lisp
@@ -232,6 +300,9 @@ Visual changes such as hiding the toolbar need to come first to avoid jarring tr
 #+END_SRC
 
 *** Install useful packages
+:PROPERTIES:
+:CUSTOM_ID: install-useful-packages
+:END:
 The main purpose of these emacs configuration files is to install and configure useful emacs packages. Here we carry out the installation.
 
 #+BEGIN_SRC emacs-lisp
@@ -358,6 +429,9 @@ The main purpose of these emacs configuration files is to install and configure 
 #+RESULTS:
 
 *** Load theme
+:PROPERTIES:
+:CUSTOM_ID: load-theme
+:END:
 Loading the theme should come as early as possible in the init sequence to avoid jarring visual changes during startup, but must come after loading packages because we use a custom theme that needs to be installed first.
 
 #+BEGIN_SRC emacs-lisp
@@ -449,7 +523,10 @@ Loading the theme should come as early as possible in the init sequence to avoid
   (powerline-my-theme)
 
 #+END_SRC
-*** Add custom lisp director to load path
+*** Add custom lisp directory to load path
+:PROPERTIES:
+:CUSTOM_ID: add-custom-lisp-directory-to-load-path
+:END:
 We try to install most things using the package manager, but a few things need to be included in a custom lisp directory. Add it to the path so we can load from it easily.
 #+BEGIN_SRC emacs-lisp
   ;; add custom lisp directory to path
@@ -468,6 +545,9 @@ We try to install most things using the package manager, but a few things need t
 
 #+END_SRC
 *** Spell checking
+:PROPERTIES:
+:CUSTOM_ID: spell-checking
+:END:
 
 #+BEGIN_SRC emacs-lisp
   ;; enable on-the-fly spell checking
@@ -491,6 +571,9 @@ We try to install most things using the package manager, but a few things need t
 #+END_SRC
 
 *** Fonts
+:PROPERTIES:
+:CUSTOM_ID: fonts
+:END:
 Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we set fallback fonts for different Unicode blocks, dramatically increasing the number of characters Emacs will display.
 
 #+BEGIN_SRC emacs-lisp
@@ -508,6 +591,9 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
 #+END_SRC
 
 *** Printing
+:PROPERTIES:
+:CUSTOM_ID: printing
+:END:
 If you're using [[http://vgoulet.act.ulaval.ca/en/emacs/windows/][Vincent Goulet's emacs]] on Windows printing should work out of the box. If you're on Linux or Mac the experience of printing from emacs may leave something to be desired. Here we try to make it work a little better by making it easier to preview buffers in a web browser (you can print from there as usual) and by using [[http://sourceforge.net/projects/gtklp/][gtklp]] on Linux if it is available.
 
 #+BEGIN_SRC emacs-lisp
@@ -526,7 +612,10 @@ If you're using [[http://vgoulet.act.ulaval.ca/en/emacs/windows/][Vincent Goulet
 #+END_SRC
 
 *** Minibuffer hints and completion
-There are several different systems for providing completion hints in emacs. The default pcomplete system shows completions on demand (usually bound to tab key) in an emacs buffer. Here we set up ido-mode, which instead shows these completions on-the-fly in the minibuffer. These completions are primarily used to show available files (e.g., with ~find-file~) and emacs functions (e.g., with ~execute-extended-command~). Completion for in-buffer text (e.g., methods in python-mode, or arguments in R-mode) are handled separately by [[*Auto-complete%20configuration][company-mode]].
+:PROPERTIES:
+:CUSTOM_ID: minibuffer-hints-and-completion
+:END:
+There are several different systems for providing completion hints in emacs. The default pcomplete system shows completions on demand (usually bound to tab key) in an emacs buffer. Here we set up ido-mode, which instead shows these completions on-the-fly in the minibuffer. These completions are primarily used to show available files (e.g., with ~find-file~) and emacs functions (e.g., with ~execute-extended-command~). Completion for in-buffer text (e.g., methods in python-mode, or arguments in R-mode) are handled separately by [[#auto-complete-configuration][company-mode]].
 
 #+BEGIN_SRC emacs-lisp
   ;;; Completion hints for files and buffers buffers
@@ -653,6 +742,9 @@ There are several different systems for providing completion hints in emacs. The
 #+END_SRC
 
 *** Auto-complete configuration
+:PROPERTIES:
+:CUSTOM_ID: auto-complete-configuration
+:END:
 Here we configure in-buffer text completion using the company-mode package. These completions are available on-demand using the =C-TAB= or =M-x company-complete=.
 
 #+BEGIN_SRC emacs-lisp
@@ -705,7 +797,10 @@ Here we configure in-buffer text completion using the company-mode package. Thes
 #+END_SRC
 
 *** Outline-magic
-I encourage you to use [[*Note%20taking%20and%20outlining%20(Org-mode)][org-mode]] for note taking and outlining, but it can be convenient to treat arbitrary buffers as outlines. The outline-magic mode can help with that.
+:PROPERTIES:
+:CUSTOM_ID: outline-magic
+:END:
+I encourage you to use [[*Note taking and outlining (Org-mode)][org-mode]] for note taking and outlining, but it can be convenient to treat arbitrary buffers as outlines. The outline-magic mode can help with that.
 
 #+BEGIN_SRC emacs-lisp
   ;;; Configure outline minor modes
@@ -880,8 +975,14 @@ I encourage you to use [[*Note%20taking%20and%20outlining%20(Org-mode)][org-mode
 #+END_SRC
 
 *** Major modes configuration
+:PROPERTIES:
+:CUSTOM_ID: major-modes-configuration
+:END:
 
 **** Programming mode
+:PROPERTIES:
+:CUSTOM_ID: programming-mode
+:END:
 #+BEGIN_SRC emacs-lisp
   (add-hook 'prog-mode-hook
             (lambda()
@@ -897,6 +998,9 @@ I encourage you to use [[*Note%20taking%20and%20outlining%20(Org-mode)][org-mode
 
 
 **** General repl (read-eval-print-loop) config
+:PROPERTIES:
+:CUSTOM_ID: general-repl-config
+:END:
 Load eval-in-repl for bash, elisp, and python interaction.
 #+BEGIN_SRC emacs-lisp
   ;; require the main file containing common functions
@@ -910,6 +1014,9 @@ Load eval-in-repl for bash, elisp, and python interaction.
 #+END_SRC
 
 **** Run R in emacs (ESS)
+:PROPERTIES:
+:CUSTOM_ID: run-r-in-emacs
+:END:
 
 #+BEGIN_SRC emacs-lisp
     ;;;  ESS (Emacs Speaks Statistics)
@@ -962,6 +1069,9 @@ Load eval-in-repl for bash, elisp, and python interaction.
 #+END_SRC
 
 **** Run python in emacs (elpy)
+:PROPERTIES:
+:CUSTOM_ID: run-python-in-emacs
+:END:
 
 #+BEGIN_SRC emacs-lisp
   ;; Python completion and code checking
@@ -990,6 +1100,9 @@ Load eval-in-repl for bash, elisp, and python interaction.
 #+END_SRC
 
 **** emacs lisp REPL (ielm)
+:PROPERTIES:
+:CUSTOM_ID: emacs-lisp-repl
+:END:
 
 #+BEGIN_SRC emacs-lisp
   ;; ielm
@@ -1013,6 +1126,9 @@ Load eval-in-repl for bash, elisp, and python interaction.
 #+END_SRC
 
 **** Light-weight markup language (Markdown mode)
+:PROPERTIES:
+:CUSTOM_ID: light-weight-markup-language
+:END:
 
 #+BEGIN_SRC emacs-lisp
 
@@ -1025,6 +1141,9 @@ Load eval-in-repl for bash, elisp, and python interaction.
 #+END_SRC
 
 **** Typesetting markup (AucTeX)
+:PROPERTIES:
+:CUSTOM_ID: typesetting-markup
+:END:
 
 #+BEGIN_SRC emacs-lisp
 
@@ -1080,6 +1199,9 @@ Load eval-in-repl for bash, elisp, and python interaction.
 #+END_SRC
 
 **** Note taking and outlining (Org-mode)
+:PROPERTIES:
+:CUSTOM_ID: note-taking-and-outlining
+:END:
 
 #+BEGIN_SRC emacs-lisp
   (require 'org)
@@ -1149,6 +1271,9 @@ Load eval-in-repl for bash, elisp, and python interaction.
 
 
 **** Multiple modes in one "buffer" (polymode)
+:PROPERTIES:
+:CUSTOM_ID: multiple-modes-in-one-buffer
+:END:
 
 #+BEGIN_SRC emacs-lisp
 
@@ -1176,6 +1301,9 @@ Load eval-in-repl for bash, elisp, and python interaction.
 #+END_SRC
 
 **** File browsing (Dired+)
+:PROPERTIES:
+:CUSTOM_ID: file-browsing
+:END:
 #+BEGIN_SRC emacs-lisp
     ;;; Dired and Dired+ configuration
     ;; show git status in dired
@@ -1280,6 +1408,9 @@ Load eval-in-repl for bash, elisp, and python interaction.
 #+END_SRC
 
 **** Shell modes (term, shell and eshell)
+:PROPERTIES:
+:CUSTOM_ID: shell-modes
+:END:
 
 #+BEGIN_SRC emacs-lisp
   ;; term
@@ -1343,6 +1474,9 @@ Load eval-in-repl for bash, elisp, and python interaction.
 
 
 *** Miscellaneous
+:PROPERTIES:
+:CUSTOM_ID: miscellaneous
+:END:
 
 #+BEGIN_SRC emacs-lisp
 
