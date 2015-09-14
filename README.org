@@ -198,7 +198,7 @@ Emacs is many things to many people, being perhaps the most configurable text ed
 | Requirement                        | Categories         | Solution               | Notes                                          |
 |------------------------------------+--------------------+------------------------+------------------------------------------------|
 | LaTeX editing/compilation          | Document prep      | AucTeX/RefTeX          | Installed and turned on                        |
-| Font locking                       | Look-n-feel        | font-lock-mode         | Built-in, turned on                            |
+| Syntax highlighting                | Look-n-feel        | font-lock-mode         | Built-in, turned on                            |
 | Spell checking                     | Convenience        | ispell/flyspell        | Built-in, turned on                            |
 | Outline/structure editing          | Convenience        | outline-minor-mode     | Built-in, turned on                            |
 | Revision control                   | Version management | VC-mode/magit          | VC-mode, turned on, magit installed/activated  |

@@ -193,7 +193,7 @@ Emacs is many things to many people, being perhaps the most configurable text ed
 
 
 <tr>
-<td class="org-left">Font locking</td>
+<td class="org-left">Syntax highlighting</td>
 <td class="org-left">Look-n-feel</td>
 <td class="org-left">font-lock-mode</td>
 <td class="org-left">Built-in, turned on</td>
