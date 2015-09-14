@@ -195,24 +195,24 @@ On the other hand it may be that this emacs configuration is what you want after
 Emacs is many things to many people, being perhaps the most configurable text editor ever created. However, there are some common tools that social scientists often make use of that are not accessible in emacs by default. It is therefore desirable to create a base configuration that enables the features that social scientists are likely to find useful. The table below lists some of these requirements, and describes how they are made available in emacs.
  
 
-| Requirement                        | Categories         | Solution           | Notes                                          |                          |
-|------------------------------------+--------------------+--------------------+------------------------------------------------+--------------------------|
-| LaTeX editing/compilation          | Document prep      | AucTeX/RefTeX      | Installed and turned on                        |                          |
-| Font locking                       | Look-n-feel        | font-lock-mode     | Built-in, turned on                            |                          |
-| Spell checking                     | Convenience        | ispell/flyspell    | Built-in, turned on                            |                          |
-| Outline/structure editing          | Convenience        | outline-minor-mode | Built-in, turned on                            |                          |
-| Revision control                   | Version management | VC-mode/magit      | VC-mode, turned on, magit installed/activated  |                          |
-| Edit/evaluate R/Stata/SAS          | Data analysis      | ESS                | Installed and activated                        |                          |
-| Easier file/buffer/access          | Convenience        | ido                | Installed, turned on                           |                          |
-| Reproducible research              | Data analysis      | org-mode, polymode | Installed, polymode (Melpa) not working on RCE |                          |
-| Copy/paste with other apps         | Convenience        | x-select           | Built-in, turned on                            |                          |
-| Word wrapping                      | Look-n-feel        | visual-line-mode   | Built-in, turned on                            |                          |
-| Command hinting/completion         | Convenience        | Ista               | smex                                           | Installed and turned on  |
-| Programming auto-completion        | Convenience        | Ista               | auto-complete/Company                          | Installed and turned on  |
-| Keep backup files out of the way   | Convenience        | Ista               | backup-directory-alist                         | Built-in, turned on      |
-| Cleaner interface                  | Look-n-feel        | Ista               | tool-bar-mode                                  | Built-in, off by default |
-| Highlight matched/mismatched paren | Convenience        | Ista               | show-paren-mode                                | Built-in, turned on      |
-|------------------------------------+--------------------+--------------------+------------------------------------------------+--------------------------|
+| Requirement                        | Categories         | Solution               | Notes                                          |
+|------------------------------------+--------------------+------------------------+------------------------------------------------|
+| LaTeX editing/compilation          | Document prep      | AucTeX/RefTeX          | Installed and turned on                        |
+| Font locking                       | Look-n-feel        | font-lock-mode         | Built-in, turned on                            |
+| Spell checking                     | Convenience        | ispell/flyspell        | Built-in, turned on                            |
+| Outline/structure editing          | Convenience        | outline-minor-mode     | Built-in, turned on                            |
+| Revision control                   | Version management | VC-mode/magit          | VC-mode, turned on, magit installed/activated  |
+| Edit/evaluate R/Stata/SAS          | Data analysis      | ESS                    | Installed and activated                        |
+| Easier file/buffer/access          | Convenience        | ido                    | Installed, turned on                           |
+| Reproducible research              | Data analysis      | org-mode, polymode     | Installed, polymode (Melpa) not working on RCE |
+| Copy/paste with other apps         | Convenience        | x-select               | Built-in, turned on                            |
+| Word wrapping                      | Look-n-feel        | visual-line-mode       | Built-in, turned on                            |
+| Command hinting/completion         | Convenience        | smex                   | Installed and turned on                        |
+| Programming auto-completion        | Convenience        | auto-complete/Company  | Installed and turned on                        |
+| Keep backup files out of the way   | Convenience        | backup-directory-alist | Built-in, turned on                            |
+| Cleaner interface                  | Look-n-feel        | tool-bar-mode          | Built-in, off by default                       |
+| Highlight matched/mismatched paren | Convenience        | show-paren-mode        | Built-in, turned on                            |
+|------------------------------------+--------------------+------------------------+------------------------------------------------|
 
 ** Implementation
   :PROPERTIES:

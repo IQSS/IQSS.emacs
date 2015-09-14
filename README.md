@@ -173,8 +173,6 @@ Emacs is many things to many people, being perhaps the most configurable text ed
 <col  class="org-left" />
 
 <col  class="org-left" />
-
-<col  class="org-left" />
 </colgroup>
 <thead>
 <tr>
@@ -182,7 +180,6 @@ Emacs is many things to many people, being perhaps the most configurable text ed
 <th scope="col" class="org-left">Categories</th>
 <th scope="col" class="org-left">Solution</th>
 <th scope="col" class="org-left">Notes</th>
-<th scope="col" class="org-left">&#xa0;</th>
 </tr>
 </thead>
 
@@ -192,7 +189,6 @@ Emacs is many things to many people, being perhaps the most configurable text ed
 <td class="org-left">Document prep</td>
 <td class="org-left">AucTeX/RefTeX</td>
 <td class="org-left">Installed and turned on</td>
-<td class="org-left">&#xa0;</td>
 </tr>
 
 
@@ -201,7 +197,6 @@ Emacs is many things to many people, being perhaps the most configurable text ed
 <td class="org-left">Look-n-feel</td>
 <td class="org-left">font-lock-mode</td>
 <td class="org-left">Built-in, turned on</td>
-<td class="org-left">&#xa0;</td>
 </tr>
 
 
@@ -210,7 +205,6 @@ Emacs is many things to many people, being perhaps the most configurable text ed
 <td class="org-left">Convenience</td>
 <td class="org-left">ispell/flyspell</td>
 <td class="org-left">Built-in, turned on</td>
-<td class="org-left">&#xa0;</td>
 </tr>
 
 
@@ -219,7 +213,6 @@ Emacs is many things to many people, being perhaps the most configurable text ed
 <td class="org-left">Convenience</td>
 <td class="org-left">outline-minor-mode</td>
 <td class="org-left">Built-in, turned on</td>
-<td class="org-left">&#xa0;</td>
 </tr>
 
 
@@ -228,7 +221,6 @@ Emacs is many things to many people, being perhaps the most configurable text ed
 <td class="org-left">Version management</td>
 <td class="org-left">VC-mode/magit</td>
 <td class="org-left">VC-mode, turned on, magit installed/activated</td>
-<td class="org-left">&#xa0;</td>
 </tr>
 
 
@@ -237,7 +229,6 @@ Emacs is many things to many people, being perhaps the most configurable text ed
 <td class="org-left">Data analysis</td>
 <td class="org-left">ESS</td>
 <td class="org-left">Installed and activated</td>
-<td class="org-left">&#xa0;</td>
 </tr>
 
 
@@ -246,7 +237,6 @@ Emacs is many things to many people, being perhaps the most configurable text ed
 <td class="org-left">Convenience</td>
 <td class="org-left">ido</td>
 <td class="org-left">Installed, turned on</td>
-<td class="org-left">&#xa0;</td>
 </tr>
 
 
@@ -255,7 +245,6 @@ Emacs is many things to many people, being perhaps the most configurable text ed
 <td class="org-left">Data analysis</td>
 <td class="org-left">org-mode, polymode</td>
 <td class="org-left">Installed, polymode (Melpa) not working on RCE</td>
-<td class="org-left">&#xa0;</td>
 </tr>
 
 
@@ -264,7 +253,6 @@ Emacs is many things to many people, being perhaps the most configurable text ed
 <td class="org-left">Convenience</td>
 <td class="org-left">x-select</td>
 <td class="org-left">Built-in, turned on</td>
-<td class="org-left">&#xa0;</td>
 </tr>
 
 
@@ -273,14 +261,12 @@ Emacs is many things to many people, being perhaps the most configurable text ed
 <td class="org-left">Look-n-feel</td>
 <td class="org-left">visual-line-mode</td>
 <td class="org-left">Built-in, turned on</td>
-<td class="org-left">&#xa0;</td>
 </tr>
 
 
 <tr>
 <td class="org-left">Command hinting/completion</td>
 <td class="org-left">Convenience</td>
-<td class="org-left">Ista</td>
 <td class="org-left">smex</td>
 <td class="org-left">Installed and turned on</td>
 </tr>
@@ -289,7 +275,6 @@ Emacs is many things to many people, being perhaps the most configurable text ed
 <tr>
 <td class="org-left">Programming auto-completion</td>
 <td class="org-left">Convenience</td>
-<td class="org-left">Ista</td>
 <td class="org-left">auto-complete/Company</td>
 <td class="org-left">Installed and turned on</td>
 </tr>
@@ -298,7 +283,6 @@ Emacs is many things to many people, being perhaps the most configurable text ed
 <tr>
 <td class="org-left">Keep backup files out of the way</td>
 <td class="org-left">Convenience</td>
-<td class="org-left">Ista</td>
 <td class="org-left">backup-directory-alist</td>
 <td class="org-left">Built-in, turned on</td>
 </tr>
@@ -307,7 +291,6 @@ Emacs is many things to many people, being perhaps the most configurable text ed
 <tr>
 <td class="org-left">Cleaner interface</td>
 <td class="org-left">Look-n-feel</td>
-<td class="org-left">Ista</td>
 <td class="org-left">tool-bar-mode</td>
 <td class="org-left">Built-in, off by default</td>
 </tr>
@@ -316,7 +299,6 @@ Emacs is many things to many people, being perhaps the most configurable text ed
 <tr>
 <td class="org-left">Highlight matched/mismatched paren</td>
 <td class="org-left">Convenience</td>
-<td class="org-left">Ista</td>
 <td class="org-left">show-paren-mode</td>
 <td class="org-left">Built-in, turned on</td>
 </tr>
