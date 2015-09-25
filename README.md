@@ -28,15 +28,15 @@
     - [Miscellaneous](#sec-2-3-14)
 
 
-# Quick start<a id="orgheadline22"></a>
+# Quick start<a id="quick-start"></a>
 
-## What is this?<a id="orgheadline1"></a>
+## What is this?<a id="what-is-this"></a>
 
 This is a drop-in replacement for your .emacs.d. It automatically installs and configures several emacs packages useful for working with LaTeX documents, and for writing code for statistical analysis in R, Stata, SAS, and Julia. It also turns on several built-in features of emacs such as spell checking and syntax highlighting.
 
-## How to I install it?<a id="orgheadline2"></a>
+## How to I install it?<a id="how-do-i-install-it"></a>
 
-1.  Make sure emacs >= version 24.3 is installed on your computer. See Suggested-external-programs (See section 1.5) for installation instructions.
+1.  Make sure emacs >= version 24.3 is installed on your computer. See [Suggested-external-programs](#suggested-external-programs) for installation instructions.
 2.  Make sure you have [git](http://git-scm.com/downloads) installed on your computer. If you don't know what git is you might be interested in John McDonnell's [git tutorial](http://nyuccl.org/pages/GitTutorial/).
 3.  Determine your emacs configuration directory. Open emacs and type `C-x f ~/ RET`. This should open a directory listing buffer. Note the path at the top of this file. This is were your `.emacs.d` should go.
 4.  Close Emacs.
@@ -45,22 +45,22 @@ This is a drop-in replacement for your .emacs.d. It automatically installs and c
 
 If you don't know how to use git, you can skip step 6 and simply [download the files as a zip archive](https://github.com/izahn/dotemacs/archive/master.zip), extract them, and move them into your .emacs.d directory.
 
-## First run<a id="orgheadline3"></a>
+## First run<a id="first-run"></a>
 
 Note that after installing this configuration emacs will be extremely slow to start up the first time. This is due to package installation, and to a one-time scan of the fonts installed on your computer. Just be patient and wait for it to finish&#x2013;subsequent start-ups will be much faster.
 
-## Modified key bindings<a id="orgheadline6"></a>
+## Modified key bindings<a id="modified-key-bindings"></a>
 
-This configuration loads a lot of useful emacs packages (seeSuggested external programs (See section 1.5) for the list), many of which add key bindings. Documenting them all here would be too much (see the documentation for each package if you need the details), so this section describes only those key bindings that we explicitly added or changed.
+This configuration loads a lot of useful emacs packages (see[Suggested external programs](#suggested-external-programs) for the list), many of which add key bindings. Documenting them all here would be too much (see the documentation for each package if you need the details), so this section describes only those key bindings that we explicitly added or changed.
 
-### Completion keys<a id="orgheadline4"></a>
+### Completion keys<a id="completion-keys"></a>
 
 -   **C-TAB:** Mapped to `company-complete`, use for pop-up completion menu.
 -   **M-y:** Remapped to `helm-show-kill-ring` to browse the kill ring interactively.
 -   **C-x f:** Mapped to `helm-recentf` to select recently opened files.
 -   **M-x:** Remapped to `helm-M-x` to interactively search for interactive functions.
 
-### Other key bindings<a id="orgheadline5"></a>
+### Other key bindings<a id="other-key-bindings"></a>
 
 -   **E:** Open in external application (dired mode only)
 -   **C-up:** Mapped to `scroll-down-1`.
@@ -71,11 +71,11 @@ This configuration loads a lot of useful emacs packages (seeSuggested external p
 -   **M-q:** Remapped to `bibtex-fill-entry` (bibtex mode only).
 -   **S-M-right:** (shift + meta + right arrow key) mapped to `windmove-right`; selects the window to the right of the currently active window. `S-M-left`, `S-M-up` and `S-M-down` also mapped to the corresponding windmove functions.
 
-## Suggested external programs<a id="orgheadline21"></a>
+## Suggested external programs<a id="suggested-external-programs"></a>
 
-Some of the requirements listed in Requirements (See section 2.2) make use of software that must be installed outside of emacs. And of course you will need emacs itself! 
+Some of the requirements listed in [Requirements](#requirements) make use of software that must be installed outside of emacs. And of course you will need emacs itself! 
 
-### External program download and installation<a id="orgheadline10"></a>
+### External program download and installation<a id="external-program-download-and-installation"></a>
 
 While emacs alone is very powerful, one of it's most important strengths is its ability to inter-operate with other software programs. Links to the download pages for several programs that can be used from with emacs are provided below (they are also very useful on their own!). Installation of all these programs follows normal conventions on each platform, just download, run the installer, and follow the instructions.
 
@@ -106,13 +106,13 @@ While emacs alone is very powerful, one of it's most important strengths is its 
     -   **Pandoc:** Use your package manager, or see <http://johnmacfarlane.net/pandoc/installing.html#all-platforms>
     -   **GhostScript:** Use your package manager, or see <http://www.ghostscript.com/download/gsdnld.html>
 
-### External program configuration and use<a id="orgheadline20"></a>
+### External program configuration and use<a id="external-program-configuration-and-use"></a>
 
 While a detailed instructions on how to use these programs would take years, you can get started with the quickly. Here are some quick pointers and links to more detailed tutorials.
 
 1.  Emacs
 
-    Emacs configuration is complex, and we will not go into it here except to say that the main configuration file is named `init.el` and can usually be found in a directory named `.emacs.d`, which is usually in your home directory. As mentioned in Quick start (See section 1) and  (See section 2) there are many pre-packaged emacs configurations that you can use simply by copying them to your `.emacs.d` directory.
+    Emacs configuration is complex, and we will not go into it here except to say that the main configuration file is named `init.el` and can usually be found in a directory named `.emacs.d`, which is usually in your home directory. As mentioned in [Quick start](#quick-start) and  [2](#discussion-and-implementation) there are many pre-packaged emacs configurations that you can use simply by copying them to your `.emacs.d` directory.
     
     You can almost just start emacs and start typing as you would in any other text editor, though you should be aware that Emacs uses different keyboard shortcuts than those you may be accustomed to. There is a introductory tutorial built into Emacs that you can access from the Help menu; IBM provides another excellent [emacs tutorial](http://www.ibm.com/developerworks/aix/tutorials/au-emacs1/index.html).
 
@@ -148,9 +148,9 @@ While a detailed instructions on how to use these programs would take years, you
 
     GhostScript is a program for working the postscript and pdf files. While it can be used on its own it is included in this list only because it makes printing from emacs easier, especially on Windows. No configuration should be required. Note that **on windows you need the 32 bit version**, the 64 bit version will not work. Windows users will also need to add it to their PATH (see <http://www.computerhope.com/issues/ch000549.htm> for instructions).
 
-# Discussion and implementation<a id="orgheadline51"></a>
+# Discussion and implementation<a id="discussion-and-implementation"></a>
 
-## What the world needs now&#x2026;<a id="orgheadline23"></a>
+## What the world needs now&#x2026;<a id="what-the-world-needs-now"></a>
 
 As of August 5th 2014 there are 2,960 github repositories named or mentioning '.emacs.d', and another 627 named or mentioning "dotemacs". Some of these are just personal emacs configurations, but many take pains to provide documentation and instruction for adopting them as your very own emacs configuration. And that's not to mention the [starter-kits](https://github.com/search?q=emacs-starter-kit&type=Repositories&ref=searchresults), [preludes](https://github.com/search?q=emacs+prelude&type=Repositories&ref=searchresults) and [oh my emacs](https://github.com/search?q=emacs+oh+my&type=Repositories&ref=searchresults) of the world! With all these options, does the world really need yet another emacs configuration? 
 
@@ -158,7 +158,7 @@ No, the world does not need another emacs starter kit. Indeed the guy who starte
 
 On the other hand it may be that this emacs configuration is what you want after all. It turns on many nice features of emacs, and adds many more. Anyway it does not hurt to give it a try.
 
-## Requirements<a id="orgheadline24"></a>
+## Requirements<a id="requirements"></a>
 
 Emacs is many things to many people, being perhaps the most configurable text editor ever created. However, there are some common tools that social scientists often make use of that are not accessible in emacs by default. It is therefore desirable to create a base configuration that enables the features that social scientists are likely to find useful. The table below lists some of these requirements, and describes how they are made available in emacs.
 
@@ -305,11 +305,11 @@ Emacs is many things to many people, being perhaps the most configurable text ed
 </tbody>
 </table>
 
-## Implementation<a id="orgheadline50"></a>
+## Implementation<a id="implementation"></a>
 
-The emacs configuration in the sections below implements the Requirements (See section 2.2) listed above.
+The emacs configuration in the sections below implements the [Requirements](#requirements) listed above.
 
-### Preamble<a id="orgheadline25"></a>
+### Preamble<a id="preamble"></a>
 
 ```emacs-lisp
 ;;; COMMENTARY
@@ -324,7 +324,7 @@ The emacs configuration in the sections below implements the Requirements (See s
 ;; will eventually be resolved in cooperation with the RCE team.
 ```
 
-### Version check<a id="orgheadline26"></a>
+### Version check<a id="version-check"></a>
 
 It is difficult to support multiple versions of emacs, so we will pick an arbitrary cutoff and throw an error if the version of emacs is "too old".
 
@@ -338,7 +338,7 @@ It is difficult to support multiple versions of emacs, so we will pick an arbitr
   (error "Your version of emacs is very old and must be upgraded before you can use these packages"))
 ```
 
-### Visual tweaks<a id="orgheadline27"></a>
+### Visual tweaks<a id="visual-tweaks"></a>
 
 Visual changes such as hiding the toolbar need to come first to avoid jarring transitions during startup.
 
@@ -370,7 +370,7 @@ Visual changes such as hiding the toolbar need to come first to avoid jarring tr
 ;; (menu-bar-mode 0)
 ```
 
-### Install useful packages<a id="orgheadline28"></a>
+### Install useful packages<a id="install-useful-packages"></a>
 
 The main purpose of these emacs configuration files is to install and configure useful emacs packages. Here we carry out the installation.
 
@@ -445,7 +445,7 @@ The main purpose of these emacs configuration files is to install and configure 
                         pcmpl-args
                         pcmpl-pip
                         readline-complete
-                        magit
+                        ;;magit ;;need emacs 24.4 
                         ;; org-mode packages
                         org-plus-contrib))
 
@@ -495,7 +495,7 @@ http://github.com/izahn/dotemacs/issues
                "\nfor information about these customizations.\n"))
 ```
 
-### Load theme<a id="orgheadline29"></a>
+### Load theme<a id="load-theme"></a>
 
 Loading the theme should come as early as possible in the init sequence to avoid jarring visual changes during startup, but must come after loading packages because we use a custom theme that needs to be installed first.
 
@@ -588,7 +588,7 @@ Loading the theme should come as early as possible in the init sequence to avoid
 (powerline-my-theme)
 ```
 
-### Add custom lisp directory to load path<a id="orgheadline30"></a>
+### Add custom lisp directory to load path<a id="add-custom-lisp-directory-to-load-path"></a>
 
 We try to install most things using the package manager, but a few things need to be included in a custom lisp directory. Add it to the path so we can load from it easily.
 
@@ -608,7 +608,7 @@ We try to install most things using the package manager, but a few things need t
   (exec-path-from-shell-initialize))
 ```
 
-### Spell checking<a id="orgheadline31"></a>
+### Spell checking<a id="spell-checking"></a>
 
 ```emacs-lisp
 ;; enable on-the-fly spell checking
@@ -631,7 +631,7 @@ We try to install most things using the package manager, but a few things need t
 (add-to-list 'ispell-skip-region-alist '("^#\\+BEGIN_EXAMPLE " . "#\\+END_EXAMPLE$"))
 ```
 
-### Fonts<a id="orgheadline32"></a>
+### Fonts<a id="fonts"></a>
 
 Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we set fallback fonts for different Unicode blocks, dramatically increasing the number of characters Emacs will display.
 
@@ -648,7 +648,7 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
   (unicode-fonts-setup))
 ```
 
-### Printing<a id="orgheadline33"></a>
+### Printing<a id="printing"></a>
 
 If you're using [Vincent Goulet's emacs](http://vgoulet.act.ulaval.ca/en/emacs/windows/) on Windows printing should work out of the box. If you're on Linux or Mac the experience of printing from emacs may leave something to be desired. Here we try to make it work a little better by making it easier to preview buffers in a web browser (you can print from there as usual) and by using [gtklp](http://sourceforge.net/projects/gtklp/) on Linux if it is available.
 
@@ -666,9 +666,9 @@ If you're using [Vincent Goulet's emacs](http://vgoulet.act.ulaval.ca/en/emacs/w
   (require 'hfyview))
 ```
 
-### Minibuffer hints and completion<a id="orgheadline34"></a>
+### Minibuffer hints and completion<a id="minibuffer-hints-and-completion"></a>
 
-There are several different systems for providing completion hints in emacs. The default pcomplete system shows completions on demand (usually bound to tab key) in an emacs buffer. Here we set up ido-mode, which instead shows these completions on-the-fly in the minibuffer. These completions are primarily used to show available files (e.g., with `find-file`) and emacs functions (e.g., with `execute-extended-command`). Completion for in-buffer text (e.g., methods in python-mode, or arguments in R-mode) are handled separately by company-mode (See section 2.3.11).
+There are several different systems for providing completion hints in emacs. The default pcomplete system shows completions on demand (usually bound to tab key) in an emacs buffer. Here we set up ido-mode, which instead shows these completions on-the-fly in the minibuffer. These completions are primarily used to show available files (e.g., with `find-file`) and emacs functions (e.g., with `execute-extended-command`). Completion for in-buffer text (e.g., methods in python-mode, or arguments in R-mode) are handled separately by [company-mode](#auto-complete-configuration).
 
 ```emacs-lisp
 ;;; Completion hints for files and buffers buffers
@@ -770,7 +770,7 @@ There are several different systems for providing completion hints in emacs. The
 (require 'helm-bibtex)
 ```
 
-### Auto-complete configuration<a id="orgheadline35"></a>
+### Auto-complete configuration<a id="auto-complete-configuration"></a>
 
 Here we configure in-buffer text completion using the company-mode package. These completions are available on-demand using the `C-TAB` or `M-x company-complete`.
 
@@ -819,9 +819,9 @@ Here we configure in-buffer text completion using the company-mode package. Thes
 (add-hook 'after-init-hook 'global-company-mode)
 ```
 
-### Outline-magic<a id="orgheadline37"></a>
+### Outline-magic<a id="outline-magic"></a>
 
-I encourage you to use [org-mode](#orgheadline36) for note taking and outlining, but it can be convenient to treat arbitrary buffers as outlines. The outline-magic mode can help with that.
+I encourage you to use [org-mode](#note-taking-and-outlining) for note taking and outlining, but it can be convenient to treat arbitrary buffers as outlines. The outline-magic mode can help with that.
 
 ```emacs-lisp
 ;;; Configure outline minor modes
@@ -834,7 +834,7 @@ I encourage you to use [org-mode](#orgheadline36) for note taking and outlining,
             (define-key outline-minor-mode-map "\C-c\C-o\t" 'outline-cycle)))
 ```
 
-### Major modes configuration<a id="orgheadline48"></a>
+### Major modes configuration<a id="major-modes-configuration"></a>
 
 1.  Programming mode
 
@@ -1022,13 +1022,14 @@ I encourage you to use [org-mode](#orgheadline36) for note taking and outlining,
                  (define-key bibtex-mode-map "\M-q" 'bibtex-fill-entry)))
     
     ;; enable latexmk
-    (require 'auctex-latexmk)
-    (auctex-latexmk-setup)
-    ;; make latexmk the default
-    (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "LatexMk")))
-    (add-hook 'LaTeX-mode-hook '(lambda () (setq TeX-command-default "LatexMk")))
-    ;; honor TeX-PDF-mode settings
-    (setq auctex-latexmk-inherit-TeX-PDF-mode t)
+    (when (executable-find "latexmk")
+      (require 'auctex-latexmk)
+      (auctex-latexmk-setup)
+      ;; make latexmk the default
+      (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "LatexMk")))
+      (add-hook 'LaTeX-mode-hook '(lambda () (setq TeX-command-default "LatexMk")))
+      ;; honor TeX-PDF-mode settings
+      (setq auctex-latexmk-inherit-TeX-PDF-mode t))
     ```
 
 8.  Note taking and outlining (Org-mode)
@@ -1288,7 +1289,7 @@ I encourage you to use [org-mode](#orgheadline36) for note taking and outlining,
                  (setq eshell-visual-subcommands '(("git" "log" "diff" "show")))))
     ```
 
-### Miscellaneous<a id="orgheadline49"></a>
+### Miscellaneous<a id="miscellaneous"></a>
 
 ```emacs-lisp
 ;;; Misc. Conveniences

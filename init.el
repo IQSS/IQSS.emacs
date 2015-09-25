@@ -113,7 +113,7 @@
                         pcmpl-args
                         pcmpl-pip
                         readline-complete
-                        ;; magit ; need recent emacs
+                        ;;magit ;;need emacs 24.4 
                         ;; org-mode packages
                         org-plus-contrib))
 
@@ -612,13 +612,14 @@ http://github.com/izahn/dotemacs/issues
              (define-key bibtex-mode-map "\M-q" 'bibtex-fill-entry)))
 
 ;; enable latexmk
-(require 'auctex-latexmk)
-(auctex-latexmk-setup)
-;; make latexmk the default
-(add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "LatexMk")))
-(add-hook 'LaTeX-mode-hook '(lambda () (setq TeX-command-default "LatexMk")))
-;; honor TeX-PDF-mode settings
-(setq auctex-latexmk-inherit-TeX-PDF-mode t)
+(when (executable-find "latexmk")
+  (require 'auctex-latexmk)
+  (auctex-latexmk-setup)
+  ;; make latexmk the default
+  (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "LatexMk")))
+  (add-hook 'LaTeX-mode-hook '(lambda () (setq TeX-command-default "LatexMk")))
+  ;; honor TeX-PDF-mode settings
+  (setq auctex-latexmk-inherit-TeX-PDF-mode t))
 
 (require 'org)
 (setq org-export-babel-evaluate nil)
