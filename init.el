@@ -115,7 +115,7 @@
                         pcmpl-args
                         pcmpl-pip
                         readline-complete
-                        magit
+                        ;; magit ; need recent emacs
                         ;; org-mode packages
                         org-plus-contrib))
 
