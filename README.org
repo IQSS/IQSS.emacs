@@ -368,7 +368,7 @@ The main purpose of these emacs configuration files is to install and configure 
                           pcmpl-args
                           pcmpl-pip
                           readline-complete
-                          magit
+                          ;;magit ;;need emacs 24.4 
                           ;; org-mode packages
                           org-plus-contrib))
 
