@@ -1022,13 +1022,14 @@ Load eval-in-repl for bash, elisp, and python interaction.
                (define-key bibtex-mode-map "\M-q" 'bibtex-fill-entry)))
 
   ;; enable latexmk
-  (require 'auctex-latexmk)
-  (auctex-latexmk-setup)
-  ;; make latexmk the default
-  (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "LatexMk")))
-  (add-hook 'LaTeX-mode-hook '(lambda () (setq TeX-command-default "LatexMk")))
-  ;; honor TeX-PDF-mode settings
-  (setq auctex-latexmk-inherit-TeX-PDF-mode t)
+  (when (executable-find "latexmk")
+    (require 'auctex-latexmk)
+    (auctex-latexmk-setup)
+    ;; make latexmk the default
+    (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "LatexMk")))
+    (add-hook 'LaTeX-mode-hook '(lambda () (setq TeX-command-default "LatexMk")))
+    ;; honor TeX-PDF-mode settings
+    (setq auctex-latexmk-inherit-TeX-PDF-mode t))
 #+END_SRC
 
 **** Note taking and outlining (Org-mode)
