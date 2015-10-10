@@ -656,20 +656,22 @@ There are several different systems for providing completion hints in emacs. The
                     (helm-find-files-up-one-level 1)
                   (apply orig-fun args)))
               (advice-add 'helm-ff-delete-char-backward :around #'fu/helm-find-files-navigate-back)
-              ;;; make C-d open dired buffer a-la ido-mode
-              ;; first unset C-d
-              (define-key helm-find-files-map (kbd "C-d") 'undefined)
-              ;; function to open selection in dired
-              (defun old-dired (&optional no-op)
-                (dired (helm-get-selection)))
-              ;; add to helm source 
-              (helm-add-action-to-source "Fallback dired"
-                                         'old-dired
-                                         helm-source-find-files)
-              ;; bind to C-d
-              (define-key helm-find-files-map (kbd "C-d")
-                (lambda () (interactive)
-                  (helm-quit-and-execute-action 'old-dired)))
+
+              ;; ;;; make C-d open dired buffer a-la ido-mode (not working with recent helm)
+              ;; ;; first unset C-d
+              ;; (define-key helm-find-files-map (kbd "C-d") 'undefined)
+              ;; ;; function to open selection in dired
+              ;; (defun old-dired (&optional no-op)
+              ;;   (dired (helm-get-selection)))
+              ;; ;; add to helm source 
+              ;; (helm-add-action-to-source "Fallback dired"
+              ;;                            'old-dired
+              ;;                            helm-source-find-files)
+              ;; ;; bind to C-d
+              ;; (define-key helm-find-files-map (kbd "C-d")
+              ;;   (lambda () (interactive)
+              ;;     (helm-quit-and-execute-action 'old-dired)))
+
               (setq ;; fuzzy match
                helm-recentf-fuzzy-match t
                helm-buffers-fuzzy-matching t
