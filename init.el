@@ -1008,7 +1008,7 @@ The app is chosen from your OS's preference."
 (global-set-key (kbd "<M-S-up>")    'windmove-up)
 (global-set-key (kbd "<M-S-down>")  'windmove-down)
 ;; The beeping can be annoying--turn it off
-(set-variable 'visible-bell t)
+;; (set-variable 'visible-bell t) ; buggy on OS X, see http://debbugs.gnu.org/cgi/bugreport.cgi?bug=21662
 
 ;; save settings made using the customize interface to a sparate file
 (setq custom-file (concat user-emacs-directory "custom.el"))
