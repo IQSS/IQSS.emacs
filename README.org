@@ -355,6 +355,7 @@ The main purpose of these emacs configuration files is to install and configure 
                           ;; noflet
                           browse-kill-ring
                           smex
+                          ergoemacs-mode
                           outline-magic
                           smooth-scroll
                           company
@@ -518,6 +519,15 @@ Loading the theme should come as early as possible in the init sequence to avoid
   (powerline-my-theme)
 
 #+END_SRC
+
+*** Make it work for mere mortals (ergomacs-mode)
+#+BEGIN_SRC emacs-lisp
+  (require 'ergoemacs-mode)
+  (setq ergoemacs-theme nil) ;; Uses Standard Ergoemacs keyboard theme
+  (setq ergoemacs-keyboard-layout "us") ;; Assumes QWERTY keyboard layout
+  (ergoemacs-mode 1)
+#+END_SRC
+
 *** Add custom lisp directory to load path
 :PROPERTIES:
 :CUSTOM_ID: add-custom-lisp-directory-to-load-path

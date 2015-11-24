@@ -100,6 +100,7 @@
                         ;; noflet
                         browse-kill-ring
                         smex
+                        ergoemacs-mode
                         outline-magic
                         smooth-scroll
                         company
@@ -250,6 +251,11 @@ http://github.com/izahn/dotemacs/issues
 
 (powerline-my-theme)
 (powerline-my-theme)
+
+(require 'ergoemacs-mode)
+(setq ergoemacs-theme nil) ;; Uses Standard Ergoemacs keyboard theme
+(setq ergoemacs-keyboard-layout "us") ;; Assumes QWERTY keyboard layout
+(ergoemacs-mode 1)
 
 ;; add custom lisp directory to path
 (let ((default-directory (concat user-emacs-directory "lisp/")))
