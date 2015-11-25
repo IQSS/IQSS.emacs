@@ -1,31 +1,32 @@
-- [Quick start](#sec-1)
-  - [What is this?](#sec-1-1)
-  - [How to I install it?](#sec-1-2)
-  - [First run](#sec-1-3)
-  - [Modified key bindings](#sec-1-4)
-    - [Completion keys](#sec-1-4-1)
-    - [Other key bindings](#sec-1-4-2)
-  - [Suggested external programs](#sec-1-5)
-    - [External program download and installation](#sec-1-5-1)
-    - [External program configuration and use](#sec-1-5-2)
-- [Discussion and implementation](#sec-2)
-  - [What the world needs now&#x2026;](#sec-2-1)
-  - [Requirements](#sec-2-2)
-  - [Implementation](#sec-2-3)
-    - [Preamble](#sec-2-3-1)
-    - [Version check](#sec-2-3-2)
-    - [Visual tweaks](#sec-2-3-3)
-    - [Install useful packages](#sec-2-3-4)
-    - [Load theme](#sec-2-3-5)
-    - [Add custom lisp directory to load path](#sec-2-3-6)
-    - [Spell checking](#sec-2-3-7)
-    - [Fonts](#sec-2-3-8)
-    - [Printing](#sec-2-3-9)
-    - [Minibuffer hints and completion](#sec-2-3-10)
-    - [Auto-complete configuration](#sec-2-3-11)
-    - [Outline-magic](#sec-2-3-12)
-    - [Major modes configuration](#sec-2-3-13)
-    - [Miscellaneous](#sec-2-3-14)
+- [Quick start](#quick-start)
+  - [What is this?](#what-is-this?)
+  - [How to I install it?](#how-to-i-install-it?)
+  - [First run](#first-run)
+  - [Modified key bindings](#modified-key-bindings)
+    - [Completion keys](#completion-keys)
+    - [PC style copy/paste etc.](#pc-style-copy/paste-etc.)
+    - [Other key bindings](#other-key-bindings)
+  - [Suggested external programs](#suggested-external-programs)
+    - [External program download and installation](#external-program-download-and-installation)
+    - [External program configuration and use](#external-program-configuration-and-use)
+- [Discussion and implementation](#discussion-and-implementation)
+  - [What the world needs now&#x2026;](#what-the-world-needs-now&#x2026;)
+  - [Requirements](#requirements)
+  - [Implementation](#implementation)
+    - [Preamble](#preamble)
+    - [Version check](#version-check)
+    - [Visual tweaks](#visual-tweaks)
+    - [Install useful packages](#install-useful-packages)
+    - [Load theme](#load-theme)
+    - [Add custom lisp directory to load path](#add-custom-lisp-directory-to-load-path)
+    - [Spell checking](#spell-checking)
+    - [Fonts](#fonts)
+    - [Printing](#printing)
+    - [Minibuffer hints and completion](#minibuffer-hints-and-completion)
+    - [Auto-complete configuration](#auto-complete-configuration)
+    - [Outline-magic](#outline-magic)
+    - [Major modes configuration](#major-modes-configuration)
+    - [Miscellaneous](#miscellaneous)
 
 
 # Quick start<a id="quick-start"></a>
@@ -59,6 +60,19 @@ This configuration loads a lot of useful emacs packages (see[Suggested external 
 -   **M-y:** Remapped to `browse-kill-ring` to browse the kill ring interactively.
 -   **C-x C-r:** Mapped to `ido-recentf-open` to select recent files in the minibuffer.
 -   **M-x:** Remapped to `smex` to interactively search for interactive functions. Use `M-X` (note the capital "X") to restrict to commands for the active major mode.
+
+### PC style copy/paste etc.<a id="orgheadline1"></a>
+
+While making emacs work exactly as a typical novice expects it to is a losing battle, some effort has been made to make the most commonly used keybindings work as most people expect. In particular:
+
+-   **S-<arrow>:** Selects text
+-   **C-c:** Copies selection
+-   **C-x:** Deletes selection
+-   **C-z:** Undo last change
+-   **S-C-z:** Redo last undo
+-   **C-s:** Saves buffer
+-   **C-o:** Opens file
+-   **C-f:** Search in active buffer
 
 ### Other key bindings<a id="other-key-bindings"></a>
 
@@ -311,7 +325,7 @@ The emacs configuration in the sections below implements the [Requirements](#req
 
 ### Preamble<a id="preamble"></a>
 
-```emacs-lisp
+```lisp
 ;;; COMMENTARY
 
 ;; This emacs configuration file sets some convenient defaults and activates 
@@ -328,7 +342,7 @@ The emacs configuration in the sections below implements the [Requirements](#req
 
 It is difficult to support multiple versions of emacs, so we will pick an arbitrary cutoff and throw an error if the version of emacs is "too old".
 
-```emacs-lisp
+```lisp
 (when (< (string-to-number 
            (concat 
             (number-to-string emacs-major-version) 
@@ -342,7 +356,7 @@ It is difficult to support multiple versions of emacs, so we will pick an arbitr
 
 Visual changes such as hiding the toolbar need to come first to avoid jarring transitions during startup.
 
-```emacs-lisp
+```lisp
 ;; use desktop mode, but only for frame layout
 ;; and only if running in windowed mode
 (when (display-graphic-p)
@@ -374,7 +388,7 @@ Visual changes such as hiding the toolbar need to come first to avoid jarring tr
 
 The main purpose of these emacs configuration files is to install and configure useful emacs packages. Here we carry out the installation.
 
-```emacs-lisp
+```lisp
 ;; set coding system so emacs doesn't choke on melpa file listings
 (set-language-environment 'utf-8)
 (set-keyboard-coding-system 'utf-8-mac) ; For old Carbon emacs on OS X only
@@ -501,7 +515,7 @@ http://github.com/izahn/dotemacs/issues
 
 Loading the theme should come as early as possible in the init sequence to avoid jarring visual changes during startup, but must come after loading packages because we use a custom theme that needs to be installed first.
 
-```emacs-lisp
+```lisp
 ;; finally a theme I can live with!
 (load-theme 'leuven t) 
 ;; but it still needs a few tweeks
@@ -594,7 +608,7 @@ Loading the theme should come as early as possible in the init sequence to avoid
 
 We try to install most things using the package manager, but a few things need to be included in a custom lisp directory. Add it to the path so we can load from it easily.
 
-```emacs-lisp
+```lisp
 ;; add custom lisp directory to path
 (let ((default-directory (concat user-emacs-directory "lisp/")))
   (setq load-path
@@ -612,7 +626,7 @@ We try to install most things using the package manager, but a few things need t
 
 ### Spell checking<a id="spell-checking"></a>
 
-```emacs-lisp
+```lisp
 ;; enable on-the-fly spell checking
 (add-hook 'emacs-startup-hook
           (lambda()
@@ -637,7 +651,7 @@ We try to install most things using the package manager, but a few things need t
 
 Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we set fallback fonts for different Unicode blocks, dramatically increasing the number of characters Emacs will display.
 
-```emacs-lisp
+```lisp
 ;; unicode-fonts doesn't work well on emacs < 24.3
 (when (>= (string-to-number 
              (concat 
@@ -654,7 +668,7 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
 
 If you're using [Vincent Goulet's emacs](http://vgoulet.act.ulaval.ca/en/emacs/windows/) on Windows printing should work out of the box. If you're on Linux or Mac the experience of printing from emacs may leave something to be desired. Here we try to make it work a little better by making it easier to preview buffers in a web browser (you can print from there as usual) and by using [gtklp](http://sourceforge.net/projects/gtklp/) on Linux if it is available.
 
-```emacs-lisp
+```lisp
 (when (eq system-type 'gnu/linux)
   (setq hfyview-quick-print-in-files-menu t)
   (require 'hfyview)
@@ -672,7 +686,7 @@ If you're using [Vincent Goulet's emacs](http://vgoulet.act.ulaval.ca/en/emacs/w
 
 There are several different systems for providing completion hints in emacs. The default pcomplete system shows completions on demand (usually bound to tab key) in an emacs buffer. Here we set up ido-mode, which instead shows these completions on-the-fly in the minibuffer. These completions are primarily used to show available files (e.g., with `find-file`) and emacs functions (e.g., with `execute-extended-command`). Completion for in-buffer text (e.g., methods in python-mode, or arguments in R-mode) are handled separately by [company-mode](#auto-complete-configuration).
 
-```emacs-lisp
+```lisp
 ;;; Completion hints for files and buffers buffers
 (setq ido-file-extensions-order '(".R" ".r" ".sh" ".tex" ".bib" ".org" 
                                   ".py" ".emacs" ".xml" "org.el" ".pdf"
@@ -698,8 +712,8 @@ There are several different systems for providing completion hints in emacs. The
 ;; set nice ido decorations
 (setq ido-decorations '("\n➔ " "" "\n " "\n ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]" "\n➔ " ""))
 
-;; don't use ido for dired
-(setq ido-read-file-name-non-ido '(dired))
+;; don't use ido for dired or menu-find-file
+(setq ido-read-file-name-non-ido '(dired menu-find-file-existing))
 
 ;; color directories blue, firstmatch bold etc.
 (set-face-attribute 'ido-first-match nil
@@ -799,7 +813,7 @@ There are several different systems for providing completion hints in emacs. The
 
 Here we configure in-buffer text completion using the company-mode package. These completions are available on-demand using the `C-TAB` or `M-x company-complete`.
 
-```emacs-lisp
+```lisp
 ;;Use C-TAB to complete. We put this in eval-after-load 
 ;; because otherwise some modes will try to override our settings.
 (require 'company)
@@ -852,7 +866,7 @@ Here we configure in-buffer text completion using the company-mode package. Thes
 
 I encourage you to use [org-mode](#note-taking-and-outlining) for note taking and outlining, but it can be convenient to treat arbitrary buffers as outlines. The outline-magic mode can help with that.
 
-```emacs-lisp
+```lisp
 ;;; Configure outline minor modes
 ;; Less crazy key bindings for outline-minor-mode
 (setq outline-minor-mode-prefix "\C-c\C-o")
@@ -867,7 +881,7 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
 
 1.  Programming mode
 
-    ```emacs-lisp
+    ```lisp
     (add-hook 'prog-mode-hook
               (lambda()
                 ;; turn on outline minor mode:
@@ -884,7 +898,7 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
 
     Load eval-in-repl for bash, elisp, and python interaction.
     
-    ```emacs-lisp
+    ```lisp
     ;; require the main file containing common functions
     (require 'eval-in-repl)
     (setq comint-process-echoes t)
@@ -897,7 +911,7 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
 
 3.  Run R in emacs (ESS)
 
-    ```emacs-lisp
+    ```lisp
       ;;;  ESS (Emacs Speaks Statistics)
     
     ;; Start R in the working directory by default
@@ -949,7 +963,7 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
 
 4.  Run python in emacs (elpy)
 
-    ```emacs-lisp
+    ```lisp
     ;; Python completion and code checking
     (setq elpy-modules '(elpy-module-company
                          elpy-module-eldoc
@@ -976,7 +990,7 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
 
 5.  emacs lisp REPL (ielm)
 
-    ```emacs-lisp
+    ```lisp
     ;; ielm
     (require 'eval-in-repl-ielm)
     ;; For .el files
@@ -999,7 +1013,7 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
 
 6.  Light-weight markup language (Markdown mode)
 
-    ```emacs-lisp
+    ```lisp
     ;;; markdown mode
     
     ;; Use markdown-mode for files with .markdown or .md extensions
@@ -1009,7 +1023,7 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
 
 7.  Typesetting markup (AucTeX)
 
-    ```emacs-lisp
+    ```lisp
     ;;; AucTeX config
     ;; turn on math mode and and index to imenu
     (add-hook 'LaTeX-mode-hook 
@@ -1063,7 +1077,7 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
 
 8.  Note taking and outlining (Org-mode)
 
-    ```emacs-lisp
+    ```lisp
     (require 'org)
     (setq org-export-babel-evaluate nil)
     (set-face-attribute 'org-meta-line nil
@@ -1131,7 +1145,7 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
 
 9.  Multiple modes in one "buffer" (polymode)
 
-    ```emacs-lisp
+    ```lisp
     ;;; polymode
     
     ;; polymode requires emacs >= 24.3, does not work on the RCE. 
@@ -1156,7 +1170,7 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
 
 10. File browsing (Dired+)
 
-    ```emacs-lisp
+    ```lisp
     ;;; Dired and Dired+ configuration
     ;; show git status in dired
     (require 'diff-hl)
@@ -1169,7 +1183,6 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
     (setq diredp-hide-details-initially-flag nil)
     ;; load dired+ and mouse3
     (require 'dired+)
-    (require 'mouse3)
     
     ;; set dired listing options
     (if (eq system-type 'gnu/linux)
@@ -1260,7 +1273,7 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
 
 11. Shell modes (term, shell and eshell)
 
-    ```emacs-lisp
+    ```lisp
     ;; term
     (require 'multi-term)
     (define-key term-mode-map (kbd "C-j") 'term-char-mode)
@@ -1320,7 +1333,7 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
 
 ### Miscellaneous<a id="miscellaneous"></a>
 
-```emacs-lisp
+```lisp
 ;;; Misc. Conveniences
 
 ;; show number of matches in mode line when searching
@@ -1426,8 +1439,16 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
 ;; don't require two spaces for sentence end.
 (setq sentence-end-double-space nil)
 
-;; Use CUA mode only for handy rectangle features
-(cua-selection-mode t)
+;; Use CUA mode to make life easier for those who are not wizards
+(cua-mode t)
+;; Make control-z undo
+(global-set-key (kbd "C-z") 'undo)
+;; Make right-click do something close to what people expect
+(require 'mouse3)
+(global-set-key (kbd "<mouse-3>") 'mouse3-popup-menu)
+(global-set-key (kbd "C-f") 'isearch-forward)
+(global-set-key (kbd "C-s") 'save-buffer)
+(global-set-key (kbd "C-o") 'menu-find-file-existing)
 
 ;; use windresize for changing window size
 (require 'windresize)

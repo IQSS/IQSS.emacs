@@ -332,8 +332,8 @@ http://github.com/izahn/dotemacs/issues
 ;; set nice ido decorations
 (setq ido-decorations '("\n➔ " "" "\n " "\n ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]" "\n➔ " ""))
 
-;; don't use ido for dired
-(setq ido-read-file-name-non-ido '(dired))
+;; don't use ido for dired or menu-find-file
+(setq ido-read-file-name-non-ido '(dired menu-find-file-existing))
 
 ;; color directories blue, firstmatch bold etc.
 (set-face-attribute 'ido-first-match nil
@@ -747,7 +747,6 @@ http://github.com/izahn/dotemacs/issues
 (setq diredp-hide-details-initially-flag nil)
 ;; load dired+ and mouse3
 (require 'dired+)
-(require 'mouse3)
 
 ;; set dired listing options
 (if (eq system-type 'gnu/linux)
@@ -996,8 +995,16 @@ The app is chosen from your OS's preference."
 ;; don't require two spaces for sentence end.
 (setq sentence-end-double-space nil)
 
-;; Use CUA mode only for handy rectangle features
-(cua-selection-mode t)
+;; Use CUA mode to make life easier for those who are not wizards
+(cua-mode t)
+;; Make control-z undo
+(global-set-key (kbd "C-z") 'undo)
+;; Make right-click do something close to what people expect
+(require 'mouse3)
+(global-set-key (kbd "<mouse-3>") 'mouse3-popup-menu)
+(global-set-key (kbd "C-f") 'isearch-forward)
+(global-set-key (kbd "C-s") 'save-buffer)
+(global-set-key (kbd "C-o") 'menu-find-file-existing)
 
 ;; use windresize for changing window size
 (require 'windresize)
