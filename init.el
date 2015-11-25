@@ -1006,6 +1006,11 @@ The app is chosen from your OS's preference."
 (global-set-key (kbd "C-s") 'save-buffer)
 (global-set-key (kbd "C-o") 'menu-find-file-existing)
 
+(defadvice menu-find-file-existing (around find-file-read-args-always-use-dialog-box act)
+  "Simulate invoking menu item as if by the mouse; see `use-dialog-box'."
+  (let ((last-nonmenu-event nil))
+     ad-do-it))
+
 ;; use windresize for changing window size
 (require 'windresize)
 
