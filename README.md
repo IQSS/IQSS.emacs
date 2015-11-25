@@ -1449,6 +1449,8 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
 (global-set-key (kbd "C-f") 'isearch-forward)
 (global-set-key (kbd "C-s") 'save-buffer)
 (global-set-key (kbd "C-o") 'menu-find-file-existing)
+(define-key cua-global-keymap (kbd "<C-S-SPC>") nil)
+(define-key cua-global-keymap (kbd "<C-S-SPC>") 'cua-rectangle-mark-mode)
 
 (defadvice menu-find-file-existing (around find-file-read-args-always-use-dialog-box act)
   "Simulate invoking menu item as if by the mouse; see `use-dialog-box'."
@@ -1457,7 +1459,6 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
 
 ;; use windresize for changing window size
 (require 'windresize)
-
 ;; use windmove for navigating windows
 (global-set-key (kbd "<M-S-left>")  'windmove-left)
 (global-set-key (kbd "<M-S-right>") 'windmove-right)
