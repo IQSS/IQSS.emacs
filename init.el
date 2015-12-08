@@ -1002,8 +1002,8 @@ The app is chosen from your OS's preference."
 ;; Make right-click do something close to what people expect
 (require 'mouse3)
 (global-set-key (kbd "<mouse-3>") 'mouse3-popup-menu)
-(global-set-key (kbd "C-f") 'isearch-forward)
-(global-set-key (kbd "C-s") 'save-buffer)
+; (global-set-key (kbd "C-f") 'isearch-forward)
+; (global-set-key (kbd "C-s") 'save-buffer)
 (global-set-key (kbd "C-o") 'menu-find-file-existing)
 (define-key cua-global-keymap (kbd "<C-S-SPC>") nil)
 (define-key cua-global-keymap (kbd "<C-S-SPC>") 'cua-rectangle-mark-mode)
