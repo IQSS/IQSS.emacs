@@ -1024,30 +1024,30 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
 7.  Typesetting markup (AucTeX)
 
     ```emacs-lisp
-    ;;; AucTeX config
+        ;;; AucTeX config
     ;; turn on math mode and and index to imenu
-    (add-hook 'LaTeX-mode-hook 
+    (add-hook 'LaTeX-mode-hook
               (lambda ()
-                 (turn-on-reftex)
-                 (TeX-PDF-mode t)
-                 (LaTeX-math-mode)
-                 (TeX-source-correlate-mode t)
-                 (imenu-add-to-menubar "Index")
-                 (outline-minor-mode)
-                 ;; completion
-                 (setq-local company-backends
-                             (delete-dups (cons 'company-files
-                                                company-backends)))
-                 (setq-local company-backends
-                             (delete-dups (cons '(company-math-symbols-latex company-latex-commands company-math-symbols-unicode)
-                                                company-backends)))
-                 ;; Allow paragraph filling in tables
-                 (setq LaTeX-indent-environment-list
-                       (delq (assoc "table" LaTeX-indent-environment-list)
-                             LaTeX-indent-environment-list))
-                 (setq LaTeX-indent-environment-list
-                       (delq (assoc "table*" LaTeX-indent-environment-list)
-                             LaTeX-indent-environment-list))))
+                (turn-on-reftex)
+                (TeX-PDF-mode t)
+                (LaTeX-math-mode)
+                (TeX-source-correlate-mode t)
+                (imenu-add-to-menubar "Index")
+                (outline-minor-mode)
+                ;; completion
+                (setq-local company-backends
+                            (delete-dups (cons 'company-files
+                                                    company-backends)))
+                (setq-local company-backends
+                            (delete-dups (cons '(company-math-symbols-latex company-latex-commands company-math-symbols-unicode)
+                                                    company-backends)))
+                ;; Allow paragraph filling in tables
+                (setq LaTeX-indent-environment-list
+                      (delq (assoc "table" LaTeX-indent-environment-list)
+                            LaTeX-indent-environment-list))
+                (setq LaTeX-indent-environment-list
+                      (delq (assoc "table*" LaTeX-indent-environment-list)
+                            LaTeX-indent-environment-list))))
     ;; Misc. latex settings
     (setq TeX-parse-self t
           TeX-auto-save t)
@@ -1062,17 +1062,25 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
     (setq reftex-plug-into-AUCTeX t)
     (add-hook 'bibtex-mode-hook
               (lambda ()
-                 (define-key bibtex-mode-map "\M-q" 'bibtex-fill-entry)))
+                (define-key bibtex-mode-map "\M-q" 'bibtex-fill-entry)))
     
-    ;; enable latexmk
-    (when (executable-find "latexmk")
-      (require 'auctex-latexmk)
-      (auctex-latexmk-setup)
-      ;; make latexmk the default
-      (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "LatexMk")))
-      (add-hook 'LaTeX-mode-hook '(lambda () (setq TeX-command-default "LatexMk")))
-      ;; honor TeX-PDF-mode settings
-      (setq auctex-latexmk-inherit-TeX-PDF-mode t))
+    (add-to-list 'TeX-command-list
+                 '("TeX-command-run-all" "(TeX-command-run-all)"
+                   TeX-run-function nil t :help "Run all required commands") t)
+    
+    (add-hook 'LaTeX-mode-hook
+              (lambda ()
+                (setq TeX-command-default "TeX-command-run-all")))
+    
+    ;; ;; enable latexmk
+    ;; (when (executable-find "latexmk")
+    ;;   (require 'auctex-latexmk)
+    ;;   (auctex-latexmk-setup)
+    ;;   ;; make latexmk the default
+    ;;   (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "LatexMk")))
+    ;;   (add-hook 'LaTeX-mode-hook '(lambda () (setq TeX-command-default "LatexMk")))
+    ;;   ;; honor TeX-PDF-mode settings
+    ;;   (setq auctex-latexmk-inherit-TeX-PDF-mode t))
     ```
 
 8.  Note taking and outlining (Org-mode)
