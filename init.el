@@ -640,23 +640,25 @@ http://github.com/izahn/dotemacs/issues
           (lambda ()
             (define-key bibtex-mode-map "\M-q" 'bibtex-fill-entry)))
 
-(add-to-list 'TeX-command-list
-             '("TeX-command-run-all" "(TeX-command-run-all)"
-               TeX-run-function nil t :help "Run all required commands") t)
+;; ;; Try to make tex-command-run-all the default (doesn't work)
+;; (eval-after-load "tex"
+;;   '(add-to-list 'TeX-command-list
+;;                 '("TeX-command-run-all" "(TeX-command-run-all)"
+;;                   TeX-run-function nil t :help "Run all required commands") t))
 
-(add-hook 'LaTeX-mode-hook
-          (lambda ()
-            (setq TeX-command-default "TeX-command-run-all")))
+;; (add-hook 'LaTeX-mode-hook
+;;           (lambda ()
+;;             (setq TeX-command-default "TeX-command-run-all")))
 
-;; ;; enable latexmk
-;; (when (executable-find "latexmk")
-;;   (require 'auctex-latexmk)
-;;   (auctex-latexmk-setup)
-;;   ;; make latexmk the default
-;;   (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "LatexMk")))
-;;   (add-hook 'LaTeX-mode-hook '(lambda () (setq TeX-command-default "LatexMk")))
-;;   ;; honor TeX-PDF-mode settings
-;;   (setq auctex-latexmk-inherit-TeX-PDF-mode t))
+;; enable latexmk
+(when (executable-find "latexmk")
+  (require 'auctex-latexmk)
+  (auctex-latexmk-setup)
+  ;; make latexmk the default
+  (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "LatexMk")))
+  (add-hook 'LaTeX-mode-hook '(lambda () (setq TeX-command-default "LatexMk")))
+  ;; honor TeX-PDF-mode settings
+  (setq auctex-latexmk-inherit-TeX-PDF-mode t))
 
 (require 'org)
 (setq org-export-babel-evaluate nil)
@@ -789,7 +791,7 @@ http://github.com/izahn/dotemacs/issues
                     :weight 'bold)
 (set-face-attribute 'diredp-file-suffix nil
                     :foreground nil)
-                    
+                  
 ;; make sure dired buffers end in a slash so we can identify them easily
 (defun ensure-buffer-name-ends-in-slash ()
   "change buffer name to end with slash"
