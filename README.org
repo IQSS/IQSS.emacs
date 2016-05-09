@@ -223,6 +223,7 @@ Emacs is many things to many people, being perhaps the most configurable text ed
 | Keep backup files out of the way   | Convenience        | backup-directory-alist | Built-in, turned on                            |
 | Cleaner interface                  | Look-n-feel        | tool-bar-mode          | Built-in, off by default                       |
 | Highlight matched/mismatched paren | Convenience        | show-paren-mode        | Built-in, turned on                            |
+| Automatically save buffers         | Convenience        | supper-save            | Installed and turned on                        |
 |------------------------------------+--------------------+------------------------+------------------------------------------------|
 
 ** Implementation
@@ -381,6 +382,7 @@ The main purpose of these emacs configuration files is to install and configure 
                           pcmpl-args
                           pcmpl-pip
                           readline-complete
+                          super-save
                           ;;magit ;;need emacs 24.4 
                           ;; org-mode packages
                           org-plus-contrib))
@@ -594,6 +596,16 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
     (require 'unicode-fonts)
     (unicode-fonts-setup))
 
+#+END_SRC
+
+*** Automatically save buffers
+Many modern applications (e.g., google docs) automatically save as you edit. I'm not entirely sure this is a good idea (what about really big buffers?) but we are trying it out. The current default is to automatically save using the [[https://github.com/bbatsov/super-save][super-save]] package.
+#+BEGIN_SRC emacs-lisp
+  ;; Automatically save buffers with super-save
+  (require 'super-save)
+  (setq super-save-auto-save-when-idle t)
+  (setq super-save-idle-duration 1)
+  (super-save-mode +1)
 #+END_SRC
 
 *** Printing

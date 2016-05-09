@@ -21,6 +21,7 @@
     - [Add custom lisp directory to load path](#add-custom-lisp-directory-to-load-path)
     - [Spell checking](#spell-checking)
     - [Fonts](#fonts)
+    - [Automatically save buffers](#automatically-save-buffers)
     - [Printing](#printing)
     - [Minibuffer hints and completion](#minibuffer-hints-and-completion)
     - [Auto-complete configuration](#auto-complete-configuration)
@@ -316,6 +317,14 @@ Emacs is many things to many people, being perhaps the most configurable text ed
 <td class="org-left">show-paren-mode</td>
 <td class="org-left">Built-in, turned on</td>
 </tr>
+
+
+<tr>
+<td class="org-left">Automatically save buffers</td>
+<td class="org-left">Convenience</td>
+<td class="org-left">supper-save</td>
+<td class="org-left">Installed and turned on</td>
+</tr>
 </tbody>
 </table>
 
@@ -461,6 +470,7 @@ The main purpose of these emacs configuration files is to install and configure 
                         pcmpl-args
                         pcmpl-pip
                         readline-complete
+                        super-save
                         ;;magit ;;need emacs 24.4 
                         ;; org-mode packages
                         org-plus-contrib))
@@ -662,6 +672,18 @@ Emacs fonts are "just OK" out of the box. Not bad, but not great either. Here we
   (require 'persistent-soft)
   (require 'unicode-fonts)
   (unicode-fonts-setup))
+```
+
+### Automatically save buffers<a id="orgheadline5"></a>
+
+Many modern applications (e.g., google docs) automatically save as you edit. I'm not entirely sure this is a good idea (what about really big buffers?) but we are trying it out. The current default is to automatically save using the [super-save](https://github.com/bbatsov/super-save) package.
+
+```lisp
+;; Automatically save buffers with super-save
+(require 'super-save)
+(setq super-save-auto-save-when-idle t)
+(setq super-save-idle-duration 1)
+(super-save-mode +1)
 ```
 
 ### Printing<a id="printing"></a>

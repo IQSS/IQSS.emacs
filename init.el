@@ -115,6 +115,7 @@
                         pcmpl-args
                         pcmpl-pip
                         readline-complete
+                        super-save
                         ;;magit ;;need emacs 24.4 
                         ;; org-mode packages
                         org-plus-contrib))
@@ -294,6 +295,12 @@ http://github.com/izahn/dotemacs/issues
   (require 'persistent-soft)
   (require 'unicode-fonts)
   (unicode-fonts-setup))
+
+;; Automatically save buffers with super-save
+(require 'super-save)
+(setq super-save-auto-save-when-idle t)
+(setq super-save-idle-duration 1)
+(super-save-mode +1)
 
 (when (eq system-type 'gnu/linux)
   (setq hfyview-quick-print-in-files-menu t)
