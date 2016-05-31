@@ -82,6 +82,7 @@
                         auctex
                         windresize
                         diff-hl
+                        adaptive-wrap
                         ;; melpa packages
                         auctex-latexmk
                         diminish
@@ -1004,6 +1005,8 @@ The app is chosen from your OS's preference."
 
 ;; line wrapping
 (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
+(require 'adaptive-wrap)
+(add-hook 'visual-line-mode-hook 'adaptive-wrap-prefix-mode)
 (add-hook 'text-mode-hook 'visual-line-mode 1)
 (add-hook 'prog-mode-hook
           (lambda()
