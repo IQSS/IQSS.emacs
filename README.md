@@ -1437,6 +1437,7 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
     
     ;; line wrapping
     (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
+    (remove-hook 'text-mode-hook 'turn-on-auto-fill) ; vincent turns this on, we turn it off.
     (require 'adaptive-wrap)
     (add-hook 'visual-line-mode-hook 'adaptive-wrap-prefix-mode)
     (add-hook 'text-mode-hook 'visual-line-mode 1)
