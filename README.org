@@ -1445,6 +1445,7 @@ Load eval-in-repl for bash, elisp, and python interaction.
   ;; line wrapping
   (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
   (require 'adaptive-wrap)
+  (remove-hook 'text-mode-hook 'turn-on-auto-fill) ; vincent turns this on, we turn it off.
   (add-hook 'visual-line-mode-hook 'adaptive-wrap-prefix-mode)
   (add-hook 'text-mode-hook 'visual-line-mode 1)
   (add-hook 'prog-mode-hook
