@@ -1004,9 +1004,12 @@ The app is chosen from your OS's preference."
 (define-key global-map "\M-Q" 'unfill-paragraph)
 
 ;; line wrapping
+(setq-default fringes-outside-margins t)
+(setq-default left-margin-width 1 right-margin-width 1) ; Define new widths.
+(set-window-buffer nil (current-buffer)) ; Use them now.
 (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
-(remove-hook 'text-mode-hook 'turn-on-auto-fill) ; vincent turns this on, we turn it off.
 (require 'adaptive-wrap)
+(remove-hook 'text-mode-hook 'turn-on-auto-fill) ; vincent turns this on, we turn it off.
 (add-hook 'visual-line-mode-hook 'adaptive-wrap-prefix-mode)
 (add-hook 'text-mode-hook 'visual-line-mode 1)
 (add-hook 'prog-mode-hook

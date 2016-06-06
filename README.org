@@ -1443,6 +1443,9 @@ Load eval-in-repl for bash, elisp, and python interaction.
   (define-key global-map "\M-Q" 'unfill-paragraph)
 
   ;; line wrapping
+  (setq-default fringes-outside-margins t)
+  (setq-default left-margin-width 1 right-margin-width 1) ; Define new widths.
+  (set-window-buffer nil (current-buffer)) ; Use them now.
   (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
   (require 'adaptive-wrap)
   (remove-hook 'text-mode-hook 'turn-on-auto-fill) ; vincent turns this on, we turn it off.
