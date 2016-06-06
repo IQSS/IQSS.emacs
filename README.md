@@ -1436,9 +1436,14 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
     (define-key global-map "\M-Q" 'unfill-paragraph)
     
     ;; line wrapping
-    (setq-default fringes-outside-margins t)
-    (setq-default left-margin-width 1 right-margin-width 1) ; Define new widths.
-    (set-window-buffer nil (current-buffer)) ; Use them now.
+    
+    ;; (setq-default fringes-outside-margins t)
+    ;; (setq-default left-margin-width 1 right-margin-width 1) ; Define new widths.
+    ;; (set-window-buffer nil (current-buffer)) ; Use them now.
+    ;; (fringe-mode '(5 . 5)) ; make fringe smaller
+    (set-face-attribute 'fringe nil
+                        :foreground "LightGray")
+    (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
     (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
     (require 'adaptive-wrap)
     (remove-hook 'text-mode-hook 'turn-on-auto-fill) ; vincent turns this on, we turn it off.
