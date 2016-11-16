@@ -92,8 +92,6 @@
                         google-this
                         leuven-theme
                         powerline
-                        persistent-soft
-                        unicode-fonts
                         dired+
                         mouse3
                         ido-ubiquitous
@@ -286,16 +284,6 @@ http://github.com/izahn/dotemacs/issues
 (add-to-list 'ispell-skip-region-alist '("^#\\+begin_example " . "#\\+end_example$"))
 (add-to-list 'ispell-skip-region-alist '("^#\\+BEGIN_EXAMPLE " . "#\\+END_EXAMPLE$"))
 
-;; unicode-fonts doesn't work well on emacs < 24.3
-(when (>= (string-to-number 
-             (concat 
-              (number-to-string emacs-major-version) 
-              "." 
-              (number-to-string emacs-minor-version)))
-            24.3)
-  (require 'persistent-soft)
-  (require 'unicode-fonts)
-  (unicode-fonts-setup))
 
 ;; Automatically save buffers with super-save
 (require 'super-save)
