@@ -114,7 +114,6 @@
                         pcmpl-args
                         pcmpl-pip
                         readline-complete
-                        super-save
                         ;;magit ;;need emacs 24.4 
                         ;; org-mode packages
                         org-plus-contrib))
@@ -283,13 +282,6 @@ http://github.com/izahn/dotemacs/issues
 (add-to-list 'ispell-skip-region-alist '("#\\+begin_src" . "#\\+end_src"))
 (add-to-list 'ispell-skip-region-alist '("^#\\+begin_example " . "#\\+end_example$"))
 (add-to-list 'ispell-skip-region-alist '("^#\\+BEGIN_EXAMPLE " . "#\\+END_EXAMPLE$"))
-
-
-;; Automatically save buffers with super-save
-(require 'super-save)
-(setq super-save-auto-save-when-idle t)
-(setq super-save-idle-duration 1)
-(super-save-mode +1)
 
 (when (eq system-type 'gnu/linux)
   (setq hfyview-quick-print-in-files-menu t)
