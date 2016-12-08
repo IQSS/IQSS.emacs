@@ -10,7 +10,7 @@
 <li><a href="#modified-key-bindings">1.4. Modified key bindings</a>
 <ul>
 <li><a href="#completion-keys">1.4.1. Completion keys</a></li>
-<li><a href="#orgb04bcd6">1.4.2. PC style copy/paste etc.</a></li>
+<li><a href="#org613b93f">1.4.2. PC style copy/paste etc.</a></li>
 <li><a href="#other-key-bindings">1.4.3. Other key bindings</a></li>
 </ul>
 </li>
@@ -100,7 +100,7 @@ This configuration loads a lot of useful emacs packages (see[Suggested external 
 -   **M-x:** Remapped to `smex` to interactively search for interactive functions. Use `M-X` (note the capital "X") to restrict to commands for the active major mode.
 
 
-<a id="orgb04bcd6"></a>
+<a id="org613b93f"></a>
 
 ### PC style copy/paste etc.
 
@@ -677,6 +677,8 @@ There are several different systems for providing completion hints in emacs. The
     (global-set-key (kbd "M-x") 'counsel-M-x)
     (global-set-key (kbd "C-x C-f") 'counsel-find-file)
     (global-set-key (kbd "C-x C-r") 'counsel-recentf)
+    (global-set-key (kbd "C-M-i") 'counsel-company)
+    (global-set-key (kbd "<C-tab>") 'counsel-company)
     (global-set-key (kbd "<f1> f") 'counsel-describe-function)
     (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
     (global-set-key (kbd "<f1> l") 'counsel-load-library)
