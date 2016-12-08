@@ -10,7 +10,7 @@
 <li><a href="#modified-key-bindings">1.4. Modified key bindings</a>
 <ul>
 <li><a href="#completion-keys">1.4.1. Completion keys</a></li>
-<li><a href="#orgaf8ffa8">1.4.2. PC style copy/paste etc.</a></li>
+<li><a href="#org4de6224">1.4.2. PC style copy/paste etc.</a></li>
 <li><a href="#other-key-bindings">1.4.3. Other key bindings</a></li>
 </ul>
 </li>
@@ -48,6 +48,7 @@
 </ul>
 </div>
 </div>
+    (require 'ox-gfm)
 
 
 <a id="quick-start"></a>
@@ -99,7 +100,7 @@ This configuration loads a lot of useful emacs packages (see[Suggested external 
 -   **M-x:** Remapped to `smex` to interactively search for interactive functions. Use `M-X` (note the capital "X") to restrict to commands for the active major mode.
 
 
-<a id="orgaf8ffa8"></a>
+<a id="org4de6224"></a>
 
 ### PC style copy/paste etc.
 
@@ -409,11 +410,11 @@ The emacs configuration in the sections below implements the [Requirements](#req
 It is difficult to support multiple versions of emacs, so we will pick an arbitrary cutoff and throw an error if the version of emacs is "too old".
 
     (when (< (string-to-number 
-    	   (concat 
-    	    (number-to-string emacs-major-version) 
-    	    "." 
-    	    (number-to-string emacs-minor-version)))
-    	  24.2)
+               (concat 
+                (number-to-string emacs-major-version) 
+                "." 
+                (number-to-string emacs-minor-version)))
+              24.2)
       (error "Your version of emacs is very old and must be upgraded before you can use these packages"))
 
 
@@ -439,11 +440,11 @@ Visual changes such as hiding the toolbar need to come first to avoid jarring tr
       (defun always-use-fancy-splash-screens-p () 1)
       (defalias 'use-fancy-splash-screens-p 'always-use-fancy-splash-screens-p)
       (add-hook 'after-init-hook
-    	    (lambda()
-    	      (if inhibit-startup-screen
-    		  (add-hook 'emacs-startup-hook 
-    			    (lambda() (switch-to-buffer "*scratch*")))
-    		(add-hook 'desktop-after-read-hook 'fancy-startup-screen)))))
+                (lambda()
+                  (if inhibit-startup-screen
+                      (add-hook 'emacs-startup-hook 
+                                (lambda() (switch-to-buffer "*scratch*")))
+                    (add-hook 'desktop-after-read-hook 'fancy-startup-screen)))))
     
     ;; hide the toolbar
     (tool-bar-mode 0)
@@ -473,8 +474,8 @@ The main purpose of these emacs configuration files is to install and configure 
     ; Less crazy key bindings for outline-minor-mode
     (setq outline-minor-mode-prefix "\C-c\C-o")
     (add-hook 'outline-minor-mode-hook
-    	  (lambda () (local-set-key "\C-c\C-o"
-    				    outline-mode-prefix-map)))
+              (lambda () (local-set-key "\C-c\C-o"
+                                        outline-mode-prefix-map)))
     
     ;; load site-start early so we can override it later
     (load "default" t t)
@@ -486,51 +487,51 @@ The main purpose of these emacs configuration files is to install and configure 
     
     ;; Add additional package sources
     (add-to-list 'package-archives 
-    	     '("org" . "http://orgmode.org/elpa/") t)
+                 '("org" . "http://orgmode.org/elpa/") t)
     (add-to-list 'package-archives 
-    	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
+                 '("melpa" . "http://melpa.milkbox.net/packages/") t)
     
     ;; Make a list of the packages you want
     (setq my-package-list '(;; gnu packages
-    			auctex
-    			windresize
-    			diff-hl
-    			adaptive-wrap
-    			;; melpa packages
-    			auctex-latexmk
-    			diminish
-    			multi-term
-    			anzu
-    			howdoi
-    			google-this
-    			leuven-theme
-    			powerline
-    			persistent-soft
-    			dired+
-    			mouse3
-    			swiper
-    			counsel
-    			;; noflet
-    			browse-kill-ring
-    			smex
-    			outline-magic
-    			smooth-scroll
-    			company
-    			company-math
-    			ess
-    			markdown-mode
-    			polymode
-    			eval-in-repl
-    			pyvenv
-    			elpy
-    			exec-path-from-shell
-    			htmlize
-    			pcmpl-args
-    			pcmpl-pip
-    			readline-complete
-    			;;magit ;;need emacs 24.4 
-    			;; org-mode packages
-    			org-plus-contrib))
+                            auctex
+                            windresize
+                            diff-hl
+                            adaptive-wrap
+                            ;; melpa packages
+                            auctex-latexmk
+                            diminish
+                            multi-term
+                            anzu
+                            howdoi
+                            google-this
+                            leuven-theme
+                            spaceline
+                            persistent-soft
+                            dired+
+                            mouse3
+                            swiper
+                            counsel
+                            ;; noflet
+                            browse-kill-ring
+                            smex
+                            outline-magic
+                            smooth-scroll
+                            company
+                            company-math
+                            ess
+                            markdown-mode
+                            polymode
+                            eval-in-repl
+                            pyvenv
+                            elpy
+                            exec-path-from-shell
+                            htmlize
+                            pcmpl-args
+                            pcmpl-pip
+                            readline-complete
+                            ;;magit ;;need emacs 24.4 
+                            ;; org-mode packages
+                            org-plus-contrib))
     
     ;; Activate package autoloads
     (package-initialize)
@@ -556,9 +557,9 @@ The main purpose of these emacs configuration files is to install and configure 
         (switch-to-buffer "*scratch*")
       (erase-buffer)
       (add-to-list 'fancy-startup-text
-    	       '(:face
-    		 (variable-pitch default)
-    		 "Your emacs has been configured for maximum productivity. 
+                   '(:face
+                     (variable-pitch default)
+                     "Your emacs has been configured for maximum productivity. 
     For best results please restart emacs now.
     More information about this emacs configuration be found
     at http://github.com/izahn/dotemacs. If you have any problems
@@ -567,15 +568,15 @@ The main purpose of these emacs configuration files is to install and configure 
     ")))
     
     (add-to-list 'fancy-startup-text
-    	     '(:face
-    	       (variable-pitch default)
-    	       "\nYou are running a customized Emacs configuration. See "  :link
-    	       ("here"
-    		#[257 "\300\301!\207"
-    		      [browse-url-default-browser "http://github.com/izahn/dotemacs/"]
-    		      3 "\n\n(fn BUTTON)"]
-    		"Open the README file")
-    	       "\nfor information about these customizations.\n"))
+                 '(:face
+                   (variable-pitch default)
+                   "\nYou are running a customized Emacs configuration. See "  :link
+                   ("here"
+                    #[257 "\300\301!\207"
+                          [browse-url-default-browser "http://github.com/izahn/dotemacs/"]
+                          3 "\n\n(fn BUTTON)"]
+                    "Open the README file")
+                   "\nfor information about these customizations.\n"))
 
 
 <a id="load-theme"></a>
@@ -584,92 +585,14 @@ The main purpose of these emacs configuration files is to install and configure 
 
 Loading the theme should come as early as possible in the init sequence to avoid jarring visual changes during startup, but must come after loading packages because we use a custom theme that needs to be installed first.
 
-    ;; finally a theme I can live with!
-    (load-theme 'leuven t) 
-    ;; but it still needs a few tweeks
-    (setq org-fontify-whole-heading-line nil)
+      ;; finally a theme I can live with!
+      (load-theme 'leuven t) 
+      ;; but it still needs a few tweeks
+      (setq org-fontify-whole-heading-line nil)
     
-    ;; mode line theme
-    (require 'powerline)
-    ;; face for remote files in modeline
-    (defface my-mode-line-attention
-    '((t (:foreground "magenta" :weight bold)))
-     "face for calling attention to modeline")
-    
-    ;; highlight hostname if on remote
-    (defconst my-mode-line-buffer-identification
-      '(:eval
-        (list
-         (propertize
-          (if (file-remote-p default-directory 'host)
-    	  (progn
-          (let ((host-name
-    	     (or (file-remote-p default-directory 'host)
-    		 (system-name))))
-    	(if (string-match "^[^0-9][^.]*\\(\\..*\\)" host-name)
-    	    (substring host-name 0 (match-beginning 1))
-    	  host-name)))
-    	"")
-          'face
-          (if (file-remote-p default-directory 'host)
-    	  'my-mode-line-attention
-    	'mode-line-buffer-id))
-       (propertize ": %b"
-    	       'face
-    		 (if (file-remote-p default-directory 'host)
-    		     'my-mode-line-attention
-    		   'mode-line-buffer-id)))))
-    
-    ;; powerline theme using above info about remote hosts.
-    (defun powerline-my-theme ()
-      "Setup the default mode-line."
-      (interactive)
-      (setq-default mode-line-format
-    		'("%e"
-    		  (:eval
-    		   (let* ((active (powerline-selected-window-active))
-    			  (mode-line (if active 'mode-line 'mode-line-inactive))
-    			  (face1 (if active 'powerline-active1 'powerline-inactive1))
-    			  (face2 (if active 'powerline-active2 'powerline-inactive2))
-    			  (separator-left (intern (format "powerline-%s-%s"
-    							  powerline-default-separator
-    							  (car powerline-default-separator-dir))))
-    			  (separator-right (intern (format "powerline-%s-%s"
-    							   powerline-default-separator
-    							   (cdr powerline-default-separator-dir))))
-    			  (lhs (list (powerline-raw "%*" nil 'l)
-    				     (powerline-buffer-size nil 'l)
-    				     (powerline-raw mode-line-mule-info nil 'l)
-    				     (powerline-raw mode-line-remote nil 'l)
-    				     (powerline-raw my-mode-line-buffer-identification nil 'l)
-    				     (when (and (boundp 'which-func-mode) which-func-mode)
-    				       (powerline-raw which-func-format nil 'l))
-    				     (powerline-raw " ")
-    				     (funcall separator-left mode-line face1)
-    				     (when (boundp 'erc-modified-channels-object)
-    				       (powerline-raw erc-modified-channels-object face1 'l))
-    				     (powerline-major-mode face1 'l)
-    				     (powerline-process face1)
-    				     (powerline-minor-modes face1 'l)
-    				     (powerline-narrow face1 'l)
-    				     (powerline-raw " " face1)
-    				     (funcall separator-left face1 face2)
-    				     (powerline-vc face2 'r)))
-    			  (rhs (list (powerline-raw global-mode-string face2 'r)
-    				     (funcall separator-right face2 face1)
-    				     (powerline-raw "%4l" face1 'l)
-    				     (powerline-raw ":" face1 'l)
-    				     (powerline-raw "%3c" face1 'r)
-    				     (funcall separator-right face1 mode-line)
-    				     (powerline-raw " ")
-    				     (powerline-raw "%6p" nil 'r)
-    				     (powerline-hud face2 face1))))
-    		     (concat (powerline-render lhs)
-    			     (powerline-fill face2 (powerline-width rhs))
-    			     (powerline-render rhs)))))))
-    
-    (powerline-my-theme)
-    (powerline-my-theme)
+      ;; mode line theme
+    (require 'spaceline-config)
+    (spaceline-emacs-theme)
 
 
 <a id="add-custom-lisp-directory-to-load-path"></a>
@@ -681,12 +604,12 @@ We try to install most things using the package manager, but a few things need t
     ;; add custom lisp directory to path
     (let ((default-directory (concat user-emacs-directory "lisp/")))
       (setq load-path
-    	(append
-    	 (let ((load-path (copy-sequence load-path))) ;; Shadow
-    	   (append 
-    	    (copy-sequence (normal-top-level-add-to-load-path '(".")))
-    	    (normal-top-level-add-subdirs-to-load-path)))
-    	 load-path)))
+            (append
+             (let ((load-path (copy-sequence load-path))) ;; Shadow
+               (append 
+                (copy-sequence (normal-top-level-add-to-load-path '(".")))
+                (normal-top-level-add-subdirs-to-load-path)))
+             load-path)))
     
     ;; on OSX Emacs needs help setting up the system paths
     (when (memq window-system '(mac ns))
@@ -699,15 +622,15 @@ We try to install most things using the package manager, but a few things need t
 
     ;; enable on-the-fly spell checking
     (add-hook 'emacs-startup-hook
-    	  (lambda()
-    	    (add-hook 'text-mode-hook
-    		      (lambda ()
-    			(flyspell-mode 1)))
-    	    ;; prevent flyspell from finding mistakes in the code
-    	    (add-hook 'prog-mode-hook
-    		      (lambda ()
-    			;; `ispell-comments-and-strings'
-    			(flyspell-prog-mode)))))
+              (lambda()
+                (add-hook 'text-mode-hook
+                          (lambda ()
+                            (flyspell-mode 1)))
+                ;; prevent flyspell from finding mistakes in the code
+                (add-hook 'prog-mode-hook
+                          (lambda ()
+                            ;; `ispell-comments-and-strings'
+                            (flyspell-prog-mode)))))
     
     ;; ispell should not check code blocks in org mode
     (add-to-list 'ispell-skip-region-alist '(":\\(PROPERTIES\\|LOGBOOK\\):" . ":END:"))
@@ -742,6 +665,11 @@ If you're using [Vincent Goulet's emacs](http://vgoulet.act.ulaval.ca/en/emacs/w
 
 There are several different systems for providing completion hints in emacs. The default pcomplete system shows completions on demand (usually bound to tab key) in an emacs buffer. Here we set up ivy, which instead shows these completions on-the-fly in the minibuffer. These completions are primarily used to show available files (e.g., with `find-file`) and emacs functions (e.g., with `execute-extended-command`). Completion for in-buffer text (e.g., methods in python-mode, or arguments in R-mode) are handled separately by [company-mode](#auto-complete-configuration).
 
+    (ivy-mode 1)
+    
+    (setq ivy-use-virtual-buffers t)
+    (setq ivy-count-format "(%d/%d) ")
+    
     ;; Ivy-based interface to standard commands
     (global-set-key (kbd "C-s") 'swiper)
     (global-set-key (kbd "C-r") 'swiper)
@@ -802,15 +730,15 @@ Here we configure in-buffer text completion using the company-mode package. Thes
           (delete-dups (cons 'company-capf company-backends)))
     ;; theme
     (set-face-attribute 'company-scrollbar-bg nil
-    		    :background "gray")
+                        :background "gray")
     (set-face-attribute 'company-scrollbar-fg nil
-    		    :background "black")
+                        :background "black")
     (set-face-attribute 'company-tooltip nil
-    		    :foreground "black"
-    		    :background "lightgray")
+                        :foreground "black"
+                        :background "lightgray")
     (set-face-attribute 'company-tooltip-selection nil
-    		    :foreground "white"
-    		    :background "steelblue")
+                        :foreground "white"
+                        :background "steelblue")
     ;; ;; disable dabbrev
     ;; (delete 'company-dabbrev company-backends)
     ;; (delete 'company-dabbrev-code company-backends)
@@ -834,9 +762,9 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
     (setq outline-minor-mode-prefix "\C-c\C-o")
     ;; load outline-magic along with outline-minor-mode
     (add-hook 'outline-minor-mode-hook 
-    	  (lambda () 
-    	    (require 'outline-magic)
-    	    (define-key outline-minor-mode-map "\C-c\C-o\t" 'outline-cycle)))
+              (lambda () 
+                (require 'outline-magic)
+                (define-key outline-minor-mode-map "\C-c\C-o\t" 'outline-cycle)))
 
 
 <a id="major-modes-configuration"></a>
@@ -846,15 +774,15 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
 1.  Programming mode
 
         (add-hook 'prog-mode-hook
-        	  (lambda()
-        	    ;; turn on outline minor mode:
-        	    (add-hook 'prog-mode-hook 'outline-minor-mode)
-        	     ;; make sure completion calls company-capf first
-        	    (require 'company-capf)
-        	    (set (make-local-variable 'company-backends)
-        		 (cons 'company-capf company-backends))
-        	    (delete-dups company-backends)
-        	    ))
+                  (lambda()
+                    ;; turn on outline minor mode:
+                    (add-hook 'prog-mode-hook 'outline-minor-mode)
+                     ;; make sure completion calls company-capf first
+                    (require 'company-capf)
+                    (set (make-local-variable 'company-backends)
+                         (cons 'company-capf company-backends))
+                    (delete-dups company-backends)
+                    ))
 
 2.  General repl (read-eval-print-loop) config
 
@@ -866,8 +794,8 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
         
         ;; truncate lines in comint buffers
         (add-hook 'comint-mode-hook
-        	  (lambda()
-        	    (setq truncate-lines 1)))
+                  (lambda()
+                    (setq truncate-lines 1)))
 
 3.  Run R in emacs (ESS)
 
@@ -896,38 +824,38 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
           (setq my-windows-list (window-list))
             (while my-windows-list
               (when (with-selected-window (car my-windows-list) (string= "inferior-ess-mode" major-mode))
-        	(with-selected-window (car my-windows-list) (ess-execute-screen-options t)))
+                (with-selected-window (car my-windows-list) (ess-execute-screen-options t)))
               (setq my-windows-list (cdr my-windows-list))))
         
         (add-to-list 'window-size-change-functions 'my-ess-execute-screen-options)
         
         ;; truncate long lines in R source files
         (add-hook 'ess-mode-hook
-        	  (lambda()
-        	    ;; don't wrap long lines
-        	    (setq truncate-lines 1)
-        	    ;; better (but still not right) indentation
-        	    ;(setq ess-first-continued-statement-offset 2)
-        	    ;(setq ess-continued-statement-offset 0)
-        	    ;(setq ess-arg-function-offset nil)
-        	    ;(setq ess-arg-function-offset-new-line nil)
-        	    ;(setq ess-expression-offset nil)
+                  (lambda()
+                    ;; don't wrap long lines
+                    (setq truncate-lines 1)
+                    ;; better (but still not right) indentation
+                    ;(setq ess-first-continued-statement-offset 2)
+                    ;(setq ess-continued-statement-offset 0)
+                    ;(setq ess-arg-function-offset nil)
+                    ;(setq ess-arg-function-offset-new-line nil)
+                    ;(setq ess-expression-offset nil)
         
-        	    ;; ;; put company-capf at the front of the completion sources list
-        	    ;; (set (make-local-variable 'company-backends)
-        	    ;;      (cons 'company-capf company-backends))
-        	    ;; (delete-dups company-backends)
-        	    ))
+                    ;; ;; put company-capf at the front of the completion sources list
+                    ;; (set (make-local-variable 'company-backends)
+                    ;;      (cons 'company-capf company-backends))
+                    ;; (delete-dups company-backends)
+                    ))
 
 4.  Run python in emacs (elpy)
 
         ;; Python completion and code checking
         (setq elpy-modules '(elpy-module-company
-        		     elpy-module-eldoc
-        		     elpy-module-flymake
-        		     elpy-module-pyvenv
-        		     ;;  elpy-module-highlight-indentation ;breaks older emacs
-        		     elpy-module-sane-defaults))
+                             elpy-module-eldoc
+                             elpy-module-flymake
+                             elpy-module-pyvenv
+                             ;;  elpy-module-highlight-indentation ;breaks older emacs
+                             elpy-module-sane-defaults))
         (elpy-enable)
         ;; use ipython if available
         (if (executable-find "ipython")
@@ -935,10 +863,10 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
         
         ;; make sure completions don't start automatically
         (add-hook 'elpy-mode-hook
-        	   (lambda ()
+                   (lambda ()
         ;;              (require 'eval-in-repl-python)
         ;;              (define-key elpy-mode-map "\C-c\C-c" 'eir-eval-in-python)
-        	      (setq company-idle-delay nil)))
+                      (setq company-idle-delay nil)))
         
         ;; fix printing issue in python buffers
         ;; see http://debbugs.gnu.org/cgi/bugreport.cgi?bug=21077
@@ -957,13 +885,13 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
         
         ;; Set up completions
         (add-hook 'emacs-lisp-mode-hook
-        	  (lambda()
-        	     ;; make sure completion calls company-elisp first
-        	     (require 'company-elisp)
-        	     (set (make-local-variable 'company-backends)
-        		  (cons 'company-elisp company-backends))
-        	     (delete-dups company-backends)
-        	     ))
+                  (lambda()
+                     ;; make sure completion calls company-elisp first
+                     (require 'company-elisp)
+                     (set (make-local-variable 'company-backends)
+                          (cons 'company-elisp company-backends))
+                     (delete-dups company-backends)
+                     ))
 
 6.  Light-weight markup language (Markdown mode)
 
@@ -978,27 +906,27 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
             ;;; AucTeX config
         ;; turn on math mode and and index to imenu
         (add-hook 'LaTeX-mode-hook
-        	  (lambda ()
-        	    (turn-on-reftex)
-        	    (TeX-PDF-mode t)
-        	    (LaTeX-math-mode)
-        	    (TeX-source-correlate-mode t)
-        	    (imenu-add-to-menubar "Index")
-        	    (outline-minor-mode)
-        	    ;; completion
-        	    (setq-local company-backends
-        			(delete-dups (cons 'company-files
-        						company-backends)))
-        	    (setq-local company-backends
-        			(delete-dups (cons '(company-math-symbols-latex company-latex-commands company-math-symbols-unicode)
-        						company-backends)))
-        	    ;; Allow paragraph filling in tables
-        	    (setq LaTeX-indent-environment-list
-        		  (delq (assoc "table" LaTeX-indent-environment-list)
-        			LaTeX-indent-environment-list))
-        	    (setq LaTeX-indent-environment-list
-        		  (delq (assoc "table*" LaTeX-indent-environment-list)
-        			LaTeX-indent-environment-list))))
+                  (lambda ()
+                    (turn-on-reftex)
+                    (TeX-PDF-mode t)
+                    (LaTeX-math-mode)
+                    (TeX-source-correlate-mode t)
+                    (imenu-add-to-menubar "Index")
+                    (outline-minor-mode)
+                    ;; completion
+                    (setq-local company-backends
+                                (delete-dups (cons 'company-files
+                                                        company-backends)))
+                    (setq-local company-backends
+                                (delete-dups (cons '(company-math-symbols-latex company-latex-commands company-math-symbols-unicode)
+                                                        company-backends)))
+                    ;; Allow paragraph filling in tables
+                    (setq LaTeX-indent-environment-list
+                          (delq (assoc "table" LaTeX-indent-environment-list)
+                                LaTeX-indent-environment-list))
+                    (setq LaTeX-indent-environment-list
+                          (delq (assoc "table*" LaTeX-indent-environment-list)
+                                LaTeX-indent-environment-list))))
         ;; Misc. latex settings
         (setq TeX-parse-self t
               TeX-auto-save t)
@@ -1012,8 +940,8 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
         (setq reftex-use-multiple-selection-buffers t)
         (setq reftex-plug-into-AUCTeX t)
         (add-hook 'bibtex-mode-hook
-        	  (lambda ()
-        	    (define-key bibtex-mode-map "\M-q" 'bibtex-fill-entry)))
+                  (lambda ()
+                    (define-key bibtex-mode-map "\M-q" 'bibtex-fill-entry)))
         
         ;; ;; Try to make tex-command-run-all the default (doesn't work)
         ;; (eval-after-load "tex"
@@ -1040,8 +968,8 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
         (require 'org)
         (setq org-export-babel-evaluate nil)
         (set-face-attribute 'org-meta-line nil
-        		    :background nil
-        		    :foreground "#B0B0B0")
+                            :background nil
+                            :foreground "#B0B0B0")
         (setq org-startup-indented t)
         ;; increase imenu depth to include third level headings
         (setq org-imenu-depth 3)
@@ -1052,54 +980,54 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
         (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
         ;; configure org-mode when opening first org-mode file
         (add-hook 'org-mode-hook
-        	  (lambda()
-        	    (define-key org-mode-map (kbd "<C-tab>") 'company-complete)
-        	    ;; Load additional export formats
-        	    (require 'ox-odt)
-        	    (require 'ox-md)
-        	    (require 'ox-freemind)
-        	    (require 'ox-bibtex)
-        	    ;; Enable common programming language support in org-mode
-        	    (org-babel-do-load-languages
-        	     'org-babel-load-languages
-        	     '((R . t)
-        	       (python . t)
-        	       (matlab . t)
-        	       (emacs-lisp . t)
-        	       (sh . t)
-        	       (dot . t)
-        	       (latex . t)
-        	       (octave . t)
-        	       (ditaa . t)
-        	       (org . t)
-        	       (perl . t)
-        	       (julia . t)
-        	       ))
-        	    ;; Fontify code blocks in org-mode
-        	    (setq org-src-fontify-natively t)
-        	    (setq org-src-tab-acts-natively t)
-        	    (setq org-confirm-babel-evaluate nil)
-        	    (require 'org-capture)
-        	    (require 'org-protocol)
-        	    (require 'ob-stata)
-        	    (when (executable-find "ipython")
-        	      (setq org-babel-python-command
-        		    "ipython --pylab --pdb --nosep --classic --no-banner --no-confirm-exit")
-        	      ;; https://github.com/jorgenschaefer/elpy/issues/191
-        	      ;; https://lists.gnu.org/archive/html/emacs-orgmode/2014-03/msg00405.html
-        	      ;; make IPython work w/ Org
-        	      (defadvice org-babel-python-evaluate
-        		  (around org-python-use-cpaste
-        			  (session body &optional result-type result-params preamble) activate)
-        		"Add a %cpaste and '--' to the body, so that ipython does the right thing."
-        		(setq body (concat "%cpaste -q\n" body "\n--\n"))
-        		ad-do-it
-        		(if (stringp ad-return-value)
-        		    (setq ad-return-value
-        			  (replace-regexp-in-string
-        			   "\\(^Pasting code; enter '--' alone on the line to stop or use Ctrl-D\.[\r\n]:*\\)"
-        			   ""
-        			   ad-return-value)))))))
+                  (lambda()
+                    (define-key org-mode-map (kbd "<C-tab>") 'company-complete)
+                    ;; Load additional export formats
+                    (require 'ox-odt)
+                    (require 'ox-md)
+                    (require 'ox-freemind)
+                    (require 'ox-bibtex)
+                    ;; Enable common programming language support in org-mode
+                    (org-babel-do-load-languages
+                     'org-babel-load-languages
+                     '((R . t)
+                       (python . t)
+                       (matlab . t)
+                       (emacs-lisp . t)
+                       (sh . t)
+                       (dot . t)
+                       (latex . t)
+                       (octave . t)
+                       (ditaa . t)
+                       (org . t)
+                       (perl . t)
+                       (julia . t)
+                       ))
+                    ;; Fontify code blocks in org-mode
+                    (setq org-src-fontify-natively t)
+                    (setq org-src-tab-acts-natively t)
+                    (setq org-confirm-babel-evaluate nil)
+                    (require 'org-capture)
+                    (require 'org-protocol)
+                    (require 'ob-stata)
+                    (when (executable-find "ipython")
+                      (setq org-babel-python-command
+                            "ipython --pylab --pdb --nosep --classic --no-banner --no-confirm-exit")
+                      ;; https://github.com/jorgenschaefer/elpy/issues/191
+                      ;; https://lists.gnu.org/archive/html/emacs-orgmode/2014-03/msg00405.html
+                      ;; make IPython work w/ Org
+                      (defadvice org-babel-python-evaluate
+                          (around org-python-use-cpaste
+                                  (session body &optional result-type result-params preamble) activate)
+                        "Add a %cpaste and '--' to the body, so that ipython does the right thing."
+                        (setq body (concat "%cpaste -q\n" body "\n--\n"))
+                        ad-do-it
+                        (if (stringp ad-return-value)
+                            (setq ad-return-value
+                                  (replace-regexp-in-string
+                                   "\\(^Pasting code; enter '--' alone on the line to stop or use Ctrl-D\.[\r\n]:*\\)"
+                                   ""
+                                   ad-return-value)))))))
 
 9.  Multiple modes in one "buffer" (polymode)
 
@@ -1107,11 +1035,11 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
         
         ;; polymode requires emacs >= 24.3, does not work on the RCE. 
         (when (>= (string-to-number 
-        	   (concat 
-        	    (number-to-string emacs-major-version) 
-        	    "." 
-        	    (number-to-string emacs-minor-version)))
-        	  24.3)
+                   (concat 
+                    (number-to-string emacs-major-version) 
+                    "." 
+                    (number-to-string emacs-minor-version)))
+                  24.3)
           ;; Activate polymode for files with the .md extension
           (add-to-list 'auto-mode-alist '("\\.md" . poly-markdown-mode))
           ;; Activate polymode for R related modes
@@ -1130,9 +1058,9 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
         ;; show git status in dired
         (require 'diff-hl)
         (add-hook 'dired-mode-hook 
-        	  (lambda()
-        	    (diff-hl-dired-mode)
-        	    (diff-hl-margin-mode)))
+                  (lambda()
+                    (diff-hl-dired-mode)
+                    (diff-hl-margin-mode)))
         
         ;; show details by default
         (setq diredp-hide-details-initially-flag nil)
@@ -1145,44 +1073,44 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
         
         ;; more subdued colors
         (set-face-attribute 'diredp-ignored-file-name nil
-        		    :foreground "LightGray"
-        		    :background nil)
+                            :foreground "LightGray"
+                            :background nil)
         (set-face-attribute 'diredp-read-priv nil
-        		    :foreground "LightGray"
-        		    :background nil)
+                            :foreground "LightGray"
+                            :background nil)
         (set-face-attribute 'diredp-write-priv nil
-        		    :foreground "LightGray"
-        		    :background nil)
+                            :foreground "LightGray"
+                            :background nil)
         (set-face-attribute 'diredp-other-priv nil
-        		    :foreground "LightGray"
-        		    :background nil)
+                            :foreground "LightGray"
+                            :background nil)
         (set-face-attribute 'diredp-rare-priv nil
-        		    :foreground "LightGray"
-        		    :background nil)
+                            :foreground "LightGray"
+                            :background nil)
         (set-face-attribute 'diredp-no-priv nil
-        		    :foreground "LightGray"
-        		    :background nil)
+                            :foreground "LightGray"
+                            :background nil)
         (set-face-attribute 'diredp-exec-priv nil
-        		    :foreground "LightGray"
-        		    :background nil)
+                            :foreground "LightGray"
+                            :background nil)
         (set-face-attribute 'diredp-file-name nil
-        		    :weight 'bold
-        		    :background nil)
+                            :weight 'bold
+                            :background nil)
         (set-face-attribute 'diredp-dir-priv nil
-        		    :weight 'bold)
+                            :weight 'bold)
         (set-face-attribute 'diredp-file-suffix nil
-        		    :foreground nil)
+                            :foreground nil)
         
         ;; make sure dired buffers end in a slash so we can identify them easily
         (defun ensure-buffer-name-ends-in-slash ()
           "change buffer name to end with slash"
           (let ((name (buffer-name)))
             (if (not (string-match "/$" name))
-        	(rename-buffer (concat name "/") t))))
+                (rename-buffer (concat name "/") t))))
         (add-hook 'dired-mode-hook 'ensure-buffer-name-ends-in-slash)
         (add-hook 'dired-mode-hook
-        	  (lambda()
-        	     (setq truncate-lines 1)))
+                  (lambda()
+                     (setq truncate-lines 1)))
         
         ;; open files in external programs
         ;; (from http://ergoemacs.org/emacs/emacs_dired_open_file_in_ext_apps.html
@@ -1192,38 +1120,38 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
         The app is chosen from your OS's preference."
           (interactive)
           (let (doIt
-        	(myFileList
-        	 (cond
-        	  ((string-equal major-mode "dired-mode")
-        	   (dired-get-marked-files))
-        	  ((not file) (list (buffer-file-name)))
-        	  (file (list file)))))
+                (myFileList
+                 (cond
+                  ((string-equal major-mode "dired-mode")
+                   (dired-get-marked-files))
+                  ((not file) (list (buffer-file-name)))
+                  (file (list file)))))
             (setq doIt (if (<= (length myFileList) 5)
-        		   t
-        		 (y-or-n-p "Open more than 5 files? "))) 
+                           t
+                         (y-or-n-p "Open more than 5 files? "))) 
             (when doIt
               (cond
                ((string-equal system-type "windows-nt")
-        	(mapc
-        	 (lambda (fPath)
-        	   (w32-shell-execute "open" (replace-regexp-in-string "/" "\\" fPath t t)))
-        	 myFileList))
+                (mapc
+                 (lambda (fPath)
+                   (w32-shell-execute "open" (replace-regexp-in-string "/" "\\" fPath t t)))
+                 myFileList))
                ((string-equal system-type "darwin")
-        	(mapc
-        	 (lambda (fPath)
-        	   (shell-command (format "open \"%s\"" fPath)))
-        	 myFileList))
+                (mapc
+                 (lambda (fPath)
+                   (shell-command (format "open \"%s\"" fPath)))
+                 myFileList))
                ((string-equal system-type "gnu/linux")
-        	(mapc
-        	 (lambda (fPath)
-        	   (let ((process-connection-type nil))
-        	     (start-process "" nil "xdg-open" fPath))) myFileList))))))
+                (mapc
+                 (lambda (fPath)
+                   (let ((process-connection-type nil))
+                     (start-process "" nil "xdg-open" fPath))) myFileList))))))
         ;; open files from dired with "E"
         (define-key dired-mode-map (kbd "E") 'xah-open-in-external-app)
         ;; use zip/unzip to compress/uncompress zip archives
         (eval-after-load "dired-aux"
          '(add-to-list 'dired-compress-file-suffixes 
-        	       '("\\.zip\\'" "" "unzip")))
+                       '("\\.zip\\'" "" "unzip")))
 
 11. Shell modes (term, shell and eshell)
 
@@ -1235,8 +1163,8 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
         (require 'essh) ; if not done elsewhere; essh is in the local lisp folder
         (require 'eval-in-repl-shell)
         (add-hook 'sh-mode-hook
-        	  (lambda()
-        	     (local-set-key "\C-c\C-c" 'eir-eval-in-shell)))
+                  (lambda()
+                     (local-set-key "\C-c\C-c" 'eir-eval-in-shell)))
         
         
         ;; Automatically adjust output width in commint buffers
@@ -1246,7 +1174,7 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
           (when (derived-mode-p 'comint-mode)
             (let ((process (get-buffer-process (current-buffer))))
               (unless (eq nil process)
-        	(set-process-window-size process (window-height) (window-width))))))
+                (set-process-window-size process (window-height) (window-width))))))
         
         (defun my-shell-mode-hook ()
           ;; add this hook as buffer local, so it runs once per window.
@@ -1258,30 +1186,30 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
               (setq explicit-bash-args '("-c" "-t" "export EMACS=; stty echo; bash"))  
               (ansi-color-for-comint-mode-on)
               (add-hook 'shell-mode-hook
-        	  (lambda()
-        	     ;; make sure completion calls company-readline first
-        	     (require 'readline-complete)
-        	     (set (make-local-variable 'company-backends)
-        		  (cons 'company-readline company-backends))
-        	     (delete-dups company-backends)
-        	     ))
+                  (lambda()
+                     ;; make sure completion calls company-readline first
+                     (require 'readline-complete)
+                     (set (make-local-variable 'company-backends)
+                          (cons 'company-readline company-backends))
+                     (delete-dups company-backends)
+                     ))
               (add-hook 'rlc-no-readline-hook (lambda () (company-mode -1)))))
         
         (add-hook 'shell-mode-hook
-        	  (lambda()
-        	     ;; add this hook as buffer local, so it runs once per window.
-        	     (add-hook 'window-configuration-change-hook 'comint-fix-window-size nil t)))
+                  (lambda()
+                     ;; add this hook as buffer local, so it runs once per window.
+                     (add-hook 'window-configuration-change-hook 'comint-fix-window-size nil t)))
         
         ;; extra completion for eshell
         (add-hook 'eshell-mode-hook
-        	  (lambda()
-        	     (require 'pcmpl-args)
-        	     (require 'pcmpl-pip)
-        	     ;; programs that don't work well in eshell and should be run in visual mode
-        	     (add-to-list 'eshell-visual-commands "ssh")
-        	     (add-to-list 'eshell-visual-commands "tail")
-        	     (add-to-list 'eshell-visual-commands "htop")
-        	     (setq eshell-visual-subcommands '(("git" "log" "diff" "show")))))
+                  (lambda()
+                     (require 'pcmpl-args)
+                     (require 'pcmpl-pip)
+                     ;; programs that don't work well in eshell and should be run in visual mode
+                     (add-to-list 'eshell-visual-commands "ssh")
+                     (add-to-list 'eshell-visual-commands "tail")
+                     (add-to-list 'eshell-visual-commands "htop")
+                     (setq eshell-visual-subcommands '(("git" "log" "diff" "show")))))
 
 
 <a id="miscellaneous"></a>
@@ -1390,7 +1318,7 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
     ;; (set-window-buffer nil (current-buffer)) ; Use them now.
     ;; (fringe-mode '(5 . 5)) ; make fringe smaller
     (set-face-attribute 'fringe nil
-    		    :foreground "LightGray")
+                        :foreground "LightGray")
     (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
     (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
     (require 'adaptive-wrap)
@@ -1398,8 +1326,8 @@ I encourage you to use [org-mode](#note-taking-and-outlining) for note taking an
     (add-hook 'visual-line-mode-hook 'adaptive-wrap-prefix-mode)
     (add-hook 'text-mode-hook 'visual-line-mode 1)
     (add-hook 'prog-mode-hook
-    	  (lambda()
-    	    (setq truncate-lines 1)))
+              (lambda()
+                (setq truncate-lines 1)))
     
     ;; don't require two spaces for sentence end.
     (setq sentence-end-double-space nil)
