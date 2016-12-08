@@ -91,6 +91,7 @@
                         howdoi
                         google-this
                         leuven-theme
+                        spacemacs-theme
                         spaceline
                         persistent-soft
                         dired+
@@ -165,7 +166,7 @@ http://github.com/izahn/dotemacs/issues
                "\nfor information about these customizations.\n"))
 
 ;; finally a theme I can live with!
-  (load-theme 'leuven t) 
+  (load-theme 'spacemacs-light t) 
   ;; but it still needs a few tweeks
   (setq org-fontify-whole-heading-line nil)
 

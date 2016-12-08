@@ -10,7 +10,7 @@
 <li><a href="#modified-key-bindings">1.4. Modified key bindings</a>
 <ul>
 <li><a href="#completion-keys">1.4.1. Completion keys</a></li>
-<li><a href="#org4de6224">1.4.2. PC style copy/paste etc.</a></li>
+<li><a href="#orgb04bcd6">1.4.2. PC style copy/paste etc.</a></li>
 <li><a href="#other-key-bindings">1.4.3. Other key bindings</a></li>
 </ul>
 </li>
@@ -100,7 +100,7 @@ This configuration loads a lot of useful emacs packages (see[Suggested external 
 -   **M-x:** Remapped to `smex` to interactively search for interactive functions. Use `M-X` (note the capital "X") to restrict to commands for the active major mode.
 
 
-<a id="org4de6224"></a>
+<a id="orgb04bcd6"></a>
 
 ### PC style copy/paste etc.
 
@@ -505,6 +505,7 @@ The main purpose of these emacs configuration files is to install and configure 
                             howdoi
                             google-this
                             leuven-theme
+                            spacemacs-theme
                             spaceline
                             persistent-soft
                             dired+
@@ -586,7 +587,7 @@ The main purpose of these emacs configuration files is to install and configure 
 Loading the theme should come as early as possible in the init sequence to avoid jarring visual changes during startup, but must come after loading packages because we use a custom theme that needs to be installed first.
 
       ;; finally a theme I can live with!
-      (load-theme 'leuven t) 
+      (load-theme 'spacemacs-light t) 
       ;; but it still needs a few tweeks
       (setq org-fontify-whole-heading-line nil)
     

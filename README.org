@@ -355,6 +355,7 @@ The main purpose of these emacs configuration files is to install and configure 
                           howdoi
                           google-this
                           leuven-theme
+                          spacemacs-theme
                           spaceline
                           persistent-soft
                           dired+
@@ -440,7 +441,7 @@ Loading the theme should come as early as possible in the init sequence to avoid
 
 #+BEGIN_SRC emacs-lisp
   ;; finally a theme I can live with!
-  (load-theme 'leuven t) 
+  (load-theme 'spacemacs-light t) 
   ;; but it still needs a few tweeks
   (setq org-fontify-whole-heading-line nil)
 
