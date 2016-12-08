@@ -92,10 +92,11 @@
                         google-this
                         leuven-theme
                         powerline
+                        persistent-soft
                         dired+
                         mouse3
-                        ido-ubiquitous
-                        ido-vertical-mode
+                        swiper
+                        counsel
                         ;; noflet
                         browse-kill-ring
                         smex
@@ -295,126 +296,31 @@ http://github.com/izahn/dotemacs/issues
   (setq hfyview-quick-print-in-files-menu t)
   (require 'hfyview))
 
-;;; Completion hints for files and buffers buffers
-(setq ido-file-extensions-order '(".R" ".r" ".sh" ".tex" ".bib" ".org" 
-                                  ".py" ".emacs" ".xml" "org.el" ".pdf"
-                                  ".txt" ".html" ".png" ".ini" ".cfg" 
-                                  ".conf"))
+;; Ivy-based interface to standard commands
+(global-set-key (kbd "C-s") 'swiper)
+(global-set-key (kbd "C-r") 'swiper)
+(global-set-key (kbd "M-x") 'counsel-M-x)
+(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+(global-set-key (kbd "C-x C-r") 'counsel-recentf)
+(global-set-key (kbd "<f1> f") 'counsel-describe-function)
+(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+(global-set-key (kbd "<f1> l") 'counsel-load-library)
+(global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+;; Ivy-based interface to shell and system tools
+(global-set-key (kbd "C-c g") 'counsel-git)
+(global-set-key (kbd "C-c j") 'counsel-git-grep)
+(global-set-key (kbd "C-c k") 'counsel-ag)
+(global-set-key (kbd "C-x l") 'counsel-locate)
+(global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
+;; Ivy-resume and other commands
 
-;; load ido 
-(require 'ido)
-(setq ido-auto-merge-work-directories-length -1) ;; disable auto-merge
-(setq ido-use-virtual-buffers t) ;; show recent files in buffer menu
-(ido-mode 1)
-(ido-everywhere 1)
-(setq ido-enable-flex-matching t)
+(global-set-key (kbd "C-c C-r") 'ivy-resume)
 
-;; use ido everywhere you can
-(require 'ido-ubiquitous)
-(ido-ubiquitous-mode 1)
-
-;; present ido suggestions vertically
-(require 'ido-vertical-mode)
-(ido-vertical-mode 1)
-
-;; set nice ido decorations
-(setq ido-decorations '("\n➔ " "" "\n " "\n ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]" "\n➔ " ""))
-
-;; don't use ido for dired or menu-find-file
-(setq ido-read-file-name-non-ido '(dired menu-find-file-existing))
-
-;; color directories blue, firstmatch bold etc.
-(set-face-attribute 'ido-first-match nil
-                    :weight 'bold 
-                    :height '1.125
-                    :foreground "red")
-(set-face-attribute 'ido-only-match nil
-                    :weight 'bold 
-                    :height '1.125
-                    :foreground "ForestGreen")
-
-(set-face-attribute 'ido-subdir nil
-                    :foreground "blue")
-
-;; set sensible keys for id in vertical mode
-(setq ido-vertical-define-keys (quote C-n-C-p-up-down-left-right))
-
-;; use ido for kill-ring
-;;(require 'kill-ring-ido)
-;;(setq kill-ring-ido-shortage-length 20)
-
-;;(global-set-key (kbd "M-y") 'kill-ring-ido)
-
-;; show recently opened files
-(require 'recentf)
-(setq recentf-max-menu-items 50)
-(recentf-mode 1)
-
-(setq ido-use-virtual-buffers 'auto)
-
-(defun ido-recentf-open ()
-  "Use `ido-completing-read' to find a recent file."
-  (interactive)
-  (if (find-file (ido-completing-read "Find recent file: " recentf-list))
-      (message "Opening file...")
-    (message "Aborting")))
-
-(global-set-key (kbd "C-x C-r") 'ido-recentf-open)
-
-  ;;; Completion hints for emacs functions
-;; Horrible work-around to make smex work with emacs < 24.3:
-;; remove this part when emacs is updated.
-;; Check if Smex is supported
-(when (equal (cons 1 1)
-             (ignore-errors
-               (subr-arity (symbol-function 'execute-extended-command))))
-  (defun execute-extended-command (prefixarg &optional command-name)
-    "Read function name, then read its arguments and call it."
-    (interactive (list current-prefix-arg (read-extended-command)))
-    (if (null command-name)
-        (setq command-name (let ((current-prefix-arg prefixarg)) ; for prompt
-                             (read-extended-command))))
-    (let* ((function (and (stringp command-name) (intern-soft command-name)))
-           (binding (and suggest-key-bindings
-                         (not executing-kbd-macro)
-                         (where-is-internal function overriding-local-map t))))
-      (unless (commandp function)
-        (error "`%s' is not a valid command name" command-name))
-      (setq this-command function)
-      (setq real-this-command function)
-      (let ((prefix-arg prefixarg))
-        (command-execute function 'record))
-      (when binding
-        (let* ((waited
-                (sit-for (cond
-                          ((zerop (length (current-message))) 0)
-                          ((numberp suggest-key-bindings) suggest-key-bindings)
-                          (t 2)))))
-          (when (and waited (not (consp unread-command-events)))
-            (with-temp-message
-                (format "You can run the command `%s' with %s"
-                        function (key-description binding))
-              (sit-for (if (numberp suggest-key-bindings)
-                           suggest-key-bindings
-                         2)))))))))
-;; end horrible hack
-
-(smex-initialize)
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
-;; This is your old M-x.
-(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
-
-;; modify smex so that typing a space will insert a hyphen 
-;; (from http://www.emacswiki.org/Smex#toc6)
-(defadvice smex (around space-inserts-hyphen activate compile)
-  (let ((ido-cannot-complete-command 
-         (lambda ()
-            (interactive)
-            (if (string= " " (this-command-keys))
-                (insert ?-)
-              (funcall ,ido-cannot-complete-command)))))
-    ad-do-it))
+  ;; show recently opened files
+  (require 'recentf)
+  (setq recentf-max-menu-items 50)
+  (recentf-mode 1)
 
 ;;Use C-TAB to complete. We put this in eval-after-load 
 ;; because otherwise some modes will try to override our settings.
@@ -779,7 +685,7 @@ http://github.com/izahn/dotemacs/issues
                     :weight 'bold)
 (set-face-attribute 'diredp-file-suffix nil
                     :foreground nil)
-                  
+
 ;; make sure dired buffers end in a slash so we can identify them easily
 (defun ensure-buffer-name-ends-in-slash ()
   "change buffer name to end with slash"
