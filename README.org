@@ -362,6 +362,7 @@ The main purpose of these emacs configuration files is to install and configure 
                           mouse3
                           swiper
                           counsel
+                          which-key
                           ;; noflet
                           browse-kill-ring
                           smex
@@ -613,6 +614,20 @@ Here we configure in-buffer text completion using the company-mode package. Thes
   (require 'browse-kill-ring)
   (browse-kill-ring-default-keybindings)
 #+END_SRC
+
+*** Which-key
+:PROPERTIES:
+:CUSTOM_ID: which-key
+:END:
+
+This mode shows a keymap when an incomplete command is entered.
+
+
+#+BEGIN_SRC emacs-lisp
+(require 'which-key)
+(which-key-mode)
+#+END_SRC
+
 
 *** Outline-magic
 :PROPERTIES:

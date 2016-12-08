@@ -98,6 +98,7 @@
                         mouse3
                         swiper
                         counsel
+                        which-key
                         ;; noflet
                         browse-kill-ring
                         smex
@@ -298,6 +299,9 @@ http://github.com/izahn/dotemacs/issues
 ;; completion for kill ring history
 (require 'browse-kill-ring)
 (browse-kill-ring-default-keybindings)
+
+(require 'which-key)
+(which-key-mode)
 
 ;;; Configure outline minor modes
 ;; Less crazy key bindings for outline-minor-mode

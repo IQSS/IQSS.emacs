@@ -10,7 +10,7 @@
 <li><a href="#modified-key-bindings">1.4. Modified key bindings</a>
 <ul>
 <li><a href="#completion-keys">1.4.1. Completion keys</a></li>
-<li><a href="#org613b93f">1.4.2. PC style copy/paste etc.</a></li>
+<li><a href="#orgc0d1179">1.4.2. PC style copy/paste etc.</a></li>
 <li><a href="#other-key-bindings">1.4.3. Other key bindings</a></li>
 </ul>
 </li>
@@ -38,9 +38,10 @@
 <li><a href="#printing">2.3.8. Printing</a></li>
 <li><a href="#minibuffer-hints-and-completion">2.3.9. Minibuffer hints and completion</a></li>
 <li><a href="#auto-complete-configuration">2.3.10. Auto-complete configuration</a></li>
-<li><a href="#outline-magic">2.3.11. Outline-magic</a></li>
-<li><a href="#major-modes-configuration">2.3.12. Major modes configuration</a></li>
-<li><a href="#miscellaneous">2.3.13. Miscellaneous</a></li>
+<li><a href="#which-key">2.3.11. Which-key</a></li>
+<li><a href="#outline-magic">2.3.12. Outline-magic</a></li>
+<li><a href="#major-modes-configuration">2.3.13. Major modes configuration</a></li>
+<li><a href="#miscellaneous">2.3.14. Miscellaneous</a></li>
 </ul>
 </li>
 </ul>
@@ -100,7 +101,7 @@ This configuration loads a lot of useful emacs packages (see[Suggested external 
 -   **M-x:** Remapped to `smex` to interactively search for interactive functions. Use `M-X` (note the capital "X") to restrict to commands for the active major mode.
 
 
-<a id="org613b93f"></a>
+<a id="orgc0d1179"></a>
 
 ### PC style copy/paste etc.
 
@@ -752,6 +753,16 @@ Here we configure in-buffer text completion using the company-mode package. Thes
     ;; completion for kill ring history
     (require 'browse-kill-ring)
     (browse-kill-ring-default-keybindings)
+
+
+<a id="which-key"></a>
+
+### Which-key
+
+This mode shows a keymap when an incomplete command is entered.
+
+    (require 'which-key)
+    (which-key-mode)
 
 
 <a id="outline-magic"></a>
