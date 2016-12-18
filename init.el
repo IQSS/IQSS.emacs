@@ -19,15 +19,6 @@
 
 ;; use desktop mode, but only for frame layout
 ;; and only if running in windowed mode
-(when (display-graphic-p)
-  (setq desktop-load-locked-desktop t)
-  (setq desktop-buffers-not-to-save "^.*$")
-  (setq desktop-files-not-to-save "^.*$")
-  (setq desktop-save t)
-  (setq desktop-auto-save-timeout nil)
-  (setq desktop-globals-to-save nil)
-  (setq desktop-locals-to-save nil)
-  (desktop-save-mode 1)
   ;; always use fancy-startup, even on small screens
   ;; but only if running in windowed mode
   (defun always-use-fancy-splash-screens-p () 1)
@@ -36,8 +27,7 @@
             (lambda()
               (if inhibit-startup-screen
                   (add-hook 'emacs-startup-hook 
-                            (lambda() (switch-to-buffer "*scratch*")))
-                (add-hook 'desktop-after-read-hook 'fancy-startup-screen)))))
+                            (lambda() (switch-to-buffer "*scratch*"))))))
 
 ;; hide the toolbar
 (tool-bar-mode 0)
