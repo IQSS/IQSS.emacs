@@ -216,7 +216,7 @@ Emacs is many things to many people, being perhaps the most configurable text ed
 | Reproducible research              | Data analysis      | org-mode, polymode     | Installed, polymode (Melpa) not working on RCE |
 | Copy/paste with other apps         | Convenience        | x-select               | Built-in, turned on                            |
 | Word wrapping                      | Look-n-feel        | visual-line-mode       | Built-in, turned on                            |
-| Command hinting/completion         | Convenience        | smex                   | Installed and turned on                        |
+| Command hinting/completion         | Convenience        | ivy                    | Installed and turned on                        |
 | Programming auto-completion        | Convenience        | auto-complete/Company  | Installed and turned on                        |
 | Keep backup files out of the way   | Convenience        | backup-directory-alist | Built-in, turned on                            |
 | Cleaner interface                  | Look-n-feel        | tool-bar-mode          | Built-in, off by default                       |
