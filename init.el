@@ -77,7 +77,6 @@
                         auctex-latexmk
                         diminish
                         multi-term
-                        anzu
                         howdoi
                         google-this
                         leuven-theme
@@ -89,8 +88,6 @@
                         swiper
                         counsel
                         which-key
-                        ;; noflet
-                        browse-kill-ring
                         smex
                         outline-magic
                         smooth-scroll
@@ -100,15 +97,9 @@
                         markdown-mode
                         polymode
                         eval-in-repl
-                        pyvenv
                         elpy
                         exec-path-from-shell
                         htmlize
-                        pcmpl-args
-                        pcmpl-pip
-                        readline-complete
-                        ;;magit ;;need emacs 24.4 
-                        ;; org-mode packages
                         org-plus-contrib))
 
 ;; Activate package autoloads
@@ -179,6 +170,160 @@ http://github.com/izahn/dotemacs/issues
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
 
+;;; Misc. Conveniences
+;; get help from the web
+(require 'google-this)
+(google-this-mode 1)
+(require 'howdoi)
+
+;; window arrangement history
+;; (setq winner-dont-bind-my-keys t) 
+(winner-mode 1)
+
+  ;;; set up unicode
+(prefer-coding-system       'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(setq buffer-file-coding-system 'utf-8)                      
+(setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
+
+;; ;; use regex search by default
+;; (global-set-key (kbd "C-s") 'isearch-forward-regexp)
+;; (global-set-key (kbd "C-r") 'isearch-backward-regexp)
+
+;; Use spaces for indentation
+(setq-default indent-tabs-mode nil)
+
+;; Make sure copy-and-paste works with other programs
+;; (not needed in recent emacs?)
+;; (setq x-select-enable-clipboard t
+;;       x-select-enable-primary t
+;;       save-interprogram-paste-before-kill t)
+
+;; Text pasted with mouse should be inserted at cursor position
+(setq mouse-yank-at-point t)
+
+;; Mouse scrolling behavior
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
+(setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
+
+;; from https://github.com/bbatsov/prelude
+;; store all backup and autosave files in the tmp dir
+(setq backup-directory-alist
+`((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+`((".*" ,temporary-file-directory t)))
+;; autosave the undo-tree history
+(setq undo-tree-history-directory-alist
+`((".*" . ,temporary-file-directory)))
+(setq undo-tree-auto-save-history t)
+
+;; Apropos commands should search everything
+(setq apropos-do-all t)
+
+;; Store the places file in the emacs user directory
+(setq save-place-file (concat user-emacs-directory "places"))
+
+
+;; better naming of duplicate buffers
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+
+;; put cursor in last used position when re-opening file
+(require 'saveplace)
+(setq-default save-place t)
+
+;; Use y/n instead of yes/no
+(fset 'yes-or-no-p 'y-or-n-p)
+
+(transient-mark-mode 1) ; makes the region visible
+(line-number-mode 1)    ; makes the line number show up
+(column-number-mode 1)  ; makes the column number show up
+
+(show-paren-mode 1) ;; highlight matching paren
+
+;; smooth scrolling with C-up/C-down
+(require 'smooth-scroll)
+(smooth-scroll-mode)
+(global-set-key [(control down)] 'scroll-up-1)
+(global-set-key [(control up)] 'scroll-down-1)
+(global-set-key [(control left)] 'scroll-right-1)
+(global-set-key [(control right)] 'scroll-left-1)
+
+;; enable toggling paragraph un-fill
+;; from http://www.emacswiki.org/emacs/UnfillParagraph
+(defun unfill-paragraph ()
+  "Takes a multi-line paragraph and makes it into a single line of text."
+  (interactive)
+  (let ((fill-column (point-max)))
+    (fill-paragraph nil)))
+
+(define-key global-map "\M-Q" 'unfill-paragraph)
+
+;; line wrapping
+
+;; (setq-default fringes-outside-margins t)
+;; (setq-default left-margin-width 1 right-margin-width 1) ; Define new widths.
+;; (set-window-buffer nil (current-buffer)) ; Use them now.
+;; (fringe-mode '(5 . 5)) ; make fringe smaller
+(set-face-attribute 'fringe nil
+                    :foreground "LightGray")
+(setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
+(setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
+(require 'adaptive-wrap)
+(remove-hook 'text-mode-hook 'turn-on-auto-fill) ; vincent turns this on, we turn it off.
+(add-hook 'visual-line-mode-hook 'adaptive-wrap-prefix-mode)
+(add-hook 'text-mode-hook 'visual-line-mode 1)
+(add-hook 'prog-mode-hook
+          (lambda()
+            (setq truncate-lines 1)))
+
+;; don't require two spaces for sentence end.
+(setq sentence-end-double-space nil)
+
+;; Use CUA mode to make life easier for those who are not wizards
+(cua-mode t)
+;; Make control-z undo
+(global-set-key (kbd "C-z") 'undo)
+;; Make right-click do something close to what people expect
+(require 'mouse3)
+(global-set-key (kbd "<mouse-3>") 'mouse3-popup-menu)
+                                        ; (global-set-key (kbd "C-f") 'isearch-forward)
+                                        ; (global-set-key (kbd "C-s") 'save-buffer)
+(global-set-key (kbd "C-o") 'menu-find-file-existing)
+(define-key cua-global-keymap (kbd "<C-S-SPC>") nil)
+(setq cua-rectangle-mark-key [100663328])
+(define-key cua-global-keymap (kbd "<C-S-SPC>") 'cua-rectangle-mark-mode)
+
+(defadvice menu-find-file-existing (around find-file-read-args-always-use-dialog-box act)
+  "Simulate invoking menu item as if by the mouse; see `use-dialog-box'."
+  (let ((last-nonmenu-event nil))
+     ad-do-it))
+
+;; use windresize for changing window size
+(require 'windresize)
+;; use windmove for navigating windows
+(global-set-key (kbd "<M-S-left>")  'windmove-left)
+(global-set-key (kbd "<M-S-right>") 'windmove-right)
+(global-set-key (kbd "<M-S-up>")    'windmove-up)
+(global-set-key (kbd "<M-S-down>")  'windmove-down)
+;; The beeping can be annoying--turn it off
+;; (set-variable 'visible-bell t) ; buggy on OS X, see http://debbugs.gnu.org/cgi/bugreport.cgi?bug=21662
+
+;; save settings made using the customize interface to a sparate file
+(setq custom-file (concat user-emacs-directory "custom.el"))
+(unless (file-exists-p custom-file)
+  (write-region ";; Put user configuration here" nil custom-file))
+(load custom-file 'noerror)
+
+;; ;; clean up the mode line
+(require 'diminish)
+;; (diminish 'company-mode)
+(diminish 'google-this-mode)
+(diminish 'outline-minor-mode)
+(diminish 'smooth-scroll-mode)
+
 ;; enable on-the-fly spell checking
 (add-hook 'emacs-startup-hook
           (lambda()
@@ -243,15 +388,12 @@ http://github.com/izahn/dotemacs/issues
   (setq recentf-max-menu-items 50)
   (recentf-mode 1)
 
-;;Use C-TAB to complete. We put this in eval-after-load 
-;; because otherwise some modes will try to override our settings.
+;;Use M-/ to complete.
 (require 'company)
-;; don't start automatically 
-(setq company-idle-delay nil)
 ;; cancel if input doesn't match
 (setq company-require-match nil)
 ;; complete using C-TAB
-(global-set-key (kbd "<C-tab>") 'company-complete)
+(global-set-key (kbd "M-/") 'counsel-company)
 ;; use C-n and C-p to cycle through completions
 ;; (define-key company-mode-map (kbd "<tab>") 'company-complete)
 (define-key company-active-map (kbd "C-n") 'company-select-next)
@@ -260,8 +402,6 @@ http://github.com/izahn/dotemacs/issues
 (define-key company-active-map (kbd "<backtab>") 'company-select-previous)
 ;; enable math completions
 (require 'company-math)
-;; company-mode completions for ess
-;; (require 'company-ess)
 (add-to-list 'company-backends 'company-math-symbols-unicode)
 ;;(add-to-list 'company-backends 'company-math-symbols-latex)
 ;; put company-capf at the beginning of the list
@@ -285,10 +425,6 @@ http://github.com/izahn/dotemacs/issues
 
 
 (add-hook 'after-init-hook 'global-company-mode)
-
-;; completion for kill ring history
-(require 'browse-kill-ring)
-(browse-kill-ring-default-keybindings)
 
 (require 'which-key)
 (which-key-mode)
@@ -368,6 +504,7 @@ http://github.com/izahn/dotemacs/issues
             ;; (set (make-local-variable 'company-backends)
             ;;      (cons 'company-capf company-backends))
             ;; (delete-dups company-backends)
+            (define-key ess-mode-map (kbd "<C-return>") 'ess-eval-region-or-function-or-paragraph-and-step)
             ))
 
 ;; Python completion and code checking
@@ -385,8 +522,9 @@ http://github.com/izahn/dotemacs/issues
 ;; make sure completions don't start automatically
 (add-hook 'elpy-mode-hook
            (lambda ()
-;;              (require 'eval-in-repl-python)
-;;              (define-key elpy-mode-map "\C-c\C-c" 'eir-eval-in-python)
+              (require 'eval-in-repl-python)
+              (define-key elpy-mode-map "\C-c\C-c" 'eir-eval-in-python)
+              (define-key elpy-mode-map (kbd "<C-return>") 'eir-eval-in-python)
               (setq company-idle-delay nil)))
 
 ;; fix printing issue in python buffers
@@ -717,161 +855,3 @@ The app is chosen from your OS's preference."
              (add-to-list 'eshell-visual-commands "tail")
              (add-to-list 'eshell-visual-commands "htop")
              (setq eshell-visual-subcommands '(("git" "log" "diff" "show")))))
-
-;;; Misc. Conveniences
-
-;; show number of matches in mode line when searching
-(global-anzu-mode +1)
-
-;; get help from the web
-(require 'google-this)
-(google-this-mode 1)
-(require 'howdoi)
-
-;; window arrangement history
-;; (setq winner-dont-bind-my-keys t) 
-(winner-mode 1)
-
-  ;;; set up unicode
-(prefer-coding-system       'utf-8)
-(set-default-coding-systems 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(setq buffer-file-coding-system 'utf-8)                      
-(setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
-
-;; ;; use regex search by default
-;; (global-set-key (kbd "C-s") 'isearch-forward-regexp)
-;; (global-set-key (kbd "C-r") 'isearch-backward-regexp)
-
-;; Use spaces for indentation
-(setq-default indent-tabs-mode nil)
-
-;; Make sure copy-and-paste works with other programs
-;; (not needed in recent emacs?)
-;; (setq x-select-enable-clipboard t
-;;       x-select-enable-primary t
-;;       save-interprogram-paste-before-kill t)
-
-;; Text pasted with mouse should be inserted at cursor position
-(setq mouse-yank-at-point t)
-
-;; Mouse scrolling behavior
-(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
-(setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
-
-;; from https://github.com/bbatsov/prelude
-;; store all backup and autosave files in the tmp dir
-(setq backup-directory-alist
-`((".*" . ,temporary-file-directory)))
-(setq auto-save-file-name-transforms
-`((".*" ,temporary-file-directory t)))
-;; autosave the undo-tree history
-(setq undo-tree-history-directory-alist
-`((".*" . ,temporary-file-directory)))
-(setq undo-tree-auto-save-history t)
-
-;; Apropos commands should search everything
-(setq apropos-do-all t)
-
-;; Store the places file in the emacs user directory
-(setq save-place-file (concat user-emacs-directory "places"))
-
-
-;; better naming of duplicate buffers
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'forward)
-
-;; put cursor in last used position when re-opening file
-(require 'saveplace)
-(setq-default save-place t)
-
-;; Use y/n instead of yes/no
-(fset 'yes-or-no-p 'y-or-n-p)
-
-(transient-mark-mode 1) ; makes the region visible
-(line-number-mode 1)    ; makes the line number show up
-(column-number-mode 1)  ; makes the column number show up
-
-(show-paren-mode 1) ;; highlight matching paren
-
-;; smooth scrolling with C-up/C-down
-(require 'smooth-scroll)
-(smooth-scroll-mode)
-(global-set-key [(control down)] 'scroll-up-1)
-(global-set-key [(control up)] 'scroll-down-1)
-(global-set-key [(control left)] 'scroll-right-1)
-(global-set-key [(control right)] 'scroll-left-1)
-
-;; enable toggling paragraph un-fill
-;; from http://www.emacswiki.org/emacs/UnfillParagraph
-(defun unfill-paragraph ()
-  "Takes a multi-line paragraph and makes it into a single line of text."
-  (interactive)
-  (let ((fill-column (point-max)))
-    (fill-paragraph nil)))
-
-(define-key global-map "\M-Q" 'unfill-paragraph)
-
-;; line wrapping
-
-;; (setq-default fringes-outside-margins t)
-;; (setq-default left-margin-width 1 right-margin-width 1) ; Define new widths.
-;; (set-window-buffer nil (current-buffer)) ; Use them now.
-;; (fringe-mode '(5 . 5)) ; make fringe smaller
-(set-face-attribute 'fringe nil
-                    :foreground "LightGray")
-(setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
-(setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
-(require 'adaptive-wrap)
-(remove-hook 'text-mode-hook 'turn-on-auto-fill) ; vincent turns this on, we turn it off.
-(add-hook 'visual-line-mode-hook 'adaptive-wrap-prefix-mode)
-(add-hook 'text-mode-hook 'visual-line-mode 1)
-(add-hook 'prog-mode-hook
-          (lambda()
-            (setq truncate-lines 1)))
-
-;; don't require two spaces for sentence end.
-(setq sentence-end-double-space nil)
-
-;; Use CUA mode to make life easier for those who are not wizards
-(cua-mode t)
-;; Make control-z undo
-(global-set-key (kbd "C-z") 'undo)
-;; Make right-click do something close to what people expect
-(require 'mouse3)
-(global-set-key (kbd "<mouse-3>") 'mouse3-popup-menu)
-; (global-set-key (kbd "C-f") 'isearch-forward)
-; (global-set-key (kbd "C-s") 'save-buffer)
-(global-set-key (kbd "C-o") 'menu-find-file-existing)
-(define-key cua-global-keymap (kbd "<C-S-SPC>") nil)
-(define-key cua-global-keymap (kbd "<C-S-SPC>") 'cua-rectangle-mark-mode)
-
-(defadvice menu-find-file-existing (around find-file-read-args-always-use-dialog-box act)
-  "Simulate invoking menu item as if by the mouse; see `use-dialog-box'."
-  (let ((last-nonmenu-event nil))
-     ad-do-it))
-
-;; use windresize for changing window size
-(require 'windresize)
-;; use windmove for navigating windows
-(global-set-key (kbd "<M-S-left>")  'windmove-left)
-(global-set-key (kbd "<M-S-right>") 'windmove-right)
-(global-set-key (kbd "<M-S-up>")    'windmove-up)
-(global-set-key (kbd "<M-S-down>")  'windmove-down)
-;; The beeping can be annoying--turn it off
-;; (set-variable 'visible-bell t) ; buggy on OS X, see http://debbugs.gnu.org/cgi/bugreport.cgi?bug=21662
-
-;; save settings made using the customize interface to a sparate file
-(setq custom-file (concat user-emacs-directory "custom.el"))
-(unless (file-exists-p custom-file)
-  (write-region ";; Put user configuration here" nil custom-file))
-(load custom-file 'noerror)
-
-;; ;; clean up the mode line
-(require 'diminish)
-;; (diminish 'company-mode)
-(diminish 'anzu-mode)
-(diminish 'google-this-mode)
-(diminish 'outline-minor-mode)
-(diminish 'smooth-scroll-mode)
