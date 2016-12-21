@@ -364,6 +364,9 @@ The main purpose of these emacs configuration files is to install and configure 
                           polymode
                           eval-in-repl
                           elpy
+                          haskell-mode
+                          ghc
+                          company-ghc
                           exec-path-from-shell
                           htmlize
                           org-plus-contrib))
@@ -945,6 +948,19 @@ Load eval-in-repl for bash, elisp, and python interaction.
                     (cons 'company-elisp company-backends))
                (delete-dups company-backends)
                ))
+#+END_SRC
+
+**** Haskell
+
+#+BEGIN_SRC emacs-lisp
+  (autoload 'ghc-init "ghc" nil t)
+  (autoload 'ghc-debug "ghc" nil t)
+  (add-hook 'haskell-mode-hook (lambda ()
+                                 (ghc-init)
+                                 (require 'company-ghc)
+                                 (set (make-local-variable 'company-backends)
+                                      (cons 'company-ghc company-backends))
+                                 (delete-dups company-backends)))
 #+END_SRC
 
 **** Light-weight markup language (Markdown mode)

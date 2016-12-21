@@ -98,6 +98,9 @@
                         polymode
                         eval-in-repl
                         elpy
+                        haskell-mode
+                        ghc
+                        company-ghc
                         exec-path-from-shell
                         htmlize
                         org-plus-contrib))
@@ -549,6 +552,15 @@ http://github.com/izahn/dotemacs/issues
                   (cons 'company-elisp company-backends))
              (delete-dups company-backends)
              ))
+
+(autoload 'ghc-init "ghc" nil t)
+(autoload 'ghc-debug "ghc" nil t)
+(add-hook 'haskell-mode-hook (lambda ()
+                               (ghc-init)
+                               (require 'company-ghc)
+                               (set (make-local-variable 'company-backends)
+                                    (cons 'company-ghc company-backends))
+                               (delete-dups company-backends)))
 
 ;;; markdown mode
 
