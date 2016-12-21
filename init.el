@@ -81,7 +81,7 @@
                         google-this
                         leuven-theme
                         spacemacs-theme
-                        spaceline
+                        ;spaceline
                         persistent-soft
                         dired+
                         mouse3
@@ -90,7 +90,7 @@
                         which-key
                         smex
                         outline-magic
-                        smooth-scroll
+                        ;smooth-scroll
                         company
                         company-math
                         ess
@@ -150,14 +150,14 @@ http://github.com/izahn/dotemacs/issues
                 "Open the README file")
                "\nfor information about these customizations.\n"))
 
-;; finally a theme I can live with!
-  (load-theme 'spacemacs-light t) 
-  ;; but it still needs a few tweeks
-  (setq org-fontify-whole-heading-line nil)
+;;   ;; finally a theme I can live with!
+;;   (load-theme 'spacemacs-light t) 
+;;   ;; but it still needs a few tweeks
+;;   (setq org-fontify-whole-heading-line nil)
 
-  ;; mode line theme
-(require 'spaceline-config)
-(spaceline-emacs-theme)
+;;   ;; mode line theme
+;; (require 'spaceline-config)
+;; (spaceline-emacs-theme)
 
 ;; add custom lisp directory to path
 (let ((default-directory (concat user-emacs-directory "lisp/")))
@@ -246,15 +246,15 @@ http://github.com/izahn/dotemacs/issues
 
 (show-paren-mode 1) ;; highlight matching paren
 
-;; smooth scrolling with C-up/C-down
-(require 'smooth-scroll)
-(smooth-scroll-mode)
-(global-set-key [(control down)] 'scroll-up-1)
-(global-set-key [(control up)] 'scroll-down-1)
-(global-set-key [(control left)] 'scroll-right-1)
-(global-set-key [(control right)] 'scroll-left-1)
+;; ;; smooth scrolling with C-up/C-down
+;; (require 'smooth-scroll)
+;; (smooth-scroll-mode)
+;; (global-set-key [(control down)] 'scroll-up-1)
+;; (global-set-key [(control up)] 'scroll-down-1)
+;; (global-set-key [(control left)] 'scroll-right-1)
+;; (global-set-key [(control right)] 'scroll-left-1)
 
-;; enable toggling paragraph un-fill
+;; ;; enable toggling paragraph un-fill
 ;; from http://www.emacswiki.org/emacs/UnfillParagraph
 (defun unfill-paragraph ()
   "Takes a multi-line paragraph and makes it into a single line of text."
