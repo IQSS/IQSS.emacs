@@ -397,10 +397,16 @@ http://github.com/izahn/dotemacs/issues
 
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 
-  ;; show recently opened files
-  (require 'recentf)
-  (setq recentf-max-menu-items 50)
-  (recentf-mode 1)
+;; Make Ivy more like ido
+(define-key ivy-minibuffer-map (kbd "<return>") 'ivy-alt-done)
+(define-key ivy-minibuffer-map (kbd "C-d") 'ivy-done)
+(define-key ivy-minibuffer-map (kbd "C-b") 'ivy-immediate-done)
+(define-key ivy-minibuffer-map (kbd "C-f") 'ivy-immediate-done)
+
+;; show recently opened files
+(require 'recentf)
+(setq recentf-max-menu-items 50)
+(recentf-mode 1)
 
 ;;Use M-/ to complete.
 (require 'company)
