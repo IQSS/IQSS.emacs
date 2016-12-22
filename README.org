@@ -341,6 +341,7 @@ The main purpose of these emacs configuration files is to install and configure 
                           leuven-theme
                           spacemacs-theme
                           color-theme-sanityinc-tomorrow
+                          color-theme-sanityinc-solarized
                           zenburn-theme
                           afternoon-theme
                           ; spaceline ;; too slow!
@@ -427,11 +428,11 @@ The main purpose of these emacs configuration files is to install and configure 
 Loading the theme should come as early as possible in the init sequence to avoid jarring visual changes during startup, but must come after loading packages because we use a custom theme that needs to be installed first.
 
 #+BEGIN_SRC emacs-lisp
-  (load-theme 'afternoon t)
+  (load-theme 'sanityinc-tomorrow-day t)
 
   ;; mode line theme
   (add-hook 'after-init-hook 'sml/setup)
-  (setq sml/theme 'respectful)
+  (setq sml/theme 'light)
 
   ;; turn of scroll bar
   (scroll-bar-mode -1)

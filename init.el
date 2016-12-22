@@ -82,6 +82,7 @@
                         leuven-theme
                         spacemacs-theme
                         color-theme-sanityinc-tomorrow
+                        color-theme-sanityinc-solarized
                         zenburn-theme
                         afternoon-theme
                         ; spaceline ;; too slow!
@@ -156,11 +157,11 @@ http://github.com/izahn/dotemacs/issues
                 "Open the README file")
                "\nfor information about these customizations.\n"))
 
-(load-theme 'afternoon t)
+(load-theme 'sanityinc-tomorrow-day t)
 
 ;; mode line theme
 (add-hook 'after-init-hook 'sml/setup)
-(setq sml/theme 'respectful)
+(setq sml/theme 'light)
 
 ;; turn of scroll bar
 (scroll-bar-mode -1)
