@@ -554,14 +554,12 @@ http://github.com/izahn/dotemacs/issues
              (delete-dups company-backends)
              ))
 
-(autoload 'ghc-init "ghc" nil t)
-(autoload 'ghc-debug "ghc" nil t)
+(require 'company-ghci)
 (add-hook 'haskell-mode-hook (lambda ()
-                               (ghc-init)
-                               (require 'company-ghc)
                                (set (make-local-variable 'company-backends)
-                                    (cons 'company-ghc company-backends))
+                                    (cons 'company-ghci company-backends))
                                (delete-dups company-backends)))
+(add-hook 'haskell-interactive-mode-hook 'company-mode)
 
 ;;; markdown mode
 

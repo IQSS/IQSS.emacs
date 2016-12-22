@@ -947,14 +947,12 @@ Load eval-in-repl for bash, elisp, and python interaction.
 **** Haskell
 
 #+BEGIN_SRC emacs-lisp
-  (autoload 'ghc-init "ghc" nil t)
-  (autoload 'ghc-debug "ghc" nil t)
+  (require 'company-ghci)
   (add-hook 'haskell-mode-hook (lambda ()
-                                 (ghc-init)
-                                 (require 'company-ghc)
                                  (set (make-local-variable 'company-backends)
-                                      (cons 'company-ghc company-backends))
+                                      (cons 'company-ghci company-backends))
                                  (delete-dups company-backends)))
+  (add-hook 'haskell-interactive-mode-hook 'company-mode)
 #+END_SRC
 
 **** Light-weight markup language (Markdown mode)
