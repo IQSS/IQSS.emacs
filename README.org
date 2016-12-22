@@ -341,11 +341,13 @@ The main purpose of these emacs configuration files is to install and configure 
                           leuven-theme
                           spacemacs-theme
                           color-theme-sanityinc-tomorrow
+                          zenburn-theme
+                          afternoon-theme
                           ; spaceline ;; too slow!
                           smart-mode-line
                           persistent-soft
                           dired+
-                          workgroups2
+                          eyebrowse
                           mouse3
                           swiper
                           counsel
@@ -425,12 +427,11 @@ The main purpose of these emacs configuration files is to install and configure 
 Loading the theme should come as early as possible in the init sequence to avoid jarring visual changes during startup, but must come after loading packages because we use a custom theme that needs to be installed first.
 
 #+BEGIN_SRC emacs-lisp
-  (require 'color-theme-sanityinc-tomorrow)
-  (load-theme 'sanityinc-tomorrow-day t)
+  (load-theme 'afternoon t)
 
   ;; mode line theme
   (add-hook 'after-init-hook 'sml/setup)
-  (setq sml/theme 'light)
+  (setq sml/theme 'respectful)
 
   ;; turn of scroll bar
   (scroll-bar-mode -1)
@@ -606,12 +607,10 @@ This section sets up various utilities and conveniences. Many of these are low p
   (global-set-key (kbd "<M-S-up>")    'windmove-up)
   (global-set-key (kbd "<M-S-down>")  'windmove-down)
 
-  ;; Workgroups2
-  (require 'workgroups2)
-  (setq wg-prefix-key (kbd "C-c w"))
-  (workgroups-mode 1)
+  ;; Work spaces
+  (require 'eyebrowse)
+  (eyebrowse-mode t)
 
-  (add-hook 'after-init-hook 'sml/setup)
   ;; The beeping can be annoying--turn it off
   ;; (set-variable 'visible-bell t) ; buggy on OS X, see http://debbugs.gnu.org/cgi/bugreport.cgi?bug=21662
 
@@ -690,6 +689,7 @@ There are several different systems for providing completion hints in emacs. The
 
 (setq ivy-use-virtual-buffers t)
 (setq ivy-count-format "(%d/%d) ")
+(setq ivy-display-style nil)
 
 ;; Ivy-based interface to standard commands
 (global-set-key (kbd "C-s") 'swiper)

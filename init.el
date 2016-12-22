@@ -82,11 +82,13 @@
                         leuven-theme
                         spacemacs-theme
                         color-theme-sanityinc-tomorrow
+                        zenburn-theme
+                        afternoon-theme
                         ; spaceline ;; too slow!
                         smart-mode-line
                         persistent-soft
                         dired+
-                        workgroups2
+                        eyebrowse
                         mouse3
                         swiper
                         counsel
@@ -154,12 +156,11 @@ http://github.com/izahn/dotemacs/issues
                 "Open the README file")
                "\nfor information about these customizations.\n"))
 
-(require 'color-theme-sanityinc-tomorrow)
-(load-theme 'sanityinc-tomorrow-day t)
+(load-theme 'afternoon t)
 
 ;; mode line theme
 (add-hook 'after-init-hook 'sml/setup)
-(setq sml/theme 'light)
+(setq sml/theme 'respectful)
 
 ;; turn of scroll bar
 (scroll-bar-mode -1)
@@ -316,12 +317,10 @@ http://github.com/izahn/dotemacs/issues
 (global-set-key (kbd "<M-S-up>")    'windmove-up)
 (global-set-key (kbd "<M-S-down>")  'windmove-down)
 
-;; Workgroups2
-(require 'workgroups2)
-(setq wg-prefix-key (kbd "C-c w"))
-(workgroups-mode 1)
+;; Work spaces
+(require 'eyebrowse)
+(eyebrowse-mode t)
 
-(add-hook 'after-init-hook 'sml/setup)
 ;; The beeping can be annoying--turn it off
 ;; (set-variable 'visible-bell t) ; buggy on OS X, see http://debbugs.gnu.org/cgi/bugreport.cgi?bug=21662
 
@@ -373,6 +372,7 @@ http://github.com/izahn/dotemacs/issues
 
 (setq ivy-use-virtual-buffers t)
 (setq ivy-count-format "(%d/%d) ")
+(setq ivy-display-style nil)
 
 ;; Ivy-based interface to standard commands
 (global-set-key (kbd "C-s") 'swiper)
