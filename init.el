@@ -724,6 +724,35 @@ http://github.com/izahn/dotemacs/issues
   (add-to-list 'auto-mode-alist '("\\.Rcpp" . poly-r+c++-mode))
   (add-to-list 'auto-mode-alist '("\\.cppR" . poly-c++r-mode)))
 
+(require 'mu4e)
+
+(setq mu4e-headers-include-related t
+      mu4e-headers-skip-duplicates t
+      mu4e-headers-fields '(
+                            (:human-date . 12)
+                            (:flags . 6)
+                            (:mailing-list . 10)
+                            (:from-or-to . 22)
+                            (:thread-subject)))
+
+
+;; don't keep message buffers around
+(setq message-kill-buffer-on-exit t)
+
+;; enable notifications
+(setq mu4e-enable-mode-line t)
+
+;; use org for composing rich text emails
+(require 'org-mu4e)
+(setq org-mu4e-convert-to-html t)
+
+(define-key mu4e-headers-mode-map (kbd "C-c c") 'org-mu4e-store-and-capture)
+(define-key mu4e-view-mode-map    (kbd "C-c c") 'org-mu4e-store-and-capture)
+
+;; render html
+(require 'mu4e-contrib)
+(setq mu4e-html2text-command 'mu4e-shr2text)
+
 ;;; Dired and Dired+ configuration
 ;; show git status in dired
 (require 'diff-hl)
