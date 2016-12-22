@@ -78,13 +78,6 @@
                         diminish
                         multi-term
                         howdoi
-                        google-this
-                        leuven-theme
-                        spacemacs-theme
-                        color-theme-sanityinc-tomorrow
-                        color-theme-sanityinc-solarized
-                        zenburn-theme
-                        afternoon-theme
                         ; spaceline ;; too slow!
                         smart-mode-line
                         persistent-soft
@@ -157,7 +150,7 @@ http://github.com/izahn/dotemacs/issues
                 "Open the README file")
                "\nfor information about these customizations.\n"))
 
-(load-theme 'sanityinc-tomorrow-day t)
+;; (load-theme 'sanityinc-tomorrow-day t)
 
 ;; mode line theme
 (add-hook 'after-init-hook 'sml/setup)
@@ -182,8 +175,6 @@ http://github.com/izahn/dotemacs/issues
 
 ;;; Misc. Conveniences
 ;; get help from the web
-(require 'google-this)
-(google-this-mode 1)
 (require 'howdoi)
 
 ;; window arrangement history
