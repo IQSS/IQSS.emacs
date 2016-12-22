@@ -81,7 +81,9 @@
                         google-this
                         leuven-theme
                         spacemacs-theme
-                        ;spaceline
+                        color-theme-sanityinc-tomorrow
+                        ; spaceline ;; too slow!
+                        smart-mode-line
                         persistent-soft
                         dired+
                         mouse3
@@ -100,7 +102,7 @@
                         elpy
                         haskell-mode
                         ghc
-                        company-ghc
+                        company-ghci
                         exec-path-from-shell
                         htmlize
                         org-plus-contrib))
@@ -150,14 +152,15 @@ http://github.com/izahn/dotemacs/issues
                 "Open the README file")
                "\nfor information about these customizations.\n"))
 
-;;   ;; finally a theme I can live with!
-;;   (load-theme 'spacemacs-light t) 
-;;   ;; but it still needs a few tweeks
-;;   (setq org-fontify-whole-heading-line nil)
+(require 'color-theme-sanityinc-tomorrow)
+(load-theme 'sanityinc-tomorrow-night t)
 
-;;   ;; mode line theme
-;; (require 'spaceline-config)
-;; (spaceline-emacs-theme)
+;; mode line theme
+(sml/setup)
+(setq sml/theme 'respectful)
+
+;; turn of scroll bar
+(scroll-bar-mode -1)
 
 ;; add custom lisp directory to path
 (let ((default-directory (concat user-emacs-directory "lisp/")))
@@ -255,13 +258,8 @@ http://github.com/izahn/dotemacs/issues
 ;; (global-set-key [(control right)] 'scroll-left-1)
 
 ;; ;; enable toggling paragraph un-fill
-;; from http://www.emacswiki.org/emacs/UnfillParagraph
-(defun unfill-paragraph ()
-  "Takes a multi-line paragraph and makes it into a single line of text."
-  (interactive)
-  (let ((fill-column (point-max)))
-    (fill-paragraph nil)))
 
+(require 'unfill)
 (define-key global-map "\M-Q" 'unfill-paragraph)
 
 ;; line wrapping
@@ -285,26 +283,29 @@ http://github.com/izahn/dotemacs/issues
 ;; don't require two spaces for sentence end.
 (setq sentence-end-double-space nil)
 
-;; Use CUA mode to make life easier for those who are not wizards
+;; Use CUA mode to make life easier. We do NOT use standard copy/paste etc. 
 (cua-mode t)
-;; Make control-z undo
-(global-set-key (kbd "C-z") 'undo)
+(cua-selection-mode t)
+
+;; ;; Make control-z undo
+;; (global-set-key (kbd "C-z") 'undo)
+;; ;; 
 ;; Make right-click do something close to what people expect
 (require 'mouse3)
 (global-set-key (kbd "<mouse-3>") 'mouse3-popup-menu)
-                                        ; (global-set-key (kbd "C-f") 'isearch-forward)
-                                        ; (global-set-key (kbd "C-s") 'save-buffer)
-(global-set-key (kbd "C-o") 'menu-find-file-existing)
+;; (global-set-key (kbd "C-f") 'isearch-forward)
+;; (global-set-key (kbd "C-s") 'save-buffer)
+;; (global-set-key (kbd "C-o") 'counsel-find-file)
 (define-key cua-global-keymap (kbd "<C-S-SPC>") nil)
 (setq cua-rectangle-mark-key [100663328])
 (define-key cua-global-keymap (kbd "<C-S-SPC>") 'cua-rectangle-mark-mode)
 
-(defadvice menu-find-file-existing (around find-file-read-args-always-use-dialog-box act)
-  "Simulate invoking menu item as if by the mouse; see `use-dialog-box'."
-  (let ((last-nonmenu-event nil))
-     ad-do-it))
+;; (defadvice menu-find-file-existing (around find-file-read-args-always-use-dialog-box act)
+;;   "Simulate invoking menu item as if by the mouse; see `use-dialog-box'."
+;;   (let ((last-nonmenu-event nil))
+;;      ad-do-it))
 
-;; use windresize for changing window size
+;; ;; use windresize for changing window size
 (require 'windresize)
 ;; use windmove for navigating windows
 (global-set-key (kbd "<M-S-left>")  'windmove-left)

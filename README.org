@@ -1,7 +1,7 @@
 # -*- eval: (save-excursion (org-babel-goto-named-src-block "Preamble") (org-babel-execute-src-block)) -*-
 #+AUTHOR:  Ista Zahn
 #+TITLE: An emacs config for social scientists
-
+sanityinc-tomorrow
 #+STARTUP: showall
 #+PROPERTY: header-args:emacs-lisp    :tangle init.el
 
@@ -46,6 +46,9 @@ Note that after installing this configuration emacs will be extremely slow to st
 :END:
 This configuration loads a lot of useful emacs packages (see[[#suggested-external-programs][Suggested external programs]] for the list), many of which add key bindings. Documenting them all here would be too much (see the documentation for each package if you need the details), so this section describes only those key bindings that we explicitly added or changed.
 
+*** REPL interaction
+- C-RET :: Mapped to language specific line/selection/expression evaluation. Want to evaluate code from a script? =C-RET= should "just work".
+
 *** Completion keys
 :PROPERTIES:
 :CUSTOM_ID: completion-keys
@@ -53,16 +56,6 @@ This configuration loads a lot of useful emacs packages (see[[#suggested-externa
 - M-/ :: Mapped to =councel-company=, use for completion menu.
 - M-y :: Remapped to =browse-kill-ring= to browse the kill ring interactively.
 - M-x :: Remapped to =smex= to interactively search for interactive functions. Use =M-X= (note the capital "X") to restrict to commands for the active major mode.
-
-*** PC style copy/paste etc. 
-While making emacs work exactly as a typical novice expects it to is a losing battle, some effort has been made to make the most commonly used keybindings work as most people expect. In particular:
-- S-<arrow> :: Selects text
-- C-c :: Copies selection
-- C-x :: Deletes selection
-- C-z :: Undo last change
-- S-C-z :: Redo last undo
-- C-o :: Opens file
-
 
 *** Other key bindings
 :PROPERTIES:
@@ -347,7 +340,9 @@ The main purpose of these emacs configuration files is to install and configure 
                           google-this
                           leuven-theme
                           spacemacs-theme
-                          ;spaceline
+                          color-theme-sanityinc-tomorrow
+                          ; spaceline ;; too slow!
+                          smart-mode-line
                           persistent-soft
                           dired+
                           mouse3
@@ -366,7 +361,7 @@ The main purpose of these emacs configuration files is to install and configure 
                           elpy
                           haskell-mode
                           ghc
-                          company-ghc
+                          company-ghci
                           exec-path-from-shell
                           htmlize
                           org-plus-contrib))
@@ -428,14 +423,15 @@ The main purpose of these emacs configuration files is to install and configure 
 Loading the theme should come as early as possible in the init sequence to avoid jarring visual changes during startup, but must come after loading packages because we use a custom theme that needs to be installed first.
 
 #+BEGIN_SRC emacs-lisp
-  ;;   ;; finally a theme I can live with!
-  ;;   (load-theme 'spacemacs-light t) 
-  ;;   ;; but it still needs a few tweeks
-  ;;   (setq org-fontify-whole-heading-line nil)
+  (require 'color-theme-sanityinc-tomorrow)
+  (load-theme 'sanityinc-tomorrow-night t)
 
-  ;;   ;; mode line theme
-  ;; (require 'spaceline-config)
-  ;; (spaceline-emacs-theme)
+  ;; mode line theme
+  (sml/setup)
+  (setq sml/theme 'respectful)
+
+  ;; turn of scroll bar
+  (scroll-bar-mode -1)
 #+END_SRC
 *** Add custom lisp directory to load path
 :PROPERTIES:
@@ -552,13 +548,8 @@ This section sets up various utilities and conveniences. Many of these are low p
   ;; (global-set-key [(control right)] 'scroll-left-1)
 
   ;; ;; enable toggling paragraph un-fill
-  ;; from http://www.emacswiki.org/emacs/UnfillParagraph
-  (defun unfill-paragraph ()
-    "Takes a multi-line paragraph and makes it into a single line of text."
-    (interactive)
-    (let ((fill-column (point-max)))
-      (fill-paragraph nil)))
 
+  (require 'unfill)
   (define-key global-map "\M-Q" 'unfill-paragraph)
 
   ;; line wrapping
@@ -582,26 +573,29 @@ This section sets up various utilities and conveniences. Many of these are low p
   ;; don't require two spaces for sentence end.
   (setq sentence-end-double-space nil)
 
-  ;; Use CUA mode to make life easier for those who are not wizards
+  ;; Use CUA mode to make life easier. We do NOT use standard copy/paste etc. 
   (cua-mode t)
-  ;; Make control-z undo
-  (global-set-key (kbd "C-z") 'undo)
+  (cua-selection-mode t)
+
+  ;; ;; Make control-z undo
+  ;; (global-set-key (kbd "C-z") 'undo)
+  ;; ;; 
   ;; Make right-click do something close to what people expect
   (require 'mouse3)
   (global-set-key (kbd "<mouse-3>") 'mouse3-popup-menu)
-                                          ; (global-set-key (kbd "C-f") 'isearch-forward)
-                                          ; (global-set-key (kbd "C-s") 'save-buffer)
-  (global-set-key (kbd "C-o") 'menu-find-file-existing)
+  ;; (global-set-key (kbd "C-f") 'isearch-forward)
+  ;; (global-set-key (kbd "C-s") 'save-buffer)
+  ;; (global-set-key (kbd "C-o") 'counsel-find-file)
   (define-key cua-global-keymap (kbd "<C-S-SPC>") nil)
   (setq cua-rectangle-mark-key [100663328])
   (define-key cua-global-keymap (kbd "<C-S-SPC>") 'cua-rectangle-mark-mode)
 
-  (defadvice menu-find-file-existing (around find-file-read-args-always-use-dialog-box act)
-    "Simulate invoking menu item as if by the mouse; see `use-dialog-box'."
-    (let ((last-nonmenu-event nil))
-       ad-do-it))
+  ;; (defadvice menu-find-file-existing (around find-file-read-args-always-use-dialog-box act)
+  ;;   "Simulate invoking menu item as if by the mouse; see `use-dialog-box'."
+  ;;   (let ((last-nonmenu-event nil))
+  ;;      ad-do-it))
 
-  ;; use windresize for changing window size
+  ;; ;; use windresize for changing window size
   (require 'windresize)
   ;; use windmove for navigating windows
   (global-set-key (kbd "<M-S-left>")  'windmove-left)
