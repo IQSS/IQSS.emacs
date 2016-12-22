@@ -92,7 +92,7 @@
                         which-key
                         smex
                         outline-magic
-                        ;smooth-scroll
+                        smooth-scroll
                         company
                         company-math
                         ess
@@ -250,14 +250,14 @@ http://github.com/izahn/dotemacs/issues
 (show-paren-mode 1) ;; highlight matching paren
 
 ;; ;; smooth scrolling with C-up/C-down
-;; (require 'smooth-scroll)
-;; (smooth-scroll-mode)
-;; (global-set-key [(control down)] 'scroll-up-1)
-;; (global-set-key [(control up)] 'scroll-down-1)
-;; (global-set-key [(control left)] 'scroll-right-1)
-;; (global-set-key [(control right)] 'scroll-left-1)
+(require 'smooth-scroll)
+(smooth-scroll-mode)
+(global-set-key [(control down)] 'scroll-up-1)
+(global-set-key [(control up)] 'scroll-down-1)
+(global-set-key [(control left)] 'scroll-right-1)
+(global-set-key [(control right)] 'scroll-left-1)
 
-;; ;; enable toggling paragraph un-fill
+;; enable toggling paragraph un-fill
 
 (require 'unfill)
 (define-key global-map "\M-Q" 'unfill-paragraph)
