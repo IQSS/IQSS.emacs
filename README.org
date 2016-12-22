@@ -337,6 +337,7 @@ The main purpose of these emacs configuration files is to install and configure 
                           diminish
                           multi-term
                           howdoi
+                          moe-theme
                           ; spaceline ;; too slow!
                           smart-mode-line
                           persistent-soft
@@ -425,7 +426,10 @@ Loading the theme should come as early as possible in the init sequence to avoid
 
   ;; mode line theme
   (add-hook 'after-init-hook 'sml/setup)
-  (setq sml/theme 'light)
+  (setq sml/theme 'dark)
+
+  (require 'moe-theme)
+  (moe-dark)
 
   ;; turn of scroll bar
   (scroll-bar-mode -1)

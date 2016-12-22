@@ -78,6 +78,7 @@
                         diminish
                         multi-term
                         howdoi
+                        moe-theme
                         ; spaceline ;; too slow!
                         smart-mode-line
                         persistent-soft
@@ -154,7 +155,10 @@ http://github.com/izahn/dotemacs/issues
 
 ;; mode line theme
 (add-hook 'after-init-hook 'sml/setup)
-(setq sml/theme 'light)
+(setq sml/theme 'dark)
+
+(require 'moe-theme)
+(moe-dark)
 
 ;; turn of scroll bar
 (scroll-bar-mode -1)
