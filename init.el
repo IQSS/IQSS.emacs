@@ -93,6 +93,7 @@
                         smex
                         outline-magic
                         smooth-scroll
+                        unfill
                         company
                         company-math
                         ess

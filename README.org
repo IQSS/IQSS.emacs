@@ -352,6 +352,7 @@ The main purpose of these emacs configuration files is to install and configure 
                           smex
                           outline-magic
                           smooth-scroll
+                          unfill
                           company
                           company-math
                           ess
