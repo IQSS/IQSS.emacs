@@ -86,6 +86,7 @@
                         smart-mode-line
                         persistent-soft
                         dired+
+                        workgroups2
                         mouse3
                         swiper
                         counsel
@@ -154,11 +155,11 @@ http://github.com/izahn/dotemacs/issues
                "\nfor information about these customizations.\n"))
 
 (require 'color-theme-sanityinc-tomorrow)
-(load-theme 'sanityinc-tomorrow-night t)
+(load-theme 'sanityinc-tomorrow-day t)
 
 ;; mode line theme
-(sml/setup)
-(setq sml/theme 'respectful)
+(add-hook 'after-init-hook 'sml/setup)
+(setq sml/theme 'light)
 
 ;; turn of scroll bar
 (scroll-bar-mode -1)
@@ -298,7 +299,8 @@ http://github.com/izahn/dotemacs/issues
 ;; (global-set-key (kbd "C-s") 'save-buffer)
 ;; (global-set-key (kbd "C-o") 'counsel-find-file)
 (define-key cua-global-keymap (kbd "<C-S-SPC>") nil)
-(setq cua-rectangle-mark-key [100663328])
+(define-key cua-global-keymap (kbd "<C-return>") nil)
+(setq cua-rectangle-mark-key (kbd "<C-S-SPC>"))
 (define-key cua-global-keymap (kbd "<C-S-SPC>") 'cua-rectangle-mark-mode)
 
 ;; (defadvice menu-find-file-existing (around find-file-read-args-always-use-dialog-box act)
@@ -313,6 +315,13 @@ http://github.com/izahn/dotemacs/issues
 (global-set-key (kbd "<M-S-right>") 'windmove-right)
 (global-set-key (kbd "<M-S-up>")    'windmove-up)
 (global-set-key (kbd "<M-S-down>")  'windmove-down)
+
+;; Workgroups2
+(require 'workgroups2)
+(setq wg-prefix-key (kbd "C-c w"))
+(workgroups-mode 1)
+
+(add-hook 'after-init-hook 'sml/setup)
 ;; The beeping can be annoying--turn it off
 ;; (set-variable 'visible-bell t) ; buggy on OS X, see http://debbugs.gnu.org/cgi/bugreport.cgi?bug=21662
 
