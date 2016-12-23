@@ -1,14 +1,8 @@
-# -*- eval: (save-excursion (org-babel-goto-named-src-block "Preamble") (org-babel-execute-src-block)) -*-
 #+AUTHOR:  Ista Zahn
 #+TITLE: An emacs config for social scientists
 sanityinc-tomorrow
 #+STARTUP: showall
 #+PROPERTY: header-args:emacs-lisp    :tangle init.el
-
-#+NAME: Preamble
-#+BEGIN_SRC emacs-lisp :results silent :exports none :tangle no
-  (require 'ox-gfm)
-#+END_SRC
 
 * Quick start
 :PROPERTIES:
