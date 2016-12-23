@@ -355,6 +355,9 @@ The main purpose of these emacs configuration files is to install and configure 
                           ghc
                           company-ghci
                           flycheck
+                          scala-mode
+                          ensime
+                          sbt-mode
                           exec-path-from-shell
                           htmlize
                           org-plus-contrib))

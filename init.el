@@ -103,6 +103,9 @@
                         ghc
                         company-ghci
                         flycheck
+                        scala-mode
+                        ensime
+                        sbt-mode
                         exec-path-from-shell
                         htmlize
                         org-plus-contrib))
