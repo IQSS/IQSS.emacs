@@ -102,6 +102,7 @@
                         haskell-mode
                         ghc
                         company-ghci
+                        flycheck
                         exec-path-from-shell
                         htmlize
                         org-plus-contrib))
@@ -444,6 +445,9 @@ http://github.com/izahn/dotemacs/issues
 
 (require 'which-key)
 (which-key-mode)
+
+(require 'flycheck)
+(global-flycheck-mode)
 
 ;;; Configure outline minor modes
 ;; Less crazy key bindings for outline-minor-mode

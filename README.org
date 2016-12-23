@@ -217,7 +217,6 @@ Emacs is many things to many people, being perhaps the most configurable text ed
 
 The emacs configuration in the sections below implements the [[#requirements][Requirements]] listed above.
 
-
 *** Preamble
 :PROPERTIES:
 :CUSTOM_ID: preamble
@@ -355,6 +354,7 @@ The main purpose of these emacs configuration files is to install and configure 
                           haskell-mode
                           ghc
                           company-ghci
+                          flycheck
                           exec-path-from-shell
                           htmlize
                           org-plus-contrib))
@@ -620,7 +620,6 @@ This section sets up various utilities and conveniences. Many of these are low p
 #+END_SRC
 
 
-
 *** Spell checking
 :PROPERTIES:
 :CUSTOM_ID: spell-checking
@@ -775,6 +774,13 @@ This mode shows a keymap when an incomplete command is entered.
 #+BEGIN_SRC emacs-lisp
 (require 'which-key)
 (which-key-mode)
+#+END_SRC
+
+*** Flycheck
+
+#+BEGIN_SRC emacs-lisp
+(require 'flycheck)
+(global-flycheck-mode)
 #+END_SRC
 
 
