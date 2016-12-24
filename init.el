@@ -538,9 +538,6 @@ http://github.com/izahn/dotemacs/issues
                      ;;  elpy-module-highlight-indentation ;breaks older emacs
                      elpy-module-sane-defaults))
 (elpy-enable)
-;; use ipython if available
-(if (executable-find "ipython")
-    (elpy-use-ipython))
 
 ;; make sure completions don't start automatically
 (add-hook 'elpy-mode-hook
