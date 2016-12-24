@@ -47,7 +47,8 @@ This configuration loads a lot of useful emacs packages (see[[#suggested-externa
 :PROPERTIES:
 :CUSTOM_ID: completion-keys
 :END:
-- M-/ :: Mapped to =councel-company=, use for completion menu.
+- M-/ :: Mapped to =company-complete=, use for completion menu.
+- C-M-/ :: Mapped to =counsel-company=, use for search-able completion menu.
 - M-y :: Remapped to =browse-kill-ring= to browse the kill ring interactively.
 - M-x :: Remapped to =smex= to interactively search for interactive functions. Use =M-X= (note the capital "X") to restrict to commands for the active major mode.
 
@@ -689,7 +690,7 @@ There are several different systems for providing completion hints in emacs. The
   (global-set-key (kbd "M-x") 'counsel-M-x)
   (global-set-key (kbd "C-x C-f") 'counsel-find-file)
   (global-set-key (kbd "C-x C-r") 'counsel-recentf)
-  (global-set-key (kbd "C-M-i") 'counsel-company)
+  (global-set-key (kbd "C-M-/") 'counsel-company)
   (global-set-key (kbd "<C-tab>") 'counsel-company)
   (global-set-key (kbd "<f1> f") 'counsel-describe-function)
   (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
@@ -723,15 +724,16 @@ There are several different systems for providing completion hints in emacs. The
 :PROPERTIES:
 :CUSTOM_ID: auto-complete-configuration
 :END:
-Here we configure in-buffer text completion using the company-mode package. These completions are available on-demand using the =C-TAB= or =M-x company-complete=.
+Here we configure in-buffer text completion using the company-mode package. These completions are available on-demand using the =M-/= or =C-M-/=.
 
 #+BEGIN_SRC emacs-lisp
   ;;Use M-/ to complete.
   (require 'company)
   ;; cancel if input doesn't match
   (setq company-require-match nil)
-  ;; complete using C-TAB
-  (global-set-key (kbd "M-/") 'counsel-company)
+  ;; complete using M-/
+  (global-set-key (kbd "M-/") 'company-complete)
+  (global-set-key (kbd "C-M-/") 'counsel-company)
   ;; use C-n and C-p to cycle through completions
   ;; (define-key company-mode-map (kbd "<tab>") 'company-complete)
   (define-key company-active-map (kbd "C-n") 'company-select-next)

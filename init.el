@@ -380,7 +380,7 @@ http://github.com/izahn/dotemacs/issues
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
 (global-set-key (kbd "C-x C-r") 'counsel-recentf)
-(global-set-key (kbd "C-M-i") 'counsel-company)
+(global-set-key (kbd "C-M-/") 'counsel-company)
 (global-set-key (kbd "<C-tab>") 'counsel-company)
 (global-set-key (kbd "<f1> f") 'counsel-describe-function)
 (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
@@ -412,8 +412,9 @@ http://github.com/izahn/dotemacs/issues
 (require 'company)
 ;; cancel if input doesn't match
 (setq company-require-match nil)
-;; complete using C-TAB
-(global-set-key (kbd "M-/") 'counsel-company)
+;; complete using M-/
+(global-set-key (kbd "M-/") 'company-complete)
+(global-set-key (kbd "C-M-/") 'counsel-company)
 ;; use C-n and C-p to cycle through completions
 ;; (define-key company-mode-map (kbd "<tab>") 'company-complete)
 (define-key company-active-map (kbd "C-n") 'company-select-next)
