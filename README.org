@@ -727,34 +727,35 @@ There are several different systems for providing completion hints in emacs. The
 Here we configure in-buffer text completion using the company-mode package. These completions are available on-demand using the =M-/= or =C-M-/=.
 
 #+BEGIN_SRC emacs-lisp
-  ;;Use M-/ to complete.
-  (require 'company)
-  ;; cancel if input doesn't match
-  (setq company-require-match nil)
-  ;; complete using M-/
-  (global-set-key (kbd "M-/") 'company-complete)
-  (global-set-key (kbd "C-M-/") 'counsel-company)
-  ;; use C-n and C-p to cycle through completions
-  ;; (define-key company-mode-map (kbd "<tab>") 'company-complete)
-  (define-key company-active-map (kbd "C-n") 'company-select-next)
-  (define-key company-active-map (kbd "<tab>") 'company-complete-common)
-  (define-key company-active-map (kbd "C-p") 'company-select-previous)
-  (define-key company-active-map (kbd "<backtab>") 'company-select-previous)
-  ;; enable math completions
-  (require 'company-math)
-  (add-to-list 'company-backends 'company-math-symbols-unicode)
-  ;;(add-to-list 'company-backends 'company-math-symbols-latex)
-  ;; put company-capf at the beginning of the list
-  (require 'company-capf)
-  (setq company-backends
-        (delete-dups (cons 'company-capf company-backends)))
+    ;;Use M-/ to complete.
+    (require 'company)
+    ;; cancel if input doesn't match
+    (setq company-require-match nil
+          company-async-timeout 5)
+    ;; complete using M-/
+    (global-set-key (kbd "M-/") 'company-complete)
+    (global-set-key (kbd "C-M-/") 'counsel-company)
+    ;; use C-n and C-p to cycle through completions
+    ;; (define-key company-mode-map (kbd "<tab>") 'company-complete)
+    (define-key company-active-map (kbd "C-n") 'company-select-next)
+    (define-key company-active-map (kbd "<tab>") 'company-complete-common)
+    (define-key company-active-map (kbd "C-p") 'company-select-previous)
+    (define-key company-active-map (kbd "<backtab>") 'company-select-previous)
+    ;; enable math completions
+    (require 'company-math)
+    (add-to-list 'company-backends 'company-math-symbols-unicode)
+    ;;(add-to-list 'company-backends 'company-math-symbols-latex)
+    ;; put company-capf at the beginning of the list
+    (require 'company-capf)
+    (setq company-backends
+          (delete-dups (cons 'company-capf company-backends)))
 
-  ;; ;; disable dabbrev
-  ;; (delete 'company-dabbrev company-backends)
-  ;; (delete 'company-dabbrev-code company-backends)
+    ;; ;; disable dabbrev
+    ;; (delete 'company-dabbrev company-backends)
+    ;; (delete 'company-dabbrev-code company-backends)
 
 
-  (add-hook 'after-init-hook 'global-company-mode)
+    (add-hook 'after-init-hook 'global-company-mode)
 
 #+END_SRC
 

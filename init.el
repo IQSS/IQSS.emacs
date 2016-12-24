@@ -411,7 +411,8 @@ http://github.com/izahn/dotemacs/issues
 ;;Use M-/ to complete.
 (require 'company)
 ;; cancel if input doesn't match
-(setq company-require-match nil)
+(setq company-require-match nil
+      company-async-timeout 5)
 ;; complete using M-/
 (global-set-key (kbd "M-/") 'company-complete)
 (global-set-key (kbd "C-M-/") 'counsel-company)
