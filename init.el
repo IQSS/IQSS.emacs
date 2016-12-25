@@ -656,51 +656,51 @@ http://github.com/izahn/dotemacs/issues
   ;; honor TeX-PDF-mode settings
   (setq auctex-latexmk-inherit-TeX-PDF-mode t))
 
-(require 'org)
-(setq org-export-babel-evaluate nil)
-(set-face-attribute 'org-meta-line nil
-                    :background nil
-                    :foreground "#B0B0B0")
-(setq org-startup-indented t)
-;; increase imenu depth to include third level headings
-(setq org-imenu-depth 3)
-;; Set sensible mode for editing dot files
-(add-to-list 'org-src-lang-modes '("dot" . graphviz-dot))
+(with-eval-after-load "org"
+  (setq org-export-babel-evaluate nil)
+  (set-face-attribute 'org-meta-line nil
+                      :background nil
+                      :foreground "#B0B0B0")
+  (setq org-startup-indented t)
+  ;; increase imenu depth to include third level headings
+  (setq org-imenu-depth 3)
+  ;; Set sensible mode for editing dot files
+  (add-to-list 'org-src-lang-modes '("dot" . graphviz-dot))
 
-;; Update images from babel code blocks automatically
-(add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
-;; configure org-mode when opening first org-mode file
-(add-hook 'org-mode-hook
-          (lambda()
-            ;; (define-key org-mode-map (kbd "<C-tab>") 'company-complete)
-            ;; Load additional export formats
-            (require 'ox-odt)
-            (require 'ox-md)
-            (require 'ox-freemind)
-            (require 'ox-bibtex)
-            ;; Enable common programming language support in org-mode
-            (org-babel-do-load-languages
-             'org-babel-load-languages
-             '((R . t)
-               (python . t)
-               (matlab . t)
-               (emacs-lisp . t)
-               (sh . t)
-               (dot . t)
-               (latex . t)
-               (octave . t)
-               (ditaa . t)
-               (org . t)
-               (perl . t)
-               (julia . t)
-               ))
-            ;; Fontify code blocks in org-mode
-            (setq org-src-fontify-natively t)
-            (setq org-src-tab-acts-natively t)
-            (setq org-confirm-babel-evaluate nil)
-            (require 'org-capture)
-            (require 'org-protocol)
-            (require 'ob-stata)))
+  ;; Update images from babel code blocks automatically
+  (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
+  ;; configure org-mode when opening first org-mode file
+  (add-hook 'org-mode-hook
+            (lambda()
+              ;; (define-key org-mode-map (kbd "<C-tab>") 'company-complete)
+              ;; Load additional export formats
+              (require 'ox-odt)
+              (require 'ox-md)
+              (require 'ox-freemind)
+              (require 'ox-bibtex)
+              ;; Enable common programming language support in org-mode
+              (org-babel-do-load-languages
+               'org-babel-load-languages
+               '((R . t)
+                 (python . t)
+                 (matlab . t)
+                 (emacs-lisp . t)
+                 (sh . t)
+                 (dot . t)
+                 (latex . t)
+                 (octave . t)
+                 (ditaa . t)
+                 (org . t)
+                 (perl . t)
+                 (julia . t)
+                 ))
+              ;; Fontify code blocks in org-mode
+              (setq org-src-fontify-natively t)
+              (setq org-src-tab-acts-natively t)
+              (setq org-confirm-babel-evaluate nil)
+              (require 'org-capture)
+              (require 'org-protocol)
+              (require 'ob-stata))))
 
 ;;; polymode
 
@@ -724,7 +724,7 @@ http://github.com/izahn/dotemacs/issues
   (add-to-list 'auto-mode-alist '("\\.cppR" . poly-c++r-mode)))
 
 (when (executable-find "mu")
-  (require 'mu4e)
+  (with-eval-after-load "mu4e"
   (setq mu4e-headers-include-related t
         mu4e-headers-skip-duplicates t
         mu4e-headers-fields '(
@@ -744,8 +744,7 @@ http://github.com/izahn/dotemacs/issues
   (define-key mu4e-view-mode-map    (kbd "C-c c") 'org-mu4e-store-and-capture)
   ;; render html
   (require 'mu4e-contrib)
-  (setq mu4e-html2text-command 'mu4e-shr2text)
-  )
+  (setq mu4e-html2text-command 'mu4e-shr2text)))
 
 ;;; Dired and Dired+ configuration
 ;; show git status in dired
