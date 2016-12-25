@@ -380,7 +380,6 @@ http://github.com/izahn/dotemacs/issues
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
 (global-set-key (kbd "C-x C-r") 'counsel-recentf)
-(global-set-key (kbd "C-M-/") 'counsel-company)
 (global-set-key (kbd "<C-tab>") 'counsel-company)
 (global-set-key (kbd "<f1> f") 'counsel-describe-function)
 (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
@@ -410,12 +409,12 @@ http://github.com/izahn/dotemacs/issues
 
 ;;Use M-/ to complete.
 (require 'company)
-;; cancel if input doesn't match
+;; cancel if input doesn't match, be patient, and don't complete automatically.
 (setq company-require-match nil
-      company-async-timeout 5)
-;; complete using M-/
-(global-set-key (kbd "M-/") 'company-complete)
-(global-set-key (kbd "C-M-/") 'counsel-company)
+      company-async-timeout 5
+      company-idle-delay nil)
+;; complete using C-tab
+(global-set-key (kbd "<C-tab>") 'counsel-company)
 ;; use C-n and C-p to cycle through completions
 ;; (define-key company-mode-map (kbd "<tab>") 'company-complete)
 (define-key company-active-map (kbd "C-n") 'company-select-next)
@@ -673,7 +672,7 @@ http://github.com/izahn/dotemacs/issues
 ;; configure org-mode when opening first org-mode file
 (add-hook 'org-mode-hook
           (lambda()
-            (define-key org-mode-map (kbd "<C-tab>") 'company-complete)
+            ;; (define-key org-mode-map (kbd "<C-tab>") 'company-complete)
             ;; Load additional export formats
             (require 'ox-odt)
             (require 'ox-md)
