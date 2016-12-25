@@ -431,6 +431,25 @@ http://github.com/izahn/dotemacs/issues
 (setq company-backends
       (delete-dups (cons 'company-capf company-backends)))
 
+;; Try to complete with tab
+;; From https://github.com/company-mode/company-mode/issues/94
+(define-key company-mode-map [remap indent-for-tab-command]
+  'company-indent-for-tab-command)
+
+(setq tab-always-indent 'complete)
+
+(defvar completion-at-point-functions-saved nil)
+
+(defun company-indent-for-tab-command (&optional arg)
+  (interactive "P")
+  (let ((completion-at-point-functions-saved completion-at-point-functions)
+        (completion-at-point-functions '(company-complete-wrapper)))
+    (indent-for-tab-command arg)))
+
+(defun company-complete-wrapper ()
+  (let ((completion-at-point-functions completion-at-point-functions-saved))
+    (company-complete)))
+
 ;; ;; disable dabbrev
 ;; (delete 'company-dabbrev company-backends)
 ;; (delete 'company-dabbrev-code company-backends)
@@ -488,6 +507,9 @@ http://github.com/izahn/dotemacs/issues
 
 ;; disable ehoing input
 (setq ess-eval-visibly nil)
+
+;; Use tab completion
+(setq ess-tab-complete-in-script t)
 
 ;; extra ESS stuff inspired by https://github.com/gaborcsardi/dot-emacs/blob/master/.emacs
 (ess-toggle-underscore nil)
