@@ -647,14 +647,15 @@ http://github.com/izahn/dotemacs/issues
 ;;             (setq TeX-command-default "TeX-command-run-all")))
 
 ;; enable latexmk
-(when (executable-find "latexmk")
-  (require 'auctex-latexmk)
-  (auctex-latexmk-setup)
-  ;; make latexmk the default
-  (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "LatexMk")))
-  (add-hook 'LaTeX-mode-hook '(lambda () (setq TeX-command-default "LatexMk")))
-  ;; honor TeX-PDF-mode settings
-  (setq auctex-latexmk-inherit-TeX-PDF-mode t))
+(with-eval-after-load "tex"
+  (when (executable-find "latexmk")
+    (require 'auctex-latexmk)
+    (auctex-latexmk-setup)
+    ;; make latexmk the default
+    (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "LatexMk")))
+    (add-hook 'LaTeX-mode-hook '(lambda () (setq TeX-command-default "LatexMk")))
+    ;; honor TeX-PDF-mode settings
+    (setq auctex-latexmk-inherit-TeX-PDF-mode t)))
 
 (with-eval-after-load "org"
   (setq org-export-babel-evaluate nil)
