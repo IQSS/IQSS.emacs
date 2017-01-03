@@ -331,17 +331,14 @@ The main purpose of these emacs configuration files is to install and configure 
                           diminish
                           multi-term
                           howdoi
-                          moe-theme
                           ; spaceline ;; too slow!
                           smart-mode-line
-                          persistent-soft
                           dired+
                           eyebrowse
                           mouse3
                           swiper
                           counsel
                           which-key
-                          smex
                           outline-magic
                           smooth-scroll
                           unfill
@@ -420,14 +417,9 @@ The main purpose of these emacs configuration files is to install and configure 
 Loading the theme should come as early as possible in the init sequence to avoid jarring visual changes during startup, but must come after loading packages because we use a custom theme that needs to be installed first.
 
 #+BEGIN_SRC emacs-lisp
-  ;; (load-theme 'sanityinc-tomorrow-day t)
-
   ;; mode line theme
   (add-hook 'after-init-hook 'sml/setup)
-  (setq sml/theme 'dark)
-
-  (require 'moe-theme)
-  (moe-dark)
+  (setq sml/theme 'respectful)
 
   ;; turn of scroll bar
   (scroll-bar-mode -1)

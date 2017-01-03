@@ -1,3 +1,4 @@
+
 ;;; COMMENTARY
 
 ;; This emacs configuration file sets some convenient defaults and activates 
@@ -78,17 +79,14 @@
                         diminish
                         multi-term
                         howdoi
-                        moe-theme
                         ; spaceline ;; too slow!
                         smart-mode-line
-                        persistent-soft
                         dired+
                         eyebrowse
                         mouse3
                         swiper
                         counsel
                         which-key
-                        smex
                         outline-magic
                         smooth-scroll
                         unfill
@@ -155,14 +153,9 @@ http://github.com/izahn/dotemacs/issues
                 "Open the README file")
                "\nfor information about these customizations.\n"))
 
-;; (load-theme 'sanityinc-tomorrow-day t)
-
 ;; mode line theme
 (add-hook 'after-init-hook 'sml/setup)
-(setq sml/theme 'dark)
-
-(require 'moe-theme)
-(moe-dark)
+(setq sml/theme 'respectful)
 
 ;; turn of scroll bar
 (scroll-bar-mode -1)
@@ -796,7 +789,7 @@ http://github.com/izahn/dotemacs/issues
                     :weight 'bold)
 (set-face-attribute 'diredp-file-suffix nil
                     :foreground nil)
-
+                  
 ;; make sure dired buffers end in a slash so we can identify them easily
 (defun ensure-buffer-name-ends-in-slash ()
   "change buffer name to end with slash"
