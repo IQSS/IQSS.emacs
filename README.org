@@ -419,7 +419,7 @@ Loading the theme should come as early as possible in the init sequence to avoid
 #+BEGIN_SRC emacs-lisp
   ;; mode line theme
   (add-hook 'after-init-hook 'sml/setup)
-  (setq sml/theme 'respectful)
+  (setq sml/theme 'light)
 
   ;; turn of scroll bar
   (scroll-bar-mode -1)

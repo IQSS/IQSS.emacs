@@ -1,4 +1,3 @@
-
 ;;; COMMENTARY
 
 ;; This emacs configuration file sets some convenient defaults and activates 
@@ -155,7 +154,7 @@ http://github.com/izahn/dotemacs/issues
 
 ;; mode line theme
 (add-hook 'after-init-hook 'sml/setup)
-(setq sml/theme 'respectful)
+(setq sml/theme 'light)
 
 ;; turn of scroll bar
 (scroll-bar-mode -1)
@@ -789,7 +788,7 @@ http://github.com/izahn/dotemacs/issues
                     :weight 'bold)
 (set-face-attribute 'diredp-file-suffix nil
                     :foreground nil)
-                  
+
 ;; make sure dired buffers end in a slash so we can identify them easily
 (defun ensure-buffer-name-ends-in-slash ()
   "change buffer name to end with slash"
