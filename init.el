@@ -92,8 +92,8 @@
                         outline-magic
                         smooth-scroll
                         unfill
-                        company
-                        company-math
+                        ; company
+                        ; company-math
                         ess
                         markdown-mode
                         polymode
@@ -101,7 +101,7 @@
                         elpy
                         haskell-mode
                         ghc
-                        company-ghci
+                        ; company-ghci
                         flycheck
                         scala-mode
                         ensime
@@ -381,7 +381,7 @@ http://github.com/izahn/dotemacs/issues
 (global-set-key (kbd "M-y") 'counsel-yank-pop)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
 (global-set-key (kbd "C-x C-r") 'counsel-recentf)
-(global-set-key (kbd "<C-tab>") 'counsel-company)
+;; (global-set-key (kbd "<C-tab>") 'counsel-company)
 (global-set-key (kbd "<f1> f") 'counsel-describe-function)
 (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
 (global-set-key (kbd "<f1> l") 'counsel-load-library)
@@ -409,53 +409,55 @@ http://github.com/izahn/dotemacs/issues
 (recentf-mode 1)
 
 ;;Use M-/ to complete.
-(require 'company)
-;; cancel if input doesn't match, be patient, and don't complete automatically.
-(setq company-require-match nil
-      company-async-timeout 5
-      company-idle-delay nil)
-;; complete using C-tab
-(global-set-key (kbd "<C-tab>") 'counsel-company)
-;; use C-n and C-p to cycle through completions
-;; (define-key company-mode-map (kbd "<tab>") 'company-complete)
-(define-key company-active-map (kbd "C-n") 'company-select-next)
-(define-key company-active-map (kbd "<tab>") 'company-complete-common)
-(define-key company-active-map (kbd "C-p") 'company-select-previous)
-(define-key company-active-map (kbd "<backtab>") 'company-select-previous)
-;; enable math completions
-(require 'company-math)
-(add-to-list 'company-backends 'company-math-symbols-unicode)
-;;(add-to-list 'company-backends 'company-math-symbols-latex)
-;; put company-capf at the beginning of the list
-(require 'company-capf)
-(setq company-backends
-      (delete-dups (cons 'company-capf company-backends)))
+;; (require 'company)
+;; ;; cancel if input doesn't match, be patient, and don't complete automatically.
+;; (setq company-require-match nil
+;;       company-async-timeout 5
+;;       company-idle-delay nil)
+;; ;; complete using C-tab
+;; (global-set-key (kbd "<C-tab>") 'counsel-company)
+;; ;; use C-n and C-p to cycle through completions
+;; ;; (define-key company-mode-map (kbd "<tab>") 'company-complete)
+;; (define-key company-active-map (kbd "C-n") 'company-select-next)
+;; (define-key company-active-map (kbd "<tab>") 'company-complete-common)
+;; (define-key company-active-map (kbd "C-p") 'company-select-previous)
+;; (define-key company-active-map (kbd "<backtab>") 'company-select-previous)
+;; ;; enable math completions
+;; (require 'company-math)
+;; (add-to-list 'company-backends 'company-math-symbols-unicode)
+;; ;;(add-to-list 'company-backends 'company-math-symbols-latex)
+;; ;; put company-capf at the beginning of the list
+;; (require 'company-capf)
+;; (setq company-backends
+;;       (delete-dups (cons 'company-capf company-backends)))
 
-;; Try to complete with tab
-;; From https://github.com/company-mode/company-mode/issues/94
-(define-key company-mode-map [remap indent-for-tab-command]
-  'company-indent-for-tab-command)
+;; ;; Try to complete with tab
+;; ;; From https://github.com/company-mode/company-mode/issues/94
+;; (define-key company-mode-map [remap indent-for-tab-command]
+;;   'company-indent-for-tab-command)
+
+;; (setq tab-always-indent 'complete)
+
+;; (defvar completion-at-point-functions-saved nil)
+
+;; (defun company-indent-for-tab-command (&optional arg)
+;;   (interactive "P")
+;;   (let ((completion-at-point-functions-saved completion-at-point-functions)
+;;         (completion-at-point-functions '(company-complete-wrapper)))
+;;     (indent-for-tab-command arg)))
+
+;; (defun company-complete-wrapper ()
+;;   (let ((completion-at-point-functions completion-at-point-functions-saved))
+;;     (company-complete)))
+
+;; ;; ;; disable dabbrev
+;; ;; (delete 'company-dabbrev company-backends)
+;; ;; (delete 'company-dabbrev-code company-backends)
+
+
+;; (add-hook 'after-init-hook 'global-company-mode)
 
 (setq tab-always-indent 'complete)
-
-(defvar completion-at-point-functions-saved nil)
-
-(defun company-indent-for-tab-command (&optional arg)
-  (interactive "P")
-  (let ((completion-at-point-functions-saved completion-at-point-functions)
-        (completion-at-point-functions '(company-complete-wrapper)))
-    (indent-for-tab-command arg)))
-
-(defun company-complete-wrapper ()
-  (let ((completion-at-point-functions completion-at-point-functions-saved))
-    (company-complete)))
-
-;; ;; disable dabbrev
-;; (delete 'company-dabbrev company-backends)
-;; (delete 'company-dabbrev-code company-backends)
-
-
-(add-hook 'after-init-hook 'global-company-mode)
 
 (require 'which-key)
 (which-key-mode)
@@ -477,10 +479,10 @@ http://github.com/izahn/dotemacs/issues
             ;; turn on outline minor mode:
             (add-hook 'prog-mode-hook 'outline-minor-mode)
              ;; make sure completion calls company-capf first
-            (require 'company-capf)
-            (set (make-local-variable 'company-backends)
-                 (cons 'company-capf company-backends))
-            (delete-dups company-backends)
+            ;; (require 'company-capf)
+            ;; (set (make-local-variable 'company-backends)
+            ;;      (cons 'company-capf company-backends))
+            ;; (delete-dups company-backends)
             ))
 
 ;; require the main file containing common functions
@@ -545,7 +547,7 @@ http://github.com/izahn/dotemacs/issues
             ))
 
 ;; Python completion and code checking
-(setq elpy-modules '(elpy-module-company
+(setq elpy-modules '(;elpy-module-company
                      elpy-module-eldoc
                      elpy-module-flymake
                      elpy-module-pyvenv
@@ -574,22 +576,22 @@ http://github.com/izahn/dotemacs/issues
 ;; For M-x info
 (define-key Info-mode-map "\C-c\C-c" 'eir-eval-in-ielm)
 
-;; Set up completions
-(add-hook 'emacs-lisp-mode-hook
-          (lambda()
-             ;; make sure completion calls company-elisp first
-             (require 'company-elisp)
-             (set (make-local-variable 'company-backends)
-                  (cons 'company-elisp company-backends))
-             (delete-dups company-backends)
-             ))
+;; ;; Set up completions
+;; (add-hook 'emacs-lisp-mode-hook
+;;           (lambda()
+;;              ;; make sure completion calls company-elisp first
+;;              (require 'company-elisp)
+;;              (set (make-local-variable 'company-backends)
+;;                   (cons 'company-elisp company-backends))
+;;              (delete-dups company-backends)
+;;              ))
 
-(require 'company-ghci)
-(add-hook 'haskell-mode-hook (lambda ()
-                               (set (make-local-variable 'company-backends)
-                                    (cons 'company-ghci company-backends))
-                               (delete-dups company-backends)))
-(add-hook 'haskell-interactive-mode-hook 'company-mode)
+;; (require 'company-ghci)
+;; (add-hook 'haskell-mode-hook (lambda ()
+;;                                (set (make-local-variable 'company-backends)
+;;                                     (cons 'company-ghci company-backends))
+;;                                (delete-dups company-backends)))
+;; (add-hook 'haskell-interactive-mode-hook 'company-mode)
 
 ;;; markdown mode
 
@@ -608,12 +610,12 @@ http://github.com/izahn/dotemacs/issues
             (imenu-add-to-menubar "Index")
             (outline-minor-mode)
             ;; completion
-            (setq-local company-backends
-                        (delete-dups (cons 'company-files
-                                                company-backends)))
-            (setq-local company-backends
-                        (delete-dups (cons '(company-math-symbols-latex company-latex-commands company-math-symbols-unicode)
-                                                company-backends)))
+            ;; (setq-local company-backends
+            ;;             (delete-dups (cons 'company-files
+            ;;                                     company-backends)))
+            ;; (setq-local company-backends
+            ;;             (delete-dups (cons '(company-math-symbols-latex company-latex-commands company-math-symbols-unicode)
+            ;;                                     company-backends)))
             ;; Allow paragraph filling in tables
             (setq LaTeX-indent-environment-list
                   (delq (assoc "table" LaTeX-indent-environment-list)
@@ -877,15 +879,16 @@ The app is chosen from your OS's preference."
       (setq explicit-shell-file-name "bash")
       (setq explicit-bash-args '("-c" "-t" "export EMACS=; stty echo; bash"))  
       (ansi-color-for-comint-mode-on)
-      (add-hook 'shell-mode-hook
-          (lambda()
-             ;; make sure completion calls company-readline first
-             (require 'readline-complete)
-             (set (make-local-variable 'company-backends)
-                  (cons 'company-readline company-backends))
-             (delete-dups company-backends)
-             ))
-      (add-hook 'rlc-no-readline-hook (lambda () (company-mode -1)))))
+      ;; (add-hook 'shell-mode-hook
+      ;;     (lambda()
+      ;;        ;; make sure completion calls company-readline first
+      ;;        (require 'readline-complete)
+      ;;        (set (make-local-variable 'company-backends)
+      ;;             (cons 'company-readline company-backends))
+      ;;        (delete-dups company-backends)
+      ;;        ))
+      ;; (add-hook 'rlc-no-readline-hook (lambda () (company-mode -1)))
+      ))
 
 (add-hook 'shell-mode-hook
           (lambda()
