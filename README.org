@@ -47,10 +47,10 @@ This configuration loads a lot of useful emacs packages (see[[#suggested-externa
 :PROPERTIES:
 :CUSTOM_ID: completion-keys
 :END:
-- tab :: Mapped to =company-indent-or-complete=, use for completion indentation and completion.
-- C-tab :: Mapped to =counsel-company=, use for search-able completion menu.
-- M-y :: Remapped to =browse-kill-ring= to browse the kill ring interactively.
-- M-x :: Remapped to =smex= to interactively search for interactive functions. Use =M-X= (note the capital "X") to restrict to commands for the active major mode.
+- tab :: Mapped to =indent-or-complete=, use for completion indentation and completion.
+# - C-tab :: Mapped to =counsel-company=, use for search-able completion menu.
+- M-y :: Remapped to =counsel-yank-pop= to browse the kill ring interactively.
+- M-x :: Remapped to =counsel-M-x= to interactively search for interactive functions.
 
 *** Other key bindings
 :PROPERTIES:
@@ -688,6 +688,7 @@ There are several different systems for providing completion hints in emacs. The
   (global-set-key (kbd "C-s") 'swiper)
   (global-set-key (kbd "C-r") 'swiper)
   (global-set-key (kbd "M-x") 'counsel-M-x)
+  (global-set-key (kbd "M-y") 'counsel-yank-pop)
   (global-set-key (kbd "C-x C-f") 'counsel-find-file)
   (global-set-key (kbd "C-x C-r") 'counsel-recentf)
   (global-set-key (kbd "<C-tab>") 'counsel-company)
