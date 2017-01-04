@@ -562,12 +562,13 @@ This section sets up various utilities and conveniences. Many of these are low p
   ;; don't require two spaces for sentence end.
   (setq sentence-end-double-space nil)
 
-  ;; Use CUA mode to make life easier. We do NOT use standard copy/paste etc. 
+  ;; Use CUA mode to make life easier. We _do_ use standard copy/paste etc. 
   (cua-mode t)
-  (cua-selection-mode t)
+
+  ;; (cua-selection-mode t) ;; uncomment this to get cua goodness without copy/paste etc.
 
   ;; ;; Make control-z undo
-  ;; (global-set-key (kbd "C-z") 'undo)
+  (global-set-key (kbd "C-z") 'undo)
   ;; ;; 
   ;; Make right-click do something close to what people expect
   (require 'mouse3)
