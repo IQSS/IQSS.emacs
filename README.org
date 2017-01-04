@@ -38,7 +38,7 @@ Note that after installing this configuration emacs will be extremely slow to st
 :PROPERTIES:
 :CUSTOM_ID: modified-key-bindings
 :END:
-This configuration loads a lot of useful emacs packages (see[[#suggested-external-programs][Suggested external programs]] for the list), many of which add key bindings. Documenting them all here would be too much (see the documentation for each package if you need the details), so this section describes only those key bindings that we explicitly added or changed.
+This configuration loads a lot of useful emacs packages (see [[#suggested-external-programs][Suggested external programs]] for the list), many of which add key bindings. Documenting them all here would be too much (see the documentation for each package if you need the details), so this section describes only those key bindings that we explicitly added or changed.
 
 *** REPL interaction
 - C-RET :: Mapped to language specific line/selection/expression evaluation. Want to evaluate code from a script? =C-RET= should "just work".
@@ -331,9 +331,9 @@ The main purpose of these emacs configuration files is to install and configure 
                           diminish
                           multi-term
                           howdoi
-                          ; spaceline ;; too slow!
                           smart-mode-line
                           dired+
+                          with-editor
                           eyebrowse
                           mouse3
                           swiper
@@ -599,7 +599,7 @@ This section sets up various utilities and conveniences. Many of these are low p
   (eyebrowse-mode t)
 
   ;; The beeping can be annoying--turn it off
-  ;; (set-variable 'visible-bell t) ; buggy on OS X, see http://debbugs.gnu.org/cgi/bugreport.cgi?bug=21662
+  (set-variable 'visible-bell t)
 
   ;; save settings made using the customize interface to a sparate file
   (setq custom-file (concat user-emacs-directory "custom.el"))
@@ -1340,6 +1340,14 @@ Load eval-in-repl for bash, elisp, and python interaction.
                (add-to-list 'eshell-visual-commands "tail")
                (add-to-list 'eshell-visual-commands "htop")
                (setq eshell-visual-subcommands '(("git" "log" "diff" "show")))))
+
+  ;; Use emacs as editor when running external processes or using shells in emacs
+  (require 'with-editor)
+  (add-hook 'shell-mode-hook  'with-editor-export-editor)
+  (add-hook 'term-exec-hook   'with-editor-export-editor)
+  (add-hook 'eshell-mode-hook 'with-editor-export-editor)
+
+  (shell-command-with-editor-mode t)
 
 
 #+END_SRC

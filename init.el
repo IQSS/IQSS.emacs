@@ -78,9 +78,9 @@
                         diminish
                         multi-term
                         howdoi
-                        ; spaceline ;; too slow!
                         smart-mode-line
                         dired+
+                        with-editor
                         eyebrowse
                         mouse3
                         swiper
@@ -315,7 +315,7 @@ http://github.com/izahn/dotemacs/issues
 (eyebrowse-mode t)
 
 ;; The beeping can be annoying--turn it off
-;; (set-variable 'visible-bell t) ; buggy on OS X, see http://debbugs.gnu.org/cgi/bugreport.cgi?bug=21662
+(set-variable 'visible-bell t)
 
 ;; save settings made using the customize interface to a sparate file
 (setq custom-file (concat user-emacs-directory "custom.el"))
@@ -898,3 +898,11 @@ The app is chosen from your OS's preference."
              (add-to-list 'eshell-visual-commands "tail")
              (add-to-list 'eshell-visual-commands "htop")
              (setq eshell-visual-subcommands '(("git" "log" "diff" "show")))))
+
+;; Use emacs as editor when running external processes or using shells in emacs
+(require 'with-editor)
+(add-hook 'shell-mode-hook  'with-editor-export-editor)
+(add-hook 'term-exec-hook   'with-editor-export-editor)
+(add-hook 'eshell-mode-hook 'with-editor-export-editor)
+
+(shell-command-with-editor-mode t)
