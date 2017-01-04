@@ -29,10 +29,6 @@
                   (add-hook 'emacs-startup-hook 
                             (lambda() (switch-to-buffer "*scratch*"))))))
 
-;; hide the toolbar
-(tool-bar-mode 0)
-;; (menu-bar-mode 0)
-
 ;; set coding system so emacs doesn't choke on melpa file listings
 (set-language-environment 'utf-8)
 (set-keyboard-coding-system 'utf-8-mac) ; For old Carbon emacs on OS X only
@@ -74,6 +70,7 @@
                         diff-hl
                         adaptive-wrap
                         ;; melpa packages
+                        better-defaults
                         auctex-latexmk
                         diminish
                         multi-term
@@ -156,9 +153,6 @@ http://github.com/izahn/dotemacs/issues
 (add-hook 'after-init-hook 'sml/setup)
 (setq sml/theme 'light)
 
-;; turn of scroll bar
-(scroll-bar-mode -1)
-
 ;; add custom lisp directory to path
 (let ((default-directory (concat user-emacs-directory "lisp/")))
   (setq load-path
@@ -172,6 +166,11 @@ http://github.com/izahn/dotemacs/issues
 ;; on OSX Emacs needs help setting up the system paths
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
+
+;; better defaults are well, better.
+(require 'better-defaults)
+;; but we don't always agree
+(menu-bar-mode 1)
 
 ;;; Misc. Conveniences
 ;; get help from the web
@@ -189,51 +188,9 @@ http://github.com/izahn/dotemacs/issues
 (setq buffer-file-coding-system 'utf-8)                      
 (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 
-;; ;; use regex search by default
-;; (global-set-key (kbd "C-s") 'isearch-forward-regexp)
-;; (global-set-key (kbd "C-r") 'isearch-backward-regexp)
-
-;; Use spaces for indentation
-(setq-default indent-tabs-mode nil)
-
-;; Make sure copy-and-paste works with other programs
-;; (not needed in recent emacs?)
-;; (setq x-select-enable-clipboard t
-;;       x-select-enable-primary t
-;;       save-interprogram-paste-before-kill t)
-
-;; Text pasted with mouse should be inserted at cursor position
-(setq mouse-yank-at-point t)
-
 ;; Mouse scrolling behavior
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
 (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
-
-;; from https://github.com/bbatsov/prelude
-;; store all backup and autosave files in the tmp dir
-(setq backup-directory-alist
-`((".*" . ,temporary-file-directory)))
-(setq auto-save-file-name-transforms
-`((".*" ,temporary-file-directory t)))
-;; autosave the undo-tree history
-(setq undo-tree-history-directory-alist
-`((".*" . ,temporary-file-directory)))
-(setq undo-tree-auto-save-history t)
-
-;; Apropos commands should search everything
-(setq apropos-do-all t)
-
-;; Store the places file in the emacs user directory
-(setq save-place-file (concat user-emacs-directory "places"))
-
-
-;; better naming of duplicate buffers
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'forward)
-
-;; put cursor in last used position when re-opening file
-(require 'saveplace)
-(setq-default save-place t)
 
 ;; Use y/n instead of yes/no
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -241,8 +198,6 @@ http://github.com/izahn/dotemacs/issues
 (transient-mark-mode 1) ; makes the region visible
 (line-number-mode 1)    ; makes the line number show up
 (column-number-mode 1)  ; makes the column number show up
-
-(show-paren-mode 1) ;; highlight matching paren
 
 ;; ;; smooth scrolling with C-up/C-down
 (require 'smooth-scroll)
@@ -401,55 +356,6 @@ http://github.com/izahn/dotemacs/issues
 (setq recentf-max-menu-items 50)
 (recentf-mode 1)
 
-;;Use M-/ to complete.
-;; (require 'company)
-;; ;; cancel if input doesn't match, be patient, and don't complete automatically.
-;; (setq company-require-match nil
-;;       company-async-timeout 5
-;;       company-idle-delay nil)
-;; ;; complete using C-tab
-;; (global-set-key (kbd "<C-tab>") 'counsel-company)
-;; ;; use C-n and C-p to cycle through completions
-;; ;; (define-key company-mode-map (kbd "<tab>") 'company-complete)
-;; (define-key company-active-map (kbd "C-n") 'company-select-next)
-;; (define-key company-active-map (kbd "<tab>") 'company-complete-common)
-;; (define-key company-active-map (kbd "C-p") 'company-select-previous)
-;; (define-key company-active-map (kbd "<backtab>") 'company-select-previous)
-;; ;; enable math completions
-;; (require 'company-math)
-;; (add-to-list 'company-backends 'company-math-symbols-unicode)
-;; ;;(add-to-list 'company-backends 'company-math-symbols-latex)
-;; ;; put company-capf at the beginning of the list
-;; (require 'company-capf)
-;; (setq company-backends
-;;       (delete-dups (cons 'company-capf company-backends)))
-
-;; ;; Try to complete with tab
-;; ;; From https://github.com/company-mode/company-mode/issues/94
-;; (define-key company-mode-map [remap indent-for-tab-command]
-;;   'company-indent-for-tab-command)
-
-;; (setq tab-always-indent 'complete)
-
-;; (defvar completion-at-point-functions-saved nil)
-
-;; (defun company-indent-for-tab-command (&optional arg)
-;;   (interactive "P")
-;;   (let ((completion-at-point-functions-saved completion-at-point-functions)
-;;         (completion-at-point-functions '(company-complete-wrapper)))
-;;     (indent-for-tab-command arg)))
-
-;; (defun company-complete-wrapper ()
-;;   (let ((completion-at-point-functions completion-at-point-functions-saved))
-;;     (company-complete)))
-
-;; ;; ;; disable dabbrev
-;; ;; (delete 'company-dabbrev company-backends)
-;; ;; (delete 'company-dabbrev-code company-backends)
-
-
-;; (add-hook 'after-init-hook 'global-company-mode)
-
 (setq tab-always-indent 'complete)
 
 (require 'which-key)
@@ -467,16 +373,7 @@ http://github.com/izahn/dotemacs/issues
             (require 'outline-magic)
             (define-key outline-minor-mode-map "\C-c\C-o\t" 'outline-cycle)))
 
-(add-hook 'prog-mode-hook
-          (lambda()
-            ;; turn on outline minor mode:
-            (add-hook 'prog-mode-hook 'outline-minor-mode)
-             ;; make sure completion calls company-capf first
-            ;; (require 'company-capf)
-            ;; (set (make-local-variable 'company-backends)
-            ;;      (cons 'company-capf company-backends))
-            ;; (delete-dups company-backends)
-            ))
+(add-hook 'prog-mode-hook 'outline-minor-mode)
 
 ;; require the main file containing common functions
 (require 'eval-in-repl)
@@ -524,18 +421,8 @@ http://github.com/izahn/dotemacs/issues
 (add-hook 'ess-mode-hook
           (lambda()
             ;; don't wrap long lines
-            (setq truncate-lines 1)
-            ;; better (but still not right) indentation
-            ;(setq ess-first-continued-statement-offset 2)
-            ;(setq ess-continued-statement-offset 0)
-            ;(setq ess-arg-function-offset nil)
-            ;(setq ess-arg-function-offset-new-line nil)
-            ;(setq ess-expression-offset nil)
-
-            ;; ;; put company-capf at the front of the completion sources list
-            ;; (set (make-local-variable 'company-backends)
-            ;;      (cons 'company-capf company-backends))
-            ;; (delete-dups company-backends)
+            (toggle-truncate-lines t)
+            (outline-minor-mode t)
             (define-key ess-mode-map (kbd "<C-return>") 'ess-eval-region-or-function-or-paragraph-and-step)
             ))
 
@@ -553,8 +440,7 @@ http://github.com/izahn/dotemacs/issues
            (lambda ()
               (require 'eval-in-repl-python)
               (define-key elpy-mode-map "\C-c\C-c" 'eir-eval-in-python)
-              (define-key elpy-mode-map (kbd "<C-return>") 'eir-eval-in-python)
-              (setq company-idle-delay nil)))
+              (define-key elpy-mode-map (kbd "<C-return>") 'eir-eval-in-python)))
 
 ;; fix printing issue in python buffers
 ;; see http://debbugs.gnu.org/cgi/bugreport.cgi?bug=21077
@@ -568,23 +454,6 @@ http://github.com/izahn/dotemacs/issues
 (define-key lisp-interaction-mode-map "\C-c\C-c" 'eir-eval-in-ielm)
 ;; For M-x info
 (define-key Info-mode-map "\C-c\C-c" 'eir-eval-in-ielm)
-
-;; ;; Set up completions
-;; (add-hook 'emacs-lisp-mode-hook
-;;           (lambda()
-;;              ;; make sure completion calls company-elisp first
-;;              (require 'company-elisp)
-;;              (set (make-local-variable 'company-backends)
-;;                   (cons 'company-elisp company-backends))
-;;              (delete-dups company-backends)
-;;              ))
-
-;; (require 'company-ghci)
-;; (add-hook 'haskell-mode-hook (lambda ()
-;;                                (set (make-local-variable 'company-backends)
-;;                                     (cons 'company-ghci company-backends))
-;;                                (delete-dups company-backends)))
-;; (add-hook 'haskell-interactive-mode-hook 'company-mode)
 
 ;;; markdown mode
 
@@ -631,16 +500,6 @@ http://github.com/izahn/dotemacs/issues
 (add-hook 'bibtex-mode-hook
           (lambda ()
             (define-key bibtex-mode-map "\M-q" 'bibtex-fill-entry)))
-
-;; ;; Try to make tex-command-run-all the default (doesn't work)
-;; (eval-after-load "tex"
-;;   '(add-to-list 'TeX-command-list
-;;                 '("TeX-command-run-all" "(TeX-command-run-all)"
-;;                   TeX-run-function nil t :help "Run all required commands") t))
-
-;; (add-hook 'LaTeX-mode-hook
-;;           (lambda ()
-;;             (setq TeX-command-default "TeX-command-run-all")))
 
 ;; enable latexmk
 (with-eval-after-load "tex"
@@ -760,36 +619,6 @@ http://github.com/izahn/dotemacs/issues
 (if (eq system-type 'gnu/linux)
     (setq dired-listing-switches "-alDhp"))
 
-;; more subdued colors
-(set-face-attribute 'diredp-ignored-file-name nil
-                    :foreground "LightGray"
-                    :background nil)
-(set-face-attribute 'diredp-read-priv nil
-                    :foreground "LightGray"
-                    :background nil)
-(set-face-attribute 'diredp-write-priv nil
-                    :foreground "LightGray"
-                    :background nil)
-(set-face-attribute 'diredp-other-priv nil
-                    :foreground "LightGray"
-                    :background nil)
-(set-face-attribute 'diredp-rare-priv nil
-                    :foreground "LightGray"
-                    :background nil)
-(set-face-attribute 'diredp-no-priv nil
-                    :foreground "LightGray"
-                    :background nil)
-(set-face-attribute 'diredp-exec-priv nil
-                    :foreground "LightGray"
-                    :background nil)
-(set-face-attribute 'diredp-file-name nil
-                    :weight 'bold
-                    :background nil)
-(set-face-attribute 'diredp-dir-priv nil
-                    :weight 'bold)
-(set-face-attribute 'diredp-file-suffix nil
-                    :foreground nil)
-
 ;; make sure dired buffers end in a slash so we can identify them easily
 (defun ensure-buffer-name-ends-in-slash ()
   "change buffer name to end with slash"
@@ -871,17 +700,7 @@ The app is chosen from your OS's preference."
     (progn 
       (setq explicit-shell-file-name "bash")
       (setq explicit-bash-args '("-c" "-t" "export EMACS=; stty echo; bash"))  
-      (ansi-color-for-comint-mode-on)
-      ;; (add-hook 'shell-mode-hook
-      ;;     (lambda()
-      ;;        ;; make sure completion calls company-readline first
-      ;;        (require 'readline-complete)
-      ;;        (set (make-local-variable 'company-backends)
-      ;;             (cons 'company-readline company-backends))
-      ;;        (delete-dups company-backends)
-      ;;        ))
-      ;; (add-hook 'rlc-no-readline-hook (lambda () (company-mode -1)))
-      ))
+      (ansi-color-for-comint-mode-on)))
 
 (add-hook 'shell-mode-hook
           (lambda()

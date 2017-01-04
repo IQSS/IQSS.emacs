@@ -21,7 +21,7 @@ This is a drop-in replacement for your .emacs.d. It automatically installs and c
 :END:
 1) Make sure emacs >= version 24.3 is installed on your computer. See [[#suggested-external-programs][Suggested-external-programs]] for installation instructions.
 2) Make sure you have [[http://git-scm.com/downloads][git]] installed on your computer. If you don't know what git is you might be interested in John McDonnell's [[http://nyuccl.org/pages/GitTutorial/][git tutorial]].
-3) Determine your emacs configuration directory. Open emacs and type =C-x f ~/ RET=. This should open a directory listing buffer. Note the path at the top of this file. This is were your =.emacs.d= should go.
+3) Determine your emacs configuration directory. Open emacs and type =C-x f ~/ RET=. This should open a directory listing buffer. Note the path at the top of this file. This is were your =s.d= should go.
 4) Close Emacs.
 6) Back up your existing =~/.emacs= file and =~/.emacs.d= directory (e.g., rename =.emacs= to =OLD.emacs= and rename =.emacs.d= to =OLD.emacs.d=).
 6) Clone this repository into =~/.emacs.d= by opening a terminal and running =git clone http://github.com/izahn/dotemacs ~/.emacs.d=.
@@ -271,10 +271,6 @@ Visual changes such as hiding the toolbar need to come first to avoid jarring tr
                     (add-hook 'emacs-startup-hook 
                               (lambda() (switch-to-buffer "*scratch*"))))))
 
-  ;; hide the toolbar
-  (tool-bar-mode 0)
-  ;; (menu-bar-mode 0)
-
 #+END_SRC
 
 #+RESULTS:
@@ -327,6 +323,7 @@ The main purpose of these emacs configuration files is to install and configure 
                           diff-hl
                           adaptive-wrap
                           ;; melpa packages
+                          better-defaults
                           auctex-latexmk
                           diminish
                           multi-term
@@ -421,8 +418,6 @@ Loading the theme should come as early as possible in the init sequence to avoid
   (add-hook 'after-init-hook 'sml/setup)
   (setq sml/theme 'light)
 
-  ;; turn of scroll bar
-  (scroll-bar-mode -1)
 #+END_SRC
 *** Add custom lisp directory to load path
 :PROPERTIES:
@@ -456,6 +451,10 @@ We try to install most things using the package manager, but a few things need t
 This section sets up various utilities and conveniences. Many of these are low priority, so we set them first in order to allow any conflicting settings to be overridden later.
 
 #+BEGIN_SRC emacs-lisp
+  ;; better defaults are well, better.
+  (require 'better-defaults)
+  ;; but we don't always agree
+  (menu-bar-mode 1)
 
   ;;; Misc. Conveniences
   ;; get help from the web
@@ -473,51 +472,9 @@ This section sets up various utilities and conveniences. Many of these are low p
   (setq buffer-file-coding-system 'utf-8)                      
   (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 
-  ;; ;; use regex search by default
-  ;; (global-set-key (kbd "C-s") 'isearch-forward-regexp)
-  ;; (global-set-key (kbd "C-r") 'isearch-backward-regexp)
-
-  ;; Use spaces for indentation
-  (setq-default indent-tabs-mode nil)
-
-  ;; Make sure copy-and-paste works with other programs
-  ;; (not needed in recent emacs?)
-  ;; (setq x-select-enable-clipboard t
-  ;;       x-select-enable-primary t
-  ;;       save-interprogram-paste-before-kill t)
-
-  ;; Text pasted with mouse should be inserted at cursor position
-  (setq mouse-yank-at-point t)
-
   ;; Mouse scrolling behavior
   (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
   (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
-
-  ;; from https://github.com/bbatsov/prelude
-  ;; store all backup and autosave files in the tmp dir
-  (setq backup-directory-alist
-  `((".*" . ,temporary-file-directory)))
-  (setq auto-save-file-name-transforms
-  `((".*" ,temporary-file-directory t)))
-  ;; autosave the undo-tree history
-  (setq undo-tree-history-directory-alist
-  `((".*" . ,temporary-file-directory)))
-  (setq undo-tree-auto-save-history t)
-
-  ;; Apropos commands should search everything
-  (setq apropos-do-all t)
-
-  ;; Store the places file in the emacs user directory
-  (setq save-place-file (concat user-emacs-directory "places"))
-
-
-  ;; better naming of duplicate buffers
-  (require 'uniquify)
-  (setq uniquify-buffer-name-style 'forward)
-
-  ;; put cursor in last used position when re-opening file
-  (require 'saveplace)
-  (setq-default save-place t)
 
   ;; Use y/n instead of yes/no
   (fset 'yes-or-no-p 'y-or-n-p)
@@ -525,8 +482,6 @@ This section sets up various utilities and conveniences. Many of these are low p
   (transient-mark-mode 1) ; makes the region visible
   (line-number-mode 1)    ; makes the line number show up
   (column-number-mode 1)  ; makes the column number show up
-
-  (show-paren-mode 1) ;; highlight matching paren
 
   ;; ;; smooth scrolling with C-up/C-down
   (require 'smooth-scroll)
@@ -717,58 +672,10 @@ There are several different systems for providing completion hints in emacs. The
 :PROPERTIES:
 :CUSTOM_ID: auto-complete-configuration
 :END:
-Here we configure in-buffer text completion using the company-mode package. These completions are available on-demand using =tab= for in-buffer popup or =M-/= for search-able minibuffer list.
+
+We used to do very complicated stuff to get auto completion in Emacs. I no longer believe it's worth it; the default completion is good enough. If you need completions just press =tab=. If it doesn't work, press =tab= again. That's all.
 
 #+BEGIN_SRC emacs-lisp
-  ;;Use M-/ to complete.
-  ;; (require 'company)
-  ;; ;; cancel if input doesn't match, be patient, and don't complete automatically.
-  ;; (setq company-require-match nil
-  ;;       company-async-timeout 5
-  ;;       company-idle-delay nil)
-  ;; ;; complete using C-tab
-  ;; (global-set-key (kbd "<C-tab>") 'counsel-company)
-  ;; ;; use C-n and C-p to cycle through completions
-  ;; ;; (define-key company-mode-map (kbd "<tab>") 'company-complete)
-  ;; (define-key company-active-map (kbd "C-n") 'company-select-next)
-  ;; (define-key company-active-map (kbd "<tab>") 'company-complete-common)
-  ;; (define-key company-active-map (kbd "C-p") 'company-select-previous)
-  ;; (define-key company-active-map (kbd "<backtab>") 'company-select-previous)
-  ;; ;; enable math completions
-  ;; (require 'company-math)
-  ;; (add-to-list 'company-backends 'company-math-symbols-unicode)
-  ;; ;;(add-to-list 'company-backends 'company-math-symbols-latex)
-  ;; ;; put company-capf at the beginning of the list
-  ;; (require 'company-capf)
-  ;; (setq company-backends
-  ;;       (delete-dups (cons 'company-capf company-backends)))
-
-  ;; ;; Try to complete with tab
-  ;; ;; From https://github.com/company-mode/company-mode/issues/94
-  ;; (define-key company-mode-map [remap indent-for-tab-command]
-  ;;   'company-indent-for-tab-command)
-
-  ;; (setq tab-always-indent 'complete)
-
-  ;; (defvar completion-at-point-functions-saved nil)
-
-  ;; (defun company-indent-for-tab-command (&optional arg)
-  ;;   (interactive "P")
-  ;;   (let ((completion-at-point-functions-saved completion-at-point-functions)
-  ;;         (completion-at-point-functions '(company-complete-wrapper)))
-  ;;     (indent-for-tab-command arg)))
-
-  ;; (defun company-complete-wrapper ()
-  ;;   (let ((completion-at-point-functions completion-at-point-functions-saved))
-  ;;     (company-complete)))
-
-  ;; ;; ;; disable dabbrev
-  ;; ;; (delete 'company-dabbrev company-backends)
-  ;; ;; (delete 'company-dabbrev-code company-backends)
-
-
-  ;; (add-hook 'after-init-hook 'global-company-mode)
-
   (setq tab-always-indent 'complete)
 #+END_SRC
 
@@ -777,8 +684,7 @@ Here we configure in-buffer text completion using the company-mode package. Thes
 :CUSTOM_ID: which-key
 :END:
 
-This mode shows a keymap when an incomplete command is entered.
-
+This mode shows a keymap when an incomplete command is entered. It is especially useful for families of commands with a prefix, e.g., =C-c C-o= for =outline-mode= commands, or =C-c C-v= for =org-babel= commands. Just start typing your command and pause if you want a hint.
 
 #+BEGIN_SRC emacs-lisp
 (require 'which-key)
@@ -820,16 +726,7 @@ I encourage you to use [[*Note taking and outlining (Org-mode)][org-mode]] for n
 :CUSTOM_ID: programming-mode
 :END:
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'prog-mode-hook
-            (lambda()
-              ;; turn on outline minor mode:
-              (add-hook 'prog-mode-hook 'outline-minor-mode)
-               ;; make sure completion calls company-capf first
-              ;; (require 'company-capf)
-              ;; (set (make-local-variable 'company-backends)
-              ;;      (cons 'company-capf company-backends))
-              ;; (delete-dups company-backends)
-              ))
+  (add-hook 'prog-mode-hook 'outline-minor-mode)
 #+END_SRC
 
 
@@ -892,22 +789,10 @@ Load eval-in-repl for bash, elisp, and python interaction.
   (add-hook 'ess-mode-hook
             (lambda()
               ;; don't wrap long lines
-              (setq truncate-lines 1)
-              ;; better (but still not right) indentation
-              ;(setq ess-first-continued-statement-offset 2)
-              ;(setq ess-continued-statement-offset 0)
-              ;(setq ess-arg-function-offset nil)
-              ;(setq ess-arg-function-offset-new-line nil)
-              ;(setq ess-expression-offset nil)
-
-              ;; ;; put company-capf at the front of the completion sources list
-              ;; (set (make-local-variable 'company-backends)
-              ;;      (cons 'company-capf company-backends))
-              ;; (delete-dups company-backends)
+              (toggle-truncate-lines t)
+              (outline-minor-mode t)
               (define-key ess-mode-map (kbd "<C-return>") 'ess-eval-region-or-function-or-paragraph-and-step)
               ))
-
-
 #+END_SRC
 
 **** Run python in emacs (elpy)
@@ -930,8 +815,7 @@ Load eval-in-repl for bash, elisp, and python interaction.
              (lambda ()
                 (require 'eval-in-repl-python)
                 (define-key elpy-mode-map "\C-c\C-c" 'eir-eval-in-python)
-                (define-key elpy-mode-map (kbd "<C-return>") 'eir-eval-in-python)
-                (setq company-idle-delay nil)))
+                (define-key elpy-mode-map (kbd "<C-return>") 'eir-eval-in-python)))
 
   ;; fix printing issue in python buffers
   ;; see http://debbugs.gnu.org/cgi/bugreport.cgi?bug=21077
@@ -953,27 +837,6 @@ Load eval-in-repl for bash, elisp, and python interaction.
   (define-key lisp-interaction-mode-map "\C-c\C-c" 'eir-eval-in-ielm)
   ;; For M-x info
   (define-key Info-mode-map "\C-c\C-c" 'eir-eval-in-ielm)
-
-  ;; ;; Set up completions
-  ;; (add-hook 'emacs-lisp-mode-hook
-  ;;           (lambda()
-  ;;              ;; make sure completion calls company-elisp first
-  ;;              (require 'company-elisp)
-  ;;              (set (make-local-variable 'company-backends)
-  ;;                   (cons 'company-elisp company-backends))
-  ;;              (delete-dups company-backends)
-  ;;              ))
-#+END_SRC
-
-**** Haskell
-
-#+BEGIN_SRC emacs-lisp
-  ;; (require 'company-ghci)
-  ;; (add-hook 'haskell-mode-hook (lambda ()
-  ;;                                (set (make-local-variable 'company-backends)
-  ;;                                     (cons 'company-ghci company-backends))
-  ;;                                (delete-dups company-backends)))
-  ;; (add-hook 'haskell-interactive-mode-hook 'company-mode)
 #+END_SRC
 
 **** Light-weight markup language (Markdown mode)
@@ -1037,16 +900,6 @@ Load eval-in-repl for bash, elisp, and python interaction.
   (add-hook 'bibtex-mode-hook
             (lambda ()
               (define-key bibtex-mode-map "\M-q" 'bibtex-fill-entry)))
-
-  ;; ;; Try to make tex-command-run-all the default (doesn't work)
-  ;; (eval-after-load "tex"
-  ;;   '(add-to-list 'TeX-command-list
-  ;;                 '("TeX-command-run-all" "(TeX-command-run-all)"
-  ;;                   TeX-run-function nil t :help "Run all required commands") t))
-
-  ;; (add-hook 'LaTeX-mode-hook
-  ;;           (lambda ()
-  ;;             (setq TeX-command-default "TeX-command-run-all")))
 
   ;; enable latexmk
   (with-eval-after-load "tex"
@@ -1194,36 +1047,6 @@ Load eval-in-repl for bash, elisp, and python interaction.
   ;; set dired listing options
   (if (eq system-type 'gnu/linux)
       (setq dired-listing-switches "-alDhp"))
-
-  ;; more subdued colors
-  (set-face-attribute 'diredp-ignored-file-name nil
-                      :foreground "LightGray"
-                      :background nil)
-  (set-face-attribute 'diredp-read-priv nil
-                      :foreground "LightGray"
-                      :background nil)
-  (set-face-attribute 'diredp-write-priv nil
-                      :foreground "LightGray"
-                      :background nil)
-  (set-face-attribute 'diredp-other-priv nil
-                      :foreground "LightGray"
-                      :background nil)
-  (set-face-attribute 'diredp-rare-priv nil
-                      :foreground "LightGray"
-                      :background nil)
-  (set-face-attribute 'diredp-no-priv nil
-                      :foreground "LightGray"
-                      :background nil)
-  (set-face-attribute 'diredp-exec-priv nil
-                      :foreground "LightGray"
-                      :background nil)
-  (set-face-attribute 'diredp-file-name nil
-                      :weight 'bold
-                      :background nil)
-  (set-face-attribute 'diredp-dir-priv nil
-                      :weight 'bold)
-  (set-face-attribute 'diredp-file-suffix nil
-                      :foreground nil)
                     
   ;; make sure dired buffers end in a slash so we can identify them easily
   (defun ensure-buffer-name-ends-in-slash ()
@@ -1313,17 +1136,7 @@ Load eval-in-repl for bash, elisp, and python interaction.
       (progn 
         (setq explicit-shell-file-name "bash")
         (setq explicit-bash-args '("-c" "-t" "export EMACS=; stty echo; bash"))  
-        (ansi-color-for-comint-mode-on)
-        ;; (add-hook 'shell-mode-hook
-        ;;     (lambda()
-        ;;        ;; make sure completion calls company-readline first
-        ;;        (require 'readline-complete)
-        ;;        (set (make-local-variable 'company-backends)
-        ;;             (cons 'company-readline company-backends))
-        ;;        (delete-dups company-backends)
-        ;;        ))
-        ;; (add-hook 'rlc-no-readline-hook (lambda () (company-mode -1)))
-        ))
+        (ansi-color-for-comint-mode-on)))
 
   (add-hook 'shell-mode-hook
             (lambda()
@@ -1348,8 +1161,6 @@ Load eval-in-repl for bash, elisp, and python interaction.
   (add-hook 'eshell-mode-hook 'with-editor-export-editor)
 
   (shell-command-with-editor-mode t)
-
-
 #+END_SRC
 
 
