@@ -1,14 +1,3 @@
-;;; COMMENTARY
-
-;; This emacs configuration file sets some convenient defaults and activates 
-;; emacs functionality useful to social scientists. 
-
-
-;; NOTE FOR RCE USERS: RCE Emacs has some strange system configuration
-;; settings. To use this init file on the RCE you need to start emacs with
-;; emacs --no-site-file --no-site-lisp. This is a temporary requirement that
-;; will eventually be resolved in cooperation with the RCE team.
-
 (when (< (string-to-number 
            (concat 
             (number-to-string emacs-major-version) 
@@ -16,18 +5,6 @@
             (number-to-string emacs-minor-version)))
           24.2)
   (error "Your version of emacs is very old and must be upgraded before you can use these packages"))
-
-;; use desktop mode, but only for frame layout
-;; and only if running in windowed mode
-  ;; always use fancy-startup, even on small screens
-  ;; but only if running in windowed mode
-  (defun always-use-fancy-splash-screens-p () 1)
-  (defalias 'use-fancy-splash-screens-p 'always-use-fancy-splash-screens-p)
-  (add-hook 'after-init-hook
-            (lambda()
-              (if inhibit-startup-screen
-                  (add-hook 'emacs-startup-hook 
-                            (lambda() (switch-to-buffer "*scratch*"))))))
 
 ;; set coding system so emacs doesn't choke on melpa file listings
 (set-language-environment 'utf-8)
@@ -39,11 +16,10 @@
   (set-selection-coding-system 'utf-8))
 (prefer-coding-system 'utf-8)
 
-;;; Install required packages
 (require 'cl)
 
 ;; set things that need to be set before packages load
-; Less crazy key bindings for outline-minor-mode
+                                        ; Less crazy key bindings for outline-minor-mode
 (setq outline-minor-mode-prefix "\C-c\C-o")
 (add-hook 'outline-minor-mode-hook
           (lambda () (local-set-key "\C-c\C-o"
@@ -71,12 +47,12 @@
                         adaptive-wrap
                         ;; melpa packages
                         better-defaults
-                        auctex-latexmk
                         diminish
-                        multi-term
-                        howdoi
                         smart-mode-line
                         dired+
+                        howdoi
+                        auctex-latexmk
+                        multi-term
                         with-editor
                         eyebrowse
                         mouse3
@@ -89,8 +65,6 @@
                         outline-magic
                         smooth-scroll
                         unfill
-                        ; company
-                        ; company-math
                         ess
                         markdown-mode
                         polymode
@@ -98,13 +72,13 @@
                         elpy
                         haskell-mode
                         ghc
-                        ; company-ghci
                         flycheck
                         scala-mode
                         ensime
                         sbt-mode
                         exec-path-from-shell
                         htmlize
+                        ;; org-mode packages
                         org-plus-contrib))
 
 ;; Activate package autoloads
@@ -478,6 +452,7 @@ http://github.com/izahn/dotemacs/issues
     ;; honor TeX-PDF-mode settings
     (setq auctex-latexmk-inherit-TeX-PDF-mode t)))
 
+(setq ivy-bibtex-default-action 'bibtex-completion-insert-citation)
 (global-set-key (kbd "C-c r") 'ivy-bibtex)
 
 (with-eval-after-load "org"
@@ -689,3 +664,15 @@ The app is chosen from your OS's preference."
 (add-hook 'eshell-mode-hook 'with-editor-export-editor)
 
 (shell-command-with-editor-mode t)
+
+;; use desktop mode, but only for frame layout
+;; and only if running in windowed mode
+  ;; always use fancy-startup, even on small screens
+  ;; but only if running in windowed mode
+  (defun always-use-fancy-splash-screens-p () 1)
+  (defalias 'use-fancy-splash-screens-p 'always-use-fancy-splash-screens-p)
+  (add-hook 'after-init-hook
+            (lambda()
+              (if inhibit-startup-screen
+                  (add-hook 'emacs-startup-hook 
+                            (lambda() (switch-to-buffer "*scratch*"))))))
