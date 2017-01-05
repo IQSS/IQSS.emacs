@@ -458,9 +458,6 @@ This section sets up various utilities and conveniences. Many of these are low p
   ;; better defaults are well, better... but we don't always agree
   (menu-bar-mode 1)
 
-  ;; window arrangement history
-  (winner-mode 1)
-
     ;;; set up unicode
   (prefer-coding-system       'utf-8)
   (set-default-coding-systems 'utf-8)
@@ -522,17 +519,6 @@ This section sets up various utilities and conveniences. Many of these are low p
   (setq cua-rectangle-mark-key (kbd "<C-S-SPC>"))
   (define-key cua-global-keymap (kbd "<C-S-SPC>") 'cua-rectangle-mark-mode)
 
-  ;; ;; use windresize for changing window size
-
-  ;; use windmove for navigating windows
-  (global-set-key (kbd "<M-S-left>")  'windmove-left)
-  (global-set-key (kbd "<M-S-right>") 'windmove-right)
-  (global-set-key (kbd "<M-S-up>")    'windmove-up)
-  (global-set-key (kbd "<M-S-down>")  'windmove-down)
-
-  ;; Work spaces
-  (eyebrowse-mode t)
-
   ;; The beeping can be annoying--turn it off
   (set-variable 'visible-bell t)
 
@@ -551,11 +537,35 @@ This section sets up various utilities and conveniences. Many of these are low p
 
 #+END_SRC
 
-
 *** Spell checking
 :PROPERTIES:
 :CUSTOM_ID: spell-checking
 :END:
+
+*** Window Management
+
+Emacs has [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Configuration-Registers.html#Configuration-Registers][window layout management]], built-in but it's not convenient to use. [[https://github.com/wasamasa/eyebrowse][Eyebrowse]] makes it easier, so we use that. Create a new layout with =C-c C-l C-n=, switch with =C-c C-l #= . 
+
+The basic window navigation with =C-c C-o= does not make it easy to navigate quickly to a specific window, so we use windmove for that. Use =M-S-left/right/up/down= to quickly navigate to a window.
+
+=winner-mode= allows you to undo/redo window configuration changes. Use =C-c <left>= to undo adn =C-c <right>= to redo.
+
+#+BEGIN_SRC emacs-lisp
+  ;; Work spaces
+  (setq eyebrowse-keymap-prefix (kbd "C-c C-l"))
+  (eyebrowse-mode t)
+
+  ;; Undo/redo window changes
+  (winner-mode 1)
+
+  ;; use windmove for navigating windows
+  (global-set-key (kbd "<M-S-left>")  'windmove-left)
+  (global-set-key (kbd "<M-S-right>") 'windmove-right)
+  (global-set-key (kbd "<M-S-up>")    'windmove-up)
+  (global-set-key (kbd "<M-S-down>")  'windmove-down)
+
+#+END_SRC
+
 
 #+BEGIN_SRC emacs-lisp
   ;; enable on-the-fly spell checking
@@ -896,6 +906,7 @@ Initiate a citation search with =ivy-bibtex=, bound to =C-c r=.
 #+BEGIN_SRC emacs-lisp 
   (with-eval-after-load "org"
     (setq org-replace-disputed-keys t)
+    (setq org-support-shift-select t)
     (setq org-export-babel-evaluate nil)
     ;; (setq org-startup-indented t)
     ;; increase imenu depth to include third level headings

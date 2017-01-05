@@ -173,9 +173,6 @@ http://github.com/izahn/dotemacs/issues
 ;; better defaults are well, better... but we don't always agree
 (menu-bar-mode 1)
 
-;; window arrangement history
-(winner-mode 1)
-
   ;;; set up unicode
 (prefer-coding-system       'utf-8)
 (set-default-coding-systems 'utf-8)
@@ -237,17 +234,6 @@ http://github.com/izahn/dotemacs/issues
 (setq cua-rectangle-mark-key (kbd "<C-S-SPC>"))
 (define-key cua-global-keymap (kbd "<C-S-SPC>") 'cua-rectangle-mark-mode)
 
-;; ;; use windresize for changing window size
-
-;; use windmove for navigating windows
-(global-set-key (kbd "<M-S-left>")  'windmove-left)
-(global-set-key (kbd "<M-S-right>") 'windmove-right)
-(global-set-key (kbd "<M-S-up>")    'windmove-up)
-(global-set-key (kbd "<M-S-down>")  'windmove-down)
-
-;; Work spaces
-(eyebrowse-mode t)
-
 ;; The beeping can be annoying--turn it off
 (set-variable 'visible-bell t)
 
@@ -263,6 +249,19 @@ http://github.com/izahn/dotemacs/issues
 (diminish 'google-this-mode)
 (diminish 'outline-minor-mode)
 (diminish 'smooth-scroll-mode)
+
+;; Work spaces
+(setq eyebrowse-keymap-prefix (kbd "C-c C-l"))
+(eyebrowse-mode t)
+
+;; Undo/redo window changes
+(winner-mode 1)
+
+;; use windmove for navigating windows
+(global-set-key (kbd "<M-S-left>")  'windmove-left)
+(global-set-key (kbd "<M-S-right>") 'windmove-right)
+(global-set-key (kbd "<M-S-up>")    'windmove-up)
+(global-set-key (kbd "<M-S-down>")  'windmove-down)
 
 ;; enable on-the-fly spell checking
 (add-hook 'emacs-startup-hook
@@ -484,6 +483,7 @@ http://github.com/izahn/dotemacs/issues
 
 (with-eval-after-load "org"
   (setq org-replace-disputed-keys t)
+  (setq org-support-shift-select t)
   (setq org-export-babel-evaluate nil)
   ;; (setq org-startup-indented t)
   ;; increase imenu depth to include third level headings
