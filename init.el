@@ -82,6 +82,8 @@
                         mouse3
                         swiper
                         counsel
+                        flx-ido
+                        smex
                         which-key
                         outline-magic
                         smooth-scroll
@@ -294,6 +296,7 @@ http://github.com/izahn/dotemacs/issues
 
 (ivy-mode 1)
 
+(setq counsel-find-file-ignore-regexp "\\`\\.")
 (setq ivy-use-virtual-buffers t)
 (setq ivy-count-format "(%d/%d) ")
 (setq ivy-display-style nil)

@@ -335,6 +335,8 @@ The main purpose of these emacs configuration files is to install and configure 
                           mouse3
                           swiper
                           counsel
+                          flx-ido
+                          smex
                           which-key
                           outline-magic
                           smooth-scroll
@@ -603,7 +605,8 @@ There are several different systems for providing completion hints in emacs. The
 
 #+BEGIN_SRC emacs-lisp
   (ivy-mode 1)
-
+  
+  (setq counsel-find-file-ignore-regexp "\\`\\.")
   (setq ivy-use-virtual-buffers t)
   (setq ivy-count-format "(%d/%d) ")
   (setq ivy-display-style nil)
