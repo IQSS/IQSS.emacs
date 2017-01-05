@@ -167,17 +167,10 @@ http://github.com/izahn/dotemacs/issues
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
 
-;; better defaults are well, better.
-(require 'better-defaults)
-;; but we don't always agree
+;; better defaults are well, better... but we don't always agree
 (menu-bar-mode 1)
 
-;;; Misc. Conveniences
-;; get help from the web
-(require 'howdoi)
-
 ;; window arrangement history
-;; (setq winner-dont-bind-my-keys t) 
 (winner-mode 1)
 
   ;;; set up unicode
@@ -208,21 +201,11 @@ http://github.com/izahn/dotemacs/issues
 (global-set-key [(control right)] 'scroll-left-1)
 
 ;; enable toggling paragraph un-fill
-
-(require 'unfill)
 (define-key global-map "\M-Q" 'unfill-paragraph)
 
 ;; line wrapping
-
-;; (setq-default fringes-outside-margins t)
-;; (setq-default left-margin-width 1 right-margin-width 1) ; Define new widths.
-;; (set-window-buffer nil (current-buffer)) ; Use them now.
-;; (fringe-mode '(5 . 5)) ; make fringe smaller
-(set-face-attribute 'fringe nil
-                    :foreground "LightGray")
 (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
 (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
-(require 'adaptive-wrap)
 (remove-hook 'text-mode-hook 'turn-on-auto-fill) ; vincent turns this on, we turn it off.
 (add-hook 'visual-line-mode-hook 'adaptive-wrap-prefix-mode)
 (add-hook 'text-mode-hook 'visual-line-mode 1)
@@ -242,7 +225,6 @@ http://github.com/izahn/dotemacs/issues
 (global-set-key (kbd "C-z") 'undo)
 ;; ;; 
 ;; Make right-click do something close to what people expect
-(require 'mouse3)
 (global-set-key (kbd "<mouse-3>") 'mouse3-popup-menu)
 ;; (global-set-key (kbd "C-f") 'isearch-forward)
 ;; (global-set-key (kbd "C-s") 'save-buffer)
@@ -252,13 +234,8 @@ http://github.com/izahn/dotemacs/issues
 (setq cua-rectangle-mark-key (kbd "<C-S-SPC>"))
 (define-key cua-global-keymap (kbd "<C-S-SPC>") 'cua-rectangle-mark-mode)
 
-;; (defadvice menu-find-file-existing (around find-file-read-args-always-use-dialog-box act)
-;;   "Simulate invoking menu item as if by the mouse; see `use-dialog-box'."
-;;   (let ((last-nonmenu-event nil))
-;;      ad-do-it))
-
 ;; ;; use windresize for changing window size
-(require 'windresize)
+
 ;; use windmove for navigating windows
 (global-set-key (kbd "<M-S-left>")  'windmove-left)
 (global-set-key (kbd "<M-S-right>") 'windmove-right)
@@ -266,7 +243,6 @@ http://github.com/izahn/dotemacs/issues
 (global-set-key (kbd "<M-S-down>")  'windmove-down)
 
 ;; Work spaces
-(require 'eyebrowse)
 (eyebrowse-mode t)
 
 ;; The beeping can be annoying--turn it off
@@ -279,7 +255,7 @@ http://github.com/izahn/dotemacs/issues
 (load custom-file 'noerror)
 
 ;; ;; clean up the mode line
-(require 'diminish)
+; (require 'diminish)
 ;; (diminish 'company-mode)
 (diminish 'google-this-mode)
 (diminish 'outline-minor-mode)
@@ -352,16 +328,16 @@ http://github.com/izahn/dotemacs/issues
 (define-key ivy-minibuffer-map (kbd "C-f") 'ivy-immediate-done)
 
 ;; show recently opened files
-(require 'recentf)
+;; (require 'recentf)
 (setq recentf-max-menu-items 50)
 (recentf-mode 1)
 
 (setq tab-always-indent 'complete)
 
-(require 'which-key)
+;; (require 'which-key)
 (which-key-mode)
 
-(require 'flycheck)
+;; (require 'flycheck)
 (global-flycheck-mode)
 
 ;;; Configure outline minor modes
@@ -386,45 +362,43 @@ http://github.com/izahn/dotemacs/issues
 
 ;;;  ESS (Emacs Speaks Statistics)
 
-;; Start R in the working directory by default
-(setq ess-ask-for-ess-directory nil)
-
 ;; Scroll down when R generates output
 (setq comint-scroll-to-bottom-on-input t)
 (setq comint-scroll-to-bottom-on-output t)
 (setq comint-move-point-for-output t)
 
-;; Make sure ESS is loaded
-(require 'ess-site)
+;; Make sure ESS is loaded before we configure it
+(autoload 'julia "ess-julia" "Start a Julia REPL." t)
+(with-eval-after-load "ess-site"
+  ;; disable ehoing input
+  (setq ess-eval-visibly nil)
+  ;; Start R in the working directory by default
+  (setq ess-ask-for-ess-directory nil)
+  ;; Use tab completion
+  (setq ess-tab-complete-in-script t)
 
-;; disable ehoing input
-(setq ess-eval-visibly nil)
+  ;; extra ESS stuff inspired by https://github.com/gaborcsardi/dot-emacs/blob/master/.emacs
+  (ess-toggle-underscore nil)
 
-;; Use tab completion
-(setq ess-tab-complete-in-script t)
-
-;; extra ESS stuff inspired by https://github.com/gaborcsardi/dot-emacs/blob/master/.emacs
-(ess-toggle-underscore nil)
-
-(defun my-ess-execute-screen-options (foo)
-  "cycle through windows whose major mode is inferior-ess-mode and fix width"
-  (interactive)
-  (setq my-windows-list (window-list))
+  (defun my-ess-execute-screen-options (foo)
+    "cycle through windows whose major mode is inferior-ess-mode and fix width"
+    (interactive)
+    (setq my-windows-list (window-list))
     (while my-windows-list
       (when (with-selected-window (car my-windows-list) (string= "inferior-ess-mode" major-mode))
         (with-selected-window (car my-windows-list) (ess-execute-screen-options t)))
       (setq my-windows-list (cdr my-windows-list))))
 
-(add-to-list 'window-size-change-functions 'my-ess-execute-screen-options)
+  (add-to-list 'window-size-change-functions 'my-ess-execute-screen-options)
 
-;; truncate long lines in R source files
-(add-hook 'ess-mode-hook
-          (lambda()
-            ;; don't wrap long lines
-            (toggle-truncate-lines t)
-            (outline-minor-mode t)
-            (define-key ess-mode-map (kbd "<C-return>") 'ess-eval-region-or-function-or-paragraph-and-step)
-            ))
+  ;; truncate long lines in R source files
+  (add-hook 'ess-mode-hook
+            (lambda()
+              ;; don't wrap long lines
+              (toggle-truncate-lines t)
+              (outline-minor-mode t)
+              (define-key ess-mode-map (kbd "<C-return>") 'ess-eval-region-or-function-or-paragraph-and-step)
+              )))
 
 ;; Python completion and code checking
 (setq elpy-modules '(;elpy-module-company
@@ -435,74 +409,64 @@ http://github.com/izahn/dotemacs/issues
                      elpy-module-sane-defaults))
 (elpy-enable)
 
-;; make sure completions don't start automatically
+;; Make standard code evaluation keys work.
 (add-hook 'elpy-mode-hook
            (lambda ()
               (require 'eval-in-repl-python)
               (define-key elpy-mode-map "\C-c\C-c" 'eir-eval-in-python)
               (define-key elpy-mode-map (kbd "<C-return>") 'eir-eval-in-python)))
 
-;; fix printing issue in python buffers
-;; see http://debbugs.gnu.org/cgi/bugreport.cgi?bug=21077
-(setq python-shell-enable-font-lock nil)
-
 ;; ielm
 (require 'eval-in-repl-ielm)
 ;; For .el files
 (define-key emacs-lisp-mode-map "\C-c\C-c" 'eir-eval-in-ielm)
+(define-key emacs-lisp-mode-map (kbd "<C-return>") 'eir-eval-in-ielm)
 ;; For *scratch*
 (define-key lisp-interaction-mode-map "\C-c\C-c" 'eir-eval-in-ielm)
+(define-key emacs-lisp-mode-map (kbd "<C-return>") 'eir-eval-in-ielm)
 ;; For M-x info
 (define-key Info-mode-map "\C-c\C-c" 'eir-eval-in-ielm)
-
-;;; markdown mode
+(define-key emacs-lisp-mode-map (kbd "<C-return>") 'eir-eval-in-ielm)
 
 ;; Use markdown-mode for files with .markdown or .md extensions
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
 ;;; AucTeX config
-;; turn on math mode and and index to imenu
-(add-hook 'LaTeX-mode-hook
-          (lambda ()
-            (turn-on-reftex)
-            (TeX-PDF-mode t)
-            (LaTeX-math-mode)
-            (TeX-source-correlate-mode t)
-            (imenu-add-to-menubar "Index")
-            (outline-minor-mode)
-            ;; completion
-            ;; (setq-local company-backends
-            ;;             (delete-dups (cons 'company-files
-            ;;                                     company-backends)))
-            ;; (setq-local company-backends
-            ;;             (delete-dups (cons '(company-math-symbols-latex company-latex-commands company-math-symbols-unicode)
-            ;;                                     company-backends)))
-            ;; Allow paragraph filling in tables
-            (setq LaTeX-indent-environment-list
-                  (delq (assoc "table" LaTeX-indent-environment-list)
-                        LaTeX-indent-environment-list))
-            (setq LaTeX-indent-environment-list
-                  (delq (assoc "table*" LaTeX-indent-environment-list)
-                        LaTeX-indent-environment-list))))
-;; Misc. latex settings
-(setq TeX-parse-self t
-      TeX-auto-save t)
-(setq-default TeX-master nil)
-;; Add beamer frames to outline list
-(setq TeX-outline-extra
-      '((".*\\\\begin{frame}\n\\|.*\\\\begin{frame}\\[.*\\]\\|.*\\\\begin{frame}.*{.*}\\|.*[       ]*\\\\frametitle\\b" 3)))
-;; reftex settings
-(setq reftex-enable-partial-scans t)
-(setq reftex-save-parse-info t)
-(setq reftex-use-multiple-selection-buffers t)
-(setq reftex-plug-into-AUCTeX t)
-(add-hook 'bibtex-mode-hook
-          (lambda ()
-            (define-key bibtex-mode-map "\M-q" 'bibtex-fill-entry)))
 
-;; enable latexmk
 (with-eval-after-load "tex"
+  ;; turn on math mode and and index to imenu
+  (add-hook 'LaTeX-mode-hook
+            (lambda ()
+              (turn-on-reftex)
+              (TeX-PDF-mode t)
+              (LaTeX-math-mode)
+              (TeX-source-correlate-mode t)
+              (imenu-add-to-menubar "Index")
+              (outline-minor-mode)
+              ;; Allow paragraph filling in tables
+              (setq LaTeX-indent-environment-list
+                    (delq (assoc "table" LaTeX-indent-environment-list)
+                          LaTeX-indent-environment-list))
+              (setq LaTeX-indent-environment-list
+                    (delq (assoc "table*" LaTeX-indent-environment-list)
+                          LaTeX-indent-environment-list))))
+  ;; Misc. latex settings
+  (setq TeX-parse-self t
+        TeX-auto-save t)
+  (setq-default TeX-master nil)
+  ;; Add beamer frames to outline list
+  (setq TeX-outline-extra
+        '((".*\\\\begin{frame}\n\\|.*\\\\begin{frame}\\[.*\\]\\|.*\\\\begin{frame}.*{.*}\\|.*[       ]*\\\\frametitle\\b" 3)))
+  ;; reftex settings
+  (setq reftex-enable-partial-scans t)
+  (setq reftex-save-parse-info t)
+  (setq reftex-use-multiple-selection-buffers t)
+  (setq reftex-plug-into-AUCTeX t)
+  (add-hook 'bibtex-mode-hook
+            (lambda ()
+              (define-key bibtex-mode-map "\M-q" 'bibtex-fill-entry)))
+  ;; enable latexmk if available
   (when (executable-find "latexmk")
     (require 'auctex-latexmk)
     (auctex-latexmk-setup)
@@ -514,10 +478,7 @@ http://github.com/izahn/dotemacs/issues
 
 (with-eval-after-load "org"
   (setq org-export-babel-evaluate nil)
-  (set-face-attribute 'org-meta-line nil
-                      :background nil
-                      :foreground "#B0B0B0")
-  (setq org-startup-indented t)
+  ;; (setq org-startup-indented t)
   ;; increase imenu depth to include third level headings
   (setq org-imenu-depth 3)
   ;; Set sensible mode for editing dot files
@@ -535,6 +496,7 @@ http://github.com/izahn/dotemacs/issues
               (require 'ox-freemind)
               (require 'ox-bibtex)
               ;; Enable common programming language support in org-mode
+              (require 'ess-site)
               (org-babel-do-load-languages
                'org-babel-load-languages
                '((R . t)
@@ -604,8 +566,6 @@ http://github.com/izahn/dotemacs/issues
     (setq mu4e-html2text-command 'mu4e-shr2text)))
 
 ;;; Dired and Dired+ configuration
-;; show git status in dired
-(require 'diff-hl)
 (add-hook 'dired-mode-hook 
           (lambda()
             (diff-hl-dired-mode)
@@ -613,8 +573,6 @@ http://github.com/izahn/dotemacs/issues
 
 ;; show details by default
 (setq diredp-hide-details-initially-flag nil)
-;; load dired+ and mouse3
-(require 'dired+)
 
 ;; set dired listing options
 (if (eq system-type 'gnu/linux)
@@ -633,6 +591,7 @@ http://github.com/izahn/dotemacs/issues
 
 ;; open files in external programs
 ;; (from http://ergoemacs.org/emacs/emacs_dired_open_file_in_ext_apps.html
+;; consider replacing with https://github.com/thamer/runner
 (defun xah-open-in-external-app (&optional file)
   "Open the current file or dired marked files in external app.
 
@@ -665,17 +624,22 @@ The app is chosen from your OS's preference."
          (lambda (fPath)
            (let ((process-connection-type nil))
              (start-process "" nil "xdg-open" fPath))) myFileList))))))
-;; open files from dired with "E"
-(define-key dired-mode-map (kbd "E") 'xah-open-in-external-app)
 ;; use zip/unzip to compress/uncompress zip archives
-(eval-after-load "dired-aux"
- '(add-to-list 'dired-compress-file-suffixes 
-               '("\\.zip\\'" "" "unzip")))
+(with-eval-after-load "dired-aux"
+  (add-to-list 'dired-compress-file-suffixes 
+               '("\\.zip\\'" "" "unzip"))
+  ;; open files from dired with "E"
+  (define-key dired-mode-map (kbd "E") 'xah-open-in-external-app))
 
 ;; term
-(require 'multi-term)
+(with-eval-after-load "term"
 (define-key term-mode-map (kbd "C-j") 'term-char-mode)
-(define-key term-raw-map (kbd "C-j") 'term-line-mode)
+(define-key term-raw-map (kbd "C-j") 'term-line-mode))
+
+(with-eval-after-load "multi-term"
+(define-key term-mode-map (kbd "C-j") 'term-char-mode)
+(define-key term-raw-map (kbd "C-j") 'term-line-mode))
+
 ;; shell
 (require 'essh) ; if not done elsewhere; essh is in the local lisp folder
 (require 'eval-in-repl-shell)
@@ -696,12 +660,6 @@ The app is chosen from your OS's preference."
 (defun my-shell-mode-hook ()
   ;; add this hook as buffer local, so it runs once per window.
   (add-hook 'window-configuration-change-hook 'comint-fix-window-size nil t))
-  ;; auto-complete for shell-mode (linux only)
-(if (eq system-type 'gnu/linux)
-    (progn 
-      (setq explicit-shell-file-name "bash")
-      (setq explicit-bash-args '("-c" "-t" "export EMACS=; stty echo; bash"))  
-      (ansi-color-for-comint-mode-on)))
 
 (add-hook 'shell-mode-hook
           (lambda()
@@ -711,8 +669,6 @@ The app is chosen from your OS's preference."
 ;; extra completion for eshell
 (add-hook 'eshell-mode-hook
           (lambda()
-             (require 'pcmpl-args)
-             (require 'pcmpl-pip)
              ;; programs that don't work well in eshell and should be run in visual mode
              (add-to-list 'eshell-visual-commands "ssh")
              (add-to-list 'eshell-visual-commands "tail")
