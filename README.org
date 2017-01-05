@@ -46,7 +46,7 @@ This configuration loads a lot of useful emacs packages (see [[#suggested-extern
 :PROPERTIES:
 :CUSTOM_ID: completion-keys
 :END:
-- tab :: Mapped to =indent-or-complete=, use for completion indentation and completion.
+- tab :: Mapped to =company-complete=, use for completion indentation and completion.
 - M-y :: Remapped to =counsel-yank-pop= to browse the kill ring interactively.
 - M-x :: Remapped to =counsel-M-x= to interactively search for interactive functions.
 - C-c r :: Mapped to =ivy-bibtex= to search for a citation to insert. You must set =bibtex-completion-bibliography= to your BibTeX files for this to work.
@@ -73,7 +73,7 @@ Many of the Emacs features configured here are designed to make it easier to int
   :CUSTOM_ID: implementation
   :END:
 
-The emacs configuration in the sections below implements the [[#requirements][Requirements]] listed above.
+I used to have a long description about all the packages this configuration sets up, but showing you the actual code is better. Each section starts with a description of what it does, followed by the code that implements it.
 
 ** Version check and preparation
    :PROPERTIES:
@@ -480,10 +480,10 @@ There are several different systems for providing completion hints in emacs. The
 :PROPERTIES:
 :CUSTOM_ID: auto-complete-configuration
 :END:
-Here we configure in-buffer text completion using the company-mode package. These completions are available on-demand using =tab= for in-buffer popup or =M-/= for search-able minibuffer list.
+Here we configure in-buffer text completion using the company-mode package. These completions are available on-demand using =tab= for in-buffer popup or =C-tab= for search-able minibuffer list.
 
 #+BEGIN_SRC emacs-lisp
-  ;;Use M-/ to complete.
+  ;;Use tab to complete.
   (require 'company)
   ;; cancel if input doesn't match, be patient, and don't complete automatically.
   (setq company-require-match nil

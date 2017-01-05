@@ -311,7 +311,7 @@ http://github.com/izahn/dotemacs/issues
 (setq recentf-max-menu-items 50)
 (recentf-mode 1)
 
-;;Use M-/ to complete.
+;;Use tab to complete.
 (require 'company)
 ;; cancel if input doesn't match, be patient, and don't complete automatically.
 (setq company-require-match nil
