@@ -157,6 +157,8 @@ The main purpose of these emacs configuration files is to install and configure 
                           outline-magic
                           smooth-scroll
                           unfill
+                          company
+                          company-math
                           ess
                           markdown-mode
                           polymode
@@ -164,6 +166,7 @@ The main purpose of these emacs configuration files is to install and configure 
                           elpy
                           haskell-mode
                           ghc
+                          company-ghci
                           flycheck
                           scala-mode
                           ensime
@@ -424,11 +427,11 @@ If you're using [[http://vgoulet.act.ulaval.ca/en/emacs/windows/][Vincent Goulet
     (require 'hfyview))
 #+END_SRC
 
-** Minibuffer hints and completion
-   :PROPERTIES:
-   :CUSTOM_ID: minibuffer-hints-and-completion
-   :END:
-There are several different systems for providing completion hints in emacs. The default pcomplete system shows completions on demand (usually bound to tab key) in an emacs buffer. Here we set up ivy, which instead shows these completions on-the-fly in the minibuffer. These completions are primarily used to show available files (e.g., with ~find-file~) and emacs functions (e.g., with ~execute-extended-command~).
+*** Minibuffer hints and completion
+:PROPERTIES:
+:CUSTOM_ID: minibuffer-hints-and-completion
+:END:
+There are several different systems for providing completion hints in emacs. The default pcomplete system shows completions on demand (usually bound to tab key) in an emacs buffer. Here we set up ivy, which instead shows these completions on-the-fly in the minibuffer. These completions are primarily used to show available files (e.g., with ~find-file~) and emacs functions (e.g., with ~execute-extended-command~). Completion for in-buffer text (e.g., methods in python-mode, or arguments in R-mode) are handled separately by [[#auto-complete-configuration][company-mode]].
 
 #+BEGIN_SRC emacs-lisp
   (ivy-mode 1)
@@ -445,7 +448,7 @@ There are several different systems for providing completion hints in emacs. The
   (global-set-key (kbd "M-y") 'counsel-yank-pop)
   (global-set-key (kbd "C-x C-f") 'counsel-find-file)
   (global-set-key (kbd "C-x C-r") 'counsel-recentf)
-  ;; (global-set-key (kbd "<C-tab>") 'counsel-company)
+  (global-set-key (kbd "<C-tab>") 'counsel-company)
   (global-set-key (kbd "<f1> f") 'counsel-describe-function)
   (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
   (global-set-key (kbd "<f1> l") 'counsel-load-library)
@@ -473,15 +476,62 @@ There are several different systems for providing completion hints in emacs. The
 
 #+END_SRC
 
-** Auto-complete configuration
-   :PROPERTIES:
-   :CUSTOM_ID: auto-complete-configuration
-   :END:
-
-We used to do very complicated stuff to get auto completion in Emacs. I no longer believe it's worth it; the default completion is good enough. If you need completions just press =tab=. If it doesn't work, press =tab= again. That's all.
+*** Auto-complete configuration
+:PROPERTIES:
+:CUSTOM_ID: auto-complete-configuration
+:END:
+Here we configure in-buffer text completion using the company-mode package. These completions are available on-demand using =tab= for in-buffer popup or =M-/= for search-able minibuffer list.
 
 #+BEGIN_SRC emacs-lisp
+  ;;Use M-/ to complete.
+  (require 'company)
+  ;; cancel if input doesn't match, be patient, and don't complete automatically.
+  (setq company-require-match nil
+        company-async-timeout 5
+        company-idle-delay nil)
+  ;; complete using C-tab
+  (global-set-key (kbd "<C-tab>") 'counsel-company)
+  ;; use C-n and C-p to cycle through completions
+  ;; (define-key company-mode-map (kbd "<tab>") 'company-complete)
+  (define-key company-active-map (kbd "C-n") 'company-select-next)
+  (define-key company-active-map (kbd "<tab>") 'company-complete-common)
+  (define-key company-active-map (kbd "C-p") 'company-select-previous)
+  (define-key company-active-map (kbd "<backtab>") 'company-select-previous)
+  ;; enable math completions
+  (require 'company-math)
+  (add-to-list 'company-backends 'company-math-symbols-unicode)
+  ;;(add-to-list 'company-backends 'company-math-symbols-latex)
+  ;; put company-capf at the beginning of the list
+  (require 'company-capf)
+  (setq company-backends
+        (delete-dups (cons 'company-capf company-backends)))
+
+  ;; Try to complete with tab
+  ;; From https://github.com/company-mode/company-mode/issues/94
+  (define-key company-mode-map [remap indent-for-tab-command]
+    'company-indent-for-tab-command)
+
   (setq tab-always-indent 'complete)
+
+  (defvar completion-at-point-functions-saved nil)
+
+  (defun company-indent-for-tab-command (&optional arg)
+    (interactive "P")
+    (let ((completion-at-point-functions-saved completion-at-point-functions)
+          (completion-at-point-functions '(company-complete-wrapper)))
+      (indent-for-tab-command arg)))
+
+  (defun company-complete-wrapper ()
+    (let ((completion-at-point-functions completion-at-point-functions-saved))
+      (company-complete)))
+
+  ;; ;; disable dabbrev
+  ;; (delete 'company-dabbrev company-backends)
+  ;; (delete 'company-dabbrev-code company-backends)
+
+
+  (add-hook 'after-init-hook 'global-company-mode)
+
 #+END_SRC
 
 ** Which-key
@@ -531,7 +581,16 @@ I encourage you to use [[*Note taking and outlining (Org-mode)][org-mode]] for n
     :CUSTOM_ID: programming-mode
     :END:
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'prog-mode-hook 'outline-minor-mode)
+  (add-hook 'prog-mode-hook
+            (lambda()
+              ;; turn on outline minor mode:
+              (outline-minor-mode)
+               ;; make sure completion calls company-capf first
+              (require 'company-capf)
+              (set (make-local-variable 'company-backends)
+                   (cons 'company-capf company-backends))
+              (delete-dups company-backends)
+              ))
 #+END_SRC
 
 
@@ -558,6 +617,9 @@ Load eval-in-repl for bash, elisp, and python interaction.
 
 #+BEGIN_SRC emacs-lisp
     ;;;  ESS (Emacs Speaks Statistics)
+
+  ;; Start R in the working directory by default
+  (setq ess-ask-for-ess-directory nil)
 
   ;; Scroll down when R generates output
   (setq comint-scroll-to-bottom-on-input t)
@@ -605,7 +667,7 @@ Load eval-in-repl for bash, elisp, and python interaction.
 
 #+BEGIN_SRC emacs-lisp
   ;; Python completion and code checking
-  (setq elpy-modules '(;elpy-module-company
+  (setq elpy-modules '(elpy-module-company
                        elpy-module-eldoc
                        elpy-module-flymake
                        elpy-module-pyvenv
@@ -613,12 +675,14 @@ Load eval-in-repl for bash, elisp, and python interaction.
                        elpy-module-sane-defaults))
   (elpy-enable)
 
-  ;; Make standard code evaluation keys work.
+  ;; make sure completions don't start automatically
   (add-hook 'elpy-mode-hook
              (lambda ()
                 (require 'eval-in-repl-python)
                 (define-key elpy-mode-map "\C-c\C-c" 'eir-eval-in-python)
-                (define-key elpy-mode-map (kbd "<C-return>") 'eir-eval-in-python)))
+                (define-key elpy-mode-map (kbd "<C-return>") 'eir-eval-in-python)
+                (setq company-idle-delay nil)))
+
 #+END_SRC
 
 *** emacs lisp REPL (ielm)
@@ -637,7 +701,16 @@ Load eval-in-repl for bash, elisp, and python interaction.
   (define-key emacs-lisp-mode-map (kbd "<C-return>") 'eir-eval-in-ielm)
   ;; For M-x info
   (define-key Info-mode-map "\C-c\C-c" 'eir-eval-in-ielm)
-  (define-key emacs-lisp-mode-map (kbd "<C-return>") 'eir-eval-in-ielm)
+
+  ;; Set up completions
+  (add-hook 'emacs-lisp-mode-hook
+            (lambda()
+               ;; make sure completion calls company-elisp first
+               (require 'company-elisp)
+               (set (make-local-variable 'company-backends)
+                    (cons 'company-elisp company-backends))
+               (delete-dups company-backends)
+               ))
 #+END_SRC
 
 *** Light-weight markup language (Markdown mode)
@@ -646,6 +719,23 @@ Load eval-in-repl for bash, elisp, and python interaction.
     :END:
 
 #+BEGIN_SRC emacs-lisp
+  (require 'company-ghci)
+  (add-hook 'haskell-mode-hook (lambda ()
+                                 (set (make-local-variable 'company-backends)
+                                      (cons 'company-ghci company-backends))
+                                 (delete-dups company-backends)))
+  (add-hook 'haskell-interactive-mode-hook 'company-mode)
+#+END_SRC
+
+**** Light-weight markup language (Markdown mode)
+:PROPERTIES:
+:CUSTOM_ID: light-weight-markup-language
+:END:
+
+#+BEGIN_SRC emacs-lisp
+
+  ;;; markdown mode
+
   ;; Use markdown-mode for files with .markdown or .md extensions
   (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
   (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
