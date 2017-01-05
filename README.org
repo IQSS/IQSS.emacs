@@ -895,48 +895,50 @@ Initiate a citation search with =ivy-bibtex=, bound to =C-c r=.
 
 #+BEGIN_SRC emacs-lisp 
   (with-eval-after-load "org"
+    (setq org-replace-disputed-keys t)
     (setq org-export-babel-evaluate nil)
     ;; (setq org-startup-indented t)
     ;; increase imenu depth to include third level headings
     (setq org-imenu-depth 3)
     ;; Set sensible mode for editing dot files
     (add-to-list 'org-src-lang-modes '("dot" . graphviz-dot))
-
+    ;; Make windmove work in org-mode:
+    (add-hook 'org-shiftup-final-hook 'windmove-up)
+    (add-hook 'org-shiftleft-final-hook 'windmove-left)
+    (add-hook 'org-shiftdown-final-hook 'windmove-down)
+    (add-hook 'org-shiftright-final-hook 'windmove-right)
     ;; Update images from babel code blocks automatically
     (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
     ;; configure org-mode when opening first org-mode file
-    (add-hook 'org-mode-hook
-              (lambda()
-                ;; (define-key org-mode-map (kbd "<C-tab>") 'company-complete)
-                ;; Load additional export formats
-                (require 'ox-odt)
-                (require 'ox-md)
-                (require 'ox-freemind)
-                (require 'ox-bibtex)
-                ;; Enable common programming language support in org-mode
-                (require 'ess-site)
-                (org-babel-do-load-languages
-                 'org-babel-load-languages
-                 '((R . t)
-                   (python . t)
-                   (matlab . t)
-                   (emacs-lisp . t)
-                   (sh . t)
-                   (dot . t)
-                   (latex . t)
-                   (octave . t)
-                   (ditaa . t)
-                   (org . t)
-                   (perl . t)
-                   (julia . t)
-                   ))
-                ;; Fontify code blocks in org-mode
-                (setq org-src-fontify-natively t)
-                (setq org-src-tab-acts-natively t)
-                (setq org-confirm-babel-evaluate nil)
-                (require 'org-capture)
-                (require 'org-protocol)
-                (require 'ob-stata))))
+    ;; Load additional export formats
+    (require 'ox-odt)
+    (require 'ox-md)
+    (require 'ox-freemind)
+    (require 'ox-bibtex)
+    ;; Enable common programming language support in org-mode
+    (require 'ess-site)
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '((R . t)
+       (python . t)
+       (matlab . t)
+       (emacs-lisp . t)
+       (sh . t)
+       (dot . t)
+       (latex . t)
+       (octave . t)
+       (ditaa . t)
+       (org . t)
+       (perl . t)
+       (julia . t)
+       ))
+    ;; Fontify code blocks in org-mode
+    (setq org-src-fontify-natively t)
+    (setq org-src-tab-acts-natively t)
+    (setq org-confirm-babel-evaluate nil)
+    (require 'org-capture)
+    (require 'org-protocol)
+    (require 'ob-stata))
 
 #+END_SRC
 
