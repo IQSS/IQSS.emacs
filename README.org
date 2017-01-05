@@ -51,6 +51,7 @@ This configuration loads a lot of useful emacs packages (see [[#suggested-extern
 # - C-tab :: Mapped to =counsel-company=, use for search-able completion menu.
 - M-y :: Remapped to =counsel-yank-pop= to browse the kill ring interactively.
 - M-x :: Remapped to =counsel-M-x= to interactively search for interactive functions.
+- C-c r :: Mapped to =ivy-bibtex= to search for a citation to insert. You must set =bibtex-completion-bibliography= to your BibTeX files for this to work.
 
 *** Other key bindings
 :PROPERTIES:
@@ -337,6 +338,7 @@ The main purpose of these emacs configuration files is to install and configure 
                           counsel
                           flx-ido
                           smex
+                          ivy-bibtex
                           which-key
                           outline-magic
                           smooth-scroll
@@ -877,6 +879,15 @@ Load eval-in-repl for bash, elisp, and python interaction.
       (setq auctex-latexmk-inherit-TeX-PDF-mode t)))
 #+END_SRC
 
+
+**** Citations (ivy-bibtex)
+This allows you to search your BibTeX files for references to insert into the current document. For it to work you will need to set `bibtex-completion-bibliography` to the location of your BibTeX files.
+
+Initiate a citation search with =ivy-bibtex=, bound to =C-c r=.
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c r") 'ivy-bibtex)
+#+END_SRC
 **** Note taking and outlining (Org-mode)
 :PROPERTIES:
 :CUSTOM_ID: note-taking-and-outlining

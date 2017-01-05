@@ -84,6 +84,7 @@
                         counsel
                         flx-ido
                         smex
+                        ivy-bibtex
                         which-key
                         outline-magic
                         smooth-scroll
@@ -478,6 +479,8 @@ http://github.com/izahn/dotemacs/issues
     (add-hook 'LaTeX-mode-hook '(lambda () (setq TeX-command-default "LatexMk")))
     ;; honor TeX-PDF-mode settings
     (setq auctex-latexmk-inherit-TeX-PDF-mode t)))
+
+(global-set-key (kbd "C-c r") 'ivy-bibtex)
 
 (with-eval-after-load "org"
   (setq org-export-babel-evaluate nil)
