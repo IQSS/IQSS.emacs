@@ -617,7 +617,7 @@ There are several different systems for providing completion hints in emacs. The
 
 #+BEGIN_SRC emacs-lisp
   (ivy-mode 1)
-  
+
   (setq counsel-find-file-ignore-regexp "\\`\\.")
   (setq ivy-use-virtual-buffers t)
   (setq ivy-count-format "(%d/%d) ")
@@ -653,7 +653,6 @@ There are several different systems for providing completion hints in emacs. The
   (define-key ivy-minibuffer-map (kbd "C-f") 'ivy-immediate-done)
 
   ;; show recently opened files
-  ;; (require 'recentf)
   (setq recentf-max-menu-items 50)
   (recentf-mode 1)
 

@@ -331,7 +331,6 @@ http://github.com/izahn/dotemacs/issues
 (define-key ivy-minibuffer-map (kbd "C-f") 'ivy-immediate-done)
 
 ;; show recently opened files
-;; (require 'recentf)
 (setq recentf-max-menu-items 50)
 (recentf-mode 1)
 
