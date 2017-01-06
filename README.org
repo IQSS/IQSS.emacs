@@ -25,7 +25,7 @@ Highlights include:
 - IDE-like configuration for R, Python, and LaTeX coding.
 - Literate programming configuration for running R, python, or other programming languages inside markdown or org-mode files.
 - Powerful and simple search-based tools for finding commands, files and buffers, inserting citations etc.
-- Convenient window management, including navigation with =S-M-arrow=, and undo/redo with =C-c left= and =C-c right=.
+- Convenient window management, including navigation with =C-x O=, and undo/redo with =C-c left= and =C-c right=.
 
 There are many more features, but these are the key ones. Details and the configuration itself are provided below.
 
