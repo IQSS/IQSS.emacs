@@ -3,23 +3,23 @@
             (number-to-string emacs-major-version) 
             "." 
             (number-to-string emacs-minor-version)))
-          24.2)
-  (error "Your version of emacs is very old and must be upgraded before you can use these packages"))
+          24.5)
+  (error "Your version of emacs is very old and must be upgraded before you can use these packages!"))
 
 ;; set coding system so emacs doesn't choke on melpa file listings
 (set-language-environment 'utf-8)
-(set-keyboard-coding-system 'utf-8-mac) ; For old Carbon emacs on OS X only
 (setq locale-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
 (set-terminal-coding-system 'utf-8)
 (unless (eq system-type 'windows-nt)
   (set-selection-coding-system 'utf-8))
 (prefer-coding-system 'utf-8)
+(setq buffer-file-coding-system 'utf-8)
+(setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 
 (require 'cl)
 
 ;; set things that need to be set before packages load
-                                        ; Less crazy key bindings for outline-minor-mode
 (setq outline-minor-mode-prefix "\C-c\C-o")
 (add-hook 'outline-minor-mode-hook
           (lambda () (local-set-key "\C-c\C-o"
@@ -46,10 +46,12 @@
                         diff-hl
                         adaptive-wrap
                         ;; melpa packages
+                        undo-tree
                         better-defaults
                         diminish
                         smart-mode-line
                         dired+
+                        ace-window
                         howdoi
                         auctex-latexmk
                         multi-term
@@ -94,40 +96,10 @@
       (unload-feature package t)))
 ;; Install packages in package-list if they are not already installed
 (unless (every #'package-installed-p my-package-list)
-  (switch-to-buffer "*scratch*")
-  (erase-buffer)
-  (setq my-this-buffer (buffer-name))
-  (delete-other-windows)
-  (insert "Please wait while emacs configures itself...")
-  (redisplay t)
-  (redisplay t)
   (package-refresh-contents)
   (dolist (package my-package-list)
     (when (not (package-installed-p package))
-      (package-install package)))
-    (switch-to-buffer "*scratch*")
-  (erase-buffer)
-  (add-to-list 'fancy-startup-text
-               '(:face
-                 (variable-pitch default)
-                 "Your emacs has been configured for maximum productivity. 
-For best results please restart emacs now.
-More information about this emacs configuration be found
-at http://github.com/izahn/dotemacs. If you have any problems
-or have a feature request please open a bug report at
-http://github.com/izahn/dotemacs/issues
-")))
-
-(add-to-list 'fancy-startup-text
-             '(:face
-               (variable-pitch default)
-               "\nYou are running a customized Emacs configuration. See "  :link
-               ("here"
-                #[257 "\300\301!\207"
-                      [browse-url-default-browser "http://github.com/izahn/dotemacs/"]
-                      3 "\n\n(fn BUTTON)"]
-                "Open the README file")
-               "\nfor information about these customizations.\n"))
+      (package-install package))))
 
 ;; mode line theme
 (add-hook 'after-init-hook 'sml/setup)
@@ -149,14 +121,6 @@ http://github.com/izahn/dotemacs/issues
 
 ;; better defaults are well, better... but we don't always agree
 (menu-bar-mode 1)
-
-  ;;; set up unicode
-(prefer-coding-system       'utf-8)
-(set-default-coding-systems 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(setq buffer-file-coding-system 'utf-8)                      
-(setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 
 ;; Mouse scrolling behavior
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
@@ -183,7 +147,7 @@ http://github.com/izahn/dotemacs/issues
 ;; line wrapping
 (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
 (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
-(remove-hook 'text-mode-hook 'turn-on-auto-fill) ; vincent turns this on, we turn it off.
+(remove-hook 'text-mode-hook 'turn-on-auto-fill)
 (add-hook 'visual-line-mode-hook 'adaptive-wrap-prefix-mode)
 (add-hook 'text-mode-hook 'visual-line-mode 1)
 (add-hook 'prog-mode-hook
@@ -193,39 +157,29 @@ http://github.com/izahn/dotemacs/issues
 ;; don't require two spaces for sentence end.
 (setq sentence-end-double-space nil)
 
-;; Use CUA mode to make life easier. We _do_ use standard copy/paste etc. 
-(cua-mode t)
-
-;; (cua-selection-mode t) ;; uncomment this to get cua goodness without copy/paste etc.
-
-;; ;; Make control-z undo
-(global-set-key (kbd "C-z") 'undo)
-;; ;; 
-;; Make right-click do something close to what people expect
-(global-set-key (kbd "<mouse-3>") 'mouse3-popup-menu)
-;; (global-set-key (kbd "C-f") 'isearch-forward)
-;; (global-set-key (kbd "C-s") 'save-buffer)
-;; (global-set-key (kbd "C-o") 'counsel-find-file)
-(define-key cua-global-keymap (kbd "<C-S-SPC>") nil)
-(define-key cua-global-keymap (kbd "<C-return>") nil)
-(setq cua-rectangle-mark-key (kbd "<C-S-SPC>"))
-(define-key cua-global-keymap (kbd "<C-S-SPC>") 'cua-rectangle-mark-mode)
-
 ;; The beeping can be annoying--turn it off
 (set-variable 'visible-bell t)
 
-;; save settings made using the customize interface to a sparate file
-(setq custom-file (concat user-emacs-directory "custom.el"))
-(unless (file-exists-p custom-file)
-  (write-region ";; Put user configuration here" nil custom-file))
-(load custom-file 'noerror)
+;; Use CUA mode to make life easier. We _do_ use standard copy/paste etc. 
+  (cua-mode t)
 
-;; ;; clean up the mode line
-; (require 'diminish)
-;; (diminish 'company-mode)
-(diminish 'google-this-mode)
-(diminish 'outline-minor-mode)
-(diminish 'smooth-scroll-mode)
+  ;; (cua-selection-mode t) ;; uncomment this to get cua goodness without copy/paste etc.
+
+  ;; ;; Make control-z undo
+  (global-undo-tree-mode t)
+  (global-set-key (kbd "C-z") 'undo)
+  (global-set-key (kbd "C-S-z") 'undo-tree-redo)
+
+  ;; ;; 
+  ;; Make right-click do something close to what people expect
+  (global-set-key (kbd "<mouse-3>") 'mouse3-popup-menu)
+  ;; (global-set-key (kbd "C-f") 'isearch-forward)
+  ;; (global-set-key (kbd "C-s") 'save-buffer)
+  ;; (global-set-key (kbd "C-o") 'counsel-find-file)
+  (define-key cua-global-keymap (kbd "<C-S-SPC>") nil)
+  (define-key cua-global-keymap (kbd "<C-return>") nil)
+  (setq cua-rectangle-mark-key (kbd "<C-S-SPC>"))
+  (define-key cua-global-keymap (kbd "<C-S-SPC>") 'cua-rectangle-mark-mode)
 
 ;; Work spaces
 (setq eyebrowse-keymap-prefix (kbd "C-c C-l"))
@@ -234,11 +188,14 @@ http://github.com/izahn/dotemacs/issues
 ;; Undo/redo window changes
 (winner-mode 1)
 
-;; use windmove for navigating windows
-(global-set-key (kbd "<M-S-left>")  'windmove-left)
-(global-set-key (kbd "<M-S-right>") 'windmove-right)
-(global-set-key (kbd "<M-S-up>")    'windmove-up)
-(global-set-key (kbd "<M-S-down>")  'windmove-down)
+;; use ace-window for navigating windows
+(global-set-key (kbd "C-x O") 'ace-window)
+(with-eval-after-load "ace-window"
+  (set-face-attribute 'aw-leading-char-face nil :height 2.5))
+;; (global-set-key (kbd "<M-S-left>")  'windmove-left)
+;; (global-set-key (kbd "<M-S-right>") 'windmove-right)
+;; (global-set-key (kbd "<M-S-up>")    'windmove-up)
+;; (global-set-key (kbd "<M-S-down>")  'windmove-down)
 
 ;; enable on-the-fly spell checking
 (add-hook 'emacs-startup-hook
@@ -283,7 +240,9 @@ http://github.com/izahn/dotemacs/issues
 (global-set-key (kbd "C-r") 'swiper)
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "M-y") 'counsel-yank-pop)
+(global-set-key (kbd "C-S-v") 'counsel-yank-pop)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+(global-set-key (kbd "C-o") 'counsel-find-file)
 (global-set-key (kbd "C-x C-r") 'counsel-recentf)
 (global-set-key (kbd "<C-tab>") 'counsel-company)
 (global-set-key (kbd "<f1> f") 'counsel-describe-function)
@@ -545,11 +504,6 @@ http://github.com/izahn/dotemacs/issues
   (setq org-imenu-depth 3)
   ;; Set sensible mode for editing dot files
   (add-to-list 'org-src-lang-modes '("dot" . graphviz-dot))
-  ;; Make windmove work in org-mode:
-  (add-hook 'org-shiftup-final-hook 'windmove-up)
-  (add-hook 'org-shiftleft-final-hook 'windmove-left)
-  (add-hook 'org-shiftdown-final-hook 'windmove-down)
-  (add-hook 'org-shiftright-final-hook 'windmove-right)
   ;; Update images from babel code blocks automatically
   (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
   ;; configure org-mode when opening first org-mode file
@@ -584,7 +538,6 @@ http://github.com/izahn/dotemacs/issues
   (require 'ob-stata))
 
 ;;; polymode
-
 ;; polymode requires emacs >= 24.3, does not work on the RCE. 
 (when (>= (string-to-number 
            (concat 
@@ -746,9 +699,7 @@ The app is chosen from your OS's preference."
 
 (shell-command-with-editor-mode t)
 
-;; use desktop mode, but only for frame layout
-;; and only if running in windowed mode
-  ;; always use fancy-startup, even on small screens
+;; always use fancy-startup, even on small screens
   ;; but only if running in windowed mode
   (defun always-use-fancy-splash-screens-p () 1)
   (defalias 'use-fancy-splash-screens-p 'always-use-fancy-splash-screens-p)
@@ -757,3 +708,27 @@ The app is chosen from your OS's preference."
               (if inhibit-startup-screen
                   (add-hook 'emacs-startup-hook 
                             (lambda() (switch-to-buffer "*scratch*"))))))
+
+(add-to-list 'fancy-startup-text
+             '(:face
+               (variable-pitch default)
+               "\nYou are running a customized Emacs configuration. See "  :link
+               ("here"
+                #[257 "\300\301!\207"
+                      [browse-url-default-browser "http://github.com/izahn/dotemacs/"]
+                      3 "\n\n(fn BUTTON)"]
+                "Open the README file")
+               "\nfor information about these customizations.\n"))
+
+;; save settings made using the customize interface to a sparate file
+(setq custom-file (concat user-emacs-directory "custom.el"))
+(unless (file-exists-p custom-file)
+  (write-region ";; Put user configuration here" nil custom-file))
+(load custom-file 'noerror)
+
+;; ;; clean up the mode line
+; (require 'diminish)
+;; (diminish 'company-mode)
+(diminish 'google-this-mode)
+(diminish 'outline-minor-mode)
+(diminish 'smooth-scroll-mode)

@@ -12,7 +12,11 @@
 :PROPERTIES:
 :CUSTOM_ID: what-is-this
 :END:
-This is an [[https://www.gnu.org/software/emacs/][Emacs]] configuration. There are many like it, but this one is mine. If you like it make it yours!
+This is an [[https://www.gnu.org/software/emacs/][Emacs]] configuration. There are many like it, but this one is mine. If you like it, make it yours!
+
+The main goal of this project is to provide an Emacs configuration that works more or less they way you would expect an editor or IDE to work in the second decade of the twenty-first century, without losing the things that make Emacs special. This is challenging because basic Emacs commands often conflict with de facto standards. Each of these conflicts is a judgment call; hopefully a good balance has been reached. 
+
+If you have never used Emacs before many things will work as you expect; a few will not, in which case you will need to search the web or read the Emacs documentation to learn the Emacs way. If you are an Emacs user, most things will mostly work as you expect, though you may wish to familiarize yourself with the alternative "de facto standard" bindings configured here.
 
 Highlights include:
 - More standard select/copy/paste keys and right-click behavior makes it more familiar to those new to Emacs.
@@ -20,8 +24,13 @@ Highlights include:
 - Consistent and familiar code evaluation using =C-ret=.
 - IDE-like configuration for R, Python, and LaTeX coding.
 - Literate programming configuration for running R, python, or other programming languages inside markdown or org-mode files.
-- Powerful search-based tools for finding commands, files and buffers, inserting citations etc.
-- 
+- Powerful and simple search-based tools for finding commands, files and buffers, inserting citations etc.
+- Convenient window management, including navigation with =S-M-arrow=, and undo/redo with =C-c left= and =C-c right=.
+
+There are many more features, but these are the key ones. Details and the configuration itself are provided below.
+
+Note that this documentation mostly uses Emacs notation for keybindings, e.g., =C= means "the Ctrl key", =M= means "the Meta (aka Alt) key", and =S= means "the Shift key". Refer to https://www.emacswiki.org/emacs/EmacsKeyNotation if you are not familiar with this notation.
+
 ** How to I install it?
 :PROPERTIES:
 :CUSTOM_ID: how-do-i-install-it
@@ -41,36 +50,61 @@ If you don't know how to use git, you can skip steps 2 and 6 and simply [[https:
 :END:
 Note that after installing this configuration emacs will be slow to start up the first time. This is due to package installation; just be patient and wait for it to finish--subsequent start-ups will be much faster.
 
-** Modified key bindings
+** Important key bindings
 :PROPERTIES:
 :CUSTOM_ID: modified-key-bindings
 :END:
-This configuration loads a lot of useful emacs packages (see [[#suggested-external-programs][Suggested external programs]] for the list), many of which add key bindings. Documenting them all here would be too much (see the documentation for each package if you need the details), so this section describes only those key bindings that we explicitly added or changed.
+This configuration loads a lot of useful emacs packages, many of which add key bindings. Documenting them all here would be too much (see the documentation for each package if you need the details), so this section describes only most important ones.
+
+*** Standard keyboard shortcuts
+- S-arrow :: Select a region, as in many other programs.
+- C-c :: Copy selection, as in most other programs. 
+- C-v :: Paste, as in most other programs. Select from the clipboard history with =S-C-v=.
+- C-z :: Undo, as in most other programs.
+- S-C-z :: Redo, as in most other programs. Use =C-x u= to visualize your undo/redo history.
+- C-o :: Open file, as in most other programs.
+
+Note that some things still work "the Emacs way". Notably:
+- C-a :: Goes to the beginning of the line. To select all use =C-x h=. 
+- C-s :: Searches. To save, use =C-x s=. 
+- C-f :: Moves forward one character. To search use =C-s=.
 
 *** REPL interaction
+This should be easy, and hopefully it is.
+
 - C-RET :: Mapped to language specific line/selection/expression evaluation. Want to evaluate code from a script? =C-RET= should "just work".
 
 *** Completion keys
 :PROPERTIES:
 :CUSTOM_ID: completion-keys
 :END:
+Many standard Emacs keybindings have been replaced with versions that provide completion suggestions. In-buffer completion can be triggered with the =tab= key.
+
 - tab :: Mapped to =company-complete=, use for completion indentation and completion.
-- M-y :: Remapped to =counsel-yank-pop= to browse the kill ring interactively.
+- M-y :: Remapped to =counsel-yank-pop= to browse the kill ring interactively. =S-C-v= also works for this.
 - M-x :: Remapped to =counsel-M-x= to interactively search for interactive functions.
 - C-c r :: Mapped to =ivy-bibtex= to search for a citation to insert. You must set =bibtex-completion-bibliography= to your BibTeX files for this to work.
+
+*** Window management keys
+Some convenient window management keys are provided, in addition to the standard Emacs =C-x o= binding to navigate to "other window".
+
+- C-x O :: (Ctrl-x shift-o) mapped to =ace-window=, use to quickly navigate to a window by number.
+- C-c left :: Mapped to =winner-undo=, use to undo a window change.
+- C-c right :: Mapped to =winner-undo=, use to redo a window change.
+- C-c C-l # :: Mapped to =eybrowse-switch-to-window-config=, use to save/restore window layouts.
 
 *** Other key bindings
 :PROPERTIES:
 :CUSTOM_ID: other-key-bindings
 :END:
-- E :: Open in external application (dired mode only)
+
+- S-C-SPC :: Mapped to =cua-rectangle-mark-mode=, use to edit rectangular regions.
 - C-up :: Mapped to =scroll-down-1=.
 - C-down :: Mapped to =scroll-up-1=.
 - M-Q :: Mapped to =unfill-paragraph=, use to remove line breaks from a paragraph.
 - C-c C-o t :: Mapped to =outline-cycle=, use to hide/show when outline-minor-mode is active (outline-minor mode is enabled in programming modes and in LaTeX-mode).
 - M-q :: Remapped to =bibtex-fill-entry= (bibtex mode only).
-- S-M-right :: (shift + meta + right arrow key) mapped to =windmove-right=; selects the window to the right of the currently active window. =S-M-left=, =S-M-up= and =S-M-down= also mapped to the corresponding windmove functions.
-
+- E :: Open in external application (dired mode only)
 
 * Interacting with external programs
 Many of the Emacs features configured here are designed to make it easier to interact with external programs. For example, [[http://ess.r-project.org][ESS]] makes it easy to interact with [[http://r-project.org][R]], and [[https://www.gnu.org/software/auctex/][AUCTEX]] makes it easy to interact with [[http://tug.org/texlive/][LaTeX]]. If you need help installing these programs, [[file:UsefullPrograms.org][this short guide]] may help. 
@@ -95,23 +129,23 @@ It is difficult to support multiple versions of emacs, so we will pick an arbitr
               (number-to-string emacs-major-version) 
               "." 
               (number-to-string emacs-minor-version)))
-            24.2)
-    (error "Your version of emacs is very old and must be upgraded before you can use these packages"))
+            24.5)
+    (error "Your version of emacs is very old and must be upgraded before you can use these packages!"))
 
   ;; set coding system so emacs doesn't choke on melpa file listings
   (set-language-environment 'utf-8)
-  (set-keyboard-coding-system 'utf-8-mac) ; For old Carbon emacs on OS X only
   (setq locale-coding-system 'utf-8)
   (set-default-coding-systems 'utf-8)
   (set-terminal-coding-system 'utf-8)
   (unless (eq system-type 'windows-nt)
     (set-selection-coding-system 'utf-8))
   (prefer-coding-system 'utf-8)
+  (setq buffer-file-coding-system 'utf-8)
+  (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 
   (require 'cl)
 
   ;; set things that need to be set before packages load
-                                          ; Less crazy key bindings for outline-minor-mode
   (setq outline-minor-mode-prefix "\C-c\C-o")
   (add-hook 'outline-minor-mode-hook
             (lambda () (local-set-key "\C-c\C-o"
@@ -146,10 +180,12 @@ The main purpose of these emacs configuration files is to install and configure 
                           diff-hl
                           adaptive-wrap
                           ;; melpa packages
+                          undo-tree
                           better-defaults
                           diminish
                           smart-mode-line
                           dired+
+                          ace-window
                           howdoi
                           auctex-latexmk
                           multi-term
@@ -194,41 +230,10 @@ The main purpose of these emacs configuration files is to install and configure 
         (unload-feature package t)))
   ;; Install packages in package-list if they are not already installed
   (unless (every #'package-installed-p my-package-list)
-    (switch-to-buffer "*scratch*")
-    (erase-buffer)
-    (setq my-this-buffer (buffer-name))
-    (delete-other-windows)
-    (insert "Please wait while emacs configures itself...")
-    (redisplay t)
-    (redisplay t)
     (package-refresh-contents)
     (dolist (package my-package-list)
       (when (not (package-installed-p package))
-        (package-install package)))
-      (switch-to-buffer "*scratch*")
-    (erase-buffer)
-    (add-to-list 'fancy-startup-text
-                 '(:face
-                   (variable-pitch default)
-                   "Your emacs has been configured for maximum productivity. 
-  For best results please restart emacs now.
-  More information about this emacs configuration be found
-  at http://github.com/izahn/dotemacs. If you have any problems
-  or have a feature request please open a bug report at
-  http://github.com/izahn/dotemacs/issues
-  ")))
-
-  (add-to-list 'fancy-startup-text
-               '(:face
-                 (variable-pitch default)
-                 "\nYou are running a customized Emacs configuration. See "  :link
-                 ("here"
-                  #[257 "\300\301!\207"
-                        [browse-url-default-browser "http://github.com/izahn/dotemacs/"]
-                        3 "\n\n(fn BUTTON)"]
-                  "Open the README file")
-                 "\nfor information about these customizations.\n"))
-
+        (package-install package))))
 #+END_SRC
 
 ** Load theme
@@ -267,7 +272,7 @@ We try to install most things using the package manager, but a few things need t
 
 #+RESULTS:
 
-** Miscellaneous
+** Tweak default Emacs settings
    :PROPERTIES:
    :CUSTOM_ID: miscellaneous
    :END:
@@ -277,14 +282,6 @@ This section sets up various utilities and conveniences. Many of these are low p
 #+BEGIN_SRC emacs-lisp
   ;; better defaults are well, better... but we don't always agree
   (menu-bar-mode 1)
-
-    ;;; set up unicode
-  (prefer-coding-system       'utf-8)
-  (set-default-coding-systems 'utf-8)
-  (set-terminal-coding-system 'utf-8)
-  (set-keyboard-coding-system 'utf-8)
-  (setq buffer-file-coding-system 'utf-8)                      
-  (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 
   ;; Mouse scrolling behavior
   (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
@@ -311,7 +308,7 @@ This section sets up various utilities and conveniences. Many of these are low p
   ;; line wrapping
   (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
   (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
-  (remove-hook 'text-mode-hook 'turn-on-auto-fill) ; vincent turns this on, we turn it off.
+  (remove-hook 'text-mode-hook 'turn-on-auto-fill)
   (add-hook 'visual-line-mode-hook 'adaptive-wrap-prefix-mode)
   (add-hook 'text-mode-hook 'visual-line-mode 1)
   (add-hook 'prog-mode-hook
@@ -321,13 +318,24 @@ This section sets up various utilities and conveniences. Many of these are low p
   ;; don't require two spaces for sentence end.
   (setq sentence-end-double-space nil)
 
-  ;; Use CUA mode to make life easier. We _do_ use standard copy/paste etc. 
+  ;; The beeping can be annoying--turn it off
+  (set-variable 'visible-bell t)
+#+END_SRC
+
+** Make Emacs friendlier to newcomers
+Emacs will never to as simple as Notepad, but perhaps it can be made more consistent with the way most other programs behave.
+
+#+BEGIN_SRC emacs-lisp
+;; Use CUA mode to make life easier. We _do_ use standard copy/paste etc. 
   (cua-mode t)
 
   ;; (cua-selection-mode t) ;; uncomment this to get cua goodness without copy/paste etc.
 
   ;; ;; Make control-z undo
+  (global-undo-tree-mode t)
   (global-set-key (kbd "C-z") 'undo)
+  (global-set-key (kbd "C-S-z") 'undo-tree-redo)
+
   ;; ;; 
   ;; Make right-click do something close to what people expect
   (global-set-key (kbd "<mouse-3>") 'mouse3-popup-menu)
@@ -338,23 +346,6 @@ This section sets up various utilities and conveniences. Many of these are low p
   (define-key cua-global-keymap (kbd "<C-return>") nil)
   (setq cua-rectangle-mark-key (kbd "<C-S-SPC>"))
   (define-key cua-global-keymap (kbd "<C-S-SPC>") 'cua-rectangle-mark-mode)
-
-  ;; The beeping can be annoying--turn it off
-  (set-variable 'visible-bell t)
-
-  ;; save settings made using the customize interface to a sparate file
-  (setq custom-file (concat user-emacs-directory "custom.el"))
-  (unless (file-exists-p custom-file)
-    (write-region ";; Put user configuration here" nil custom-file))
-  (load custom-file 'noerror)
-
-  ;; ;; clean up the mode line
-  ; (require 'diminish)
-  ;; (diminish 'company-mode)
-  (diminish 'google-this-mode)
-  (diminish 'outline-minor-mode)
-  (diminish 'smooth-scroll-mode)
-
 #+END_SRC
 
 ** Window Management
@@ -364,7 +355,7 @@ This section sets up various utilities and conveniences. Many of these are low p
 
 Emacs has [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Configuration-Registers.html#Configuration-Registers][window layout management]], built-in but it's not convenient to use. [[https://github.com/wasamasa/eyebrowse][Eyebrowse]] makes it easier, so we use that. Create a new layout with =C-c C-l C-n=, switch with =C-c C-l #= . 
 
-The basic window navigation with =C-c C-o= does not make it easy to navigate quickly to a specific window, so we use windmove for that. Use =M-S-left/right/up/down= to quickly navigate to a window.
+The basic window navigation with =C-c C-o= does not make it easy to navigate quickly to a specific window, so we use =ace-window= for that. Use =C-x O= to quickly navigate to a window.
 
 =winner-mode= allows you to undo/redo window configuration changes. Use =C-c <left>= to undo adn =C-c <right>= to redo.
 
@@ -376,22 +367,24 @@ The basic window navigation with =C-c C-o= does not make it easy to navigate qui
   ;; Undo/redo window changes
   (winner-mode 1)
 
-  ;; use windmove for navigating windows
-  (global-set-key (kbd "<M-S-left>")  'windmove-left)
-  (global-set-key (kbd "<M-S-right>") 'windmove-right)
-  (global-set-key (kbd "<M-S-up>")    'windmove-up)
-  (global-set-key (kbd "<M-S-down>")  'windmove-down)
-
+  ;; use ace-window for navigating windows
+  (global-set-key (kbd "C-x O") 'ace-window)
+  (with-eval-after-load "ace-window"
+    (set-face-attribute 'aw-leading-char-face nil :height 2.5))
+  ;; (global-set-key (kbd "<M-S-left>")  'windmove-left)
+  ;; (global-set-key (kbd "<M-S-right>") 'windmove-right)
+  ;; (global-set-key (kbd "<M-S-up>")    'windmove-up)
+  ;; (global-set-key (kbd "<M-S-down>")  'windmove-down)
 #+END_SRC
-
-
 
 ** Spell checking
    :PROPERTIES:
    :CUSTOM_ID: spell-checking
    :END:
 
-Emacs comes with spell checking built-in, it just needs to be turned on. By default spell checking is enabled in =text-mode= and =prog-mode= buffers.
+Emacs comes with spell checking built-in, it just needs to be turned on. By default automatic spell checking is enabled in =text-mode= and =prog-mode= buffers.
+
+You can also spell-check on demand with =ispell-word=, bound to =M-$=.
 
 #+BEGIN_SRC emacs-lisp
   ;; enable on-the-fly spell checking
@@ -454,7 +447,9 @@ There are several different systems for providing completion hints in emacs. The
   (global-set-key (kbd "C-r") 'swiper)
   (global-set-key (kbd "M-x") 'counsel-M-x)
   (global-set-key (kbd "M-y") 'counsel-yank-pop)
+  (global-set-key (kbd "C-S-v") 'counsel-yank-pop)
   (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+  (global-set-key (kbd "C-o") 'counsel-find-file)
   (global-set-key (kbd "C-x C-r") 'counsel-recentf)
   (global-set-key (kbd "<C-tab>") 'counsel-company)
   (global-set-key (kbd "<f1> f") 'counsel-describe-function)
@@ -816,6 +811,8 @@ Initiate a citation search with =ivy-bibtex=, bound to =C-c r=.
     :CUSTOM_ID: note-taking-and-outlining
     :END:
 
+Org mode is a powerful markup-language native to Emacs. It can be compared to markdown, but it has many more features. I use it for note taking a preparing lecture materials, but people use it for all kinds of things, from TODO lists to project planning to authoring academic papers. The settings below try to make Org mode play nicely with other packages, and enable many of the literate programming features. More information about Org mode can be found at [[http://orgmode.org]]. 
+
 #+BEGIN_SRC emacs-lisp 
   (with-eval-after-load "org"
     (setq org-replace-disputed-keys t)
@@ -826,11 +823,6 @@ Initiate a citation search with =ivy-bibtex=, bound to =C-c r=.
     (setq org-imenu-depth 3)
     ;; Set sensible mode for editing dot files
     (add-to-list 'org-src-lang-modes '("dot" . graphviz-dot))
-    ;; Make windmove work in org-mode:
-    (add-hook 'org-shiftup-final-hook 'windmove-up)
-    (add-hook 'org-shiftleft-final-hook 'windmove-left)
-    (add-hook 'org-shiftdown-final-hook 'windmove-down)
-    (add-hook 'org-shiftright-final-hook 'windmove-right)
     ;; Update images from babel code blocks automatically
     (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
     ;; configure org-mode when opening first org-mode file
@@ -866,16 +858,15 @@ Initiate a citation search with =ivy-bibtex=, bound to =C-c r=.
 
 #+END_SRC
 
-
 *** Multiple modes in one "buffer" (polymode)
     :PROPERTIES:
     :CUSTOM_ID: multiple-modes-in-one-buffer
     :END:
 
+Emacs uses different /modes/ for different kinds of files and buffers. This is what makes is possible to have one set of behaviors when editing LaTeX, and a different set of behaviors when writing R code. But what if we want to do both, in the same file? Then we need to have multiple modes, in the same buffer, and we can thanks to [[https://github.com/vspinu/polymode][polymode]]. 
+
 #+BEGIN_SRC emacs-lisp
-
   ;;; polymode
-
   ;; polymode requires emacs >= 24.3, does not work on the RCE. 
   (when (>= (string-to-number 
              (concat 
@@ -897,6 +888,7 @@ Initiate a citation search with =ivy-bibtex=, bound to =C-c r=.
 #+END_SRC
 
 *** Email (mu4e)
+Not everyone wants to read email in Emacs, but you can if you want. The settings below configure some basic things, but you will need additional configuration to set up your email accounts. See the [[http://www.djcbsoftware.nl/code/mu/mu4e/index.html#Top][mue4 manual]] and [[http://www.djcbsoftware.nl/code/mu/mu4e/Example-configurations.html#Example-configurations][example configurations]] for details.
 
 #+BEGIN_SRC emacs-lisp
   (when (executable-find "mu")
@@ -929,6 +921,8 @@ Initiate a citation search with =ivy-bibtex=, bound to =C-c r=.
     :PROPERTIES:
     :CUSTOM_ID: file-browsing
     :END:
+Emacs makes a decent file browser, we just need to tweak a few things to make it nicer. In particular you can open files in an external program using the =E= key.
+
 #+BEGIN_SRC emacs-lisp
   ;;; Dired and Dired+ configuration
   (add-hook 'dired-mode-hook 
@@ -1001,6 +995,7 @@ Initiate a citation search with =ivy-bibtex=, bound to =C-c r=.
     :PROPERTIES:
     :CUSTOM_ID: shell-modes
     :END:
+There are several different shells available in Emacs by default. In addition =multi-term= is available to give you a nicer way of running your default shell in Emacs. Convenience functions are enabled to set your EDITOR variable so that Emacs will be used as your editor when running shell commands inside Emacs. 
 
 #+BEGIN_SRC emacs-lisp
   ;; term
@@ -1060,11 +1055,9 @@ Initiate a citation search with =ivy-bibtex=, bound to =C-c r=.
    :PROPERTIES:
    :CUSTOM_ID: visual-tweaks
    :END:
-Visual changes such as hiding the toolbar need to come first to avoid jarring transitions during startup.
 
+Add some information to the startup screen so people know where to go for help.
 #+BEGIN_SRC emacs-lisp
-  ;; use desktop mode, but only for frame layout
-  ;; and only if running in windowed mode
     ;; always use fancy-startup, even on small screens
     ;; but only if running in windowed mode
     (defun always-use-fancy-splash-screens-p () 1)
@@ -1074,4 +1067,36 @@ Visual changes such as hiding the toolbar need to come first to avoid jarring tr
                 (if inhibit-startup-screen
                     (add-hook 'emacs-startup-hook 
                               (lambda() (switch-to-buffer "*scratch*"))))))
+
+  (add-to-list 'fancy-startup-text
+               '(:face
+                 (variable-pitch default)
+                 "\nYou are running a customized Emacs configuration. See "  :link
+                 ("here"
+                  #[257 "\300\301!\207"
+                        [browse-url-default-browser "http://github.com/izahn/dotemacs/"]
+                        3 "\n\n(fn BUTTON)"]
+                  "Open the README file")
+                 "\nfor information about these customizations.\n"))
 #+END_SRC
+
+** Final touches
+
+#+BEGIN_SRC emacs-lisp
+  ;; save settings made using the customize interface to a sparate file
+  (setq custom-file (concat user-emacs-directory "custom.el"))
+  (unless (file-exists-p custom-file)
+    (write-region ";; Put user configuration here" nil custom-file))
+  (load custom-file 'noerror)
+
+  ;; ;; clean up the mode line
+  ; (require 'diminish)
+  ;; (diminish 'company-mode)
+  (diminish 'google-this-mode)
+  (diminish 'outline-minor-mode)
+  (diminish 'smooth-scroll-mode)
+#+END_SRC
+
+* Concluding remarks
+
+That's all folks, report any bugs or feature requests at [[https://github.com/izahn/dotemacs]].
