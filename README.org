@@ -14,6 +14,14 @@
 :END:
 This is an [[https://www.gnu.org/software/emacs/][Emacs]] configuration. There are many like it, but this one is mine. If you like it make it yours!
 
+Highlights include:
+- More standard select/copy/paste keys and right-click behavior makes it more familiar to those new to Emacs.
+- Consistent and familiar code completion using the =tab= key.
+- Consistent and familiar code evaluation using =C-ret=.
+- IDE-like configuration for R, Python, and LaTeX coding.
+- Literate programming configuration for running R, python, or other programming languages inside markdown or org-mode files.
+- Powerful search-based tools for finding commands, files and buffers, inserting citations etc.
+- 
 ** How to I install it?
 :PROPERTIES:
 :CUSTOM_ID: how-do-i-install-it
