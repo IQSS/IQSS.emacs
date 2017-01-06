@@ -442,8 +442,6 @@
                                (delete-dups company-backends)))
 (add-hook 'haskell-interactive-mode-hook 'company-mode)
 
-;;; markdown mode
-
 ;; Use markdown-mode for files with .markdown or .md extensions
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))

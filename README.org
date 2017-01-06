@@ -90,7 +90,7 @@ Some convenient window management keys are provided, in addition to the standard
 
 - C-x O :: (Ctrl-x shift-o) mapped to =ace-window=, use to quickly navigate to a window by number.
 - C-c left :: Mapped to =winner-undo=, use to undo a window change.
-- C-c right :: Mapped to =winner-undo=, use to redo a window change.
+- C-c right :: Mapped to =winner-redo=, use to redo a window change.
 - C-c C-l # :: Mapped to =eybrowse-switch-to-window-config=, use to save/restore window layouts.
 
 *** Other key bindings
@@ -583,6 +583,9 @@ I encourage you to use [[*Note taking and outlining (Org-mode)][org-mode]] for n
     :PROPERTIES:
     :CUSTOM_ID: programming-mode
     :END:
+
+Many programming language modes derive from =prog-mode=, so we can configure all of them by changing =prog-mode= settings. Here we turn on =outline-mode= and set up =completion-at-point= functions for programming modes.
+
 #+BEGIN_SRC emacs-lisp
   (add-hook 'prog-mode-hook
             (lambda()
@@ -601,6 +604,9 @@ I encourage you to use [[*Note taking and outlining (Org-mode)][org-mode]] for n
     :PROPERTIES:
     :CUSTOM_ID: general-repl-config
     :END:
+
+Many programs using REPLs are derived from =comint-mode=, so we can affect all of them by changing =comint-mode= settings. Here we disable line wrapping and ask programs to echo the input.
+
 Load eval-in-repl for bash, elisp, and python interaction.
 #+BEGIN_SRC emacs-lisp
   ;; require the main file containing common functions
@@ -617,6 +623,8 @@ Load eval-in-repl for bash, elisp, and python interaction.
     :PROPERTIES:
     :CUSTOM_ID: run-r-in-emacs
     :END:
+
+Support for R in Emacs is good, thanks to http://ess.r-project.org/. As with other programming languages this configuration enables completion via the =tab= key and code evaluation with =C-ret=. Many more features are provided by ESS, refer to http://ess.r-project.org/ for details.
 
 #+BEGIN_SRC emacs-lisp
     ;;;  ESS (Emacs Speaks Statistics)
@@ -668,6 +676,8 @@ Load eval-in-repl for bash, elisp, and python interaction.
     :CUSTOM_ID: run-python-in-emacs
     :END:
 
+Emacs makes a decent python IDE thanks to https://github.com/jorgenschaefer/elpy. As with other programming languages you can get completion suggestions with the =tab= key, and evaluate code with =C-ret=. Many more features are provided by =elpy=, refer to https://elpy.readthedocs.io/en/latest/index.html for details.
+
 #+BEGIN_SRC emacs-lisp
   ;; Python completion and code checking
   (setq elpy-modules '(elpy-module-company
@@ -693,6 +703,8 @@ Load eval-in-repl for bash, elisp, and python interaction.
     :CUSTOM_ID: emacs-lisp-repl
     :END:
 
+If you want to get the most out of Emacs, you'll eventually need to learn a little Emacs-lisp. This configuration helps by providing a standard =C-ret= evaluation key binding, and by providing completion with the =tab= key.
+
 #+BEGIN_SRC emacs-lisp
   ;; ielm
   (require 'eval-in-repl-ielm)
@@ -716,10 +728,11 @@ Load eval-in-repl for bash, elisp, and python interaction.
                ))
 #+END_SRC
 
-*** Light-weight markup language (Markdown mode)
+*** Haskell mode
     :PROPERTIES:
     :CUSTOM_ID: light-weight-markup-language
     :END:
+I just recently started learning Haskell. There's not much to the configuration at this point, but you should get completion with =tab=.
 
 #+BEGIN_SRC emacs-lisp
   (require 'company-ghci)
@@ -730,25 +743,24 @@ Load eval-in-repl for bash, elisp, and python interaction.
   (add-hook 'haskell-interactive-mode-hook 'company-mode)
 #+END_SRC
 
-**** Light-weight markup language (Markdown mode)
-:PROPERTIES:
-:CUSTOM_ID: light-weight-markup-language
-:END:
+*** Light-weight markup language (Markdown mode)
+    :PROPERTIES:
+    :CUSTOM_ID: light-weight-markup-language
+    :END:
+
+Markdown is a light-weight markup language that makes easy things easy and stays out of your way. You can export Markdown documents to a wide range of formats including .pdf (via latex), .html, .doc, and more using =pandoc=. For more information about authoring markdown in Emacs refer to http://jblevins.org/projects/markdown-mode/. For information about Markdown syntax or exporting to other formats refer to http://pandoc.org.
 
 #+BEGIN_SRC emacs-lisp
-
-  ;;; markdown mode
-
   ;; Use markdown-mode for files with .markdown or .md extensions
   (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
   (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
-
 #+END_SRC
 
 *** Typesetting markup (AucTeX)
     :PROPERTIES:
     :CUSTOM_ID: typesetting-markup
     :END:
+I don't write nearly as much in LaTeX as I used to, as Markdown and/or Org mode are simpler and good enough for my needs. But LaTeX is still the tool of choice for much academic writing, so we use AUCTEX and turn on lots of features. See https://www.gnu.org/software/auctex/ for details.
 
 #+BEGIN_SRC emacs-lisp
   ;;; AucTeX config
@@ -801,6 +813,8 @@ Load eval-in-repl for bash, elisp, and python interaction.
 This allows you to search your BibTeX files for references to insert into the current document. For it to work you will need to set `bibtex-completion-bibliography` to the location of your BibTeX files.
 
 Initiate a citation search with =ivy-bibtex=, bound to =C-c r=.
+
+See https://github.com/tmalsburg/helm-bibtex for information about reading attached .pdf files, searching online bibliography sources and more.
 
 #+BEGIN_SRC emacs-lisp
   (setq ivy-bibtex-default-action 'bibtex-completion-insert-citation)
