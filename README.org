@@ -16,7 +16,11 @@ This is an [[https://www.gnu.org/software/emacs/][Emacs]] configuration. There a
 
 The main goal of this project is to provide an Emacs configuration that works more or less they way you would expect an editor or IDE to work in the second decade of the twenty-first century, without losing the things that make Emacs special. This is challenging because basic Emacs commands often conflict with de facto standards. Each of these conflicts is a judgment call; hopefully a good balance has been reached. 
 
-If you have never used Emacs before many things will work as you expect; a few will not, in which case you will need to search the web or read the Emacs documentation to learn the Emacs way. If you are an Emacs user, most things will mostly work as you expect, though you may wish to familiarize yourself with the alternative "de facto standard" bindings configured here.
+Note that this documentation mostly uses Emacs notation for keybindings, e.g., =C= means "the Ctrl key", =M= means "the Meta (aka Alt) key", and =S= means "the Shift key". Refer to https://www.emacswiki.org/emacs/EmacsKeyNotation if you are not familiar with this notation.
+
+If you have never used Emacs before many things will work as you expect; a few will not, in which case you will need to search the web or read the Emacs documentation to learn the Emacs way. You can launch a built-in tutorial by pressing =C-h t= (that's "Control+h, then t"), or read the getting started documentation at https://www.gnu.org/software/emacs/tour/. A cheat-sheet / survival guide is available at https://www.gnu.org/software/emacs/refcards/pdf/survival.pdf. 
+
+If you are an Emacs user, most things will mostly work as you expect, though you may wish to familiarize yourself with the alternative "de facto standard" bindings configured here.
 
 Highlights include:
 - More standard select/copy/paste keys and right-click behavior makes it more familiar to those new to Emacs.
@@ -28,8 +32,6 @@ Highlights include:
 - Convenient window management, including navigation with =C-x O=, and undo/redo with =C-c left= and =C-c right=.
 
 There are many more features, but these are the key ones. Details and the configuration itself are provided below.
-
-Note that this documentation mostly uses Emacs notation for keybindings, e.g., =C= means "the Ctrl key", =M= means "the Meta (aka Alt) key", and =S= means "the Shift key". Refer to https://www.emacswiki.org/emacs/EmacsKeyNotation if you are not familiar with this notation.
 
 ** How to I install it?
 :PROPERTIES:
@@ -105,6 +107,8 @@ Some convenient window management keys are provided, in addition to the standard
 - C-c C-o t :: Mapped to =outline-cycle=, use to hide/show when outline-minor-mode is active (outline-minor mode is enabled in programming modes and in LaTeX-mode).
 - M-q :: Remapped to =bibtex-fill-entry= (bibtex mode only).
 - E :: Open in external application (dired mode only)
+
+Other key bindings can be discovered by =describe-bindings= (bound to =C-h b=) or =counsel-descbinds= (access with =M-x counsel-descbinds RET=), or via the menus.
 
 * Interacting with external programs
 Many of the Emacs features configured here are designed to make it easier to interact with external programs. For example, [[http://ess.r-project.org][ESS]] makes it easy to interact with [[http://r-project.org][R]], and [[https://www.gnu.org/software/auctex/][AUCTEX]] makes it easy to interact with [[http://tug.org/texlive/][LaTeX]]. If you need help installing these programs, [[file:UsefullPrograms.org][this short guide]] may help. 
