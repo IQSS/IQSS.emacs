@@ -268,7 +268,7 @@
 (require 'company)
 ;; cancel if input doesn't match, be patient, and don't complete automatically.
 (setq company-require-match nil
-      company-async-timeout 5
+      company-async-timeout 6
       company-idle-delay nil)
 ;; complete using C-tab
 (global-set-key (kbd "<C-tab>") 'counsel-company)
@@ -373,7 +373,7 @@
               (outline-minor-mode t))))
 
 ;; Python completion and code checking
-(setq elpy-modules '(elpy-module-company
+(setq elpy-modules '(;elpy-module-company ; buggy, just use capf
                      elpy-module-eldoc
                      elpy-module-flymake
                      elpy-module-pyvenv
@@ -387,7 +387,9 @@
               (require 'eval-in-repl-python)
               (define-key elpy-mode-map "\C-c\C-c" 'eir-eval-in-python)
               (define-key elpy-mode-map (kbd "<C-return>") 'eir-eval-in-python)
-              (setq company-idle-delay nil)))
+              (setq company-idle-delay nil)
+              (setq-local company-backends
+                          (delete-dups (cons 'company-capf (cons 'company-files company-backends))))))
 
 (with-eval-after-load "elisp-mode"
   (require 'company-elisp)
