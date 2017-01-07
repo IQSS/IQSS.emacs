@@ -152,7 +152,8 @@
 (add-hook 'text-mode-hook 'visual-line-mode 1)
 (add-hook 'prog-mode-hook
           (lambda()
-            (setq truncate-lines 1)))
+            (toggle-truncate-lines t)
+              (outline-minor-mode t)))
 
 ;; don't require two spaces for sentence end.
 (setq sentence-end-double-space nil)
@@ -192,22 +193,16 @@
 (global-set-key (kbd "C-x O") 'ace-window)
 (with-eval-after-load "ace-window"
   (set-face-attribute 'aw-leading-char-face nil :height 2.5))
-;; (global-set-key (kbd "<M-S-left>")  'windmove-left)
-;; (global-set-key (kbd "<M-S-right>") 'windmove-right)
-;; (global-set-key (kbd "<M-S-up>")    'windmove-up)
-;; (global-set-key (kbd "<M-S-down>")  'windmove-down)
 
 ;; enable on-the-fly spell checking
-(add-hook 'emacs-startup-hook
-          (lambda()
-            (add-hook 'text-mode-hook
-                      (lambda ()
-                        (flyspell-mode 1)))
-            ;; prevent flyspell from finding mistakes in the code
-            (add-hook 'prog-mode-hook
-                      (lambda ()
-                        ;; `ispell-comments-and-strings'
-                        (flyspell-prog-mode)))))
+(add-hook 'text-mode-hook
+          (lambda ()
+            (flyspell-mode 1)))
+;; prevent flyspell from finding mistakes in the code
+(add-hook 'prog-mode-hook
+          (lambda ()
+            ;; `ispell-comments-and-strings'
+            (flyspell-prog-mode)))
 
 ;; ispell should not check code blocks in org mode
 (add-to-list 'ispell-skip-region-alist '(":\\(PROPERTIES\\|LOGBOOK\\):" . ":END:"))
@@ -270,7 +265,6 @@
 (setq recentf-max-menu-items 50)
 (recentf-mode 1)
 
-;;Use tab to complete.
 (require 'company)
 ;; cancel if input doesn't match, be patient, and don't complete automatically.
 (setq company-require-match nil
@@ -287,13 +281,14 @@
 ;; enable math completions
 (require 'company-math)
 (add-to-list 'company-backends 'company-math-symbols-unicode)
-;;(add-to-list 'company-backends 'company-math-symbols-latex)
-;; put company-capf at the beginning of the list
 (require 'company-capf)
+;; put company-capf and company-files at the beginning of the list
 (setq company-backends
-      (delete-dups (cons 'company-capf company-backends)))
+      (delete-dups (cons 'company-files (cons 'company-capf company-backends))))
+(setq-default company-backends
+              (delete-dups (cons 'company-files (cons 'company-capf company-backends))))
 
-;; Try to complete with tab
+;;Use tab to complete.
 ;; From https://github.com/company-mode/company-mode/issues/94
 (define-key company-mode-map [remap indent-for-tab-command]
   'company-indent-for-tab-command)
@@ -312,11 +307,7 @@
   (let ((completion-at-point-functions completion-at-point-functions-saved))
     (company-complete)))
 
-;; ;; disable dabbrev
-;; (delete 'company-dabbrev company-backends)
-;; (delete 'company-dabbrev-code company-backends)
-
-
+;; not sure why this should be set in a hook, but that is how the manual says to do it.
 (add-hook 'after-init-hook 'global-company-mode)
 
 ;; (require 'which-key)
@@ -333,17 +324,6 @@
           (lambda () 
             (require 'outline-magic)
             (define-key outline-minor-mode-map "\C-c\C-o\t" 'outline-cycle)))
-
-(add-hook 'prog-mode-hook
-          (lambda()
-            ;; turn on outline minor mode:
-            (outline-minor-mode)
-             ;; make sure completion calls company-capf first
-            (require 'company-capf)
-            (set (make-local-variable 'company-backends)
-                 (cons 'company-capf company-backends))
-            (delete-dups company-backends)
-            ))
 
 ;; require the main file containing common functions
 (require 'eval-in-repl)
@@ -373,10 +353,8 @@
   (setq ess-ask-for-ess-directory nil)
   ;; Use tab completion
   (setq ess-tab-complete-in-script t)
-
   ;; extra ESS stuff inspired by https://github.com/gaborcsardi/dot-emacs/blob/master/.emacs
   (ess-toggle-underscore nil)
-
   (defun my-ess-execute-screen-options (foo)
     "cycle through windows whose major mode is inferior-ess-mode and fix width"
     (interactive)
@@ -385,17 +363,14 @@
       (when (with-selected-window (car my-windows-list) (string= "inferior-ess-mode" major-mode))
         (with-selected-window (car my-windows-list) (ess-execute-screen-options t)))
       (setq my-windows-list (cdr my-windows-list))))
-
   (add-to-list 'window-size-change-functions 'my-ess-execute-screen-options)
-
+  (define-key ess-mode-map (kbd "<C-return>") 'ess-eval-region-or-function-or-paragraph-and-step)
   ;; truncate long lines in R source files
   (add-hook 'ess-mode-hook
             (lambda()
               ;; don't wrap long lines
               (toggle-truncate-lines t)
-              (outline-minor-mode t)
-              (define-key ess-mode-map (kbd "<C-return>") 'ess-eval-region-or-function-or-paragraph-and-step)
-              )))
+              (outline-minor-mode t))))
 
 ;; Python completion and code checking
 (setq elpy-modules '(elpy-module-company
@@ -414,57 +389,47 @@
               (define-key elpy-mode-map (kbd "<C-return>") 'eir-eval-in-python)
               (setq company-idle-delay nil)))
 
-;; ielm
-(require 'eval-in-repl-ielm)
-;; For .el files
-(define-key emacs-lisp-mode-map "\C-c\C-c" 'eir-eval-in-ielm)
-(define-key emacs-lisp-mode-map (kbd "<C-return>") 'eir-eval-in-ielm)
-;; For *scratch*
-(define-key lisp-interaction-mode-map "\C-c\C-c" 'eir-eval-in-ielm)
-(define-key emacs-lisp-mode-map (kbd "<C-return>") 'eir-eval-in-ielm)
-;; For M-x info
-(define-key Info-mode-map "\C-c\C-c" 'eir-eval-in-ielm)
-
-;; Set up completions
-(add-hook 'emacs-lisp-mode-hook
-          (lambda()
-             ;; make sure completion calls company-elisp first
-             (require 'company-elisp)
-             (set (make-local-variable 'company-backends)
-                  (cons 'company-elisp company-backends))
-             (delete-dups company-backends)
-             ))
+(with-eval-after-load "elisp-mode"
+  (require 'company-elisp)
+  ;; ielm
+  (require 'eval-in-repl-ielm)
+  ;; For .el files
+  (define-key emacs-lisp-mode-map "\C-c\C-c" 'eir-eval-in-ielm)
+  (define-key emacs-lisp-mode-map (kbd "<C-return>") 'eir-eval-in-ielm)
+  ;; For *scratch*
+  (define-key lisp-interaction-mode-map "\C-c\C-c" 'eir-eval-in-ielm)
+  (define-key emacs-lisp-mode-map (kbd "<C-return>") 'eir-eval-in-ielm)
+  ;; For M-x info
+  (define-key Info-mode-map "\C-c\C-c" 'eir-eval-in-ielm)
+  ;; Set up completions
+  (add-hook 'emacs-lisp-mode-hook
+            (lambda()
+              ;; make sure completion calls company-elisp first
+              (require 'company-elisp)
+              (setq-local company-backends
+                          (delete-dups (cons 'company-elisp (cons 'company-files company-backends)))))))
 
 (require 'company-ghci)
 (add-hook 'haskell-mode-hook (lambda ()
-                               (set (make-local-variable 'company-backends)
-                                    (cons 'company-ghci company-backends))
-                               (delete-dups company-backends)))
+                               (setq-local company-backends
+                                           (delete-dups (cons 'company-ghci (cons 'company-files company-backends))))))
 (add-hook 'haskell-interactive-mode-hook 'company-mode)
 
 ;; Use markdown-mode for files with .markdown or .md extensions
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
-;;; AucTeX config
-
-(with-eval-after-load "tex"
-  ;; turn on math mode and and index to imenu
-  (add-hook 'LaTeX-mode-hook
-            (lambda ()
-              (turn-on-reftex)
-              (TeX-PDF-mode t)
-              (LaTeX-math-mode)
-              (TeX-source-correlate-mode t)
-              (imenu-add-to-menubar "Index")
-              (outline-minor-mode)
-              ;; Allow paragraph filling in tables
-              (setq LaTeX-indent-environment-list
-                    (delq (assoc "table" LaTeX-indent-environment-list)
-                          LaTeX-indent-environment-list))
-              (setq LaTeX-indent-environment-list
-                    (delq (assoc "table*" LaTeX-indent-environment-list)
-                          LaTeX-indent-environment-list))))
+;; AucTeX config
+(with-eval-after-load "Latex"
+  ;; Easy compile key
+  (define-key LaTeX-mode-map (kbd "<C-return") 'TeX-command-run-all)
+  ;; Allow paragraph filling in tables
+  (setq LaTeX-indent-environment-list
+        (delq (assoc "table" LaTeX-indent-environment-list)
+              LaTeX-indent-environment-list))
+  (setq LaTeX-indent-environment-list
+        (delq (assoc "table*" LaTeX-indent-environment-list)
+              LaTeX-indent-environment-list))
   ;; Misc. latex settings
   (setq TeX-parse-self t
         TeX-auto-save t)
@@ -477,18 +442,20 @@
   (setq reftex-save-parse-info t)
   (setq reftex-use-multiple-selection-buffers t)
   (setq reftex-plug-into-AUCTeX t)
+  (add-hook 'LaTeX-mode-hook
+            (lambda ()
+              (turn-on-reftex)
+              (TeX-PDF-mode t)
+              (LaTeX-math-mode)
+              (TeX-source-correlate-mode t)
+              (imenu-add-to-menubar "Index")
+              (outline-minor-mode)
+              ;; latex math and command completion with tab
+              (setq-local company-backends
+                          (delete-dups (cons '(company-math-symbols-latex company-latex-commands) company-backends)))))
   (add-hook 'bibtex-mode-hook
             (lambda ()
-              (define-key bibtex-mode-map "\M-q" 'bibtex-fill-entry)))
-  ;; enable latexmk if available
-  (when (executable-find "latexmk")
-    (require 'auctex-latexmk)
-    (auctex-latexmk-setup)
-    ;; make latexmk the default
-    (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "LatexMk")))
-    (add-hook 'LaTeX-mode-hook '(lambda () (setq TeX-command-default "LatexMk")))
-    ;; honor TeX-PDF-mode settings
-    (setq auctex-latexmk-inherit-TeX-PDF-mode t)))
+              (define-key bibtex-mode-map "\M-q" 'bibtex-fill-entry))))
 
 (setq ivy-bibtex-default-action 'bibtex-completion-insert-citation)
 (global-set-key (kbd "C-c r") 'ivy-bibtex)
