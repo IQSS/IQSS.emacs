@@ -12,7 +12,7 @@
 :PROPERTIES:
 :CUSTOM_ID: what-is-this
 :END:
-This is an [[https://www.gnu.org/software/emacs/][Emacs]] configuration. There are many like it, but this one is mine. If you like it, make it yours!
+This is an [[https://www.gnu.org/software/emacs/][Emacs]] configuration. There are many like it, but this one is mine. If you like it, make it yours! It provides lots of functionality but tries to keep things light and fast.
 
 The main goal of this project is to provide an Emacs configuration that works more or less they way you would expect an editor or IDE to work in the second decade of the twenty-first century, without losing the things that make Emacs special. This is challenging because basic Emacs commands often conflict with de facto standards. Each of these conflicts is a judgment call; hopefully a good balance has been reached. 
 
@@ -206,12 +206,10 @@ The main purpose of these emacs configuration files is to install and configure 
                           smooth-scroll
                           unfill
                           company
-                          company-math
                           ess
                           markdown-mode
                           polymode
                           eval-in-repl
-                          elpy
                           haskell-mode
                           ghc
                           company-ghci
@@ -498,9 +496,7 @@ Here we configure in-buffer text completion using the company-mode package. Thes
   (define-key company-active-map (kbd "<tab>") 'company-complete-common)
   (define-key company-active-map (kbd "C-p") 'company-select-previous)
   (define-key company-active-map (kbd "<backtab>") 'company-select-previous)
-  ;; enable math completions
-  (require 'company-math)
-  (add-to-list 'company-backends 'company-math-symbols-unicode)
+
   (require 'company-capf)
   ;; put company-capf and company-files at the beginning of the list
   (setq company-backends
@@ -640,33 +636,20 @@ Support for R in Emacs is good, thanks to http://ess.r-project.org/. As with oth
                 (outline-minor-mode t))))
 #+END_SRC
 
-*** Run python in emacs (elpy)
+*** Run python in emacs (python-mode)
     :PROPERTIES:
     :CUSTOM_ID: run-python-in-emacs
     :END:
 
-Emacs makes a decent python IDE thanks to https://github.com/jorgenschaefer/elpy. As with other programming languages you can get completion suggestions with the =tab= key, and evaluate code with =C-ret=. Many more features are provided by =elpy=, refer to https://elpy.readthedocs.io/en/latest/index.html for details.
+Emacs has decent python support out of the box. As with other programming languages you can get completion suggestions with the =tab= key, and evaluate code with =C-ret=. Many more features are provided and are accessible via the menu.
 
 #+BEGIN_SRC emacs-lisp
-  ;; Python completion and code checking
-  (setq elpy-modules '(;elpy-module-company ; buggy, just use capf
-                       elpy-module-eldoc
-                       elpy-module-flymake
-                       elpy-module-pyvenv
-                       ;;  elpy-module-highlight-indentation ;breaks older emacs
-                       elpy-module-sane-defaults))
-  (elpy-enable)
-
-  ;; make sure completions don't start automatically
-  (add-hook 'elpy-mode-hook
-             (lambda ()
-                (require 'eval-in-repl-python)
-                (define-key elpy-mode-map "\C-c\C-c" 'eir-eval-in-python)
-                (define-key elpy-mode-map (kbd "<C-return>") 'eir-eval-in-python)
-                (setq company-idle-delay nil)
-                (setq-local company-backends
-                            (delete-dups (cons 'company-capf (cons 'company-files company-backends))))))
-
+  (add-hook 'python-mode-hook
+            (lambda ()
+              ;; simple evaluation with C-ret
+              (require 'eval-in-repl-python)
+              (define-key elpy-mode-map "\C-c\C-c" 'eir-eval-in-python)
+              (define-key elpy-mode-map (kbd "<C-return>") 'eir-eval-in-python)))
 #+END_SRC
 
 *** emacs lisp REPL (ielm)
@@ -764,10 +747,7 @@ I don't write nearly as much in LaTeX as I used to, as Markdown and/or Org mode 
                 (LaTeX-math-mode)
                 (TeX-source-correlate-mode t)
                 (imenu-add-to-menubar "Index")
-                (outline-minor-mode)
-                ;; latex math and command completion with tab
-                (setq-local company-backends
-                            (delete-dups (cons '(company-math-symbols-latex company-latex-commands) company-backends)))))
+                (outline-minor-mode)))
     (add-hook 'bibtex-mode-hook
               (lambda ()
                 (define-key bibtex-mode-map "\M-q" 'bibtex-fill-entry))))

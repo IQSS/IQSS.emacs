@@ -1,3 +1,4 @@
+
 (when (< (string-to-number 
            (concat 
             (number-to-string emacs-major-version) 
@@ -68,12 +69,10 @@
                         smooth-scroll
                         unfill
                         company
-                        company-math
                         ess
                         markdown-mode
                         polymode
                         eval-in-repl
-                        elpy
                         haskell-mode
                         ghc
                         company-ghci
@@ -278,9 +277,7 @@
 (define-key company-active-map (kbd "<tab>") 'company-complete-common)
 (define-key company-active-map (kbd "C-p") 'company-select-previous)
 (define-key company-active-map (kbd "<backtab>") 'company-select-previous)
-;; enable math completions
-(require 'company-math)
-(add-to-list 'company-backends 'company-math-symbols-unicode)
+
 (require 'company-capf)
 ;; put company-capf and company-files at the beginning of the list
 (setq company-backends
@@ -372,24 +369,12 @@
               (toggle-truncate-lines t)
               (outline-minor-mode t))))
 
-;; Python completion and code checking
-(setq elpy-modules '(;elpy-module-company ; buggy, just use capf
-                     elpy-module-eldoc
-                     elpy-module-flymake
-                     elpy-module-pyvenv
-                     ;;  elpy-module-highlight-indentation ;breaks older emacs
-                     elpy-module-sane-defaults))
-(elpy-enable)
-
-;; make sure completions don't start automatically
-(add-hook 'elpy-mode-hook
-           (lambda ()
-              (require 'eval-in-repl-python)
-              (define-key elpy-mode-map "\C-c\C-c" 'eir-eval-in-python)
-              (define-key elpy-mode-map (kbd "<C-return>") 'eir-eval-in-python)
-              (setq company-idle-delay nil)
-              (setq-local company-backends
-                          (delete-dups (cons 'company-capf (cons 'company-files company-backends))))))
+(add-hook 'python-mode-hook
+          (lambda ()
+            ;; simple evaluation with C-ret
+            (require 'eval-in-repl-python)
+            (define-key elpy-mode-map "\C-c\C-c" 'eir-eval-in-python)
+            (define-key elpy-mode-map (kbd "<C-return>") 'eir-eval-in-python)))
 
 (with-eval-after-load "elisp-mode"
   (require 'company-elisp)
@@ -451,10 +436,7 @@
               (LaTeX-math-mode)
               (TeX-source-correlate-mode t)
               (imenu-add-to-menubar "Index")
-              (outline-minor-mode)
-              ;; latex math and command completion with tab
-              (setq-local company-backends
-                          (delete-dups (cons '(company-math-symbols-latex company-latex-commands) company-backends)))))
+              (outline-minor-mode)))
   (add-hook 'bibtex-mode-hook
             (lambda ()
               (define-key bibtex-mode-map "\M-q" 'bibtex-fill-entry))))
