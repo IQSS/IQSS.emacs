@@ -645,6 +645,10 @@ Emacs has decent python support out of the box. As with other programming langua
 
 #+BEGIN_SRC emacs-lisp
   (with-eval-after-load "python"
+    ;; try to get indent/completion working nicely
+    (setq python-indent-trigger-commands '(company-indent-for-tab-command indent-for-tab-command yas-expand yas/expand))
+    ;; readline support is wonky at the moment
+    (setq python-shell-completion-native-enable nil)
     ;; simple evaluation with C-ret
     (require 'eval-in-repl-python)
     (define-key python-mode-map "\C-c\C-c" 'eir-eval-in-python)
