@@ -3,12 +3,8 @@
 #+STARTUP: showall
 #+PROPERTY: header-args:emacs-lisp    :tangle init.el
 
-* Quick start
-:PROPERTIES:
-:CUSTOM_ID: quick-start
-:END:
 
-** What is this?
+* What is this?
 :PROPERTIES:
 :CUSTOM_ID: what-is-this
 :END:
@@ -32,6 +28,11 @@ Highlights include:
 - Convenient window management, including navigation with =C-x O=, and undo/redo with =C-c left= and =C-c right=.
 
 There are many more features, but these are the key ones. Details and the configuration itself are provided below.
+
+* Quick start
+:PROPERTIES:
+:CUSTOM_ID: quick-start
+:END:
 
 ** How to I install it?
 :PROPERTIES:
