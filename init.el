@@ -139,6 +139,10 @@
 (global-set-key [(control left)] 'scroll-right-1)
 (global-set-key [(control right)] 'scroll-left-1)
 
+;; make home and end behave
+(global-set-key (kbd "<home>") 'move-beginning-of-line)
+(global-set-key (kbd "<end>") 'move-end-of-line)
+
 ;; enable toggling paragraph un-fill
 (define-key global-map "\M-Q" 'unfill-paragraph)
 
