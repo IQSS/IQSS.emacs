@@ -587,6 +587,11 @@ Load eval-in-repl for bash, elisp, and python interaction.
   (add-hook 'comint-mode-hook
             (lambda()
               (setq truncate-lines 1)))
+
+  ;; Scroll down for input and output
+  (setq comint-scroll-to-bottom-on-input t)
+  (setq comint-scroll-to-bottom-on-output t)
+  (setq comint-move-point-for-output t)
 #+END_SRC
 
 *** Run R in emacs (ESS)
@@ -601,11 +606,6 @@ Support for R in Emacs is good, thanks to http://ess.r-project.org/. As with oth
 
   ;; Start R in the working directory by default
   (setq ess-ask-for-ess-directory nil)
-
-  ;; Scroll down when R generates output
-  (setq comint-scroll-to-bottom-on-input t)
-  (setq comint-scroll-to-bottom-on-output t)
-  (setq comint-move-point-for-output t)
 
   ;; Make sure ESS is loaded before we configure it
   (autoload 'julia "ess-julia" "Start a Julia REPL." t)
@@ -644,12 +644,11 @@ Support for R in Emacs is good, thanks to http://ess.r-project.org/. As with oth
 Emacs has decent python support out of the box. As with other programming languages you can get completion suggestions with the =tab= key, and evaluate code with =C-ret=. Many more features are provided and are accessible via the menu.
 
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'python-mode-hook
-            (lambda ()
-              ;; simple evaluation with C-ret
-              (require 'eval-in-repl-python)
-              (define-key elpy-mode-map "\C-c\C-c" 'eir-eval-in-python)
-              (define-key elpy-mode-map (kbd "<C-return>") 'eir-eval-in-python)))
+  (with-eval-after-load "python"
+    ;; simple evaluation with C-ret
+    (require 'eval-in-repl-python)
+    (define-key python-mode-map "\C-c\C-c" 'eir-eval-in-python)
+    (define-key python-mode-map (kbd "<C-return>") 'eir-eval-in-python))
 #+END_SRC
 
 *** emacs lisp REPL (ielm)

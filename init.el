@@ -1,4 +1,3 @@
-
 (when (< (string-to-number 
            (concat 
             (number-to-string emacs-major-version) 
@@ -331,15 +330,15 @@
           (lambda()
             (setq truncate-lines 1)))
 
+;; Scroll down for input and output
+(setq comint-scroll-to-bottom-on-input t)
+(setq comint-scroll-to-bottom-on-output t)
+(setq comint-move-point-for-output t)
+
 ;;;  ESS (Emacs Speaks Statistics)
 
 ;; Start R in the working directory by default
 (setq ess-ask-for-ess-directory nil)
-
-;; Scroll down when R generates output
-(setq comint-scroll-to-bottom-on-input t)
-(setq comint-scroll-to-bottom-on-output t)
-(setq comint-move-point-for-output t)
 
 ;; Make sure ESS is loaded before we configure it
 (autoload 'julia "ess-julia" "Start a Julia REPL." t)
@@ -369,12 +368,11 @@
               (toggle-truncate-lines t)
               (outline-minor-mode t))))
 
-(add-hook 'python-mode-hook
-          (lambda ()
-            ;; simple evaluation with C-ret
-            (require 'eval-in-repl-python)
-            (define-key elpy-mode-map "\C-c\C-c" 'eir-eval-in-python)
-            (define-key elpy-mode-map (kbd "<C-return>") 'eir-eval-in-python)))
+(with-eval-after-load "python"
+  ;; simple evaluation with C-ret
+  (require 'eval-in-repl-python)
+  (define-key python-mode-map "\C-c\C-c" 'eir-eval-in-python)
+  (define-key python-mode-map (kbd "<C-return>") 'eir-eval-in-python))
 
 (with-eval-after-load "elisp-mode"
   (require 'company-elisp)
