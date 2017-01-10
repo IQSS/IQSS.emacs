@@ -164,25 +164,33 @@
 (set-variable 'visible-bell t)
 
 ;; Use CUA mode to make life easier. We _do_ use standard copy/paste etc. 
-  (cua-mode t)
+(cua-mode t)
 
-  ;; (cua-selection-mode t) ;; uncomment this to get cua goodness without copy/paste etc.
+;; (cua-selection-mode t) ;; uncomment this to get cua goodness without copy/paste etc.
 
-  ;; ;; Make control-z undo
-  (global-undo-tree-mode t)
-  (global-set-key (kbd "C-z") 'undo)
-  (global-set-key (kbd "C-S-z") 'undo-tree-redo)
+;; ;; Make control-z undo
+(global-undo-tree-mode t)
+(global-set-key (kbd "C-z") 'undo)
+(define-key undo-tree-map (kbd "C-S-z") 'undo-tree-redo)
+(define-key undo-tree-map (kbd "C-x u") 'undo)
+(define-key undo-tree-map (kbd "C-x U") 'undo-tree-visualize)
+(define-key undo-tree-map (kbd "M-z") 'undo-tree-visualize)
+;; Make C-g quit undo tree
+(define-key undo-tree-visualizer-mode-map (kbd "C-g") 'undo-tree-visualizer-quit)
+(define-key undo-tree-visualizer-mode-map (kbd "<escape> <escape> <escape>") 'undo-tree-visualizer-quit)
 
-  ;; ;; 
-  ;; Make right-click do something close to what people expect
-  (global-set-key (kbd "<mouse-3>") 'mouse3-popup-menu)
-  ;; (global-set-key (kbd "C-f") 'isearch-forward)
-  ;; (global-set-key (kbd "C-s") 'save-buffer)
-  ;; (global-set-key (kbd "C-o") 'counsel-find-file)
-  (define-key cua-global-keymap (kbd "<C-S-SPC>") nil)
-  (define-key cua-global-keymap (kbd "<C-return>") nil)
-  (setq cua-rectangle-mark-key (kbd "<C-S-SPC>"))
-  (define-key cua-global-keymap (kbd "<C-S-SPC>") 'cua-rectangle-mark-mode)
+
+
+;; ;; 
+;; Make right-click do something close to what people expect
+(global-set-key (kbd "<mouse-3>") 'mouse3-popup-menu)
+;; (global-set-key (kbd "C-f") 'isearch-forward)
+;; (global-set-key (kbd "C-s") 'save-buffer)
+;; (global-set-key (kbd "C-o") 'counsel-find-file)
+(define-key cua-global-keymap (kbd "<C-S-SPC>") nil)
+(define-key cua-global-keymap (kbd "<C-return>") nil)
+(setq cua-rectangle-mark-key (kbd "<C-S-SPC>"))
+(define-key cua-global-keymap (kbd "<C-S-SPC>") 'cua-rectangle-mark-mode)
 
 ;; Work spaces
 (setq eyebrowse-keymap-prefix (kbd "C-c C-l"))

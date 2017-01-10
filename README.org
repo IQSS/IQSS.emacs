@@ -64,7 +64,7 @@ This configuration loads a lot of useful emacs packages, many of which add key b
 - C-c :: Copy selection, as in most other programs. 
 - C-v :: Paste, as in most other programs. Select from the clipboard history with =S-C-v=.
 - C-z :: Undo, as in most other programs.
-- S-C-z :: Redo, as in most other programs. Use =C-x u= to visualize your undo/redo history.
+- S-C-z :: Redo, as in most other programs. Use =C-x U=  or =M-z= to visualize your undo/redo history.
 - C-o :: Open file, as in most other programs.
 
 Note that some things still work "the Emacs way". Notably:
@@ -334,7 +334,7 @@ This section sets up various utilities and conveniences. Many of these are low p
 Emacs will never to as simple as Notepad, but perhaps it can be made more consistent with the way most other programs behave.
 
 #+BEGIN_SRC emacs-lisp
-;; Use CUA mode to make life easier. We _do_ use standard copy/paste etc. 
+  ;; Use CUA mode to make life easier. We _do_ use standard copy/paste etc. 
   (cua-mode t)
 
   ;; (cua-selection-mode t) ;; uncomment this to get cua goodness without copy/paste etc.
@@ -342,7 +342,15 @@ Emacs will never to as simple as Notepad, but perhaps it can be made more consis
   ;; ;; Make control-z undo
   (global-undo-tree-mode t)
   (global-set-key (kbd "C-z") 'undo)
-  (global-set-key (kbd "C-S-z") 'undo-tree-redo)
+  (define-key undo-tree-map (kbd "C-S-z") 'undo-tree-redo)
+  (define-key undo-tree-map (kbd "C-x u") 'undo)
+  (define-key undo-tree-map (kbd "C-x U") 'undo-tree-visualize)
+  (define-key undo-tree-map (kbd "M-z") 'undo-tree-visualize)
+  ;; Make C-g quit undo tree
+  (define-key undo-tree-visualizer-mode-map (kbd "C-g") 'undo-tree-visualizer-quit)
+  (define-key undo-tree-visualizer-mode-map (kbd "<escape> <escape> <escape>") 'undo-tree-visualizer-quit)
+
+
 
   ;; ;; 
   ;; Make right-click do something close to what people expect
