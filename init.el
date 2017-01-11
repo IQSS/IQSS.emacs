@@ -657,9 +657,18 @@ The app is chosen from your OS's preference."
 
 ;; Use emacs as editor when running external processes or using shells in emacs
 (require 'with-editor)
-(add-hook 'shell-mode-hook  'with-editor-export-editor)
-(add-hook 'term-exec-hook   'with-editor-export-editor)
-(add-hook 'eshell-mode-hook 'with-editor-export-editor)
+(add-hook 'shell-mode-hook
+          (lambda()
+            (with-editor-export-editor)
+            (with-editor-export-git-editor)))
+(add-hook 'term-exec-hook
+          (lambda()
+            (with-editor-export-editor)
+            (with-editor-export-git-editor)))
+(add-hook 'eshell-mode-hook
+          (lambda()
+            (with-editor-export-editor)
+            (with-editor-export-git-editor)))
 
 (shell-command-with-editor-mode t)
 
