@@ -8,7 +8,7 @@
 :PROPERTIES:
 :CUSTOM_ID: what-is-this
 :END:
-This is an [[https://www.gnu.org/software/emacs/][Emacs]] configuration. There are many like it, but this one is mine. If you like it, make it yours! It provides lots of functionality but tries to keep things light and fast.
+This is an [[https://www.gnu.org/software/emacs/][Emacs]] configuration. There are many like it, but this one is mine. If you like it, make it yours! It provides lots of functionality while keeping things light and fast.
 
 The main goal of this project is to provide an Emacs configuration that works more or less they way you would expect an editor or IDE to work in the second decade of the twenty-first century, without losing the things that make Emacs special. This is challenging because basic Emacs commands often conflict with de facto standards. Each of these conflicts is a judgment call; hopefully a good balance has been reached. 
 
@@ -106,6 +106,7 @@ Some convenient window management keys are provided, in addition to the standard
 - C-down :: Mapped to =scroll-up-1=.
 - M-Q :: Mapped to =unfill-paragraph=, use to remove line breaks from a paragraph.
 - C-c C-o t :: Mapped to =outline-cycle=, use to hide/show when outline-minor-mode is active (outline-minor mode is enabled in programming modes and in LaTeX-mode).
+- C-x cl :: Mapped to =global-command-log-mode=, use to echo keybindings for tutorials. 
 - M-q :: Remapped to =bibtex-fill-entry= (bibtex mode only).
 - E :: Open in external application (dired mode only)
 
@@ -185,6 +186,7 @@ The main purpose of these emacs configuration files is to install and configure 
                           diff-hl
                           adaptive-wrap
                           ;; melpa packages
+                          command-log-mode
                           undo-tree
                           better-defaults
                           diminish
@@ -1024,6 +1026,15 @@ There are several different shells available in Emacs by default. In addition =m
   (add-hook 'eshell-mode-hook 'with-editor-export-editor)
 
   (shell-command-with-editor-mode t)
+#+END_SRC
+
+** Demonstration tools (command-log-mode)
+
+=command-log-mode= is useful for giving emacs demonstrations/tutorials. It shows the keys you've pressed and the commands they called.
+
+#+BEGIN_SRC emacs-lisp
+  (setq command-log-mode-auto-show t)
+  (global-set-key (kbd "C-x cl") 'global-command-log-mode)
 #+END_SRC
 
 ** Always use fancy splash screen.

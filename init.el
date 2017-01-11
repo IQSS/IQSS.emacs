@@ -46,6 +46,7 @@
                         diff-hl
                         adaptive-wrap
                         ;; melpa packages
+                        command-log-mode
                         undo-tree
                         better-defaults
                         diminish
@@ -661,6 +662,9 @@ The app is chosen from your OS's preference."
 (add-hook 'eshell-mode-hook 'with-editor-export-editor)
 
 (shell-command-with-editor-mode t)
+
+(setq command-log-mode-auto-show t)
+(global-set-key (kbd "C-x cl") 'global-command-log-mode)
 
 ;; always use fancy-startup, even on small screens
   ;; but only if running in windowed mode
