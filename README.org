@@ -738,7 +738,7 @@ I don't write nearly as much in LaTeX as I used to, as Markdown and/or Org mode 
   ;; AucTeX config
   (with-eval-after-load "Latex"
     ;; Easy compile key
-    (define-key LaTeX-mode-map (kbd "<C-return") 'TeX-command-run-all)
+    (define-key LaTeX-mode-map (kbd "<C-return>") 'TeX-command-run-all)
     ;; Allow paragraph filling in tables
     (setq LaTeX-indent-environment-list
           (delq (assoc "table" LaTeX-indent-environment-list)

@@ -424,7 +424,7 @@
 ;; AucTeX config
 (with-eval-after-load "Latex"
   ;; Easy compile key
-  (define-key LaTeX-mode-map (kbd "<C-return") 'TeX-command-run-all)
+  (define-key LaTeX-mode-map (kbd "<C-return>") 'TeX-command-run-all)
   ;; Allow paragraph filling in tables
   (setq LaTeX-indent-environment-list
         (delq (assoc "table" LaTeX-indent-environment-list)
