@@ -293,9 +293,9 @@
 (require 'company-capf)
 ;; put company-capf and company-files at the beginning of the list
 (setq company-backends
-      (delete-dups (cons 'company-files (cons 'company-capf company-backends))))
+      '(company-files company-capf company-nxml company-css company-cmake company-semantic company-clang company-xcode company-eclim))
 (setq-default company-backends
-              (delete-dups (cons 'company-files (cons 'company-capf company-backends))))
+              '(company-files company-capf company-nxml company-css company-cmake company-semantic company-clang company-xcode company-eclim))
 
 ;;Use tab to complete.
 ;; From https://github.com/company-mode/company-mode/issues/94
