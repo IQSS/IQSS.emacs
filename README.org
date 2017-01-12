@@ -625,6 +625,37 @@ Support for R in Emacs is good, thanks to http://ess.r-project.org/. As with oth
   ;; Make sure ESS is loaded before we configure it
   (autoload 'julia "ess-julia" "Start a Julia REPL." t)
   (with-eval-after-load "ess-site"
+    ;; Fix so that company-complete works with tab.
+    ;; Hopefully temporary, see https://github.com/emacs-ess/ESS/pull/390
+    (defun ess-indent-or-complete ()
+      "When region is selected indent the region, otherwise, if
+  `ess-tab-complete-in-script' is non-nil, try to indent, if code
+  is already indented, complete instead.
+  The default of `ess-tab-complete-in-script' is nil.  Also see
+  `ess-first-tab-never-complete'."
+      (interactive)
+      (if (use-region-p)
+          (indent-region (region-beginning) (region-end))
+        (let ((shift (ess-indent-command)))
+          (when (and ess-tab-complete-in-script
+                     (numberp shift) ;; can be nil if ess-tab-always-indent is nil
+                     (equal shift 0)
+                     (or (eq last-command 'ess-indent-or-complete)
+                         (null ess-first-tab-never-complete)
+                         (and (eq ess-first-tab-never-complete 'unless-eol)
+                              (looking-at "\\s-*$"))
+                         (and (eq ess-first-tab-never-complete 'symbol)
+                              (not (looking-at "\\w\\|\\s_")))
+                         (and (eq ess-first-tab-never-complete 'symbol-or-paren)
+                              (not (looking-at "\\w\\|\\s_\\|\\s)")))
+                         (and (eq ess-first-tab-never-complete 'symbol-or-paren-or-punct)
+                              (not (looking-at "\\w\\|\\s_\\|\\s)\\|\\s.")))
+                         ))
+            (if (and (featurep 'emacs) (>= emacs-major-version 24))
+                (if (and (featurep 'company) ess-use-company)
+                    (company-complete)
+                  (completion-at-point))
+              (comint-dynamic-complete))))))
     ;; disable ehoing input
     (setq ess-eval-visibly nil)
     ;; Start R in the working directory by default
