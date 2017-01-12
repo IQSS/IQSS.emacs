@@ -310,7 +310,9 @@
   (interactive "P")
   (let ((completion-at-point-functions-saved completion-at-point-functions)
         (completion-at-point-functions '(company-complete-wrapper)))
-    (indent-for-tab-command arg)))
+    (if (not (looking-at "\\w\\|\\s_"))
+        (indent-for-tab-command arg)
+      (indent-according-to-mode))))
 
 (defun company-complete-wrapper ()
   (let ((completion-at-point-functions completion-at-point-functions-saved))
