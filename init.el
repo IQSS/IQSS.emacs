@@ -552,7 +552,9 @@ The default of `ess-tab-complete-in-script' is nil.  Also see
   (add-to-list 'auto-mode-alist '("\\.Rhtml" . poly-html+r-mode))
   (add-to-list 'auto-mode-alist '("\\.Rbrew" . poly-brew+r-mode))
   (add-to-list 'auto-mode-alist '("\\.Rcpp" . poly-r+c++-mode))
-  (add-to-list 'auto-mode-alist '("\\.cppR" . poly-c++r-mode)))
+  (add-to-list 'auto-mode-alist '("\\.cppR" . poly-c++r-mode))
+  ;; polymode doesn't play nice with adaptive-wrap, turn it off
+  (add-hook 'polymode-init-host-hook '(lambda() (adaptive-wrap-prefix-mode -1))))
 
 (when (executable-find "mu")
   (autoload 'mu4e "mu4e" "Read your mail." t)
