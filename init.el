@@ -56,7 +56,7 @@
                         howdoi
                         auctex-latexmk
                         multi-term
-                        with-editor
+                        magit
                         eyebrowse
                         mouse3
                         swiper

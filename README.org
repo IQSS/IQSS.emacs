@@ -196,7 +196,7 @@ The main purpose of these emacs configuration files is to install and configure 
                           howdoi
                           auctex-latexmk
                           multi-term
-                          with-editor
+                          magit
                           eyebrowse
                           mouse3
                           swiper
