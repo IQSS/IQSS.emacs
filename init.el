@@ -299,6 +299,8 @@
 
 ;;Use tab to complete.
 ;; From https://github.com/company-mode/company-mode/issues/94
+;; Note: maybe use company-indent-or-complete-common instead, except that it is
+;; too aggressive and completes even in the middle of a word.
 (define-key company-mode-map [remap indent-for-tab-command]
   'company-indent-for-tab-command)
 
@@ -554,7 +556,11 @@ The default of `ess-tab-complete-in-script' is nil.  Also see
   (add-to-list 'auto-mode-alist '("\\.Rcpp" . poly-r+c++-mode))
   (add-to-list 'auto-mode-alist '("\\.cppR" . poly-c++r-mode))
   ;; polymode doesn't play nice with adaptive-wrap, turn it off
-  (add-hook 'polymode-init-host-hook '(lambda() (adaptive-wrap-prefix-mode -1))))
+  (add-hook 'polymode-init-host-hook
+            '(lambda()
+               (adaptive-wrap-prefix-mode -1)
+               (unless (featurep 'ess-site)
+                 (require 'ess-site)))))
 
 (when (executable-find "mu")
   (autoload 'mu4e "mu4e" "Read your mail." t)
