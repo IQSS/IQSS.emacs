@@ -298,27 +298,31 @@
               '(company-files company-capf company-nxml company-css company-cmake company-semantic company-clang company-xcode company-eclim))
 
 ;;Use tab to complete.
-;; From https://github.com/company-mode/company-mode/issues/94
-;; Note: maybe use company-indent-or-complete-common instead, except that it is
-;; too aggressive and completes even in the middle of a word.
-(define-key company-mode-map [remap indent-for-tab-command]
-  'company-indent-for-tab-command)
+;; See https://github.com/company-mode/company-mode/issues/94 for another approach.
 
-(setq tab-always-indent 'complete)
+;; this is a copy-paste from the company-package with extra conditions to make
+;; sure we don't offer completions in the middle of a word.
 
-(defvar completion-at-point-functions-saved nil)
+(defun my-company-indent-or-complete-common ()
+  "Indent the current line or region, or complete the common part."
+  (interactive)
+  (cond
+   ((use-region-p)
+    (indent-region (region-beginning) (region-end)))
+   ((and (not (looking-at "\\w\\|\\s_"))
+         (memq indent-line-function
+               '(indent-relative indent-relative-maybe)))
+    (company-complete-common))
+   ((let ((old-point (point))
+          (old-tick (buffer-chars-modified-tick))
+          (tab-always-indent t))
+      (call-interactively #'indent-for-tab-command)
+      (when (and (eq old-point (point))
+                 (eq old-tick (buffer-chars-modified-tick))
+                 (not (looking-at "\\w\\|\\s_")))
+        (company-complete-common))))))
 
-(defun company-indent-for-tab-command (&optional arg)
-  (interactive "P")
-  (let ((completion-at-point-functions-saved completion-at-point-functions)
-        (completion-at-point-functions '(company-complete-wrapper)))
-    (if (not (looking-at "\\w\\|\\s_"))
-        (indent-for-tab-command arg)
-      (indent-according-to-mode))))
-
-(defun company-complete-wrapper ()
-  (let ((completion-at-point-functions completion-at-point-functions-saved))
-    (company-complete)))
+(define-key company-mode-map (kbd "<tab>") 'my-company-indent-or-complete-common)
 
 ;; not sure why this should be set in a hook, but that is how the manual says to do it.
 (add-hook 'after-init-hook 'global-company-mode)
@@ -360,37 +364,7 @@
 ;; Make sure ESS is loaded before we configure it
 (autoload 'julia "ess-julia" "Start a Julia REPL." t)
 (with-eval-after-load "ess-site"
-  ;; Fix so that company-complete works with tab.
-  ;; Hopefully temporary, see https://github.com/emacs-ess/ESS/pull/390
-  (defun ess-indent-or-complete ()
-    "When region is selected indent the region, otherwise, if
-`ess-tab-complete-in-script' is non-nil, try to indent, if code
-is already indented, complete instead.
-The default of `ess-tab-complete-in-script' is nil.  Also see
-`ess-first-tab-never-complete'."
-    (interactive)
-    (if (use-region-p)
-        (indent-region (region-beginning) (region-end))
-      (let ((shift (ess-indent-command)))
-        (when (and ess-tab-complete-in-script
-                   (numberp shift) ;; can be nil if ess-tab-always-indent is nil
-                   (equal shift 0)
-                   (or (eq last-command 'ess-indent-or-complete)
-                       (null ess-first-tab-never-complete)
-                       (and (eq ess-first-tab-never-complete 'unless-eol)
-                            (looking-at "\\s-*$"))
-                       (and (eq ess-first-tab-never-complete 'symbol)
-                            (not (looking-at "\\w\\|\\s_")))
-                       (and (eq ess-first-tab-never-complete 'symbol-or-paren)
-                            (not (looking-at "\\w\\|\\s_\\|\\s)")))
-                       (and (eq ess-first-tab-never-complete 'symbol-or-paren-or-punct)
-                            (not (looking-at "\\w\\|\\s_\\|\\s)\\|\\s.")))
-                       ))
-          (if (and (featurep 'emacs) (>= emacs-major-version 24))
-              (if (and (featurep 'company) ess-use-company)
-                  (company-complete)
-                (completion-at-point))
-            (comint-dynamic-complete))))))
+  ;; see https://github.com/emacs-ess/ESS/pull/390 for ideas on how to integrate tab completion
   ;; disable ehoing input
   (setq ess-eval-visibly nil)
   ;; Start R in the working directory by default
@@ -418,7 +392,7 @@ The default of `ess-tab-complete-in-script' is nil.  Also see
 
 (with-eval-after-load "python"
   ;; try to get indent/completion working nicely
-  (setq python-indent-trigger-commands '(company-indent-for-tab-command indent-for-tab-command yas-expand yas/expand))
+  (setq python-indent-trigger-commands '(my-company-indent-or-complete-common indent-for-tab-command yas-expand yas/expand))
   ;; readline support is wonky at the moment
   (setq python-shell-completion-native-enable nil)
   ;; simple evaluation with C-ret
