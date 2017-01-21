@@ -671,15 +671,22 @@ The app is chosen from your OS's preference."
              (setq eshell-visual-subcommands '(("git" "log" "diff" "show")))))
 
 ;; Use emacs as editor when running external processes or using shells in emacs
+(when (executable-find "remacsclient")
+  (setq with-editor-emacsclient-executable (executable-find "remacsclient")))
+
 (require 'with-editor)
 (add-hook 'shell-mode-hook
           (lambda()
             (with-editor-export-editor)
-            (with-editor-export-git-editor)))
+            (with-editor-export-git-editor)
+            (sleep-for 0.2) ; this is bad, but thinking hurts and it works.
+            (call-interactively 'comint-clear-buffer)))
 (add-hook 'term-exec-hook
           (lambda()
             (with-editor-export-editor)
-            (with-editor-export-git-editor)))
+            (with-editor-export-git-editor)
+            (sleep-for 0.2) ; see comment above
+            (call-interactively 'comint-clear-buffer)))
 (add-hook 'eshell-mode-hook
           (lambda()
             (with-editor-export-editor)
