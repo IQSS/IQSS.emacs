@@ -244,6 +244,15 @@
 ;; Ivy-based interface to standard commands
 (global-set-key (kbd "C-s") 'swiper)
 (global-set-key (kbd "C-r") 'swiper)
+;; Search files in directory with C-S
+(global-set-key (kbd "C-S-s") 'find-grep-dired); default if we don't find something better
+(cond
+ ((executable-find "rg") ; search with ripgrep if we have it
+  (global-set-key (kbd "C-S-s") 'counsel-rg))
+ ((executable-find "ag") ; otherwise search with ag if we have it
+  (global-set-key (kbd "C-S-s") 'counsel-ag))
+ ((executable-find "pt") ; otherwise search with pt if we have it
+  (global-set-key (kbd "C-S-s") 'counsel-pt)))
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "M-y") 'counsel-yank-pop)
 (global-set-key (kbd "C-S-v") 'counsel-yank-pop)
