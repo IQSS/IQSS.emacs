@@ -485,6 +485,8 @@
 (global-set-key (kbd "C-c r") 'ivy-bibtex)
 
 (with-eval-after-load "org"
+  ;; no compay mode in org buffers
+  (add-hook 'org-mode-hook (lambda() (company-mode -1)))
   (setq org-replace-disputed-keys t)
   (setq org-support-shift-select t)
   (setq org-export-babel-evaluate nil)
