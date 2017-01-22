@@ -321,9 +321,8 @@ This section sets up various utilities and conveniences. Many of these are low p
   ;; enable toggling paragraph un-fill
   (define-key global-map "\M-Q" 'unfill-paragraph)
 
-  ;; line wrapping
-  (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
-  (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
+  ;;; line wrapping
+  ;; neck beards be damned, we don't need to hard wrap. The editor can soft wrap for us.
   (remove-hook 'text-mode-hook 'turn-on-auto-fill)
   (add-hook 'visual-line-mode-hook 'adaptive-wrap-prefix-mode)
   (add-hook 'text-mode-hook 'visual-line-mode 1)
@@ -331,6 +330,16 @@ This section sets up various utilities and conveniences. Many of these are low p
             (lambda()
               (toggle-truncate-lines t)
                 (outline-minor-mode t)))
+
+  ;; indicate visual-line-mode wrap
+  (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
+  (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
+  ;; but be gentle
+  (defface visual-line-wrap-face
+  '((t (:foreground "gray")))
+  "Face for visual line indicators.")
+  (set-fringe-bitmap-face 'left-curly-arrow 'visual-line-wrap-face)
+  (set-fringe-bitmap-face 'right-curly-arrow 'visual-line-wrap-face)
 
   ;; don't require two spaces for sentence end.
   (setq sentence-end-double-space nil)
