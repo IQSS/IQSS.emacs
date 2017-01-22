@@ -173,6 +173,9 @@
 ;; The beeping can be annoying--turn it off
 (set-variable 'visible-bell t)
 
+;; save place -- move to the place I was last time I visited this file
+(save-place-mode t)
+
 ;; Use CUA mode to make life easier. We _do_ use standard copy/paste etc. 
 (cua-mode t)
 
