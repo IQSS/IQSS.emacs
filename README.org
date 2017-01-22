@@ -476,6 +476,13 @@ There are several different systems for providing completion hints in emacs. The
   (global-set-key (kbd "C-S-v") 'counsel-yank-pop)
   (global-set-key (kbd "C-x C-f") 'counsel-find-file)
   (global-set-key (kbd "C-o") 'counsel-find-file)
+  ;; search for files to open with "C-O=
+  (when (memq window-system '(mac ns)) ; use mdfind on Mac. TODO: what about windows?
+    (setq locate-command "mdfind")
+    (setq counsel-locate-cmd 'counsel-locate-cmd-mdfind))
+  (global-set-key (kbd "C-x C-S-F") 'find-name-dired) ; default in case we don't have something better
+  (global-set-key (kbd "C-x C-S-F") 'counsel-locate)
+  (global-set-key (kbd "C-S-O") 'counsel-locate)
   (global-set-key (kbd "C-x C-r") 'counsel-recentf)
   (global-set-key (kbd "<C-tab>") 'counsel-company)
   (global-set-key (kbd "<f1> f") 'counsel-describe-function)
