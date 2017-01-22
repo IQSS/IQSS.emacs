@@ -2,42 +2,23 @@
 #+TITLE: Useful programs you can use from Emacs
 #+STARTUP: showall
 
-While emacs alone is very powerful, one of it's most important strengths is its ability to inter-operate with other software programs. Links to the download pages for several programs that can be used from with emacs are provided below (they are also very useful on their own!). Installation of all these programs follows normal conventions on each platform, just download, run the installer, and follow the instructions.
+While emacs alone is very powerful, one of it's most important strengths is its ability to inter-operate with other software programs. Links to the download pages for several programs that can be used from with emacs are provided below (they are also very useful on their own!). Installation of all these programs follows normal conventions on each platform, just download, run the installer, and follow the instructions. Everything besides Emacs itself is optional, but installing everything is highly recommended.
 
 * Installation
 
-** Windows
-   :PROPERTIES:
-   :CUSTOM_ID: windows
-   :END:
- - Emacs :: http://vgoulet.act.ulaval.ca/en/emacs/
- - R :: http://cran.r-project.org/bin/windows/base/
- - LaTeX :: http://miktex.org/download
- - git :: http://git-scm.com/download/win
- - Pandoc :: https://github.com/jgm/pandoc/releases
- - GhostScript :: http://www.ghostscript.com/download/gsdnld.html (Make sure to *install the 32 bit version*!)
-
-** OSX
-   :PROPERTIES:
-   :CUSTOM_ID: osx
-   :END:
-- Emacs :: http://vgoulet.act.ulaval.ca/en/emacs/
-- R :: http://cran.r-project.org/bin/macosx/
-- LaTeX :: http://tug.org/mactex/
-- git :: http://git-scm.com/download/mac
-- Pandoc :: https://github.com/jgm/pandoc/releases
-- GhostScript :: http://pages.uoregon.edu/koch/
-
-** Linux
-   :PROPERTIES:
-   :CUSTOM_ID: linux
-   :END:
-- Emacs :: Use your package manager, or see http://www.gnu.org/software/emacs/#Obtaining
-- R :: Use your package manager, or see http://cran.r-project.org/bin/linux/
-- LaTeX :: Use your package manager, or see https://www.tug.org/texlive/quickinstall.html
-- git :: Use your package manager, or see http://git-scm.com/download/linux
-- Pandoc :: Use your package manager, or see http://johnmacfarlane.net/pandoc/installing.html#all-platforms
-- GhostScript :: Use your package manager, or see http://www.ghostscript.com/download/gsdnld.html
+ - Emacs :: Obviously.
+   - Windows :: https://vigou3.github.io/emacs-modified-windows/
+   - Mac :: https://emacsformacosx.com/
+   - Linux :: Use your package manager, or see http://www.gnu.org/software/emacs/#Obtaining
+ - ripgrep :: Used for searching within files: https://github.com/BurntSushi/ripgrep#installation
+ - Everything (windows only!) :: For searching files by name: http://www.voidtools.com/
+ - R :: The platform and environment for statistical computing: http://cran.r-project.org/
+ - LaTeX :: For the best typesetting around.
+   - Windows :: http://miktex.org/download
+   - Mac :: http://tug.org/mactex/
+   - Linux :: Use your package manager, or see https://www.tug.org/texlive/quickinstall.html
+ - git :: For revision control: http://git-scm.com/download/
+ - Pandoc :: For converting documents from one format to another: https://github.com/jgm/pandoc/releases
 
 * External program configuration and use
   :PROPERTIES:
@@ -75,12 +56,11 @@ LaTeX is a typesetting system that excels at formatting structured documents. La
 
 It is often convenient to tell git /not/ to track some types of files (e.g., temporary files, or large binary files). LaTeX users in particular may be annoyed that git tries to track their .aux, .log, and other ephemeral files produced by LaTeX. You can tell git to ignore certain types of files by listing the in a .gitignore file. Details on .gitignore files are available at [[http://git-scm.com/docs/gitignore]], and many useful templates (including one designed for LaTeX users) are available at [[https://github.com/github/gitignore]].
 
-
 *** github
 Many git users host their repositories on [[http://github.com]]; helpful guides are available at [[https://guides.github.com/]]. You can [[https://help.github.com/articles/which-remote-url-should-i-use/][clone from and push to github over https]], and that is the recommended method; no configuration is required. If for some reason you prefer to use ssh you will need an ssh key pair; see [[https://help.github.com/articles/generating-ssh-keys/]] for instructions.
 
 *** Using git from emacs
-This Emacs configuration includes [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Version-Control.html#Version-Control][VC]], the standard Emacs interface to version control systems. It also configures Emacs as the editor so that working with version control systems in a shell inside Emacs should be pleasant.
+This Emacs configuration includes [[https://www.emacswiki.org/emacs/Magit][magit]], the best interface to git there is. It also configures Emacs as the editor so that working with version control systems in a shell inside Emacs should be pleasant.
 
 
 **** Pandoc
@@ -88,9 +68,3 @@ This Emacs configuration includes [[https://www.gnu.org/software/emacs/manual/ht
 :CUSTOM_ID: pandoc
 :END:
 Pandoc is a program for converting markup files from one markup language to another. Documentation and examples are available on the [[http://johnmacfarlane.net/pandoc/][pandoc website]].
-
-**** GhostScript
-:PROPERTIES:
-:CUSTOM_ID: ghostscript
-:END:
-GhostScript is a program for working the postscript and pdf files. While it can be used on its own it is included in this list only because it makes printing from emacs easier, especially on Windows. No configuration should be required. Note that *on windows you need the 32 bit version*, the 64 bit version will not work. Windows users will also need to add it to their PATH (see [[http://www.computerhope.com/issues/ch000549.htm]] for instructions)

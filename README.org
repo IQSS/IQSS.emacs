@@ -20,6 +20,11 @@ If you are an Emacs user, most things will mostly work as you expect, though you
 
 Highlights include:
 - More standard select/copy/paste keys and right-click behavior makes it more familiar to those new to Emacs.
+- Consistent use of the =shift= key to for related functionality. For example:
+  - =C-z= is undo, =C-Z= is redo
+  - =M-q= is hard warp, =M-Q= is unwrap
+  - =C-s= searches in current buffer, =C=S= searches all buffers in the directory
+  - =C-x f= (or =C-o=) opens files in the current directory, =C-x F= (or =C-O=) searches for files to open
 - Consistent and familiar code completion using the =tab= key.
 - Consistent and familiar code evaluation using =C-ret=.
 - IDE-like configuration for R, Python, and LaTeX coding.
@@ -72,26 +77,24 @@ Note that some things still work "the Emacs way". Notably:
 - C-s :: Searches. To save, use =C-x s=. 
 - C-f :: Moves forward one character. To search use =C-s=.
 
-*** Searching
+*** Searching and Completion
+Utilities have been configured to make it easy to search by file name as well as to search the contents of files. Some of this functionality works much better if certain system utilities are found. See [[file:UsefullPrograms.org][this list of useful programs]], especially /everything/ (windows only) and /the silver search/ or /ripgrep/.
+
 - C-s :: Searches the active buffer using =swiper=.
 - C-S :: Searches files in the current directory (recursively) using =counsel-rg= or similar.
-- C-x l :: Searches by file name (may require the =locate= command, not sure if this can work on Windows).
+- C-x F :: (or *C-x O*) Searches by file name -- requires =mlocate= on linux, =everything= (http://www.voidtools.com/) on windows.
 
-*** REPL interaction
-This should be easy, and hopefully it is.
-
-- C-RET :: Mapped to language specific line/selection/expression evaluation. Want to evaluate code from a script? =C-RET= should "just work".
-
-*** Completion keys
-:PROPERTIES:
-:CUSTOM_ID: completion-keys
-:END:
 Many standard Emacs keybindings have been replaced with versions that provide completion suggestions. In-buffer completion can be triggered with the =tab= key.
 
 - tab :: Mapped to =company-complete=, use for completion indentation and completion.
 - M-y :: Remapped to =counsel-yank-pop= to browse the kill ring interactively. =S-C-v= also works for this.
 - M-x :: Remapped to =counsel-M-x= to interactively search for interactive functions.
 - C-c r :: Mapped to =ivy-bibtex= to search for a citation to insert. You must set =bibtex-completion-bibliography= to your BibTeX files for this to work.
+
+*** REPL interaction
+This should be easy, and hopefully it is.
+
+- C-RET :: Mapped to language specific line/selection/expression evaluation. Want to evaluate code from a script? =C-RET= should "just work".
 
 *** Window management keys
 Some convenient window management keys are provided, in addition to the standard Emacs =C-x o= binding to navigate to "other window".
@@ -277,7 +280,6 @@ We try to install most things using the package manager, but a few things need t
   ;; on OSX Emacs needs help setting up the system paths
   (when (memq window-system '(mac ns))
     (exec-path-from-shell-initialize))
-
 #+END_SRC
 
 #+RESULTS:
