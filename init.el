@@ -82,6 +82,7 @@
                         sbt-mode
                         exec-path-from-shell
                         htmlize
+                        sdcv ;; stardictionary
                         ;; org-mode packages
                         org-plus-contrib))
 
@@ -233,6 +234,12 @@
 (add-to-list 'ispell-skip-region-alist '("#\\+begin_src" . "#\\+end_src"))
 (add-to-list 'ispell-skip-region-alist '("^#\\+begin_example " . "#\\+end_example$"))
 (add-to-list 'ispell-skip-region-alist '("^#\\+BEGIN_EXAMPLE " . "#\\+END_EXAMPLE$"))
+
+;; Dictionary: requires stardict (http://www.stardict.org/) and sdcv (https://github.com/Dushistov/sdcv). May not work on windows.
+(require 'sdcv)
+
+(global-set-key (kbd "C-c d") 'sdcv-search-input)
+(global-set-key (kbd "C-c S-D") 'sdcv-search-pointer+)
 
 (when (eq system-type 'gnu/linux)
   (setq hfyview-quick-print-in-files-menu t)
