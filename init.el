@@ -84,6 +84,7 @@
                         htmlize
                         sdcv ;; stardictionary
                         osx-dictionary
+                        define-word
                         ;; org-mode packages
                         org-plus-contrib))
 
@@ -238,15 +239,10 @@
 
 ;; Dictionaries
 
-;; default in case we don't find something better. From
-;; https://www.reddit.com/r/emacs/comments/3yjzmu/dictionary_and_thesaurus_in_emacs/
-(autoload 'ispell-get-word "ispell")
+;; default in case we don't find something local
 
-(defun my-lookup-word (word)
-  (interactive (list (save-excursion (car (ispell-get-word nil)))))
-  (browse-url (format "http://en.wiktionary.org/wiki/%s" word)))
-
-(global-set-key (kbd "C-c d") 'my-lookup-word)
+(global-set-key (kbd "C-c d") 'define-word-at-point)
+(global-set-key (kbd "C-c S-D") 'define-word)
 
 ;; use dictionary app on os x
 (when (memq window-system '(mac ns))
