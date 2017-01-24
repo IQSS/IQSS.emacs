@@ -32,6 +32,7 @@ Highlights of this Emacs configuration include:
 - Literate programming configuration for running R, python, or other programming languages inside markdown or org-mode files.
 - Powerful and simple search-based tools for finding commands, files and buffers, inserting citations etc.
 - Convenient window management, including navigation with =C-x O=, and undo/redo with =C-c left= and =C-c right=.
+- Dictionary-lookup using =C-c d=.
 
 There are many more features, but these are the key ones. Details and the configuration itself are provided below.
 
@@ -232,6 +233,7 @@ The main purpose of these emacs configuration files is to install and configure 
                           exec-path-from-shell
                           htmlize
                           sdcv ;; stardictionary
+                          osx-dictionary
                           ;; org-mode packages
                           org-plus-contrib))
 
@@ -439,11 +441,28 @@ You can also spell-check on demand with =ispell-word=, bound to =M-$=.
   (add-to-list 'ispell-skip-region-alist '("^#\\+begin_example " . "#\\+end_example$"))
   (add-to-list 'ispell-skip-region-alist '("^#\\+BEGIN_EXAMPLE " . "#\\+END_EXAMPLE$"))
 
-  ;; Dictionary: requires stardict (http://www.stardict.org/) and sdcv (https://github.com/Dushistov/sdcv). May not work on windows.
-  (require 'sdcv)
+  ;; Dictionaries
 
-  (global-set-key (kbd "C-c d") 'sdcv-search-input)
-  (global-set-key (kbd "C-c S-D") 'sdcv-search-pointer+)
+  ;; default in case we don't find something better. From
+  ;; https://www.reddit.com/r/emacs/comments/3yjzmu/dictionary_and_thesaurus_in_emacs/
+  (autoload 'ispell-get-word "ispell")
+
+  (defun my-lookup-word (word)
+    (interactive (list (save-excursion (car (ispell-get-word nil)))))
+    (browse-url (format "http://en.wiktionary.org/wiki/%s" word)))
+
+  (global-set-key (kbd "C-c d") 'my-lookup-word)
+
+  ;; use dictionary app on os x
+  (when (memq window-system '(mac ns))
+    (global-set-key (kbd "C-c d") 'osx-dictionary-search-word-at-point)
+    (global-set-key (kbd "C-c S-D") 'osx-dictionary-search-input))
+
+  ;; Use stardict if we find a usable interface
+  (when (executable-find "sdcv")
+    (require 'sdcv)
+    (global-set-key (kbd "C-c d") 'sdcv-search-input)
+    (global-set-key (kbd "C-c S-D") 'sdcv-search-pointer+))
 #+END_SRC
 
 ** Printing

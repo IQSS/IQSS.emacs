@@ -19,6 +19,7 @@ While emacs alone is very powerful, one of it's most important strengths is its 
    - Linux :: Use your package manager, or see https://www.tug.org/texlive/quickinstall.html
  - git :: For revision control: http://git-scm.com/download/
  - Pandoc :: For converting documents from one format to another: https://github.com/jgm/pandoc/releases
+ - Stardict (linux only) :: If you want to use a local =stardict= dictionary, use your package manager to install =stardict= and =sdcv=. Word lookup will fall back to a web-based tool if =sdcv= is not available. 
 
 * External program configuration and use
   :PROPERTIES:
