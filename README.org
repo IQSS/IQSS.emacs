@@ -214,6 +214,8 @@ The main purpose of these emacs configuration files is to install and configure 
                           flx-ido
                           smex
                           ivy-bibtex
+                          hydra
+                          ivy-hydra
                           which-key
                           outline-magic
                           smooth-scroll
@@ -235,6 +237,7 @@ The main purpose of these emacs configuration files is to install and configure 
                           sdcv ;; stardictionary
                           osx-dictionary
                           define-word
+                          ox-pandoc
                           ;; org-mode packages
                           org-plus-contrib))
 
@@ -458,7 +461,10 @@ You can also spell-check on demand with =ispell-word=, bound to =M-$=.
   (when (executable-find "sdcv")
     (require 'sdcv)
     (global-set-key (kbd "C-c d") 'sdcv-search-input)
-    (global-set-key (kbd "C-c S-D") 'sdcv-search-pointer+))
+    (global-set-key (kbd "C-c S-D") 'sdcv-search-pointer+)
+    (add-hook 'sdcv-mode-hook
+              '(lambda()
+                 (setq-local font-lock-string-face 'default))))
 #+END_SRC
 
 ** Printing

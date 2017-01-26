@@ -64,6 +64,8 @@
                         flx-ido
                         smex
                         ivy-bibtex
+                        hydra
+                        ivy-hydra
                         which-key
                         outline-magic
                         smooth-scroll
@@ -85,6 +87,7 @@
                         sdcv ;; stardictionary
                         osx-dictionary
                         define-word
+                        ox-pandoc
                         ;; org-mode packages
                         org-plus-contrib))
 
@@ -253,7 +256,10 @@
 (when (executable-find "sdcv")
   (require 'sdcv)
   (global-set-key (kbd "C-c d") 'sdcv-search-input)
-  (global-set-key (kbd "C-c S-D") 'sdcv-search-pointer+))
+  (global-set-key (kbd "C-c S-D") 'sdcv-search-pointer+)
+  (add-hook 'sdcv-mode-hook
+            '(lambda()
+               (setq-local font-lock-string-face 'default))))
 
 (when (eq system-type 'gnu/linux)
   (setq hfyview-quick-print-in-files-menu t)
