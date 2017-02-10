@@ -541,7 +541,7 @@ There are several different systems for providing completion hints in emacs. The
   (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
   ;; Ivy-resume and other commands
 
-  (global-set-key (kbd "C-c C-r") 'ivy-resume)
+  (global-set-key (kbd "C-c i") 'ivy-resume)
 
   ;; Make Ivy more like ido
   (define-key ivy-minibuffer-map (kbd "<return>") 'ivy-alt-done)
@@ -853,7 +853,7 @@ Initiate a citation search with =ivy-bibtex=, bound to =C-c r=.
 See https://github.com/tmalsburg/helm-bibtex for information about reading attached .pdf files, searching online bibliography sources and more.
 
 #+BEGIN_SRC emacs-lisp
-  (setq ivy-bibtex-default-action 'bibtex-completion-insert-citation)
+  (setq ivy-bibtex-default-action 'ivy-bibtex-insert-citation)
   (global-set-key (kbd "C-c r") 'ivy-bibtex)
 #+END_SRC
 *** Note taking and outlining (Org-mode)

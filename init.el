@@ -319,7 +319,7 @@
 (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
 ;; Ivy-resume and other commands
 
-(global-set-key (kbd "C-c C-r") 'ivy-resume)
+(global-set-key (kbd "C-c i") 'ivy-resume)
 
 ;; Make Ivy more like ido
 (define-key ivy-minibuffer-map (kbd "<return>") 'ivy-alt-done)
@@ -520,7 +520,7 @@
             (lambda ()
               (define-key bibtex-mode-map "\M-q" 'bibtex-fill-entry))))
 
-(setq ivy-bibtex-default-action 'bibtex-completion-insert-citation)
+(setq ivy-bibtex-default-action 'ivy-bibtex-insert-citation)
 (global-set-key (kbd "C-c r") 'ivy-bibtex)
 
 (with-eval-after-load "org"
