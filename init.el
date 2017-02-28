@@ -590,6 +590,7 @@
   (add-hook 'polymode-init-host-hook
             '(lambda()
                (adaptive-wrap-prefix-mode -1)
+               (electric-indent-mode -1)
                (unless (featurep 'ess-site)
                  (require 'ess-site)))))
 
@@ -728,7 +729,8 @@ The app is chosen from your OS's preference."
              (setq eshell-visual-subcommands '(("git" "log" "diff" "show")))))
 
 ;; Use emacs as editor when running external processes or using shells in emacs
-(when (executable-find "remacsclient")
+(when (and (string-match-p "remacs" (prin1-to-string (frame-list)))
+           (executable-find "remacsclient"))
   (setq with-editor-emacsclient-executable (executable-find "remacsclient")))
 
 (require 'with-editor)

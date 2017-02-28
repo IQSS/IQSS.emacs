@@ -1,3 +1,4 @@
+#!/usr/bin/tail -n+2
 #+AUTHOR:  Ista Zahn
 #+TITLE: An emacs config for social scientists
 #+STARTUP: showall
@@ -941,6 +942,7 @@ Emacs uses different /modes/ for different kinds of files and buffers. This is w
     (add-hook 'polymode-init-host-hook
               '(lambda()
                  (adaptive-wrap-prefix-mode -1)
+                 (electric-indent-mode -1)
                  (unless (featurep 'ess-site)
                    (require 'ess-site)))))
 #+END_SRC
@@ -1056,73 +1058,74 @@ Emacs makes a decent file browser, we just need to tweak a few things to make it
 There are several different shells available in Emacs by default. In addition =multi-term= is available to give you a nicer way of running your default shell in Emacs. Convenience functions are enabled to set your EDITOR variable so that Emacs will be used as your editor when running shell commands inside Emacs. 
 
 #+BEGIN_SRC emacs-lisp
-    ;; term
-    (with-eval-after-load "term"
-    (define-key term-mode-map (kbd "C-j") 'term-char-mode)
-    (define-key term-raw-map (kbd "C-j") 'term-line-mode))
+  ;; term
+  (with-eval-after-load "term"
+  (define-key term-mode-map (kbd "C-j") 'term-char-mode)
+  (define-key term-raw-map (kbd "C-j") 'term-line-mode))
 
-    (with-eval-after-load "multi-term"
-    (define-key term-mode-map (kbd "C-j") 'term-char-mode)
-    (define-key term-raw-map (kbd "C-j") 'term-line-mode))
+  (with-eval-after-load "multi-term"
+  (define-key term-mode-map (kbd "C-j") 'term-char-mode)
+  (define-key term-raw-map (kbd "C-j") 'term-line-mode))
 
-    ;; shell
-    (require 'essh) ; if not done elsewhere; essh is in the local lisp folder
-    (require 'eval-in-repl-shell)
-    (add-hook 'sh-mode-hook
-              (lambda()
-                 (local-set-key "\C-c\C-c" 'eir-eval-in-shell)))
+  ;; shell
+  (require 'essh) ; if not done elsewhere; essh is in the local lisp folder
+  (require 'eval-in-repl-shell)
+  (add-hook 'sh-mode-hook
+            (lambda()
+               (local-set-key "\C-c\C-c" 'eir-eval-in-shell)))
 
 
-    ;; Automatically adjust output width in commint buffers
-    ;; from http://stackoverflow.com/questions/7987494/emacs-shell-mode-display-is-too-wide-after-splitting-window
-    (defun comint-fix-window-size ()
-      "Change process window size."
-      (when (derived-mode-p 'comint-mode)
-        (let ((process (get-buffer-process (current-buffer))))
-          (unless (eq nil process)
-            (set-process-window-size process (window-height) (window-width))))))
+  ;; Automatically adjust output width in commint buffers
+  ;; from http://stackoverflow.com/questions/7987494/emacs-shell-mode-display-is-too-wide-after-splitting-window
+  (defun comint-fix-window-size ()
+    "Change process window size."
+    (when (derived-mode-p 'comint-mode)
+      (let ((process (get-buffer-process (current-buffer))))
+        (unless (eq nil process)
+          (set-process-window-size process (window-height) (window-width))))))
 
-    (defun my-shell-mode-hook ()
-      ;; add this hook as buffer local, so it runs once per window.
-      (add-hook 'window-configuration-change-hook 'comint-fix-window-size nil t))
+  (defun my-shell-mode-hook ()
+    ;; add this hook as buffer local, so it runs once per window.
+    (add-hook 'window-configuration-change-hook 'comint-fix-window-size nil t))
 
-    (add-hook 'shell-mode-hook
-              (lambda()
-                 ;; add this hook as buffer local, so it runs once per window.
-                 (add-hook 'window-configuration-change-hook 'comint-fix-window-size nil t)))
+  (add-hook 'shell-mode-hook
+            (lambda()
+               ;; add this hook as buffer local, so it runs once per window.
+               (add-hook 'window-configuration-change-hook 'comint-fix-window-size nil t)))
 
-    ;; extra completion for eshell
-    (add-hook 'eshell-mode-hook
-              (lambda()
-                 ;; programs that don't work well in eshell and should be run in visual mode
-                 (add-to-list 'eshell-visual-commands "ssh")
-                 (add-to-list 'eshell-visual-commands "tail")
-                 (add-to-list 'eshell-visual-commands "htop")
-                 (setq eshell-visual-subcommands '(("git" "log" "diff" "show")))))
+  ;; extra completion for eshell
+  (add-hook 'eshell-mode-hook
+            (lambda()
+               ;; programs that don't work well in eshell and should be run in visual mode
+               (add-to-list 'eshell-visual-commands "ssh")
+               (add-to-list 'eshell-visual-commands "tail")
+               (add-to-list 'eshell-visual-commands "htop")
+               (setq eshell-visual-subcommands '(("git" "log" "diff" "show")))))
 
-    ;; Use emacs as editor when running external processes or using shells in emacs
-    (when (executable-find "remacsclient")
-      (setq with-editor-emacsclient-executable (executable-find "remacsclient")))
+  ;; Use emacs as editor when running external processes or using shells in emacs
+  (when (and (string-match-p "remacs" (prin1-to-string (frame-list)))
+             (executable-find "remacsclient"))
+    (setq with-editor-emacsclient-executable (executable-find "remacsclient")))
 
-    (require 'with-editor)
-    (add-hook 'shell-mode-hook
-              (lambda()
-                (with-editor-export-editor)
-                (with-editor-export-git-editor)
-                (sleep-for 0.2) ; this is bad, but thinking hurts and it works.
-                (call-interactively 'comint-clear-buffer)))
-    (add-hook 'term-exec-hook
-              (lambda()
-                (with-editor-export-editor)
-                (with-editor-export-git-editor)
-                (sleep-for 0.2) ; see comment above
-                (call-interactively 'comint-clear-buffer)))
-    (add-hook 'eshell-mode-hook
-              (lambda()
-                (with-editor-export-editor)
-                (with-editor-export-git-editor)))
+  (require 'with-editor)
+  (add-hook 'shell-mode-hook
+            (lambda()
+              (with-editor-export-editor)
+              (with-editor-export-git-editor)
+              (sleep-for 0.2) ; this is bad, but thinking hurts and it works.
+              (call-interactively 'comint-clear-buffer)))
+  (add-hook 'term-exec-hook
+            (lambda()
+              (with-editor-export-editor)
+              (with-editor-export-git-editor)
+              (sleep-for 0.2) ; see comment above
+              (call-interactively 'comint-clear-buffer)))
+  (add-hook 'eshell-mode-hook
+            (lambda()
+              (with-editor-export-editor)
+              (with-editor-export-git-editor)))
 
-    (shell-command-with-editor-mode t)
+  (shell-command-with-editor-mode t)
 #+END_SRC
 
 ** Demonstration tools (command-log-mode)
