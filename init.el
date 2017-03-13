@@ -385,8 +385,8 @@
 ;; (require 'which-key)
 (which-key-mode)
 
-;; (require 'flycheck)
-(global-flycheck-mode)
+(require 'flycheck)
+;; (global-flycheck-mode)
 
 ;;; Configure outline minor modes
 ;; Less crazy key bindings for outline-minor-mode

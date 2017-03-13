@@ -630,9 +630,11 @@ This mode shows a keymap when an incomplete command is entered. It is especially
 ** Flycheck
 Provides on-the-fly syntax checking. Depends on external tools, e.g, [[https://cran.rstudio.com/web/packages/lintr/index.html][lintr]] for R code, [[https://flake8.readthedocs.io/en/latest/][flake8]] for python. See http://www.flycheck.org/en/latest/languages.html#flycheck-languages for supported languages and tools.
 
+Note that active on-the-fly syntax checking is _disabled_ by default since I find it too annoying. You can still use =flycheck= to check your syntax on demand using =flycheck-compile=, and you can enable on-the-fly checking with =M-x flycheck-mode=.
+
 #+BEGIN_SRC emacs-lisp
-;; (require 'flycheck)
-(global-flycheck-mode)
+  (require 'flycheck)
+  ;; (global-flycheck-mode)
 #+END_SRC
 
 ** Outline-magic
