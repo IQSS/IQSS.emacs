@@ -109,6 +109,7 @@
 ;; mode line theme
 (add-hook 'after-init-hook 'sml/setup)
 (setq sml/theme 'light)
+(setq sml/col-number-format "%5c")
 
 ;; add custom lisp directory to path
 (let ((default-directory (concat user-emacs-directory "lisp/")))
