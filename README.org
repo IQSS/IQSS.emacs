@@ -1,4 +1,3 @@
-#!/usr/bin/tail -n+2
 #+AUTHOR:  Ista Zahn
 #+TITLE: An emacs config for social scientists
 #+STARTUP: showall
