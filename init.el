@@ -539,34 +539,36 @@
   (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
   ;; configure org-mode when opening first org-mode file
   ;; Load additional export formats
-  (require 'ox-odt)
+  (require 'ox-ascii)
   (require 'ox-md)
-  (require 'ox-freemind)
+  (require 'ox-html)
+  (require 'ox-latex)
   (require 'ox-bibtex)
+  (require 'ox-odt)
+  (require 'ox-freemind)
+
+  (require 'org-capture)
+  (require 'org-protocol)
+
   ;; Enable common programming language support in org-mode
-  (require 'ess-site)
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((R . t)
-     (python . t)
-     (matlab . t)
-     (emacs-lisp . t)
-     (sh . t)
-     (dot . t)
-     (latex . t)
-     (octave . t)
-     (ditaa . t)
-     (org . t)
-     (perl . t)
-     (julia . t)
-     ))
+  (require 'ob-shell)
+  (require 'ob-emacs-lisp)
+  (require 'ob-org)
+  (when (executable-find "R") 
+      (require 'ess-site)
+      (require 'ob-R))
+  (when (executable-find "julia") (require 'ob-julia))
+  (when (executable-find "python") (require 'ob-python))
+  (when (executable-find "matlab") (require 'ob-matlab))
+  (when (executable-find "octave") (require 'ob-octave))
+  (when (executable-find "perl") (require 'ob-perl))
+  (when (executable-find "dot") (require 'ob-dot))
+  (when (executable-find "ditaa") (require 'ob-ditaa))
+
   ;; Fontify code blocks in org-mode
   (setq org-src-fontify-natively t)
   (setq org-src-tab-acts-natively t)
-  (setq org-confirm-babel-evaluate nil)
-  (require 'org-capture)
-  (require 'org-protocol)
-  (require 'ob-stata))
+  (setq org-confirm-babel-evaluate nil))
 
 ;;; polymode
 ;; polymode requires emacs >= 24.3, does not work on the RCE. 
