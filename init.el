@@ -619,7 +619,8 @@
     (define-key mu4e-view-mode-map    (kbd "C-c c") 'org-mu4e-store-and-capture)
     ;; render html
     (require 'mu4e-contrib)
-    (setq mu4e-html2text-command 'mu4e-shr2text)))
+    (setq mu4e-html2text-command 'mu4e-shr2text)
+    (add-hook 'mu4e-view-mode-hook 'visual-line-mode)))
 
 ;;; Dired and Dired+ configuration
 (add-hook 'dired-mode-hook 
