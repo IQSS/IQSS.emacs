@@ -444,7 +444,22 @@
             (lambda()
               ;; don't wrap long lines
               (toggle-truncate-lines t)
-              (outline-minor-mode t))))
+              (outline-minor-mode t)))
+  ;; highlight function calls and operators
+  (setq ess-R-font-lock-keywords
+        (quote
+         ((ess-R-fl-keyword:modifiers)
+          (ess-R-fl-keyword:fun-defs . t)
+          (ess-R-fl-keyword:keywords . t)
+          (ess-R-fl-keyword:assign-ops . t)
+          (ess-R-fl-keyword:constants . 1)
+          (ess-fl-keyword:fun-calls . t)
+          (ess-fl-keyword:numbers)
+          (ess-fl-keyword:operators . t)
+          (ess-fl-keyword:delimiters)
+          (ess-fl-keyword:=)
+          (ess-R-fl-keyword:F&T)
+          (ess-R-fl-keyword:%op% . t)))))
 
 (with-eval-after-load "python"
   ;; try to get indent/completion working nicely
