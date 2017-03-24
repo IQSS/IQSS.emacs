@@ -1140,35 +1140,6 @@ There are several different shells available in Emacs by default. In addition =m
   (global-set-key (kbd "C-x cl") 'global-command-log-mode)
 #+END_SRC
 
-** Always use fancy splash screen.
-   :PROPERTIES:
-   :CUSTOM_ID: visual-tweaks
-   :END:
-
-Add some information to the startup screen so people know where to go for help.
-#+BEGIN_SRC emacs-lisp
-    ;; always use fancy-startup, even on small screens
-    ;; but only if running in windowed mode
-    (defun always-use-fancy-splash-screens-p () 1)
-    (defalias 'use-fancy-splash-screens-p 'always-use-fancy-splash-screens-p)
-    (add-hook 'after-init-hook
-              (lambda()
-                (if inhibit-startup-screen
-                    (add-hook 'emacs-startup-hook 
-                              (lambda() (switch-to-buffer "*scratch*"))))))
-
-  (add-to-list 'fancy-startup-text
-               '(:face
-                 (variable-pitch default)
-                 "\nYou are running a customized Emacs configuration. See "  :link
-                 ("here"
-                  #[257 "\300\301!\207"
-                        [browse-url-default-browser "http://github.com/izahn/dotemacs/"]
-                        3 "\n\n(fn BUTTON)"]
-                  "Open the README file")
-                 "\nfor information about these customizations.\n"))
-#+END_SRC
-
 ** Final touches
 
 #+BEGIN_SRC emacs-lisp
@@ -1184,6 +1155,9 @@ Add some information to the startup screen so people know where to go for help.
   (diminish 'google-this-mode)
   (diminish 'outline-minor-mode)
   (diminish 'smooth-scroll-mode)
+
+  ;; No, we do not need the splash screen
+  (setq inhibit-startup-screen t)
 #+END_SRC
 
 * Concluding remarks

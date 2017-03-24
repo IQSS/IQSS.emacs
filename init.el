@@ -760,27 +760,6 @@ The app is chosen from your OS's preference."
 (setq command-log-mode-auto-show t)
 (global-set-key (kbd "C-x cl") 'global-command-log-mode)
 
-;; always use fancy-startup, even on small screens
-  ;; but only if running in windowed mode
-  (defun always-use-fancy-splash-screens-p () 1)
-  (defalias 'use-fancy-splash-screens-p 'always-use-fancy-splash-screens-p)
-  (add-hook 'after-init-hook
-            (lambda()
-              (if inhibit-startup-screen
-                  (add-hook 'emacs-startup-hook 
-                            (lambda() (switch-to-buffer "*scratch*"))))))
-
-(add-to-list 'fancy-startup-text
-             '(:face
-               (variable-pitch default)
-               "\nYou are running a customized Emacs configuration. See "  :link
-               ("here"
-                #[257 "\300\301!\207"
-                      [browse-url-default-browser "http://github.com/izahn/dotemacs/"]
-                      3 "\n\n(fn BUTTON)"]
-                "Open the README file")
-               "\nfor information about these customizations.\n"))
-
 ;; save settings made using the customize interface to a sparate file
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (unless (file-exists-p custom-file)
@@ -793,3 +772,6 @@ The app is chosen from your OS's preference."
 (diminish 'google-this-mode)
 (diminish 'outline-minor-mode)
 (diminish 'smooth-scroll-mode)
+
+;; No, we do not need the splash screen
+(setq inhibit-startup-screen t)
