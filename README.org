@@ -238,6 +238,7 @@ The main purpose of these emacs configuration files is to install and configure 
                           osx-dictionary
                           define-word
                           ox-pandoc
+                          untitled-new-buffer
                           ;; org-mode packages
                           org-plus-contrib))
 
@@ -1173,6 +1174,16 @@ There are several different shells available in Emacs by default. In addition =m
 
   ;; No, we do not need the splash screen
   (setq inhibit-startup-screen t)
+
+  ;; start with untitled new buffer
+  (add-hook 'after-init-hook
+            '(lambda()
+                   (untitled-new-buffer-with-select-major-mode 'text-mode)))
+
+  (setq untitled-new-buffer-major-modes '(text-mode emacs-lisp-mode))
+  ;; Change default buffer name.
+  (setq untitled-new-buffer-default-name "Untitled")
+
 #+END_SRC
 
 * Concluding remarks

@@ -88,6 +88,7 @@
                         osx-dictionary
                         define-word
                         ox-pandoc
+                        untitled-new-buffer
                         ;; org-mode packages
                         org-plus-contrib))
 
@@ -790,3 +791,12 @@ The app is chosen from your OS's preference."
 
 ;; No, we do not need the splash screen
 (setq inhibit-startup-screen t)
+
+;; start with untitled new buffer
+(add-hook 'after-init-hook
+          '(lambda()
+                 (untitled-new-buffer-with-select-major-mode 'text-mode)))
+
+(setq untitled-new-buffer-major-modes '(text-mode emacs-lisp-mode))
+;; Change default buffer name.
+(setq untitled-new-buffer-default-name "Untitled")
