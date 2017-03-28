@@ -337,7 +337,8 @@
 ;; cancel if input doesn't match, be patient, and don't complete automatically.
 (setq company-require-match nil
       company-async-timeout 6
-      company-idle-delay nil)
+      company-idle-delay nil
+      company-global-modes '(not term-mode))
 ;; complete using C-tab
 (global-set-key (kbd "<C-tab>") 'counsel-company)
 ;; use C-n and C-p to cycle through completions
@@ -758,13 +759,13 @@ The app is chosen from your OS's preference."
           (lambda()
             (with-editor-export-editor)
             (with-editor-export-git-editor)
-            (sleep-for 0.2) ; this is bad, but thinking hurts and it works.
+            (sleep-for 0.5) ; this is bad, but thinking hurts and it works.
             (call-interactively 'comint-clear-buffer)))
 (add-hook 'term-exec-hook
           (lambda()
             (with-editor-export-editor)
             (with-editor-export-git-editor)
-            (sleep-for 0.2) ; see comment above
+            (sleep-for 0.5) ; see comment above
             (call-interactively 'comint-clear-buffer)))
 (add-hook 'eshell-mode-hook
           (lambda()
