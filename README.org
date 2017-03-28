@@ -200,7 +200,6 @@ The main purpose of these emacs configuration files is to install and configure 
                           undo-tree
                           better-defaults
                           diminish
-                          powerline
                           dired+
                           ace-window
                           howdoi
@@ -258,17 +257,6 @@ The main purpose of these emacs configuration files is to install and configure 
         (package-install package))))
 #+END_SRC
 
-** Load theme
-   :PROPERTIES:
-   :CUSTOM_ID: load-theme
-   :END:
-Loading the theme should come as early as possible in the init sequence to avoid jarring visual changes during startup, but must come after loading packages because we use a custom theme that needs to be installed first.
-
-#+BEGIN_SRC emacs-lisp
-  ;; mode line theme
-  (require 'powerline)
-  (powerline-default-theme)
-#+END_SRC
 ** Add custom lisp directory to load path
    :PROPERTIES:
    :CUSTOM_ID: add-custom-lisp-directory-to-load-path
@@ -1167,10 +1155,10 @@ There are several different shells available in Emacs by default. In addition =m
 
   ;; ;; clean up the mode line
   ; (require 'diminish)
-  ;; (diminish 'company-mode)
-  (diminish 'google-this-mode)
-  (diminish 'outline-minor-mode)
-  (diminish 'smooth-scroll-mode)
+  (diminish 'company-mode "comp")
+  (diminish 'outline-minor-mode "outline")
+  (diminish 'undo-tree-mode "undo")
+  (diminish 'smooth-scroll-mode "ssc")
 
   ;; No, we do not need the splash screen
   (setq inhibit-startup-screen t)

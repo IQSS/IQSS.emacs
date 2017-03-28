@@ -50,7 +50,6 @@
                         undo-tree
                         better-defaults
                         diminish
-                        powerline
                         dired+
                         ace-window
                         howdoi
@@ -106,10 +105,6 @@
   (dolist (package my-package-list)
     (when (not (package-installed-p package))
       (package-install package))))
-
-;; mode line theme
-(require 'powerline)
-(powerline-default-theme)
 
 ;; add custom lisp directory to path
 (let ((default-directory (concat user-emacs-directory "lisp/")))
@@ -784,10 +779,10 @@ The app is chosen from your OS's preference."
 
 ;; ;; clean up the mode line
 ; (require 'diminish)
-;; (diminish 'company-mode)
-(diminish 'google-this-mode)
-(diminish 'outline-minor-mode)
-(diminish 'smooth-scroll-mode)
+(diminish 'company-mode "comp")
+(diminish 'outline-minor-mode "outline")
+(diminish 'undo-tree-mode "undo")
+(diminish 'smooth-scroll-mode "ssc")
 
 ;; No, we do not need the splash screen
 (setq inhibit-startup-screen t)
