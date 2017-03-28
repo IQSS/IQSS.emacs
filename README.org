@@ -200,7 +200,7 @@ The main purpose of these emacs configuration files is to install and configure 
                           undo-tree
                           better-defaults
                           diminish
-                          smart-mode-line
+                          powerline
                           dired+
                           ace-window
                           howdoi
@@ -266,9 +266,8 @@ Loading the theme should come as early as possible in the init sequence to avoid
 
 #+BEGIN_SRC emacs-lisp
   ;; mode line theme
-  (add-hook 'after-init-hook 'sml/setup)
-  (setq sml/theme 'light)
-  (setq sml/col-number-format "%5c")
+  (require 'powerline)
+  (powerline-default-theme)
 #+END_SRC
 ** Add custom lisp directory to load path
    :PROPERTIES:

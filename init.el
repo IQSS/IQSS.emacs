@@ -50,7 +50,7 @@
                         undo-tree
                         better-defaults
                         diminish
-                        smart-mode-line
+                        powerline
                         dired+
                         ace-window
                         howdoi
@@ -108,9 +108,8 @@
       (package-install package))))
 
 ;; mode line theme
-(add-hook 'after-init-hook 'sml/setup)
-(setq sml/theme 'light)
-(setq sml/col-number-format "%5c")
+(require 'powerline)
+(powerline-default-theme)
 
 ;; add custom lisp directory to path
 (let ((default-directory (concat user-emacs-directory "lisp/")))
