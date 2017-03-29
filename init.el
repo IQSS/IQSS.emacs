@@ -42,6 +42,7 @@
         diff-hl
         adaptive-wrap
         ;; melpa packages
+        composable
         command-log-mode
         undo-tree
         better-defaults
@@ -194,6 +195,10 @@
 (define-key cua-global-keymap (kbd "<C-return>") nil)
 (setq cua-rectangle-mark-key (kbd "<C-S-SPC>"))
 (define-key cua-global-keymap (kbd "<C-S-SPC>") 'cua-rectangle-mark-mode)
+
+(require 'composable)
+(composable-mode) ; Activates the default keybindings
+(composable-mark-mode) ; Use composable with C-SPC
 
 ;; Work spaces
 (setq eyebrowse-keymap-prefix (kbd "C-c C-l"))
