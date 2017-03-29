@@ -32,8 +32,6 @@
 
 ;; Add additional package sources
 (add-to-list 'package-archives 
-             '("org" . "http://orgmode.org/elpa/") t)
-(add-to-list 'package-archives 
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
 ;; Make a list of the packages you want
@@ -85,12 +83,12 @@
         osx-dictionary
         define-word
         ox-pandoc
-        untitled-new-buffer
-        ;; org-mode packages
-        org-plus-contrib))
+        untitled-new-buffer))
 ;; install packages if needed
 (unless (every 'package-installed-p package-selected-packages)
   (package-refresh-contents)
+  ;; org needs to be installed first
+  (package-install (cadr (assq 'org package-archive-contents)))
   (package-install-selected-packages))
 (package-initialize)
 
@@ -544,7 +542,6 @@
   (require 'ox-latex)
   (require 'ox-bibtex)
   (require 'ox-odt)
-  (require 'ox-freemind)
 
   (require 'org-capture)
   (require 'org-protocol)
@@ -556,7 +553,6 @@
   (when (executable-find "R") 
       (require 'ess-site)
       (require 'ob-R))
-  (when (executable-find "julia") (require 'ob-julia))
   (when (executable-find "python") (require 'ob-python))
   (when (executable-find "matlab") (require 'ob-matlab))
   (when (executable-find "octave") (require 'ob-octave))
