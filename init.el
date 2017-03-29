@@ -25,6 +25,7 @@
 (add-hook 'outline-minor-mode-hook
           (lambda () (local-set-key "\C-c\C-o"
                                     outline-mode-prefix-map)))
+(setq save-abbrevs 'silently)
 
 ;; load the package manager
 (require 'package)
@@ -540,7 +541,6 @@
   (require 'ox-md)
   (require 'ox-html)
   (require 'ox-latex)
-  (require 'ox-bibtex)
   (require 'ox-odt)
 
   (require 'org-capture)

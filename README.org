@@ -166,6 +166,7 @@ It is difficult to support multiple versions of emacs, so we will pick an arbitr
   (add-hook 'outline-minor-mode-hook
             (lambda () (local-set-key "\C-c\C-o"
                                       outline-mode-prefix-map)))
+  (setq save-abbrevs 'silently)
 #+END_SRC
 
 ** Install useful packages
@@ -874,7 +875,6 @@ Org mode is a powerful markup-language native to Emacs. It can be compared to ma
     (require 'ox-md)
     (require 'ox-html)
     (require 'ox-latex)
-    (require 'ox-bibtex)
     (require 'ox-odt)
 
     (require 'org-capture)
