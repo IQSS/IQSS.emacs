@@ -167,6 +167,9 @@
 ;; save place -- move to the place I was last time I visited this file
 (save-place-mode t)
 
+;; easy navigation in read-only buffers
+(setq view-read-only t)
+
 ;; Use CUA mode to make life easier. We _do_ use standard copy/paste etc. 
 (cua-mode t)
 

@@ -17,7 +17,7 @@ Note that this documentation mostly uses Emacs notation for keybindings, e.g., =
 
 If you have never used Emacs before many things will work as you expect; a few will not, in which case you will need to search the web or read the Emacs documentation to learn the Emacs way. You can launch a built-in tutorial by pressing =C-h t= (that's "Control+h, then t"), or read the getting started documentation at https://www.gnu.org/software/emacs/tour/. A cheat-sheet / survival guide is available at https://www.gnu.org/software/emacs/refcards/pdf/survival.pdf. 
 
-If you are an Emacs user, most things will mostly work as you expect, though you may wish to familiarize yourself with the alternative "de facto standard" bindings configured here. The most glaring exception is the use of =C-v= to paste rather than scroll. If you have =C-v= in your muscle memory this will take a short time to adjust to. You can scroll using =Page Up= and =Page Down=. If your keyboard doesn't dedicated =Page Up= / =Page Down= keys try =Fn down= and =Fn up=. Yes, it's not as good as Emacs-style =C-v= / =M-v=, but I think having copy/paste work consistently across programs is a bigger win.
+If you are an Emacs user, most things will mostly work as you expect, though you may wish to familiarize yourself with the alternative "de facto standard" bindings configured here. The most glaring exception is the use of =C-v= to paste rather than scroll. My advice is to get in the habit of toggling read-only/view mode with =C-x C-q= (or =M-x read-only-mode=) when you need to do a lot of scrolling. In this mode =SPC= scrolls down and =S-SPC= scrolls up, just like it does in your web browser. When you must scroll down without toggling read-only mode you can use =Page Up= and =Page Down= (if your keyboard doesn't dedicated =Page Up= / =Page Down= keys try =Fn down= and =Fn up=). If you are an Emacs user and you find other key bindings that don't work as they should please open an issue in the [[https://github.com/izahn/dotemacs][github repo]].
 
 Highlights of this Emacs configuration include:
 - More standard select/copy/paste keys and right-click behavior makes it more familiar to those new to Emacs.
@@ -334,6 +334,9 @@ This section sets up various utilities and conveniences. Many of these are low p
 
   ;; save place -- move to the place I was last time I visited this file
   (save-place-mode t)
+
+  ;; easy navigation in read-only buffers
+  (setq view-read-only t)
 #+END_SRC
 
 ** Make Emacs friendlier to newcomers
