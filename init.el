@@ -1,9 +1,10 @@
+
 (when (< (string-to-number 
            (concat 
             (number-to-string emacs-major-version) 
             "." 
             (number-to-string emacs-minor-version)))
-          24.5)
+          25.1)
   (error "Your version of emacs is very old and must be upgraded before you can use these packages!"))
 
 ;; set coding system so emacs doesn't choke on melpa file listings
@@ -25,13 +26,9 @@
           (lambda () (local-set-key "\C-c\C-o"
                                     outline-mode-prefix-map)))
 
-;; load site-start early so we can override it later
-(load "default" t t)
-;; prevent site-start from running again later
-(setq inhibit-default-init t)
-
 ;; load the package manager
 (require 'package)
+(package-initialize t)
 
 ;; Add additional package sources
 (add-to-list 'package-archives 
@@ -40,71 +37,62 @@
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
 ;; Make a list of the packages you want
-(setq my-package-list '(;; gnu packages
-                        auctex
-                        windresize
-                        diff-hl
-                        adaptive-wrap
-                        ;; melpa packages
-                        command-log-mode
-                        undo-tree
-                        better-defaults
-                        diminish
-                        dired+
-                        ace-window
-                        howdoi
-                        auctex-latexmk
-                        multi-term
-                        magit
-                        eyebrowse
-                        mouse3
-                        swiper
-                        counsel
-                        flx-ido
-                        smex
-                        ivy-bibtex
-                        hydra
-                        ivy-hydra
-                        which-key
-                        outline-magic
-                        smooth-scroll
-                        unfill
-                        company
-                        ess
-                        markdown-mode
-                        polymode
-                        eval-in-repl
-                        haskell-mode
-                        ghc
-                        company-ghci
-                        flycheck
-                        scala-mode
-                        ensime
-                        sbt-mode
-                        exec-path-from-shell
-                        htmlize
-                        sdcv ;; stardictionary
-                        osx-dictionary
-                        define-word
-                        ox-pandoc
-                        untitled-new-buffer
-                        ;; org-mode packages
-                        org-plus-contrib))
-
-;; Activate package autoloads
-(package-initialize)
-(setq package-initialize nil)
-
-;; make sure stale packages don't get loaded
-(dolist (package my-package-list)
-  (if (featurep package)
-      (unload-feature package t)))
-;; Install packages in package-list if they are not already installed
-(unless (every #'package-installed-p my-package-list)
+(setq package-selected-packages
+      '(;; gnu packages
+        auctex
+        windresize
+        diff-hl
+        adaptive-wrap
+        ;; melpa packages
+        command-log-mode
+        undo-tree
+        better-defaults
+        diminish
+        dired+
+        ace-window
+        howdoi
+        auctex-latexmk
+        multi-term
+        magit
+        eyebrowse
+        mouse3
+        swiper
+        counsel
+        flx-ido
+        smex
+        ivy-bibtex
+        hydra
+        ivy-hydra
+        which-key
+        outline-magic
+        smooth-scroll
+        unfill
+        company
+        ess
+        markdown-mode
+        polymode
+        eval-in-repl
+        haskell-mode
+        ghc
+        company-ghci
+        flycheck
+        scala-mode
+        ensime
+        sbt-mode
+        exec-path-from-shell
+        htmlize
+        sdcv ;; stardictionary
+        osx-dictionary
+        define-word
+        ox-pandoc
+        untitled-new-buffer
+        ;; org-mode packages
+        org-plus-contrib))
+;; install packages if needed
+(unless (every 'package-installed-p package-selected-packages)
   (package-refresh-contents)
-  (dolist (package my-package-list)
-    (when (not (package-installed-p package))
-      (package-install package))))
+  (package-install-selected-packages))
+(package-initialize)
 
 ;; add custom lisp directory to path
 (let ((default-directory (concat user-emacs-directory "lisp/")))
