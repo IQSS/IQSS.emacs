@@ -408,7 +408,7 @@ The basic window navigation with =C-c C-o= does not make it easy to navigate qui
    :CUSTOM_ID: spell-checking
    :END:
 
-Emacs comes with spell checking built-in, it just needs to be turned on. By default automatic spell checking is enabled in =text-mode= and =prog-mode= buffers.
+Emacs comes with spell checking built-in, it just needs to be turned on. By default automatic spell checking is enabled in =text-mode= and =prog-mode= buffers. More information is available at https://www.gnu.org/software/emacs/manual/html_mono/flymake.html#Using-Flymake.
 
 You can also spell-check on demand with =ispell-word=, bound to =M-$=.
 
@@ -473,11 +473,13 @@ If you're using [[http://vgoulet.act.ulaval.ca/en/emacs/windows/][Vincent Goulet
     (require 'hfyview))
 #+END_SRC
 
-*** Minibuffer hints and completion
-:PROPERTIES:
-:CUSTOM_ID: minibuffer-hints-and-completion
-:END:
-There are several different systems for providing completion hints in emacs. The default pcomplete system shows completions on demand (usually bound to tab key) in an emacs buffer. Here we set up ivy, which instead shows these completions on-the-fly in the minibuffer. These completions are primarily used to show available files (e.g., with ~find-file~) and emacs functions (e.g., with ~execute-extended-command~). Completion for in-buffer text (e.g., methods in python-mode, or arguments in R-mode) are handled separately by [[#auto-complete-configuration][company-mode]].
+** Minibuffer hints and completion
+   :PROPERTIES:
+   :CUSTOM_ID: minibuffer-hints-and-completion
+   :END:
+There are several different systems for providing completion hints in emacs. The default pcomplete system shows completions on demand (usually bound to tab key) in an emacs buffer. Here we set up ivy, which instead shows these completions on-the-fly in the minibuffer. These completions are primarily used to show available files (e.g., with ~find-file~) and emacs functions (e.g., with ~execute-extended-command~). More information is available at http://oremacs.com/swiper/.
+
+Note that completion for in-buffer text (e.g., methods in python-mode, or arguments in R-mode) are handled separately by [[#auto-complete-configuration][company-mode]].
 
 #+BEGIN_SRC emacs-lisp
   (ivy-mode 1)
@@ -540,11 +542,11 @@ There are several different systems for providing completion hints in emacs. The
 
 #+END_SRC
 
-*** Auto-complete configuration
-:PROPERTIES:
-:CUSTOM_ID: auto-complete-configuration
-:END:
-Here we configure in-buffer text completion using the company-mode package. These completions are available on-demand using =tab= for in-buffer popup or =C-tab= for search-able minibuffer list.
+** Auto-complete configuration
+   :PROPERTIES:
+   :CUSTOM_ID: auto-complete-configuration
+   :END:
+Here we configure in-buffer text completion using the company-mode package. These completions are available on-demand using =tab= for in-buffer popup or =C-tab= for search-able minibuffer list. More information is available at https://company-mode.github.io/.
 
 #+BEGIN_SRC emacs-lisp
   (require 'company)
@@ -1132,7 +1134,7 @@ There are several different shells available in Emacs by default. In addition =m
 
 ** Demonstration tools (command-log-mode)
 
-=command-log-mode= is useful for giving emacs demonstrations/tutorials. It shows the keys you've pressed and the commands they called.
+=command-log-mode= is useful for giving emacs demonstrations/tutorials. It shows the keys you've pressed and the commands they called. More information is available at https://github.com/lewang/command-log-mode.
 
 #+BEGIN_SRC emacs-lisp
   (setq command-log-mode-auto-show t)
@@ -1140,6 +1142,7 @@ There are several different shells available in Emacs by default. In addition =m
 #+END_SRC
 
 ** Final touches
+This Emacs configuration sets up lots of packages and configures a number of keybindings. To add our own customizations, place them in =~/.emacs.d/custom.el=. This file will be sourced last, so you always have the ability to override any settings provided here.
 
 #+BEGIN_SRC emacs-lisp
   ;; save settings made using the customize interface to a sparate file
@@ -1150,10 +1153,12 @@ There are several different shells available in Emacs by default. In addition =m
 
   ;; ;; clean up the mode line
   ; (require 'diminish)
+  (diminish 'visual-line-mode)
+  (diminish 'which-key-mode)
   (diminish 'company-mode "comp")
   (diminish 'outline-minor-mode "outline")
-  (diminish 'undo-tree-mode "undo")
-  (diminish 'smooth-scroll-mode "ssc")
+  (diminish 'undo-tree-mode)
+  (diminish 'smooth-scroll-mode)
 
   ;; No, we do not need the splash screen
   (setq inhibit-startup-screen t)

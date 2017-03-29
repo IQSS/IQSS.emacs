@@ -770,10 +770,12 @@ The app is chosen from your OS's preference."
 
 ;; ;; clean up the mode line
 ; (require 'diminish)
+(diminish 'visual-line-mode)
+(diminish 'which-key-mode)
 (diminish 'company-mode "comp")
 (diminish 'outline-minor-mode "outline")
-(diminish 'undo-tree-mode "undo")
-(diminish 'smooth-scroll-mode "ssc")
+(diminish 'undo-tree-mode)
+(diminish 'smooth-scroll-mode)
 
 ;; No, we do not need the splash screen
 (setq inhibit-startup-screen t)
