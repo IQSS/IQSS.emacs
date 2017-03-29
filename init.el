@@ -1,4 +1,3 @@
-
 (when (< (string-to-number 
            (concat 
             (number-to-string emacs-major-version) 
@@ -52,6 +51,8 @@
         howdoi
         auctex-latexmk
         multi-term
+        with-editor
+        git-commit
         magit
         eyebrowse
         mouse3
@@ -751,6 +752,7 @@ The app is chosen from your OS's preference."
             (with-editor-export-git-editor)))
 
 (shell-command-with-editor-mode t)
+(require 'git-commit)
 
 (setq command-log-mode-auto-show t)
 (global-set-key (kbd "C-x cl") 'global-command-log-mode)

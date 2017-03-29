@@ -201,6 +201,8 @@ The main purpose of these emacs configuration files is to install and configure 
           howdoi
           auctex-latexmk
           multi-term
+          with-editor
+          git-commit
           magit
           eyebrowse
           mouse3
@@ -1116,6 +1118,7 @@ There are several different shells available in Emacs by default. In addition =m
               (with-editor-export-git-editor)))
 
   (shell-command-with-editor-mode t)
+  (require 'git-commit)
 #+END_SRC
 
 ** Demonstration tools (command-log-mode)
