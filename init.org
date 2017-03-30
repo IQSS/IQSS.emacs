@@ -72,6 +72,8 @@ This configuration loads a lot of useful emacs packages, many of which add key b
 - C-z :: Undo, as in most other programs.
 - S-C-z :: Redo, as in most other programs. Use =C-x U=  or =M-z= to visualize your undo/redo history.
 - C-o :: Open file, as in most other programs.
+- C-- :: Zoom out, as in most other programs.
+- C-+ :: Zoom in, as in most other programs. 
 
 Note that some things still work "the Emacs way". Notably:
 - C-a :: Goes to the beginning of the line. To select all use =C-x h=. 
