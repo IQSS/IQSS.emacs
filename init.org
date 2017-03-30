@@ -191,6 +191,7 @@ The main purpose of these emacs configuration files is to install and configure 
           diff-hl
           adaptive-wrap
           ;; melpa packages
+          mode-icons
           command-log-mode
           undo-tree
           better-defaults
@@ -372,6 +373,9 @@ Emacs will never to as simple as Notepad, but perhaps it can be made more consis
   (define-key cua-global-keymap (kbd "<C-return>") nil)
   (setq cua-rectangle-mark-key (kbd "<C-S-SPC>"))
   (define-key cua-global-keymap (kbd "<C-S-SPC>") 'cua-rectangle-mark-mode)
+
+  ;; nicer mode line
+  (mode-icons-mode)
 #+END_SRC
 
 ** Window Management
@@ -1150,10 +1154,11 @@ This Emacs configuration sets up lots of packages and configures a number of key
   ; (require 'diminish)
   (diminish 'visual-line-mode)
   (diminish 'which-key-mode)
-  (diminish 'company-mode "comp")
-  (diminish 'outline-minor-mode "outline")
-  (diminish 'undo-tree-mode)
   (diminish 'smooth-scroll-mode)
+  ;; (diminish 'company-mode "comp")
+  ;; (diminish 'outline-minor-mode "outline")
+  ;; (diminish 'undo-tree-mode)
+  
 
   ;; No, we do not need the splash screen
   (setq inhibit-startup-screen t)

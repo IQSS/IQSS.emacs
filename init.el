@@ -42,6 +42,7 @@
         diff-hl
         adaptive-wrap
         ;; melpa packages
+        mode-icons
         command-log-mode
         undo-tree
         better-defaults
@@ -199,6 +200,9 @@
 (define-key cua-global-keymap (kbd "<C-return>") nil)
 (setq cua-rectangle-mark-key (kbd "<C-S-SPC>"))
 (define-key cua-global-keymap (kbd "<C-S-SPC>") 'cua-rectangle-mark-mode)
+
+;; nicer mode line
+(mode-icons-mode)
 
 ;; Work spaces
 (setq eyebrowse-keymap-prefix (kbd "C-c C-l"))
@@ -771,10 +775,11 @@ The app is chosen from your OS's preference."
 ; (require 'diminish)
 (diminish 'visual-line-mode)
 (diminish 'which-key-mode)
-(diminish 'company-mode "comp")
-(diminish 'outline-minor-mode "outline")
-(diminish 'undo-tree-mode)
 (diminish 'smooth-scroll-mode)
+;; (diminish 'company-mode "comp")
+;; (diminish 'outline-minor-mode "outline")
+;; (diminish 'undo-tree-mode)
+
 
 ;; No, we do not need the splash screen
 (setq inhibit-startup-screen t)
