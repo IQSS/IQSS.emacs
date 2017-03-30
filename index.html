@@ -1,0 +1,1682 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-03-29 Wed 22:36 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>An emacs config for social scientists</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Ista Zahn" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">An emacs config for social scientists</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#what-is-this">1. What is this?</a></li>
+<li><a href="#quick-start">2. Quick start</a>
+<ul>
+<li><a href="#how-do-i-install-it">2.1. How to I install it?</a></li>
+<li><a href="#first-run">2.2. First run</a></li>
+<li><a href="#modified-key-bindings">2.3. Important key bindings</a>
+<ul>
+<li><a href="#org55bee50">2.3.1. Standard keyboard shortcuts</a></li>
+<li><a href="#org8ea342c">2.3.2. Searching and Completion</a></li>
+<li><a href="#orgaee6cbf">2.3.3. REPL interaction</a></li>
+<li><a href="#org79a8249">2.3.4. Window management keys</a></li>
+<li><a href="#other-key-bindings">2.3.5. Other key bindings</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org1964ed8">3. Interacting with external programs</a></li>
+<li><a href="#implementation">4. Implementation</a>
+<ul>
+<li><a href="#version-check">4.1. Version check and preparation</a></li>
+<li><a href="#install-useful-packages">4.2. Install useful packages</a></li>
+<li><a href="#add-custom-lisp-directory-to-load-path">4.3. Add custom lisp directory to load path</a></li>
+<li><a href="#miscellaneous">4.4. Tweak default Emacs settings</a></li>
+<li><a href="#org2da5509">4.5. Make Emacs friendlier to newcomers</a></li>
+<li><a href="#window-management">4.6. Window Management</a></li>
+<li><a href="#spell-checking">4.7. Spell checking and dictionaries</a></li>
+<li><a href="#printing">4.8. Printing</a></li>
+<li><a href="#minibuffer-hints-and-completion">4.9. Minibuffer hints and completion</a></li>
+<li><a href="#auto-complete-configuration">4.10. Auto-complete configuration</a></li>
+<li><a href="#which-key">4.11. Which-key</a></li>
+<li><a href="#orgbfc2c07">4.12. Flycheck</a></li>
+<li><a href="#outline-magic">4.13. Outline-magic</a></li>
+<li><a href="#major-modes-configuration">4.14. Major modes configuration</a>
+<ul>
+<li><a href="#general-repl-config">4.14.1. General REPL (comint) config</a></li>
+<li><a href="#run-r-in-emacs">4.14.2. Run R in emacs (ESS)</a></li>
+<li><a href="#run-python-in-emacs">4.14.3. Run python in emacs (python-mode)</a></li>
+<li><a href="#emacs-lisp-repl">4.14.4. emacs lisp REPL (ielm)</a></li>
+<li><a href="#light-weight-markup-language">4.14.5. Haskell mode</a></li>
+<li><a href="#light-weight-markup-language">4.14.6. Light-weight markup language (Markdown mode)</a></li>
+<li><a href="#typesetting-markup">4.14.7. Typesetting markup (AucTeX)</a></li>
+<li><a href="#org06e00c5">4.14.8. Citations (ivy-bibtex)</a></li>
+<li><a href="#note-taking-and-outlining">4.14.9. Note taking and outlining (Org-mode)</a></li>
+<li><a href="#multiple-modes-in-one-buffer">4.14.10. Multiple modes in one "buffer" (polymode)</a></li>
+<li><a href="#org1b8f7cc">4.14.11. Email (mu4e)</a></li>
+<li><a href="#file-browsing">4.14.12. File browsing (Dired+)</a></li>
+<li><a href="#shell-modes">4.14.13. Shell modes (term, shell and eshell)</a></li>
+</ul>
+</li>
+<li><a href="#org653dcfe">4.15. Demonstration tools (command-log-mode)</a></li>
+<li><a href="#org51bd1b9">4.16. Final touches</a></li>
+</ul>
+</li>
+<li><a href="#org1b46a1d">5. Concluding remarks</a></li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org502b1f0" class="outline-2">
+<h2 id="what-is-this"><a id="org502b1f0"></a><span class="section-number-2">1</span> What is this?</h2>
+<div class="outline-text-2" id="text-what-is-this">
+<p>
+This is an <a href="https://www.gnu.org/software/emacs/">Emacs</a> configuration. There are many like it, but this one is mine. If you like it, make it yours! It provides lots of functionality while keeping things light and fast.
+</p>
+
+
+<p>
+The main goal of this project is to provide an Emacs configuration that works more or less they way you would expect an editor or IDE to work in the second decade of the twenty-first century, without losing the things that make Emacs special. This is challenging because basic Emacs commands often conflict with de facto standards. Each of these conflicts is a judgment call; hopefully a good balance has been reached. 
+</p>
+
+<p>
+Note that this documentation mostly uses Emacs notation for keybindings, e.g., <code>C</code> means "the Ctrl key", <code>M</code> means "the Meta (aka Alt) key", and <code>S</code> means "the Shift key". Refer to <a href="https://www.emacswiki.org/emacs/EmacsKeyNotation">https://www.emacswiki.org/emacs/EmacsKeyNotation</a> if you are not familiar with this notation.
+</p>
+
+<p>
+Highlights of this Emacs configuration include:
+</p>
+<ul class="org-ul">
+<li>More standard select/copy/paste keys and right-click behavior makes it more familiar to those new to Emacs.</li>
+<li>Consistent use of the <code>shift</code> key to for related functionality. For example:
+<ul class="org-ul">
+<li><code>C-z</code> is undo, <code>C-Z</code> is redo</li>
+<li><code>M-q</code> is hard warp, <code>M-Q</code> is unwrap</li>
+<li><code>C-s</code> searches in current buffer, <code>C=S</code> searches all buffers in the directory</li>
+<li><code>C-x f</code> (or <code>C-o</code>) opens files in the current directory, <code>C-x F</code> (or <code>C-O</code>) searches for files to open</li>
+</ul></li>
+<li>Consistent and familiar code completion using the <code>tab</code> key.</li>
+<li>Consistent and familiar code evaluation using <code>C-ret</code>.</li>
+<li>IDE-like configuration for R, Python, and LaTeX coding.</li>
+<li>Literate programming configuration for running R, python, or other programming languages inside markdown or org-mode files.</li>
+<li>Powerful and simple search-based tools for finding commands, files and buffers, inserting citations etc.</li>
+<li>Convenient window management, including navigation with <code>C-x O</code>, and undo/redo with <code>C-c left</code> and <code>C-c right</code>.</li>
+<li>Dictionary-lookup using <code>C-c d</code>.</li>
+</ul>
+
+<p>
+The upshot is that if you have never used Emacs before many things will work as you expect; a few will not, in which case you will need to search the web or read the Emacs documentation to learn the Emacs way. You can launch a built-in tutorial by pressing <code>C-h t</code> (that's "Control+h, then t"), or read the getting started documentation at <a href="https://www.gnu.org/software/emacs/tour/">https://www.gnu.org/software/emacs/tour/</a>. A cheat-sheet / survival guide is available at <a href="https://www.gnu.org/software/emacs/refcards/pdf/survival.pdf">https://www.gnu.org/software/emacs/refcards/pdf/survival.pdf</a>. 
+</p>
+
+<p>
+If you are an Emacs user, most things will mostly work as you expect, though you may wish to familiarize yourself with the alternative "de facto standard" bindings configured here. The most glaring exception is the use of <code>C-v</code> to paste rather than scroll. My advice is to get in the habit of toggling read-only/view mode with <code>C-x C-q</code> (or <code>M-x read-only-mode</code>) when you need to do a lot of scrolling. In this mode <code>SPC</code> scrolls down and <code>S-SPC</code> scrolls up, just like it does in your web browser. When you must scroll down without toggling read-only mode you can use <code>Page Up</code> and <code>Page Down</code> (if your keyboard doesn't dedicated <code>Page Up</code> / <code>Page Down</code> keys try <code>Fn down</code> and <code>Fn up</code>). If you are an Emacs user and you find other key bindings that don't work as they should please open an issue in the <a href="https://github.com/izahn/dotemacs">github repo</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orga581e46" class="outline-2">
+<h2 id="quick-start"><a id="orga581e46"></a><span class="section-number-2">2</span> Quick start</h2>
+<div class="outline-text-2" id="text-quick-start">
+</div>
+
+<div id="outline-container-org0ff923d" class="outline-3">
+<h3 id="how-do-i-install-it"><a id="org0ff923d"></a><span class="section-number-3">2.1</span> How to I install it?</h3>
+<div class="outline-text-3" id="text-how-do-i-install-it">
+<ol class="org-ol">
+<li>Make sure emacs &gt;= version 25.1 is installed on your computer. See <a href="UsefullPrograms.html">this list of useful programs</a> for installation instructions.</li>
+<li>Make sure you have <a href="http://git-scm.com/downloads">git</a> installed on your computer. If you don't know what git is you might be interested in John McDonnell's <a href="http://nyuccl.org/pages/GitTutorial/">git tutorial</a>.</li>
+<li>Determine your emacs configuration directory. Open emacs and type <code>C-x f ~/ RET</code>. This should open a directory listing buffer. Note the path at the top of this file. This is were your <code>s.d</code> should go.</li>
+<li>Close Emacs.</li>
+<li>Back up your existing <code>~/.emacs</code> file and <code>~/.emacs.d</code> directory (e.g., rename <code>.emacs</code> to <code>OLD.emacs</code> and rename <code>.emacs.d</code> to <code>OLD.emacs.d</code>).</li>
+<li>Clone this repository into <code>~/.emacs.d</code> by opening a terminal and running <code>git clone http://github.com/izahn/dotemacs ~/.emacs.d</code>.</li>
+</ol>
+
+<p>
+If you don't know how to use git, you can skip steps 2 and 6 and simply <a href="https://github.com/izahn/dotemacs/archive/master.zip">download the files as a zip archive</a>, extract them, and move them into your .emacs.d directory instead.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org315c9a3" class="outline-3">
+<h3 id="first-run"><a id="org315c9a3"></a><span class="section-number-3">2.2</span> First run</h3>
+<div class="outline-text-3" id="text-first-run">
+<p>
+Note that after installing this configuration emacs will be slow to start up the first time. This is due to package installation; just be patient and wait for it to finish&#x2013;subsequent start-ups will be much faster.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org17f7e0b" class="outline-3">
+<h3 id="modified-key-bindings"><a id="org17f7e0b"></a><span class="section-number-3">2.3</span> Important key bindings</h3>
+<div class="outline-text-3" id="text-modified-key-bindings">
+<p>
+This configuration loads a lot of useful emacs packages, many of which add key bindings. Documenting them all here would be too much (see the documentation for each package if you need the details), so this section describes only most important ones.
+</p>
+</div>
+
+<div id="outline-container-org55bee50" class="outline-4">
+<h4 id="org55bee50"><span class="section-number-4">2.3.1</span> Standard keyboard shortcuts</h4>
+<div class="outline-text-4" id="text-2-3-1">
+<dl class="org-dl">
+<dt>S-arrow</dt><dd>Select a region, as in many other programs.</dd>
+<dt>C-c</dt><dd>Copy selection, as in most other programs.</dd>
+<dt>C-v</dt><dd>Paste, as in most other programs. Select from the clipboard history with <code>S-C-v</code>.</dd>
+<dt>C-z</dt><dd>Undo, as in most other programs.</dd>
+<dt>S-C-z</dt><dd>Redo, as in most other programs. Use <code>C-x U</code>  or <code>M-z</code> to visualize your undo/redo history.</dd>
+<dt>C-o</dt><dd>Open file, as in most other programs.</dd>
+</dl>
+
+<p>
+Note that some things still work "the Emacs way". Notably:
+</p>
+<dl class="org-dl">
+<dt>C-a</dt><dd>Goes to the beginning of the line. To select all use <code>C-x h</code>.</dd>
+<dt>C-s</dt><dd>Searches. To save, use <code>C-x s</code>.</dd>
+<dt>C-f</dt><dd>Moves forward one character. To search use <code>C-s</code>.</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-org8ea342c" class="outline-4">
+<h4 id="org8ea342c"><span class="section-number-4">2.3.2</span> Searching and Completion</h4>
+<div class="outline-text-4" id="text-2-3-2">
+<p>
+Utilities have been configured to make it easy to search by file name as well as to search the contents of files. Some of this functionality works much better if certain system utilities are found. See <a href="UsefullPrograms.html">this list of useful programs</a>, especially <i>everything</i> (windows only) and <i>the silver search</i> or <i>ripgrep</i>.
+</p>
+
+<dl class="org-dl">
+<dt>C-s</dt><dd>Searches the active buffer using <code>swiper</code>.</dd>
+<dt>C-S</dt><dd>Searches files in the current directory (recursively) using <code>counsel-rg</code> or similar.</dd>
+<dt>C-x F</dt><dd>(or <b>C-x O</b>) Searches by file name &#x2013; requires <code>mlocate</code> on linux, <code>everything</code> (<a href="http://www.voidtools.com/">http://www.voidtools.com/</a>) on windows.</dd>
+</dl>
+
+<p>
+Many standard Emacs keybindings have been replaced with versions that provide completion suggestions. In-buffer completion can be triggered with the <code>tab</code> key.
+</p>
+
+<dl class="org-dl">
+<dt>tab</dt><dd>Mapped to <code>company-complete</code>, use for completion indentation and completion.</dd>
+<dt>M-y</dt><dd>Remapped to <code>counsel-yank-pop</code> to browse the kill ring interactively. <code>S-C-v</code> also works for this.</dd>
+<dt>M-x</dt><dd>Remapped to <code>counsel-M-x</code> to interactively search for interactive functions.</dd>
+<dt>C-c r</dt><dd>Mapped to <code>ivy-bibtex</code> to search for a citation to insert. You must set <code>bibtex-completion-bibliography</code> to your BibTeX files for this to work.</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-orgaee6cbf" class="outline-4">
+<h4 id="orgaee6cbf"><span class="section-number-4">2.3.3</span> REPL interaction</h4>
+<div class="outline-text-4" id="text-2-3-3">
+<p>
+This should be easy, and hopefully it is.
+</p>
+
+<dl class="org-dl">
+<dt>C-RET</dt><dd>Mapped to language specific line/selection/expression evaluation. Want to evaluate code from a script? <code>C-RET</code> should "just work".</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-org79a8249" class="outline-4">
+<h4 id="org79a8249"><span class="section-number-4">2.3.4</span> Window management keys</h4>
+<div class="outline-text-4" id="text-2-3-4">
+<p>
+Some convenient window management keys are provided, in addition to the standard Emacs <code>C-x o</code> binding to navigate to "other window".
+</p>
+
+<dl class="org-dl">
+<dt>C-x O</dt><dd>(Ctrl-x shift-o) mapped to <code>ace-window</code>, use to quickly navigate to a window by number.</dd>
+<dt>C-c left</dt><dd>Mapped to <code>winner-undo</code>, use to undo a window change.</dd>
+<dt>C-c right</dt><dd>Mapped to <code>winner-redo</code>, use to redo a window change.</dd>
+<dt>C-c C-l #</dt><dd>Mapped to <code>eybrowse-switch-to-window-config</code>, use to save/restore window layouts.</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-org514fcbc" class="outline-4">
+<h4 id="other-key-bindings"><a id="org514fcbc"></a><span class="section-number-4">2.3.5</span> Other key bindings</h4>
+<div class="outline-text-4" id="text-other-key-bindings">
+<dl class="org-dl">
+<dt>S-C-SPC</dt><dd>Mapped to <code>cua-rectangle-mark-mode</code>, use to edit rectangular regions.</dd>
+<dt>C-up</dt><dd>Mapped to <code>scroll-down-1</code>.</dd>
+<dt>C-down</dt><dd>Mapped to <code>scroll-up-1</code>.</dd>
+<dt>M-Q</dt><dd>Mapped to <code>unfill-paragraph</code>, use to remove line breaks from a paragraph.</dd>
+<dt>C-c C-o t</dt><dd>Mapped to <code>outline-cycle</code>, use to hide/show when outline-minor-mode is active (outline-minor mode is enabled in programming modes and in LaTeX-mode).</dd>
+<dt>C-x cl</dt><dd>Mapped to <code>global-command-log-mode</code>, use to echo keybindings for tutorials.</dd>
+<dt>M-q</dt><dd>Remapped to <code>bibtex-fill-entry</code> (bibtex mode only).</dd>
+<dt>E</dt><dd>Open in external application (dired mode only)</dd>
+</dl>
+
+<p>
+Other key bindings can be discovered by <code>describe-bindings</code> (bound to <code>C-h b</code>) or <code>counsel-descbinds</code> (access with <code>M-x counsel-descbinds RET</code>), or via the menus.
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org1964ed8" class="outline-2">
+<h2 id="org1964ed8"><span class="section-number-2">3</span> Interacting with external programs</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Many of the Emacs features configured here are designed to make it easier to interact with external programs. For example, <a href="http://ess.r-project.org">ESS</a> makes it easy to interact with <a href="http://r-project.org">R</a>, and <a href="https://www.gnu.org/software/auctex/">AUCTEX</a> makes it easy to interact with <a href="http://tug.org/texlive/">LaTeX</a>. If you need help installing these programs, <a href="UsefullPrograms.html">this short guide</a> may help. 
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgd1718bf" class="outline-2">
+<h2 id="implementation"><a id="orgd1718bf"></a><span class="section-number-2">4</span> Implementation</h2>
+<div class="outline-text-2" id="text-implementation">
+<p>
+I used to have a long description about all the packages this configuration sets up, but showing you the actual code is better. Each section starts with a description of what it does, followed by the code that implements it.
+</p>
+</div>
+
+<div id="outline-container-org6f7a477" class="outline-3">
+<h3 id="version-check"><a id="org6f7a477"></a><span class="section-number-3">4.1</span> Version check and preparation</h3>
+<div class="outline-text-3" id="text-version-check">
+<p>
+It is difficult to support multiple versions of emacs, so we will pick an arbitrary cutoff and throw an error if the version of emacs is "too old".
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">when</span> (&lt; (string-to-number 
+           (concat 
+            (number-to-string emacs-major-version) 
+            <span style="color: #8b2252;">"."</span> 
+            (number-to-string emacs-minor-version)))
+          25.1)
+  (<span style="color: #ff0000; font-weight: bold;">error</span> <span style="color: #8b2252;">"Your version of emacs is very old and must be upgraded before you can use these packages!"</span>))
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">set coding system so emacs doesn't choke on melpa file listings</span>
+(set-language-environment 'utf-8)
+(<span style="color: #a020f0;">setq</span> locale-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(<span style="color: #a020f0;">unless</span> (eq system-type 'windows-nt)
+  (set-selection-coding-system 'utf-8))
+(prefer-coding-system 'utf-8)
+(<span style="color: #a020f0;">setq</span> buffer-file-coding-system 'utf-8)
+(<span style="color: #a020f0;">setq</span> x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
+
+(<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">cl</span>)
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">set things that need to be set before packages load</span>
+(<span style="color: #a020f0;">setq</span> outline-minor-mode-prefix <span style="color: #8b2252;">"\C-c\C-o"</span>)
+(add-hook 'outline-minor-mode-hook
+          (<span style="color: #a020f0;">lambda</span> () (local-set-key <span style="color: #8b2252;">"\C-c\C-o"</span>
+                                    outline-mode-prefix-map)))
+(<span style="color: #a020f0;">setq</span> save-abbrevs 'silently)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgebbb396" class="outline-3">
+<h3 id="install-useful-packages"><a id="orgebbb396"></a><span class="section-number-3">4.2</span> Install useful packages</h3>
+<div class="outline-text-3" id="text-install-useful-packages">
+<p>
+The main purpose of these emacs configuration files is to install and configure useful emacs packages. Here we carry out the installation.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #b22222;">;; </span><span style="color: #b22222;">load the package manager</span>
+(<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">package</span>)
+(package-initialize t)
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">Add additional package sources</span>
+(add-to-list 'package-archives 
+             '(<span style="color: #8b2252;">"melpa"</span> . <span style="color: #8b2252;">"http://melpa.milkbox.net/packages/"</span>) t)
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">Make a list of the packages you want</span>
+(<span style="color: #a020f0;">setq</span> package-selected-packages
+      '(<span style="color: #b22222;">;; </span><span style="color: #b22222;">gnu packages</span>
+        auctex
+        windresize
+        diff-hl
+        adaptive-wrap
+        <span style="color: #b22222;">;; </span><span style="color: #b22222;">melpa packages</span>
+        command-log-mode
+        undo-tree
+        better-defaults
+        diminish
+        dired+
+        ace-window
+        howdoi
+        auctex-latexmk
+        multi-term
+        with-editor
+        git-commit
+        magit
+        eyebrowse
+        mouse3
+        swiper
+        counsel
+        flx-ido
+        smex
+        ivy-bibtex
+        hydra
+        ivy-hydra
+        which-key
+        outline-magic
+        smooth-scroll
+        unfill
+        company
+        ess
+        markdown-mode
+        polymode
+        eval-in-repl
+        haskell-mode
+        ghc
+        company-ghci
+        flycheck
+        scala-mode
+        ensime
+        sbt-mode
+        exec-path-from-shell
+        htmlize
+        sdcv <span style="color: #b22222;">;; </span><span style="color: #b22222;">stardictionary</span>
+        osx-dictionary
+        define-word
+        ox-pandoc
+        untitled-new-buffer))
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">install packages if needed</span>
+(<span style="color: #a020f0;">unless</span> (every 'package-installed-p package-selected-packages)
+  (package-refresh-contents)
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">org needs to be installed first</span>
+  (package-install (cadr (assq 'org package-archive-contents)))
+  (package-install-selected-packages))
+(package-initialize)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7facd29" class="outline-3">
+<h3 id="add-custom-lisp-directory-to-load-path"><a id="org7facd29"></a><span class="section-number-3">4.3</span> Add custom lisp directory to load path</h3>
+<div class="outline-text-3" id="text-add-custom-lisp-directory-to-load-path">
+<p>
+We try to install most things using the package manager, but a few things need to be included in a custom lisp directory. Add it to the path so we can load from it easily.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #b22222;">;; </span><span style="color: #b22222;">add custom lisp directory to path</span>
+(<span style="color: #a020f0;">let</span> ((default-directory (concat user-emacs-directory <span style="color: #8b2252;">"lisp/"</span>)))
+  (<span style="color: #a020f0;">setq</span> load-path
+        (append
+         (<span style="color: #a020f0;">let</span> ((load-path (copy-sequence load-path))) <span style="color: #b22222;">;; </span><span style="color: #b22222;">Shadow</span>
+           (append 
+            (copy-sequence (normal-top-level-add-to-load-path '(<span style="color: #8b2252;">"."</span>)))
+            (normal-top-level-add-subdirs-to-load-path)))
+         load-path)))
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">on OSX Emacs needs help setting up the system paths</span>
+(<span style="color: #a020f0;">when</span> (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org03fdbb8" class="outline-3">
+<h3 id="miscellaneous"><a id="org03fdbb8"></a><span class="section-number-3">4.4</span> Tweak default Emacs settings</h3>
+<div class="outline-text-3" id="text-miscellaneous">
+<p>
+This section sets up various utilities and conveniences. Many of these are low priority, so we set them first in order to allow any conflicting settings to be overridden later.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #b22222;">;; </span><span style="color: #b22222;">better defaults are well, better... but we don't always agree</span>
+(menu-bar-mode 1)
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">Mouse scrolling behavior</span>
+(<span style="color: #a020f0;">setq</span> mouse-wheel-scroll-amount '(1 ((shift) . 1))) <span style="color: #b22222;">;; </span><span style="color: #b22222;">one line at a time</span>
+(<span style="color: #a020f0;">setq</span> mouse-wheel-follow-mouse 't) <span style="color: #b22222;">;; </span><span style="color: #b22222;">scroll window under mouse</span>
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">Use y/n instead of yes/no</span>
+(fset 'yes-or-no-p 'y-or-n-p)
+
+(transient-mark-mode 1) <span style="color: #b22222;">; </span><span style="color: #b22222;">makes the region visible</span>
+(line-number-mode 1)    <span style="color: #b22222;">; </span><span style="color: #b22222;">makes the line number show up</span>
+(column-number-mode 1)  <span style="color: #b22222;">; </span><span style="color: #b22222;">makes the column number show up</span>
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">;; smooth scrolling with C-up/C-down</span>
+(<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">smooth-scroll</span>)
+(smooth-scroll-mode)
+(global-set-key [(control down)] 'scroll-up-1)
+(global-set-key [(control up)] 'scroll-down-1)
+(global-set-key [(control left)] 'scroll-right-1)
+(global-set-key [(control right)] 'scroll-left-1)
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">make home and end behave</span>
+(global-set-key (kbd <span style="color: #8b2252;">"&lt;home&gt;"</span>) 'move-beginning-of-line)
+(global-set-key (kbd <span style="color: #8b2252;">"&lt;end&gt;"</span>) 'move-end-of-line)
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">enable toggling paragraph un-fill</span>
+(define-key global-map <span style="color: #8b2252;">"\M-Q"</span> 'unfill-paragraph)
+
+<span style="color: #b22222;">;;; </span><span style="color: #b22222;">line wrapping</span>
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">neck beards be damned, we don't need to hard wrap. The editor can soft wrap for us.</span>
+(remove-hook 'text-mode-hook 'turn-on-auto-fill)
+(add-hook 'visual-line-mode-hook 'adaptive-wrap-prefix-mode)
+(add-hook 'text-mode-hook 'visual-line-mode 1)
+(add-hook 'prog-mode-hook
+          (<span style="color: #a020f0;">lambda</span>()
+            (toggle-truncate-lines t)
+              (outline-minor-mode t)))
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">indicate visual-line-mode wrap</span>
+(<span style="color: #a020f0;">setq</span> visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
+(<span style="color: #a020f0;">setq</span> visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">but be gentle</span>
+(<span style="color: #a020f0;">defface</span> <span style="color: #a0522d;">visual-line-wrap-face</span>
+'((t (<span style="color: #483d8b;">:foreground</span> <span style="color: #8b2252;">"gray"</span>)))
+<span style="color: #8b2252;">"Face for visual line indicators."</span>)
+(set-fringe-bitmap-face 'left-curly-arrow 'visual-line-wrap-face)
+(set-fringe-bitmap-face 'right-curly-arrow 'visual-line-wrap-face)
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">don't require two spaces for sentence end.</span>
+(<span style="color: #a020f0;">setq</span> sentence-end-double-space nil)
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">The beeping can be annoying--turn it off</span>
+(set-variable 'visible-bell t)
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">save place -- move to the place I was last time I visited this file</span>
+(save-place-mode t)
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">easy navigation in read-only buffers</span>
+(<span style="color: #a020f0;">setq</span> view-read-only t)
+(define-key view-mode-map (kbd <span style="color: #8b2252;">"s"</span>) 'swiper)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org2da5509" class="outline-3">
+<h3 id="org2da5509"><span class="section-number-3">4.5</span> Make Emacs friendlier to newcomers</h3>
+<div class="outline-text-3" id="text-4-5">
+<p>
+Emacs will never to as simple as Notepad, but perhaps it can be made more consistent with the way most other programs behave.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #b22222;">;; </span><span style="color: #b22222;">Use CUA mode to make life easier. We _do_ use standard copy/paste etc. </span>
+(cua-mode t)
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">(cua-selection-mode t) ;; uncomment this to get cua goodness without copy/paste etc.</span>
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">;; Make control-z undo</span>
+(global-undo-tree-mode t)
+(global-set-key (kbd <span style="color: #8b2252;">"C-z"</span>) 'undo)
+(define-key undo-tree-map (kbd <span style="color: #8b2252;">"C-S-z"</span>) 'undo-tree-redo)
+(define-key undo-tree-map (kbd <span style="color: #8b2252;">"C-x u"</span>) 'undo)
+(define-key undo-tree-map (kbd <span style="color: #8b2252;">"C-x U"</span>) 'undo-tree-visualize)
+(define-key undo-tree-map (kbd <span style="color: #8b2252;">"M-z"</span>) 'undo-tree-visualize)
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">Make C-g quit undo tree</span>
+(define-key undo-tree-visualizer-mode-map (kbd <span style="color: #8b2252;">"C-g"</span>) 'undo-tree-visualizer-quit)
+(define-key undo-tree-visualizer-mode-map (kbd <span style="color: #8b2252;">"&lt;escape&gt; &lt;escape&gt; &lt;escape&gt;"</span>) 'undo-tree-visualizer-quit)
+
+
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">;; </span>
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">Make right-click do something close to what people expect</span>
+(global-set-key (kbd <span style="color: #8b2252;">"&lt;mouse-3&gt;"</span>) 'mouse3-popup-menu)
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">(global-set-key (kbd "C-f") 'isearch-forward)</span>
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">(global-set-key (kbd "C-s") 'save-buffer)</span>
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">(global-set-key (kbd "C-o") 'counsel-find-file)</span>
+(define-key cua-global-keymap (kbd <span style="color: #8b2252;">"&lt;C-S-SPC&gt;"</span>) nil)
+(define-key cua-global-keymap (kbd <span style="color: #8b2252;">"&lt;C-return&gt;"</span>) nil)
+(<span style="color: #a020f0;">setq</span> cua-rectangle-mark-key (kbd <span style="color: #8b2252;">"&lt;C-S-SPC&gt;"</span>))
+(define-key cua-global-keymap (kbd <span style="color: #8b2252;">"&lt;C-S-SPC&gt;"</span>) 'cua-rectangle-mark-mode)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9757071" class="outline-3">
+<h3 id="window-management"><a id="org9757071"></a><span class="section-number-3">4.6</span> Window Management</h3>
+<div class="outline-text-3" id="text-window-management">
+<p>
+Emacs has <a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Configuration-Registers.html#Configuration-Registers">window layout management</a>, built-in but it's not convenient to use. <a href="https://github.com/wasamasa/eyebrowse">Eyebrowse</a> makes it easier, so we use that. Create a new layout with <code>C-c C-l C-n</code>, switch with <code>C-c C-l #</code> . 
+</p>
+
+<p>
+The basic window navigation with <code>C-c C-o</code> does not make it easy to navigate quickly to a specific window, so we use <code>ace-window</code> for that. Use <code>C-x O</code> to quickly navigate to a window.
+</p>
+
+<p>
+<code>winner-mode</code> allows you to undo/redo window configuration changes. Use <code>C-c &lt;left&gt;</code> to undo adn <code>C-c &lt;right&gt;</code> to redo.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #b22222;">;; </span><span style="color: #b22222;">Work spaces</span>
+(<span style="color: #a020f0;">setq</span> eyebrowse-keymap-prefix (kbd <span style="color: #8b2252;">"C-c C-l"</span>))
+(eyebrowse-mode t)
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">Undo/redo window changes</span>
+(winner-mode 1)
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">use ace-window for navigating windows</span>
+(global-set-key (kbd <span style="color: #8b2252;">"C-x O"</span>) 'ace-window)
+(<span style="color: #a020f0;">with-eval-after-load</span> <span style="color: #8b2252;">"ace-window"</span>
+  (set-face-attribute 'aw-leading-char-face nil <span style="color: #483d8b;">:height</span> 2.5))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orga588b2d" class="outline-3">
+<h3 id="spell-checking"><a id="orga588b2d"></a><span class="section-number-3">4.7</span> Spell checking and dictionaries</h3>
+<div class="outline-text-3" id="text-spell-checking">
+<p>
+Emacs comes with spell checking built-in, it just needs to be turned on. By default automatic spell checking is enabled in <code>text-mode</code> and <code>prog-mode</code> buffers. You can also spell-check on demand with <code>ispell-word</code>, bound to <code>M-$</code>. Finally, dictionaries look-up is available and bound to <code>C-c d</code>.
+</p>
+
+<p>
+More information is available at <a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Spelling.html">https://www.gnu.org/software/emacs/manual/html_node/emacs/Spelling.html</a> and <a href="https://github.com/abo-abo/define-word">https://github.com/abo-abo/define-word</a>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #b22222;">;; </span><span style="color: #b22222;">enable on-the-fly spell checking</span>
+(add-hook 'text-mode-hook
+          (<span style="color: #a020f0;">lambda</span> ()
+            (flyspell-mode 1)))
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">prevent flyspell from finding mistakes in the code</span>
+(add-hook 'prog-mode-hook
+          (<span style="color: #a020f0;">lambda</span> ()
+            <span style="color: #b22222;">;; </span><span style="color: #b22222;">`</span><span style="color: #008b8b;">ispell-comments-and-strings</span><span style="color: #b22222;">'</span>
+            (flyspell-prog-mode)))
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">ispell should not check code blocks in org mode</span>
+(add-to-list 'ispell-skip-region-alist '(<span style="color: #8b2252;">":</span><span style="color: #8b2252; font-weight: bold;">\\</span><span style="color: #8b2252; font-weight: bold;">(</span><span style="color: #8b2252;">PROPERTIES</span><span style="color: #8b2252; font-weight: bold;">\\</span><span style="color: #8b2252; font-weight: bold;">|</span><span style="color: #8b2252;">LOGBOOK</span><span style="color: #8b2252; font-weight: bold;">\\</span><span style="color: #8b2252; font-weight: bold;">)</span><span style="color: #8b2252;">:"</span> . <span style="color: #8b2252;">":END:"</span>))
+(add-to-list 'ispell-skip-region-alist '(<span style="color: #8b2252;">"#\\+BEGIN_SRC"</span> . <span style="color: #8b2252;">"#\\+END_SRC"</span>))
+(add-to-list 'ispell-skip-region-alist '(<span style="color: #8b2252;">"#\\+begin_src"</span> . <span style="color: #8b2252;">"#\\+end_src"</span>))
+(add-to-list 'ispell-skip-region-alist '(<span style="color: #8b2252;">"^#\\+begin_example "</span> . <span style="color: #8b2252;">"#\\+end_example$"</span>))
+(add-to-list 'ispell-skip-region-alist '(<span style="color: #8b2252;">"^#\\+BEGIN_EXAMPLE "</span> . <span style="color: #8b2252;">"#\\+END_EXAMPLE$"</span>))
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">Dictionaries</span>
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">default in case we don't find something local</span>
+(global-set-key (kbd <span style="color: #8b2252;">"C-c d"</span>) 'define-word-at-point)
+(global-set-key (kbd <span style="color: #8b2252;">"C-c S-D"</span>) 'define-word)
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">use dictionary app on os x</span>
+(<span style="color: #a020f0;">when</span> (memq window-system '(mac ns))
+  (global-set-key (kbd <span style="color: #8b2252;">"C-c d"</span>) 'osx-dictionary-search-word-at-point)
+  (global-set-key (kbd <span style="color: #8b2252;">"C-c S-D"</span>) 'osx-dictionary-search-input))
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">Use stardict if we find a usable interface</span>
+(<span style="color: #a020f0;">when</span> (executable-find <span style="color: #8b2252;">"sdcv"</span>)
+  (<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">sdcv</span>)
+  (global-set-key (kbd <span style="color: #8b2252;">"C-c d"</span>) 'sdcv-search-input)
+  (global-set-key (kbd <span style="color: #8b2252;">"C-c S-D"</span>) 'sdcv-search-pointer+)
+  (add-hook 'sdcv-mode-hook
+            '(lambda()
+               (<span style="color: #a020f0;">setq-local</span> font-lock-string-face 'default))))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf4bbc38" class="outline-3">
+<h3 id="printing"><a id="orgf4bbc38"></a><span class="section-number-3">4.8</span> Printing</h3>
+<div class="outline-text-3" id="text-printing">
+<p>
+If you're using <a href="http://vgoulet.act.ulaval.ca/en/emacs/windows/">Vincent Goulet's emacs</a> on Windows printing should work out of the box. If you're on Linux or Mac the experience of printing from emacs may leave something to be desired. Here we try to make it work a little better by making it easier to preview buffers in a web browser (you can print from there as usual) and by using <a href="http://sourceforge.net/projects/gtklp/">gtklp</a> on Linux if it is available.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">when</span> (eq system-type 'gnu/linux)
+  (<span style="color: #a020f0;">setq</span> hfyview-quick-print-in-files-menu t)
+  (<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">hfyview</span>)
+  (<span style="color: #a020f0;">setq</span> mygtklp (executable-find <span style="color: #8b2252;">"gtklp"</span>))
+  (<span style="color: #a020f0;">when</span> mygtklp
+    (<span style="color: #a020f0;">setq</span> lpr-command <span style="color: #8b2252;">"gtklp"</span>)
+    (<span style="color: #a020f0;">setq</span> ps-lpr-command <span style="color: #8b2252;">"gtklp"</span>)))
+
+(<span style="color: #a020f0;">when</span> (eq system-type 'darwin)
+  (<span style="color: #a020f0;">setq</span> hfyview-quick-print-in-files-menu t)
+  (<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">hfyview</span>))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org584f4cc" class="outline-3">
+<h3 id="minibuffer-hints-and-completion"><a id="org584f4cc"></a><span class="section-number-3">4.9</span> Minibuffer hints and completion</h3>
+<div class="outline-text-3" id="text-minibuffer-hints-and-completion">
+<p>
+There are several different systems for providing completion hints in emacs. The default pcomplete system shows completions on demand (usually bound to tab key) in an emacs buffer. Here we set up ivy, which instead shows these completions on-the-fly in the minibuffer. These completions are primarily used to show available files (e.g., with <code>find-file</code>) and emacs functions (e.g., with <code>execute-extended-command</code>). More information is available at <a href="http://oremacs.com/swiper/">http://oremacs.com/swiper/</a>.
+</p>
+
+<p>
+Note that completion for in-buffer text (e.g., methods in python-mode, or arguments in R-mode) are handled separately by <a href="#auto-complete-configuration">company-mode</a>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(ivy-mode 1)
+
+(<span style="color: #a020f0;">setq</span> counsel-find-file-ignore-regexp <span style="color: #8b2252;">"\\`\\."</span>)
+(<span style="color: #a020f0;">setq</span> ivy-use-virtual-buffers t)
+(<span style="color: #a020f0;">setq</span> ivy-count-format <span style="color: #8b2252;">"(%d/%d) "</span>)
+(<span style="color: #a020f0;">setq</span> ivy-display-style nil)
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">Ivy-based interface to standard commands</span>
+(global-set-key (kbd <span style="color: #8b2252;">"C-s"</span>) 'swiper)
+(global-set-key (kbd <span style="color: #8b2252;">"C-r"</span>) 'swiper)
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">Search files in directory with C-S</span>
+(global-set-key (kbd <span style="color: #8b2252;">"C-S-s"</span>) 'find-grep-dired)<span style="color: #b22222;">; </span><span style="color: #b22222;">default if we don't find something better</span>
+(<span style="color: #a020f0;">cond</span>
+ ((executable-find <span style="color: #8b2252;">"rg"</span>) <span style="color: #b22222;">; </span><span style="color: #b22222;">search with ripgrep if we have it</span>
+  (global-set-key (kbd <span style="color: #8b2252;">"C-S-s"</span>) 'counsel-rg))
+ ((executable-find <span style="color: #8b2252;">"ag"</span>) <span style="color: #b22222;">; </span><span style="color: #b22222;">otherwise search with ag if we have it</span>
+  (global-set-key (kbd <span style="color: #8b2252;">"C-S-s"</span>) 'counsel-ag))
+ ((executable-find <span style="color: #8b2252;">"pt"</span>) <span style="color: #b22222;">; </span><span style="color: #b22222;">otherwise search with pt if we have it</span>
+  (global-set-key (kbd <span style="color: #8b2252;">"C-S-s"</span>) 'counsel-pt)))
+(global-set-key (kbd <span style="color: #8b2252;">"M-x"</span>) 'counsel-M-x)
+(global-set-key (kbd <span style="color: #8b2252;">"M-y"</span>) 'counsel-yank-pop)
+(global-set-key (kbd <span style="color: #8b2252;">"C-S-v"</span>) 'counsel-yank-pop)
+(global-set-key (kbd <span style="color: #8b2252;">"C-x C-f"</span>) 'counsel-find-file)
+(global-set-key (kbd <span style="color: #8b2252;">"C-o"</span>) 'counsel-find-file)
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">search for files to open with "C-O=</span>
+(<span style="color: #a020f0;">when</span> (memq window-system '(mac ns)) <span style="color: #b22222;">; </span><span style="color: #b22222;">use mdfind on Mac. TODO: what about windows?</span>
+  (<span style="color: #a020f0;">setq</span> locate-command <span style="color: #8b2252;">"mdfind"</span>)
+  (<span style="color: #a020f0;">setq</span> counsel-locate-cmd 'counsel-locate-cmd-mdfind))
+(global-set-key (kbd <span style="color: #8b2252;">"C-x C-S-F"</span>) 'find-name-dired) <span style="color: #b22222;">; </span><span style="color: #b22222;">default in case we don't have something better</span>
+(global-set-key (kbd <span style="color: #8b2252;">"C-x C-S-F"</span>) 'counsel-locate)
+(global-set-key (kbd <span style="color: #8b2252;">"C-S-O"</span>) 'counsel-locate)
+(global-set-key (kbd <span style="color: #8b2252;">"C-x C-r"</span>) 'counsel-recentf)
+(global-set-key (kbd <span style="color: #8b2252;">"&lt;C-tab&gt;"</span>) 'counsel-company)
+(global-set-key (kbd <span style="color: #8b2252;">"&lt;f1&gt; f"</span>) 'counsel-describe-function)
+(global-set-key (kbd <span style="color: #8b2252;">"&lt;f1&gt; v"</span>) 'counsel-describe-variable)
+(global-set-key (kbd <span style="color: #8b2252;">"&lt;f1&gt; l"</span>) 'counsel-load-library)
+(global-set-key (kbd <span style="color: #8b2252;">"&lt;f2&gt; i"</span>) 'counsel-info-lookup-symbol)
+(global-set-key (kbd <span style="color: #8b2252;">"&lt;f2&gt; u"</span>) 'counsel-unicode-char)
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">Ivy-based interface to shell and system tools</span>
+(global-set-key (kbd <span style="color: #8b2252;">"C-c g"</span>) 'counsel-git)
+(global-set-key (kbd <span style="color: #8b2252;">"C-c j"</span>) 'counsel-git-grep)
+(global-set-key (kbd <span style="color: #8b2252;">"C-c k"</span>) 'counsel-ag)
+(global-set-key (kbd <span style="color: #8b2252;">"C-x l"</span>) 'counsel-locate)
+(global-set-key (kbd <span style="color: #8b2252;">"C-S-o"</span>) 'counsel-rhythmbox)
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">Ivy-resume and other commands</span>
+
+(global-set-key (kbd <span style="color: #8b2252;">"C-c i"</span>) 'ivy-resume)
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">Make Ivy more like ido</span>
+(define-key ivy-minibuffer-map (kbd <span style="color: #8b2252;">"&lt;return&gt;"</span>) 'ivy-alt-done)
+(define-key ivy-minibuffer-map (kbd <span style="color: #8b2252;">"C-d"</span>) 'ivy-done)
+(define-key ivy-minibuffer-map (kbd <span style="color: #8b2252;">"C-b"</span>) 'ivy-immediate-done)
+(define-key ivy-minibuffer-map (kbd <span style="color: #8b2252;">"C-f"</span>) 'ivy-immediate-done)
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">show recently opened files</span>
+(<span style="color: #a020f0;">setq</span> recentf-max-menu-items 50)
+(recentf-mode 1)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge9b82b5" class="outline-3">
+<h3 id="auto-complete-configuration"><a id="orge9b82b5"></a><span class="section-number-3">4.10</span> Auto-complete configuration</h3>
+<div class="outline-text-3" id="text-auto-complete-configuration">
+<p>
+Here we configure in-buffer text completion using the company-mode package. These completions are available on-demand using <code>tab</code> for in-buffer popup or <code>C-tab</code> for search-able minibuffer list. More information is available at <a href="https://company-mode.github.io/">https://company-mode.github.io/</a>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">company</span>)
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">cancel if input doesn't match, be patient, and don't complete automatically.</span>
+(<span style="color: #a020f0;">setq</span> company-require-match nil
+      company-async-timeout 6
+      company-idle-delay nil
+      company-global-modes '(not term-mode))
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">complete using C-tab</span>
+(global-set-key (kbd <span style="color: #8b2252;">"&lt;C-tab&gt;"</span>) 'counsel-company)
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">use C-n and C-p to cycle through completions</span>
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">(define-key company-mode-map (kbd "&lt;tab&gt;") 'company-complete)</span>
+(define-key company-active-map (kbd <span style="color: #8b2252;">"C-n"</span>) 'company-select-next)
+(define-key company-active-map (kbd <span style="color: #8b2252;">"&lt;tab&gt;"</span>) 'company-complete-common)
+(define-key company-active-map (kbd <span style="color: #8b2252;">"C-p"</span>) 'company-select-previous)
+(define-key company-active-map (kbd <span style="color: #8b2252;">"&lt;backtab&gt;"</span>) 'company-select-previous)
+
+(<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">company-capf</span>)
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">put company-capf and company-files at the beginning of the list</span>
+(<span style="color: #a020f0;">setq</span> company-backends
+      '(company-files company-capf company-nxml company-css company-cmake company-semantic company-clang company-xcode company-eclim))
+(<span style="color: #a020f0;">setq-default</span> company-backends
+              '(company-files company-capf company-nxml company-css company-cmake company-semantic company-clang company-xcode company-eclim))
+
+<span style="color: #b22222;">;;</span><span style="color: #b22222;">Use tab to complete.</span>
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">See https://github.com/company-mode/company-mode/issues/94 for another approach.</span>
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">this is a copy-paste from the company-package with extra conditions to make</span>
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">sure we don't offer completions in the middle of a word.</span>
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-company-indent-or-complete-common</span> ()
+  <span style="color: #8b2252;">"Indent the current line or region, or complete the common part."</span>
+  (<span style="color: #a020f0;">interactive</span>)
+  (<span style="color: #a020f0;">cond</span>
+   ((use-region-p)
+    (indent-region (region-beginning) (region-end)))
+   ((<span style="color: #a020f0;">and</span> (not (looking-at <span style="color: #8b2252;">"\\w</span><span style="color: #8b2252; font-weight: bold;">\\</span><span style="color: #8b2252; font-weight: bold;">|</span><span style="color: #8b2252;">\\s_"</span>))
+         (memq indent-line-function
+               '(indent-relative indent-relative-maybe)))
+    (company-complete-common))
+   ((<span style="color: #a020f0;">let</span> ((old-point (point))
+          (old-tick (buffer-chars-modified-tick))
+          (tab-always-indent t))
+      (call-interactively #'indent-for-tab-command)
+      (<span style="color: #a020f0;">when</span> (<span style="color: #a020f0;">and</span> (eq old-point (point))
+                 (eq old-tick (buffer-chars-modified-tick))
+                 (not (looking-at <span style="color: #8b2252;">"\\w</span><span style="color: #8b2252; font-weight: bold;">\\</span><span style="color: #8b2252; font-weight: bold;">|</span><span style="color: #8b2252;">\\s_"</span>)))
+        (company-complete-common))))))
+
+(define-key company-mode-map (kbd <span style="color: #8b2252;">"&lt;tab&gt;"</span>) 'my-company-indent-or-complete-common)
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">not sure why this should be set in a hook, but that is how the manual says to do it.</span>
+(add-hook 'after-init-hook 'global-company-mode)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org454ab0a" class="outline-3">
+<h3 id="which-key"><a id="org454ab0a"></a><span class="section-number-3">4.11</span> Which-key</h3>
+<div class="outline-text-3" id="text-which-key">
+<p>
+This mode shows a keymap when an incomplete command is entered. It is especially useful for families of commands with a prefix, e.g., <code>C-c C-o</code> for <code>outline-mode</code> commands, or <code>C-c C-v</code> for <code>org-babel</code> commands. Just start typing your command and pause if you want a hint.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #b22222;">;; </span><span style="color: #b22222;">(require 'which-key)</span>
+(which-key-mode)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgbfc2c07" class="outline-3">
+<h3 id="orgbfc2c07"><span class="section-number-3">4.12</span> Flycheck</h3>
+<div class="outline-text-3" id="text-4-12">
+<p>
+Provides on-the-fly syntax checking. Depends on external tools, e.g, <a href="https://cran.rstudio.com/web/packages/lintr/index.html">lintr</a> for R code, <a href="https://flake8.readthedocs.io/en/latest/">flake8</a> for python. See <a href="http://www.flycheck.org/en/latest/languages.html#flycheck-languages">http://www.flycheck.org/en/latest/languages.html#flycheck-languages</a> for supported languages and tools.
+</p>
+
+<p>
+Note that active on-the-fly syntax checking is <span class="underline">disabled</span> by default since I find it too annoying. You can still use <code>flycheck</code> to check your syntax on demand using <code>flycheck-compile</code>, and you can enable on-the-fly checking with <code>M-x flycheck-mode</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">flycheck</span>)
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">(global-flycheck-mode)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf0e1df8" class="outline-3">
+<h3 id="outline-magic"><a id="orgf0e1df8"></a><span class="section-number-3">4.13</span> Outline-magic</h3>
+<div class="outline-text-3" id="text-outline-magic">
+<p>
+I encourage you to use <a href="#note-taking-and-outlining">org-mode</a> for note taking and outlining, but it can be convenient to treat arbitrary buffers as outlines. The outline-magic mode can help with that.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #b22222;">;;; </span><span style="color: #b22222;">Configure outline minor modes</span>
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">Less crazy key bindings for outline-minor-mode</span>
+(<span style="color: #a020f0;">setq</span> outline-minor-mode-prefix <span style="color: #8b2252;">"\C-c\C-o"</span>)
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">load outline-magic along with outline-minor-mode</span>
+(add-hook 'outline-minor-mode-hook 
+          (<span style="color: #a020f0;">lambda</span> () 
+            (<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">outline-magic</span>)
+            (define-key outline-minor-mode-map <span style="color: #8b2252;">"\C-c\C-o\t"</span> 'outline-cycle)))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org34534d8" class="outline-3">
+<h3 id="major-modes-configuration"><a id="org34534d8"></a><span class="section-number-3">4.14</span> Major modes configuration</h3>
+<div class="outline-text-3" id="text-major-modes-configuration">
+</div>
+
+
+<div id="outline-container-org1bb90fc" class="outline-4">
+<h4 id="general-repl-config"><a id="org1bb90fc"></a><span class="section-number-4">4.14.1</span> General REPL (comint) config</h4>
+<div class="outline-text-4" id="text-general-repl-config">
+<p>
+Many programs using REPLs are derived from <code>comint-mode</code>, so we can affect all of them by changing <code>comint-mode</code> settings. Here we disable line wrapping and ask programs to echo the input.
+</p>
+
+<p>
+Load eval-in-repl for bash, elisp, and python interaction.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #b22222;">;; </span><span style="color: #b22222;">require the main file containing common functions</span>
+(<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">eval-in-repl</span>)
+(<span style="color: #a020f0;">setq</span> comint-process-echoes t)
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">truncate lines in comint buffers</span>
+(add-hook 'comint-mode-hook
+          (<span style="color: #a020f0;">lambda</span>()
+            (<span style="color: #a020f0;">setq</span> truncate-lines 1)))
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">Scroll down for input and output</span>
+(<span style="color: #a020f0;">setq</span> comint-scroll-to-bottom-on-input t)
+(<span style="color: #a020f0;">setq</span> comint-scroll-to-bottom-on-output t)
+(<span style="color: #a020f0;">setq</span> comint-move-point-for-output t)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org1b8eb42" class="outline-4">
+<h4 id="run-r-in-emacs"><a id="org1b8eb42"></a><span class="section-number-4">4.14.2</span> Run R in emacs (ESS)</h4>
+<div class="outline-text-4" id="text-run-r-in-emacs">
+<p>
+Support for R in Emacs is good, thanks to <a href="http://ess.r-project.org/">http://ess.r-project.org/</a>. As with other programming languages this configuration enables completion via the <code>tab</code> key and code evaluation with <code>C-ret</code>. Many more features are provided by ESS, refer to <a href="http://ess.r-project.org/">http://ess.r-project.org/</a> for details.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">  <span style="color: #b22222;">;;;  </span><span style="color: #b22222;">ESS (Emacs Speaks Statistics)</span>
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">Start R in the working directory by default</span>
+(<span style="color: #a020f0;">setq</span> ess-ask-for-ess-directory nil)
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">Make sure ESS is loaded before we configure it</span>
+(autoload 'julia <span style="color: #8b2252;">"ess-julia"</span> <span style="color: #8b2252;">"Start a Julia REPL."</span> t)
+(<span style="color: #a020f0;">with-eval-after-load</span> <span style="color: #8b2252;">"ess-site"</span>
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">see https://github.com/emacs-ess/ESS/pull/390 for ideas on how to integrate tab completion</span>
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">disable ehoing input</span>
+  (<span style="color: #a020f0;">setq</span> ess-eval-visibly nil)
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">Start R in the working directory by default</span>
+  (<span style="color: #a020f0;">setq</span> ess-ask-for-ess-directory nil)
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">Use tab completion</span>
+  (<span style="color: #a020f0;">setq</span> ess-tab-complete-in-script t)
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">extra ESS stuff inspired by https://github.com/gaborcsardi/dot-emacs/blob/master/.emacs</span>
+  (ess-toggle-underscore nil)
+  (<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-ess-execute-screen-options</span> (foo)
+    <span style="color: #8b2252;">"cycle through windows whose major mode is inferior-ess-mode and fix width"</span>
+    (<span style="color: #a020f0;">interactive</span>)
+    (<span style="color: #a020f0;">setq</span> my-windows-list (window-list))
+    (<span style="color: #a020f0;">while</span> my-windows-list
+      (<span style="color: #a020f0;">when</span> (<span style="color: #a020f0;">with-selected-window</span> (car my-windows-list) (string= <span style="color: #8b2252;">"inferior-ess-mode"</span> major-mode))
+        (<span style="color: #a020f0;">with-selected-window</span> (car my-windows-list) (ess-execute-screen-options t)))
+      (<span style="color: #a020f0;">setq</span> my-windows-list (cdr my-windows-list))))
+  (add-to-list 'window-size-change-functions 'my-ess-execute-screen-options)
+  (define-key ess-mode-map (kbd <span style="color: #8b2252;">"&lt;C-return&gt;"</span>) 'ess-eval-region-or-function-or-paragraph-and-step)
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">truncate long lines in R source files</span>
+  (add-hook 'ess-mode-hook
+            (<span style="color: #a020f0;">lambda</span>()
+              <span style="color: #b22222;">;; </span><span style="color: #b22222;">don't wrap long lines</span>
+              (toggle-truncate-lines t)
+              (outline-minor-mode t)))
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">highlight function calls and operators</span>
+  (<span style="color: #a020f0;">setq</span> ess-R-font-lock-keywords
+        (<span style="color: #a020f0;">quote</span>
+         ((ess-R-fl-keyword:modifiers)
+          (ess-R-fl-keyword:fun-defs . t)
+          (ess-R-fl-keyword:keywords . t)
+          (ess-R-fl-keyword:assign-ops . t)
+          (ess-R-fl-keyword:constants . 1)
+          (ess-fl-keyword:fun-calls . t)
+          (ess-fl-keyword:numbers)
+          (ess-fl-keyword:operators . t)
+          (ess-fl-keyword:delimiters)
+          (ess-fl-keyword:=)
+          (ess-R-fl-keyword:F&amp;T)
+          (ess-R-fl-keyword:%op% . t)))))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org49ecf52" class="outline-4">
+<h4 id="run-python-in-emacs"><a id="org49ecf52"></a><span class="section-number-4">4.14.3</span> Run python in emacs (python-mode)</h4>
+<div class="outline-text-4" id="text-run-python-in-emacs">
+<p>
+Emacs has decent python support out of the box. As with other programming languages you can get completion suggestions with the <code>tab</code> key, and evaluate code with <code>C-ret</code>. Many more features are provided and are accessible via the menu.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">with-eval-after-load</span> <span style="color: #8b2252;">"python"</span>
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">try to get indent/completion working nicely</span>
+  (<span style="color: #a020f0;">setq</span> python-indent-trigger-commands '(my-company-indent-or-complete-common indent-for-tab-command yas-expand yas/expand))
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">readline support is wonky at the moment</span>
+  (<span style="color: #a020f0;">setq</span> python-shell-completion-native-enable nil)
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">simple evaluation with C-ret</span>
+  (<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">eval-in-repl-python</span>)
+  (define-key python-mode-map <span style="color: #8b2252;">"\C-c\C-c"</span> 'eir-eval-in-python)
+  (define-key python-mode-map (kbd <span style="color: #8b2252;">"&lt;C-return&gt;"</span>) 'eir-eval-in-python))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org1d7585e" class="outline-4">
+<h4 id="emacs-lisp-repl"><a id="org1d7585e"></a><span class="section-number-4">4.14.4</span> emacs lisp REPL (ielm)</h4>
+<div class="outline-text-4" id="text-emacs-lisp-repl">
+<p>
+If you want to get the most out of Emacs, you'll eventually need to learn a little Emacs-lisp. This configuration helps by providing a standard <code>C-ret</code> evaluation key binding, and by providing completion with the <code>tab</code> key.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">with-eval-after-load</span> <span style="color: #8b2252;">"elisp-mode"</span>
+  (<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">company-elisp</span>)
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">ielm</span>
+  (<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">eval-in-repl-ielm</span>)
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">For .el files</span>
+  (define-key emacs-lisp-mode-map <span style="color: #8b2252;">"\C-c\C-c"</span> 'eir-eval-in-ielm)
+  (define-key emacs-lisp-mode-map (kbd <span style="color: #8b2252;">"&lt;C-return&gt;"</span>) 'eir-eval-in-ielm)
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">For *scratch*</span>
+  (define-key lisp-interaction-mode-map <span style="color: #8b2252;">"\C-c\C-c"</span> 'eir-eval-in-ielm)
+  (define-key emacs-lisp-mode-map (kbd <span style="color: #8b2252;">"&lt;C-return&gt;"</span>) 'eir-eval-in-ielm)
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">For M-x info</span>
+  (define-key Info-mode-map <span style="color: #8b2252;">"\C-c\C-c"</span> 'eir-eval-in-ielm)
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">Set up completions</span>
+  (add-hook 'emacs-lisp-mode-hook
+            (<span style="color: #a020f0;">lambda</span>()
+              <span style="color: #b22222;">;; </span><span style="color: #b22222;">make sure completion calls company-elisp first</span>
+              (<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">company-elisp</span>)
+              (<span style="color: #a020f0;">setq-local</span> company-backends
+                          (delete-dups (cons 'company-elisp (cons 'company-files company-backends)))))))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3b0cc26" class="outline-4">
+<h4 id="light-weight-markup-language"><a id="org3b0cc26"></a><span class="section-number-4">4.14.5</span> Haskell mode</h4>
+<div class="outline-text-4" id="text-light-weight-markup-language">
+<p>
+I just recently started learning Haskell. There's not much to the configuration at this point, but you should get completion with <code>tab</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">company-ghci</span>)
+(add-hook 'haskell-mode-hook (<span style="color: #a020f0;">lambda</span> ()
+                               (<span style="color: #a020f0;">setq-local</span> company-backends
+                                           (delete-dups (cons 'company-ghci (cons 'company-files company-backends))))))
+(add-hook 'haskell-interactive-mode-hook 'company-mode)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf2c5939" class="outline-4">
+<h4 id="light-weight-markup-language"><a id="orgf2c5939"></a><span class="section-number-4">4.14.6</span> Light-weight markup language (Markdown mode)</h4>
+<div class="outline-text-4" id="text-light-weight-markup-language">
+<p>
+Markdown is a light-weight markup language that makes easy things easy and stays out of your way. You can export Markdown documents to a wide range of formats including .pdf (via latex), .html, .doc, and more using <code>pandoc</code>. For more information about authoring markdown in Emacs refer to <a href="http://jblevins.org/projects/markdown-mode/">http://jblevins.org/projects/markdown-mode/</a>. For information about Markdown syntax or exporting to other formats refer to <a href="http://pandoc.org">http://pandoc.org</a>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #b22222;">;; </span><span style="color: #b22222;">Use markdown-mode for files with .markdown or .md extensions</span>
+(add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.markdown\\'"</span> . markdown-mode))
+(add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.md\\'"</span> . markdown-mode))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgcd13db2" class="outline-4">
+<h4 id="typesetting-markup"><a id="orgcd13db2"></a><span class="section-number-4">4.14.7</span> Typesetting markup (AucTeX)</h4>
+<div class="outline-text-4" id="text-typesetting-markup">
+<p>
+I don't write nearly as much in LaTeX as I used to, as Markdown and/or Org mode are simpler and good enough for my needs. But LaTeX is still the tool of choice for much academic writing, so we use AUCTEX and turn on lots of features. Completion of math and latex commands is available with <code>tab</code>, and auto-compile is available with <code>C-ret</code>.
+</p>
+
+<p>
+See <a href="https://www.gnu.org/software/auctex/">https://www.gnu.org/software/auctex/</a> for more details about AUCTEX. 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #b22222;">;; </span><span style="color: #b22222;">AucTeX config</span>
+(<span style="color: #a020f0;">with-eval-after-load</span> <span style="color: #8b2252;">"Latex"</span>
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">Easy compile key</span>
+  (define-key LaTeX-mode-map (kbd <span style="color: #8b2252;">"&lt;C-return&gt;"</span>) 'TeX-command-run-all)
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">Allow paragraph filling in tables</span>
+  (<span style="color: #a020f0;">setq</span> LaTeX-indent-environment-list
+        (delq (assoc <span style="color: #8b2252;">"table"</span> LaTeX-indent-environment-list)
+              LaTeX-indent-environment-list))
+  (<span style="color: #a020f0;">setq</span> LaTeX-indent-environment-list
+        (delq (assoc <span style="color: #8b2252;">"table*"</span> LaTeX-indent-environment-list)
+              LaTeX-indent-environment-list))
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">Misc. latex settings</span>
+  (<span style="color: #a020f0;">setq</span> TeX-parse-self t
+        TeX-auto-save t)
+  (<span style="color: #a020f0;">setq-default</span> TeX-master nil)
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">Add beamer frames to outline list</span>
+  (<span style="color: #a020f0;">setq</span> TeX-outline-extra
+        '((<span style="color: #8b2252;">".*\\\\begin{frame}\n</span><span style="color: #8b2252; font-weight: bold;">\\</span><span style="color: #8b2252; font-weight: bold;">|</span><span style="color: #8b2252;">.*\\\\begin{frame}\\[</span><span style="color: #008b8b;">.*\\</span><span style="color: #8b2252;">]</span><span style="color: #8b2252; font-weight: bold;">\\</span><span style="color: #8b2252; font-weight: bold;">|</span><span style="color: #8b2252;">.*\\\\begin{frame}.*{.*}</span><span style="color: #8b2252; font-weight: bold;">\\</span><span style="color: #8b2252; font-weight: bold;">|</span><span style="color: #8b2252;">.*[       ]*\\\\frametitle\\b"</span> 3)))
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">reftex settings</span>
+  (<span style="color: #a020f0;">setq</span> reftex-enable-partial-scans t)
+  (<span style="color: #a020f0;">setq</span> reftex-save-parse-info t)
+  (<span style="color: #a020f0;">setq</span> reftex-use-multiple-selection-buffers t)
+  (<span style="color: #a020f0;">setq</span> reftex-plug-into-AUCTeX t)
+  (add-hook 'LaTeX-mode-hook
+            (<span style="color: #a020f0;">lambda</span> ()
+              (turn-on-reftex)
+              (TeX-PDF-mode t)
+              (LaTeX-math-mode)
+              (TeX-source-correlate-mode t)
+              (imenu-add-to-menubar <span style="color: #8b2252;">"Index"</span>)
+              (outline-minor-mode)))
+  (add-hook 'bibtex-mode-hook
+            (<span style="color: #a020f0;">lambda</span> ()
+              (define-key bibtex-mode-map <span style="color: #8b2252;">"\M-q"</span> 'bibtex-fill-entry))))
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org06e00c5" class="outline-4">
+<h4 id="org06e00c5"><span class="section-number-4">4.14.8</span> Citations (ivy-bibtex)</h4>
+<div class="outline-text-4" id="text-4-14-8">
+<p>
+This allows you to search your BibTeX files for references to insert into the current document. For it to work you will need to set `bibtex-completion-bibliography` to the location of your BibTeX files.
+</p>
+
+<p>
+Initiate a citation search with <code>ivy-bibtex</code>, bound to <code>C-c r</code>.
+</p>
+
+<p>
+See <a href="https://github.com/tmalsburg/helm-bibtex">https://github.com/tmalsburg/helm-bibtex</a> for information about reading attached .pdf files, searching online bibliography sources and more.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">setq</span> ivy-bibtex-default-action 'ivy-bibtex-insert-citation)
+(global-set-key (kbd <span style="color: #8b2252;">"C-c r"</span>) 'ivy-bibtex)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orga6ae116" class="outline-4">
+<h4 id="note-taking-and-outlining"><a id="orga6ae116"></a><span class="section-number-4">4.14.9</span> Note taking and outlining (Org-mode)</h4>
+<div class="outline-text-4" id="text-note-taking-and-outlining">
+<p>
+Org mode is a powerful markup-language native to Emacs. It can be compared to markdown, but it has many more features. I use it for note taking a preparing lecture materials, but people use it for all kinds of things, from TODO lists to project planning to authoring academic papers. The settings below try to make Org mode play nicely with other packages, and enable many of the literate programming features. More information about Org mode can be found at <a href="http://orgmode.org">http://orgmode.org</a>. 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">with-eval-after-load</span> <span style="color: #8b2252;">"org"</span>
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">no compay mode in org buffers</span>
+  (add-hook 'org-mode-hook (<span style="color: #a020f0;">lambda</span>() (company-mode -1)))
+  (<span style="color: #a020f0;">setq</span> org-replace-disputed-keys t)
+  (<span style="color: #a020f0;">setq</span> org-support-shift-select t)
+  (<span style="color: #a020f0;">setq</span> org-export-babel-evaluate nil)
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">(setq org-startup-indented t)</span>
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">increase imenu depth to include third level headings</span>
+  (<span style="color: #a020f0;">setq</span> org-imenu-depth 3)
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">Set sensible mode for editing dot files</span>
+  (add-to-list 'org-src-lang-modes '(<span style="color: #8b2252;">"dot"</span> . graphviz-dot))
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">Update images from babel code blocks automatically</span>
+  (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">configure org-mode when opening first org-mode file</span>
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">Load additional export formats</span>
+  (<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">ox-ascii</span>)
+  (<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">ox-md</span>)
+  (<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">ox-html</span>)
+  (<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">ox-latex</span>)
+  (<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">ox-odt</span>)
+
+  (<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">org-capture</span>)
+  (<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">org-protocol</span>)
+
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">Enable common programming language support in org-mode</span>
+  (<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">ob-shell</span>)
+  (<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">ob-emacs-lisp</span>)
+  (<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">ob-org</span>)
+  (<span style="color: #a020f0;">when</span> (executable-find <span style="color: #8b2252;">"R"</span>) 
+      (<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">ess-site</span>)
+      (<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">ob-R</span>))
+  (<span style="color: #a020f0;">when</span> (executable-find <span style="color: #8b2252;">"python"</span>) (<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">ob-python</span>))
+  (<span style="color: #a020f0;">when</span> (executable-find <span style="color: #8b2252;">"matlab"</span>) (<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">ob-matlab</span>))
+  (<span style="color: #a020f0;">when</span> (executable-find <span style="color: #8b2252;">"octave"</span>) (<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">ob-octave</span>))
+  (<span style="color: #a020f0;">when</span> (executable-find <span style="color: #8b2252;">"perl"</span>) (<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">ob-perl</span>))
+  (<span style="color: #a020f0;">when</span> (executable-find <span style="color: #8b2252;">"dot"</span>) (<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">ob-dot</span>))
+  (<span style="color: #a020f0;">when</span> (executable-find <span style="color: #8b2252;">"ditaa"</span>) (<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">ob-ditaa</span>))
+
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">Fontify code blocks in org-mode</span>
+  (<span style="color: #a020f0;">setq</span> org-src-fontify-natively t)
+  (<span style="color: #a020f0;">setq</span> org-src-tab-acts-natively t)
+  (<span style="color: #a020f0;">setq</span> org-confirm-babel-evaluate nil))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgfaf8cd0" class="outline-4">
+<h4 id="multiple-modes-in-one-buffer"><a id="orgfaf8cd0"></a><span class="section-number-4">4.14.10</span> Multiple modes in one "buffer" (polymode)</h4>
+<div class="outline-text-4" id="text-multiple-modes-in-one-buffer">
+<p>
+Emacs uses different <i>modes</i> for different kinds of files and buffers. This is what makes is possible to have one set of behaviors when editing LaTeX, and a different set of behaviors when writing R code. But what if we want to do both, in the same file? Then we need to have multiple modes, in the same buffer, and we can thanks to <a href="https://github.com/vspinu/polymode">polymode</a>. 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #b22222;">;;; </span><span style="color: #b22222;">polymode</span>
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">polymode requires emacs &gt;= 24.3, does not work on the RCE. </span>
+(<span style="color: #a020f0;">when</span> (&gt;= (string-to-number 
+           (concat 
+            (number-to-string emacs-major-version) 
+            <span style="color: #8b2252;">"."</span> 
+            (number-to-string emacs-minor-version)))
+          24.3)
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">Activate polymode for files with the .md extension</span>
+  (add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.md"</span> . poly-markdown-mode))
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">Activate polymode for R related modes</span>
+  (add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.Snw"</span> . poly-noweb+r-mode))
+  (add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.Rnw"</span> . poly-noweb+r-mode))
+  (add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.Rmd"</span> . poly-markdown+r-mode))
+  (add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.rapport"</span> . poly-rapport-mode))
+  (add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.Rhtml"</span> . poly-html+r-mode))
+  (add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.Rbrew"</span> . poly-brew+r-mode))
+  (add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.Rcpp"</span> . poly-r+c++-mode))
+  (add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.cppR"</span> . poly-c++r-mode))
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">polymode doesn't play nice with adaptive-wrap, turn it off</span>
+  (add-hook 'polymode-init-host-hook
+            '(lambda()
+               (adaptive-wrap-prefix-mode -1)
+               (electric-indent-mode -1)
+               (<span style="color: #a020f0;">unless</span> (<span style="color: #a020f0;">featurep</span> '<span style="color: #008b8b;">ess-site</span>)
+                 (<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">ess-site</span>)))))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org1b8f7cc" class="outline-4">
+<h4 id="org1b8f7cc"><span class="section-number-4">4.14.11</span> Email (mu4e)</h4>
+<div class="outline-text-4" id="text-4-14-11">
+<p>
+Not everyone wants to read email in Emacs, but you can if you want. The settings below configure some basic things, but you will need additional configuration to set up your email accounts. See the <a href="http://www.djcbsoftware.nl/code/mu/mu4e/index.html#Top">mue4 manual</a> and <a href="http://www.djcbsoftware.nl/code/mu/mu4e/Example-configurations.html#Example-configurations">example configurations</a> for details.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">when</span> (executable-find <span style="color: #8b2252;">"mu"</span>)
+  (autoload 'mu4e <span style="color: #8b2252;">"mu4e"</span> <span style="color: #8b2252;">"Read your mail."</span> t)
+  (<span style="color: #a020f0;">with-eval-after-load</span> <span style="color: #8b2252;">"mu4e"</span>
+    (<span style="color: #a020f0;">setq</span> mu4e-headers-include-related t
+          mu4e-headers-skip-duplicates t
+          mu4e-headers-fields '(
+                                (<span style="color: #483d8b;">:human-date</span> . 12)
+                                (<span style="color: #483d8b;">:flags</span> . 6)
+                                <span style="color: #b22222;">;; </span><span style="color: #b22222;">(:mailing-list . 10)</span>
+                                (<span style="color: #483d8b;">:from-or-to</span> . 22)
+                                (<span style="color: #483d8b;">:thread-subject</span>)))
+    <span style="color: #b22222;">;; </span><span style="color: #b22222;">don't keep message buffers around</span>
+    (<span style="color: #a020f0;">setq</span> message-kill-buffer-on-exit t)
+    <span style="color: #b22222;">;; </span><span style="color: #b22222;">enable notifications</span>
+    (<span style="color: #a020f0;">setq</span> mu4e-enable-mode-line t)
+    <span style="color: #b22222;">;; </span><span style="color: #b22222;">use org for composing rich text emails</span>
+    (<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">org-mu4e</span>)
+    (<span style="color: #a020f0;">setq</span> org-mu4e-convert-to-html t)
+    (define-key mu4e-headers-mode-map (kbd <span style="color: #8b2252;">"C-c c"</span>) 'org-mu4e-store-and-capture)
+    (define-key mu4e-view-mode-map    (kbd <span style="color: #8b2252;">"C-c c"</span>) 'org-mu4e-store-and-capture)
+    <span style="color: #b22222;">;; </span><span style="color: #b22222;">render html</span>
+    (<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">mu4e-contrib</span>)
+    (<span style="color: #a020f0;">setq</span> mu4e-html2text-command 'mu4e-shr2text)
+    (add-hook 'mu4e-view-mode-hook 'visual-line-mode)))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4bdbf26" class="outline-4">
+<h4 id="file-browsing"><a id="org4bdbf26"></a><span class="section-number-4">4.14.12</span> File browsing (Dired+)</h4>
+<div class="outline-text-4" id="text-file-browsing">
+<p>
+Emacs makes a decent file browser, we just need to tweak a few things to make it nicer. In particular you can open files in an external program using the <code>E</code> key.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #b22222;">;;; </span><span style="color: #b22222;">Dired and Dired+ configuration</span>
+(add-hook 'dired-mode-hook 
+          (<span style="color: #a020f0;">lambda</span>()
+            (diff-hl-dired-mode)
+            (diff-hl-margin-mode)))
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">show details by default</span>
+(<span style="color: #a020f0;">setq</span> diredp-hide-details-initially-flag nil)
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">set dired listing options</span>
+(<span style="color: #a020f0;">if</span> (eq system-type 'gnu/linux)
+    (<span style="color: #a020f0;">setq</span> dired-listing-switches <span style="color: #8b2252;">"-alDhp"</span>))
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">make sure dired buffers end in a slash so we can identify them easily</span>
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">ensure-buffer-name-ends-in-slash</span> ()
+  <span style="color: #8b2252;">"change buffer name to end with slash"</span>
+  (<span style="color: #a020f0;">let</span> ((name (buffer-name)))
+    (<span style="color: #a020f0;">if</span> (not (string-match <span style="color: #8b2252;">"/$"</span> name))
+        (rename-buffer (concat name <span style="color: #8b2252;">"/"</span>) t))))
+(add-hook 'dired-mode-hook 'ensure-buffer-name-ends-in-slash)
+(add-hook 'dired-mode-hook
+          (<span style="color: #a020f0;">lambda</span>()
+             (<span style="color: #a020f0;">setq</span> truncate-lines 1)))
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">open files in external programs</span>
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">(from http://ergoemacs.org/emacs/emacs_dired_open_file_in_ext_apps.html</span>
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">consider replacing with https://github.com/thamer/runner</span>
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">xah-open-in-external-app</span> (<span style="color: #228b22;">&amp;optional</span> file)
+  <span style="color: #8b2252;">"Open the current file or dired marked files in external app.</span>
+
+<span style="color: #8b2252;">The app is chosen from your OS's preference."</span>
+  (<span style="color: #a020f0;">interactive</span>)
+  (<span style="color: #a020f0;">let</span> (doIt
+        (myFileList
+         (<span style="color: #a020f0;">cond</span>
+          ((string-equal major-mode <span style="color: #8b2252;">"dired-mode"</span>)
+           (dired-get-marked-files))
+          ((not file) (list (buffer-file-name)))
+          (file (list file)))))
+    (<span style="color: #a020f0;">setq</span> doIt (<span style="color: #a020f0;">if</span> (&lt;= (length myFileList) 5)
+                   t
+                 (y-or-n-p <span style="color: #8b2252;">"Open more than 5 files? "</span>))) 
+    (<span style="color: #a020f0;">when</span> doIt
+      (<span style="color: #a020f0;">cond</span>
+       ((string-equal system-type <span style="color: #8b2252;">"windows-nt"</span>)
+        (mapc
+         (<span style="color: #a020f0;">lambda</span> (fPath)
+           (w32-shell-execute <span style="color: #8b2252;">"open"</span> (replace-regexp-in-string <span style="color: #8b2252;">"/"</span> <span style="color: #8b2252;">"\\"</span> fPath t t)))
+         myFileList))
+       ((string-equal system-type <span style="color: #8b2252;">"darwin"</span>)
+        (mapc
+         (<span style="color: #a020f0;">lambda</span> (fPath)
+           (shell-command (format <span style="color: #8b2252;">"open \"%s\""</span> fPath)))
+         myFileList))
+       ((string-equal system-type <span style="color: #8b2252;">"gnu/linux"</span>)
+        (mapc
+         (<span style="color: #a020f0;">lambda</span> (fPath)
+           (<span style="color: #a020f0;">let</span> ((process-connection-type nil))
+             (start-process <span style="color: #8b2252;">""</span> nil <span style="color: #8b2252;">"xdg-open"</span> fPath))) <span style="color: #ff0000; font-weight: bold;">myFileList))))))</span>
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">use zip/unzip to compress/uncompress zip archives</span>
+(<span style="color: #a020f0;">with-eval-after-load</span> <span style="color: #8b2252;">"dired-aux"</span>
+  (add-to-list 'dired-compress-file-suffixes 
+               '(<span style="color: #8b2252;">"\\.zip\\'"</span> <span style="color: #8b2252;">""</span> <span style="color: #8b2252;">"unzip"</span>))
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">open files from dired with "E"</span>
+  (define-key dired-mode-map (kbd <span style="color: #8b2252;">"E"</span>) 'xah-open-in-external-app))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org714e3b7" class="outline-4">
+<h4 id="shell-modes"><a id="org714e3b7"></a><span class="section-number-4">4.14.13</span> Shell modes (term, shell and eshell)</h4>
+<div class="outline-text-4" id="text-shell-modes">
+<p>
+There are several different shells available in Emacs by default. In addition <code>multi-term</code> is available to give you a nicer way of running your default shell in Emacs. Convenience functions are enabled to set your EDITOR variable so that Emacs will be used as your editor when running shell commands inside Emacs. 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #b22222;">;; </span><span style="color: #b22222;">term</span>
+(<span style="color: #a020f0;">with-eval-after-load</span> <span style="color: #8b2252;">"term"</span>
+(define-key term-mode-map (kbd <span style="color: #8b2252;">"C-j"</span>) 'term-char-mode)
+(define-key term-raw-map (kbd <span style="color: #8b2252;">"C-j"</span>) 'term-line-mode))
+
+(<span style="color: #a020f0;">with-eval-after-load</span> <span style="color: #8b2252;">"multi-term"</span>
+(define-key term-mode-map (kbd <span style="color: #8b2252;">"C-j"</span>) 'term-char-mode)
+(define-key term-raw-map (kbd <span style="color: #8b2252;">"C-j"</span>) 'term-line-mode))
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">shell</span>
+(<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">essh</span>) <span style="color: #b22222;">; </span><span style="color: #b22222;">if not done elsewhere; essh is in the local lisp folder</span>
+(<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">eval-in-repl-shell</span>)
+(add-hook 'sh-mode-hook
+          (<span style="color: #a020f0;">lambda</span>()
+             (local-set-key <span style="color: #8b2252;">"\C-c\C-c"</span> 'eir-eval-in-shell)))
+
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">Automatically adjust output width in commint buffers</span>
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">from http://stackoverflow.com/questions/7987494/emacs-shell-mode-display-is-too-wide-after-splitting-window</span>
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">comint-fix-window-size</span> ()
+  <span style="color: #8b2252;">"Change process window size."</span>
+  (<span style="color: #a020f0;">when</span> (derived-mode-p 'comint-mode)
+    (<span style="color: #a020f0;">let</span> ((process (get-buffer-process (current-buffer))))
+      (<span style="color: #a020f0;">unless</span> (eq nil process)
+        (set-process-window-size process (window-height) (window-width))))))
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-shell-mode-hook</span> ()
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">add this hook as buffer local, so it runs once per window.</span>
+  (add-hook 'window-configuration-change-hook 'comint-fix-window-size nil t))
+
+(add-hook 'shell-mode-hook
+          (<span style="color: #a020f0;">lambda</span>()
+             <span style="color: #b22222;">;; </span><span style="color: #b22222;">add this hook as buffer local, so it runs once per window.</span>
+             (add-hook 'window-configuration-change-hook 'comint-fix-window-size nil t)))
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">extra completion for eshell</span>
+(add-hook 'eshell-mode-hook
+          (<span style="color: #a020f0;">lambda</span>()
+             <span style="color: #b22222;">;; </span><span style="color: #b22222;">programs that don't work well in eshell and should be run in visual mode</span>
+             (add-to-list 'eshell-visual-commands <span style="color: #8b2252;">"ssh"</span>)
+             (add-to-list 'eshell-visual-commands <span style="color: #8b2252;">"tail"</span>)
+             (add-to-list 'eshell-visual-commands <span style="color: #8b2252;">"htop"</span>)
+             (<span style="color: #a020f0;">setq</span> eshell-visual-subcommands '((<span style="color: #8b2252;">"git"</span> <span style="color: #8b2252;">"log"</span> <span style="color: #8b2252;">"diff"</span> <span style="color: #8b2252;">"show"</span>)))))
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">Use emacs as editor when running external processes or using shells in emacs</span>
+(<span style="color: #a020f0;">when</span> (<span style="color: #a020f0;">and</span> (string-match-p <span style="color: #8b2252;">"remacs"</span> (prin1-to-string (frame-list)))
+           (executable-find <span style="color: #8b2252;">"remacsclient"</span>))
+  (<span style="color: #a020f0;">setq</span> with-editor-emacsclient-executable (executable-find <span style="color: #8b2252;">"remacsclient"</span>)))
+
+(<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">with-editor</span>)
+(add-hook 'shell-mode-hook
+          (<span style="color: #a020f0;">lambda</span>()
+            (with-editor-export-editor)
+            (with-editor-export-git-editor)
+            (sleep-for 0.5) <span style="color: #b22222;">; </span><span style="color: #b22222;">this is bad, but thinking hurts and it works.</span>
+            (call-interactively 'comint-clear-buffer)))
+(add-hook 'term-exec-hook
+          (<span style="color: #a020f0;">lambda</span>()
+            (with-editor-export-editor)
+            (with-editor-export-git-editor)
+            (sleep-for 0.5) <span style="color: #b22222;">; </span><span style="color: #b22222;">see comment above</span>
+            (call-interactively 'comint-clear-buffer)))
+(add-hook 'eshell-mode-hook
+          (<span style="color: #a020f0;">lambda</span>()
+            (with-editor-export-editor)
+            (with-editor-export-git-editor)))
+
+(shell-command-with-editor-mode t)
+(<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">git-commit</span>)
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org653dcfe" class="outline-3">
+<h3 id="org653dcfe"><span class="section-number-3">4.15</span> Demonstration tools (command-log-mode)</h3>
+<div class="outline-text-3" id="text-4-15">
+<p>
+<code>command-log-mode</code> is useful for giving emacs demonstrations/tutorials. It shows the keys you've pressed and the commands they called. More information is available at <a href="https://github.com/lewang/command-log-mode">https://github.com/lewang/command-log-mode</a>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">setq</span> command-log-mode-auto-show t)
+(global-set-key (kbd <span style="color: #8b2252;">"C-x cl"</span>) 'global-command-log-mode)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org51bd1b9" class="outline-3">
+<h3 id="org51bd1b9"><span class="section-number-3">4.16</span> Final touches</h3>
+<div class="outline-text-3" id="text-4-16">
+<p>
+This Emacs configuration sets up lots of packages and configures a number of keybindings. To add our own customizations, place them in <code>~/.emacs.d/custom.el</code>. This file will be sourced last, so you always have the ability to override any settings provided here.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #b22222;">;; </span><span style="color: #b22222;">save settings made using the customize interface to a sparate file</span>
+(<span style="color: #a020f0;">setq</span> custom-file (concat user-emacs-directory <span style="color: #8b2252;">"custom.el"</span>))
+(<span style="color: #a020f0;">unless</span> (file-exists-p custom-file)
+  (write-region <span style="color: #8b2252;">";; Put user configuration here"</span> nil custom-file))
+(load custom-file 'noerror)
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">;; clean up the mode line</span>
+<span style="color: #b22222;">; </span><span style="color: #b22222;">(require 'diminish)</span>
+(diminish 'visual-line-mode)
+(diminish 'which-key-mode)
+(diminish 'company-mode <span style="color: #8b2252;">"comp"</span>)
+(diminish 'outline-minor-mode <span style="color: #8b2252;">"outline"</span>)
+(diminish 'undo-tree-mode)
+(diminish 'smooth-scroll-mode)
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">No, we do not need the splash screen</span>
+(<span style="color: #a020f0;">setq</span> inhibit-startup-screen t)
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">start with untitled new buffer</span>
+(add-hook 'after-init-hook
+          '(lambda()
+                 (untitled-new-buffer-with-select-major-mode 'text-mode)))
+
+(<span style="color: #a020f0;">setq</span> untitled-new-buffer-major-modes '(text-mode emacs-lisp-mode))
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">Change default buffer name.</span>
+(<span style="color: #a020f0;">setq</span> untitled-new-buffer-default-name <span style="color: #8b2252;">"Untitled"</span>)
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org1b46a1d" class="outline-2">
+<h2 id="org1b46a1d"><span class="section-number-2">5</span> Concluding remarks</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+That's all folks, report any bugs or feature requests at <a href="https://github.com/izahn/dotemacs">https://github.com/izahn/dotemacs</a>.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Ista Zahn</p>
+<p class="date">Created: 2017-03-29 Wed 22:36</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
