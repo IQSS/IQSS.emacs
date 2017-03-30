@@ -24,7 +24,7 @@ Highlights of this Emacs configuration include:
   - =C-s= searches in current buffer, =C=S= searches all buffers in the directory
   - =C-x f= (or =C-o=) opens files in the current directory, =C-x F= (or =C-O=) searches for files to open
 - Consistent and familiar code completion using the =tab= key.
-- Consistent and familiar code evaluation using =C-ret=.
+- Consistent and familiar code evaluation using =C-ret= and =C-S-ret=.
 - IDE-like configuration for R, Python, and LaTeX coding.
 - Literate programming configuration for running R, python, or other programming languages inside markdown or org-mode files.
 - Powerful and simple search-based tools for finding commands, files and buffers, inserting citations etc.
@@ -96,6 +96,7 @@ Many standard Emacs keybindings have been replaced with versions that provide co
 This should be easy, and hopefully it is.
 
 - C-RET :: Mapped to language specific line/selection/expression evaluation. Want to evaluate code from a script? =C-RET= should "just work".
+- C-RET :: Mapped to language specific buffer evaluation. Want to evaluate a script? =C-S-RET= should "just work".
 
 *** Window management keys
 Some convenient window management keys are provided, in addition to the standard Emacs =C-x o= binding to navigate to "other window".

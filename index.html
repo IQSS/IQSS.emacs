@@ -264,7 +264,7 @@ div.tocify {
 <li><code>C-x f</code> (or <code>C-o</code>) opens files in the current directory, <code>C-x F</code> (or <code>C-O</code>) searches for files to open</li>
 </ul></li>
 <li>Consistent and familiar code completion using the <code>tab</code> key.</li>
-<li>Consistent and familiar code evaluation using <code>C-ret</code>.</li>
+<li>Consistent and familiar code evaluation using <code>C-ret</code> and <code>C-S-ret</code>.</li>
 <li>IDE-like configuration for R, Python, and LaTeX coding.</li>
 <li>Literate programming configuration for running R, python, or other programming languages inside markdown or org-mode files.</li>
 <li>Powerful and simple search-based tools for finding commands, files and buffers, inserting citations etc.</li>
@@ -366,6 +366,9 @@ div.tocify {
 <dl>
 <dt>C-RET</dt>
 <dd>Mapped to language specific line/selection/expression evaluation. Want to evaluate code from a script? <code>C-RET</code> should “just work”.
+</dd>
+<dt>C-RET</dt>
+<dd>Mapped to language specific buffer evaluation. Want to evaluate a script? <code>C-S-RET</code> should “just work”.
 </dd>
 </dl>
 </div>
@@ -888,7 +891,7 @@ div.tocify {
 <div id="run-r-in-emacs" class="section level3">
 <h3>Run R in emacs (ESS)</h3>
 <p>Support for R in Emacs is good, thanks to <a href="http://ess.r-project.org/" class="uri">http://ess.r-project.org/</a>. As with other programming languages this configuration enables completion via the <code>tab</code> key and code evaluation with <code>C-ret</code>. Many more features are provided by ESS, refer to <a href="http://ess.r-project.org/" class="uri">http://ess.r-project.org/</a> for details.</p>
-<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">  <span class="co">;;;  ESS (Emacs Speaks Statistics)</span>
+<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;;;  ESS (Emacs Speaks Statistics)</span>
 
 <span class="co">;; Start R in the working directory by default</span>
 (<span class="kw">setq</span> ess-ask-for-ess-directory <span class="kw">nil</span>)
@@ -914,7 +917,8 @@ div.tocify {
         (with-selected-window (<span class="kw">car</span> my-windows-list) (ess-execute-screen-options <span class="kw">t</span>)))
       (<span class="kw">setq</span> my-windows-list (<span class="kw">cdr</span> my-windows-list))))
   (add-to-list 'window-size-change-functions 'my-ess-execute-screen-options)
-  (define-key ess-mode-map (kbd <span class="st">&quot;&lt;C-return&gt;&quot;</span>) 'ess-eval-region-or-function-or-paragraph-and-step)
+  (define-key ess-mode-map (kbd <span class="st">&quot;&lt;C-return&gt;&quot;</span>) 'ess-eval-region-or-function-or-paragraph)
+  (define-key ess-mode-map (kbd <span class="st">&quot;&lt;C-S-return&gt;&quot;</span>) 'ess-eval-buffer)
   <span class="co">;; truncate long lines in R source files</span>
   (add-hook 'ess-mode-hook
             (<span class="kw">lambda</span>()
@@ -947,8 +951,10 @@ div.tocify {
   (<span class="kw">setq</span> python-shell-completion-native-enable <span class="kw">nil</span>)
   <span class="co">;; simple evaluation with C-ret</span>
   (<span class="kw">require</span> 'eval-in-repl-python)
-  (define-key python-mode-map <span class="st">&quot;\C-c\C-c&quot;</span> 'eir-eval-in-python)
-  (define-key python-mode-map (kbd <span class="st">&quot;&lt;C-return&gt;&quot;</span>) 'eir-eval-in-python))</code></pre></div>
+  (define-key python-mode-map (kbd (<span class="st">&quot;C-c C-c&quot;</span>) 'eir-eval-in-python)
+  (define-key python-mode-map (kbd <span class="st">&quot;&lt;C-return&gt;&quot;</span>) 'eir-eval-in-python)
+  (define-key python-mode-map (kbd <span class="st">&quot;C-c C-b&quot;</span>) 'python-shell-send-buffer)
+  (define-key python-mode-map (kbd <span class="st">&quot;&lt;C-S-return&gt;&quot;</span>) 'python-shell-send-buffer)))</code></pre></div>
 </div>
 <div id="emacs-lisp-repl" class="section level3">
 <h3>emacs lisp REPL (ielm)</h3>
@@ -958,13 +964,17 @@ div.tocify {
   <span class="co">;; ielm</span>
   (<span class="kw">require</span> 'eval-in-repl-ielm)
   <span class="co">;; For .el files</span>
-  (define-key emacs-lisp-mode-map <span class="st">&quot;\C-c\C-c&quot;</span> 'eir-eval-in-ielm)
+  (define-key emacs-lisp-mode-map (kbd <span class="st">&quot;C-c C-c&quot;</span>) 'eir-eval-in-ielm)
   (define-key emacs-lisp-mode-map (kbd <span class="st">&quot;&lt;C-return&gt;&quot;</span>) 'eir-eval-in-ielm)
+  (define-key emacs-lisp-mode-map (kbd <span class="st">&quot;C-c C-b&quot;</span>) 'eval-buffer)
+  (define-key emacs-lisp-mode-map (kbd <span class="st">&quot;&lt;C-S-return&gt;&quot;</span>) 'eval-buffer)
   <span class="co">;; For *scratch*</span>
   (define-key lisp-interaction-mode-map <span class="st">&quot;\C-c\C-c&quot;</span> 'eir-eval-in-ielm)
-  (define-key emacs-lisp-mode-map (kbd <span class="st">&quot;&lt;C-return&gt;&quot;</span>) 'eir-eval-in-ielm)
+  (define-key lisp-interaction-mode-map (kbd <span class="st">&quot;&lt;C-return&gt;&quot;</span>) 'eir-eval-in-ielm)
+  (define-key lisp-interaction-mode-map (kbd <span class="st">&quot;C-c C-b&quot;</span>) 'eval-buffer)
+  (define-key lisp-interaction-mode-map (kbd <span class="st">&quot;&lt;C-S-return&gt;&quot;</span>) 'eval-buffer)
   <span class="co">;; For M-x info</span>
-  (define-key Info-mode-map <span class="st">&quot;\C-c\C-c&quot;</span> 'eir-eval-in-ielm)
+  (define-key Info-mode-map (kbd <span class="st">&quot;C-c C-c&quot;</span>) 'eir-eval-in-ielm)
   <span class="co">;; Set up completions</span>
   (add-hook 'emacs-lisp-mode-hook
             (<span class="kw">lambda</span>()
@@ -1215,20 +1225,20 @@ div.tocify {
 <p>There are several different shells available in Emacs by default. In addition <code>multi-term</code> is available to give you a nicer way of running your default shell in Emacs. Convenience functions are enabled to set your EDITOR variable so that Emacs will be used as your editor when running shell commands inside Emacs.</p>
 <div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;; term</span>
 (with-eval-after-load <span class="st">&quot;term&quot;</span>
-(define-key term-mode-map (kbd <span class="st">&quot;C-j&quot;</span>) 'term-char-mode)
-(define-key term-raw-map (kbd <span class="st">&quot;C-j&quot;</span>) 'term-line-mode))
+  (define-key term-mode-map (kbd <span class="st">&quot;C-j&quot;</span>) 'term-char-mode)
+  (define-key term-raw-map (kbd <span class="st">&quot;C-j&quot;</span>) 'term-line-mode))
 
 (with-eval-after-load <span class="st">&quot;multi-term&quot;</span>
-(define-key term-mode-map (kbd <span class="st">&quot;C-j&quot;</span>) 'term-char-mode)
-(define-key term-raw-map (kbd <span class="st">&quot;C-j&quot;</span>) 'term-line-mode))
+  (define-key term-mode-map (kbd <span class="st">&quot;C-j&quot;</span>) 'term-char-mode)
+  (define-key term-raw-map (kbd <span class="st">&quot;C-j&quot;</span>) 'term-line-mode))
 
 <span class="co">;; shell</span>
 (<span class="kw">require</span> 'essh) <span class="co">; if not done elsewhere; essh is in the local lisp folder</span>
 (<span class="kw">require</span> 'eval-in-repl-shell)
-(add-hook 'sh-mode-hook
-          (<span class="kw">lambda</span>()
-             (local-set-key <span class="st">&quot;\C-c\C-c&quot;</span> 'eir-eval-in-shell)
-             (local-set-key (kbd <span class="st">&quot;&lt;C-return&gt;&quot;</span>) 'eir-eval-in-shell)))
+(with-eval-after-load <span class="st">&quot;sh-script&quot;</span>
+  (define-key sh-mode-map <span class="st">&quot;\C-c\C-c&quot;</span> 'eir-eval-in-shell)
+  (define-key sh-mode-map (kbd <span class="st">&quot;&lt;C-return&gt;&quot;</span>) 'eir-eval-in-shell)
+  (define-key sh-mode-map (kbd <span class="st">&quot;&lt;C-S-return&gt;&quot;</span>) 'executable-interpret))
 
 <span class="co">;; Automatically adjust output width in commint buffers</span>
 <span class="co">;; from http://stackoverflow.com/questions/7987494/emacs-shell-mode-display-is-too-wide-after-splitting-window</span>
@@ -1245,17 +1255,17 @@ div.tocify {
 
 (add-hook 'shell-mode-hook
           (<span class="kw">lambda</span>()
-             <span class="co">;; add this hook as buffer local, so it runs once per window.</span>
-             (add-hook 'window-configuration-change-hook 'comint-fix-window-size <span class="kw">nil</span> <span class="kw">t</span>)))
+            <span class="co">;; add this hook as buffer local, so it runs once per window.</span>
+            (add-hook 'window-configuration-change-hook 'comint-fix-window-size <span class="kw">nil</span> <span class="kw">t</span>)))
 
 <span class="co">;; extra completion for eshell</span>
 (add-hook 'eshell-mode-hook
           (<span class="kw">lambda</span>()
-             <span class="co">;; programs that don't work well in eshell and should be run in visual mode</span>
-             (add-to-list 'eshell-visual-commands <span class="st">&quot;ssh&quot;</span>)
-             (add-to-list 'eshell-visual-commands <span class="st">&quot;tail&quot;</span>)
-             (add-to-list 'eshell-visual-commands <span class="st">&quot;htop&quot;</span>)
-             (<span class="kw">setq</span> eshell-visual-subcommands '((<span class="st">&quot;git&quot;</span> <span class="st">&quot;log&quot;</span> <span class="st">&quot;diff&quot;</span> <span class="st">&quot;show&quot;</span>)))))
+            <span class="co">;; programs that don't work well in eshell and should be run in visual mode</span>
+            (add-to-list 'eshell-visual-commands <span class="st">&quot;ssh&quot;</span>)
+            (add-to-list 'eshell-visual-commands <span class="st">&quot;tail&quot;</span>)
+            (add-to-list 'eshell-visual-commands <span class="st">&quot;htop&quot;</span>)
+            (<span class="kw">setq</span> eshell-visual-subcommands '((<span class="st">&quot;git&quot;</span> <span class="st">&quot;log&quot;</span> <span class="st">&quot;diff&quot;</span> <span class="st">&quot;show&quot;</span>)))))
 
 <span class="co">;; Use emacs as editor when running external processes or using shells in emacs</span>
 (<span class="kw">when</span> (<span class="kw">and</span> (string-match-p <span class="st">&quot;remacs&quot;</span> (<span class="kw">prin1-to-string</span> (frame-list)))
