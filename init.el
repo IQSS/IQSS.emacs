@@ -694,20 +694,20 @@ The app is chosen from your OS's preference."
 
 ;; term
 (with-eval-after-load "term"
-(define-key term-mode-map (kbd "C-j") 'term-char-mode)
-(define-key term-raw-map (kbd "C-j") 'term-line-mode))
+  (define-key term-mode-map (kbd "C-j") 'term-char-mode)
+  (define-key term-raw-map (kbd "C-j") 'term-line-mode))
 
 (with-eval-after-load "multi-term"
-(define-key term-mode-map (kbd "C-j") 'term-char-mode)
-(define-key term-raw-map (kbd "C-j") 'term-line-mode))
+  (define-key term-mode-map (kbd "C-j") 'term-char-mode)
+  (define-key term-raw-map (kbd "C-j") 'term-line-mode))
 
 ;; shell
 (require 'essh) ; if not done elsewhere; essh is in the local lisp folder
 (require 'eval-in-repl-shell)
 (add-hook 'sh-mode-hook
           (lambda()
-             (local-set-key "\C-c\C-c" 'eir-eval-in-shell)))
-
+            (local-set-key "\C-c\C-c" 'eir-eval-in-shell)
+            (local-set-key (kbd "<C-return>") 'eir-eval-in-shell)))
 
 ;; Automatically adjust output width in commint buffers
 ;; from http://stackoverflow.com/questions/7987494/emacs-shell-mode-display-is-too-wide-after-splitting-window
@@ -724,17 +724,17 @@ The app is chosen from your OS's preference."
 
 (add-hook 'shell-mode-hook
           (lambda()
-             ;; add this hook as buffer local, so it runs once per window.
-             (add-hook 'window-configuration-change-hook 'comint-fix-window-size nil t)))
+            ;; add this hook as buffer local, so it runs once per window.
+            (add-hook 'window-configuration-change-hook 'comint-fix-window-size nil t)))
 
 ;; extra completion for eshell
 (add-hook 'eshell-mode-hook
           (lambda()
-             ;; programs that don't work well in eshell and should be run in visual mode
-             (add-to-list 'eshell-visual-commands "ssh")
-             (add-to-list 'eshell-visual-commands "tail")
-             (add-to-list 'eshell-visual-commands "htop")
-             (setq eshell-visual-subcommands '(("git" "log" "diff" "show")))))
+            ;; programs that don't work well in eshell and should be run in visual mode
+            (add-to-list 'eshell-visual-commands "ssh")
+            (add-to-list 'eshell-visual-commands "tail")
+            (add-to-list 'eshell-visual-commands "htop")
+            (setq eshell-visual-subcommands '(("git" "log" "diff" "show")))))
 
 ;; Use emacs as editor when running external processes or using shells in emacs
 (when (and (string-match-p "remacs" (prin1-to-string (frame-list)))
