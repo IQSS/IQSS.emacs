@@ -555,9 +555,13 @@ div.tocify {
 <div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;; better defaults are well, better... but we don't always agree</span>
 (menu-bar-mode <span class="dv">1</span>)
 
-<span class="co">;; Mouse scrolling behavior</span>
-(<span class="kw">setq</span> mouse-wheel-scroll-amount '(<span class="dv">1</span> ((shift) . <span class="dv">1</span>))) <span class="co">;; one line at a time</span>
-(<span class="kw">setq</span> mouse-wheel-follow-mouse 't) <span class="co">;; scroll window under mouse</span>
+<span class="co">;; scrolling behavior</span>
+(<span class="kw">setq</span> mouse-wheel-scroll-amount '(<span class="dv">1</span> ((shift) . <span class="dv">1</span>))) <span class="co">; one line at a time</span>
+(<span class="kw">setq</span> mouse-wheel-progressive-speed <span class="kw">nil</span>) <span class="co">; don't accelerate scrolling</span>
+(<span class="kw">setq</span> mouse-wheel-follow-mouse 't) <span class="co">; scroll window under mouse</span>
+(<span class="kw">setq</span> scroll-step <span class="dv">1</span>) <span class="co">; keyboard scroll one line at a time</span>
+(<span class="kw">setq</span> scroll-preserve-screen-position <span class="kw">t</span>)
+(<span class="kw">setq</span> scroll-conservatively <span class="dv">101</span>)
 
 <span class="co">;; Use y/n instead of yes/no</span>
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -635,9 +639,7 @@ div.tocify {
 (define-key undo-tree-visualizer-mode-map (kbd <span class="st">&quot;C-g&quot;</span>) 'undo-tree-visualizer-quit)
 (define-key undo-tree-visualizer-mode-map (kbd <span class="st">&quot;&lt;escape&gt; &lt;escape&gt; &lt;escape&gt;&quot;</span>) 'undo-tree-visualizer-quit)
 
-
-
-<span class="co">;; ;; </span>
+<span class="co">;;</span>
 <span class="co">;; Make right-click do something close to what people expect</span>
 (global-set-key (kbd <span class="st">&quot;&lt;mouse-3&gt;&quot;</span>) 'mouse3-popup-menu)
 <span class="co">;; (global-set-key (kbd &quot;C-f&quot;) 'isearch-forward)</span>
@@ -649,7 +651,11 @@ div.tocify {
 (define-key cua-global-keymap (kbd <span class="st">&quot;&lt;C-S-SPC&gt;&quot;</span>) 'cua-rectangle-mark-mode)
 
 <span class="co">;; nicer mode line</span>
-(mode-icons-mode)</code></pre></div>
+(mode-icons-mode)
+
+<span class="co">;; zoom in/out like we do everywhere else.</span>
+(global-set-key (kbd <span class="st">&quot;C-+&quot;</span> 'text-scale-increase))
+(global-set-key (kbd <span class="st">&quot;C--&quot;</span> 'text-scale-decrease))</code></pre></div>
 </div>
 <div id="window-management" class="section level2">
 <h2>Window Management</h2>

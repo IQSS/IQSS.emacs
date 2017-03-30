@@ -277,68 +277,72 @@ We try to install most things using the package manager, but a few things need t
 This section sets up various utilities and conveniences. Many of these are low priority, so we set them first in order to allow any conflicting settings to be overridden later.
 
 #+BEGIN_SRC emacs-lisp
-    ;; better defaults are well, better... but we don't always agree
-    (menu-bar-mode 1)
+  ;; better defaults are well, better... but we don't always agree
+  (menu-bar-mode 1)
 
-    ;; Mouse scrolling behavior
-    (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
-    (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
+  ;; scrolling behavior
+  (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ; one line at a time
+  (setq mouse-wheel-progressive-speed nil) ; don't accelerate scrolling
+  (setq mouse-wheel-follow-mouse 't) ; scroll window under mouse
+  (setq scroll-step 1) ; keyboard scroll one line at a time
+  (setq scroll-preserve-screen-position t)
+  (setq scroll-conservatively 101)
 
-    ;; Use y/n instead of yes/no
-    (fset 'yes-or-no-p 'y-or-n-p)
+  ;; Use y/n instead of yes/no
+  (fset 'yes-or-no-p 'y-or-n-p)
 
-    (transient-mark-mode 1) ; makes the region visible
-    (line-number-mode 1)    ; makes the line number show up
-    (column-number-mode 1)  ; makes the column number show up
+  (transient-mark-mode 1) ; makes the region visible
+  (line-number-mode 1)    ; makes the line number show up
+  (column-number-mode 1)  ; makes the column number show up
 
-    ;; ;; smooth scrolling with C-up/C-down
-    (require 'smooth-scroll)
-    (smooth-scroll-mode)
-    (global-set-key [(control down)] 'scroll-up-1)
-    (global-set-key [(control up)] 'scroll-down-1)
-    (global-set-key [(control left)] 'scroll-right-1)
-    (global-set-key [(control right)] 'scroll-left-1)
+  ;; ;; smooth scrolling with C-up/C-down
+  (require 'smooth-scroll)
+  (smooth-scroll-mode)
+  (global-set-key [(control down)] 'scroll-up-1)
+  (global-set-key [(control up)] 'scroll-down-1)
+  (global-set-key [(control left)] 'scroll-right-1)
+  (global-set-key [(control right)] 'scroll-left-1)
 
-    ;; make home and end behave
-    (global-set-key (kbd "<home>") 'move-beginning-of-line)
-    (global-set-key (kbd "<end>") 'move-end-of-line)
+  ;; make home and end behave
+  (global-set-key (kbd "<home>") 'move-beginning-of-line)
+  (global-set-key (kbd "<end>") 'move-end-of-line)
 
-    ;; enable toggling paragraph un-fill
-    (define-key global-map "\M-Q" 'unfill-paragraph)
+  ;; enable toggling paragraph un-fill
+  (define-key global-map "\M-Q" 'unfill-paragraph)
 
-    ;;; line wrapping
-    ;; neck beards be damned, we don't need to hard wrap. The editor can soft wrap for us.
-    (remove-hook 'text-mode-hook 'turn-on-auto-fill)
-    (add-hook 'visual-line-mode-hook 'adaptive-wrap-prefix-mode)
-    (add-hook 'text-mode-hook 'visual-line-mode 1)
-    (add-hook 'prog-mode-hook
-              (lambda()
-                (toggle-truncate-lines t)
-                  (outline-minor-mode t)))
+  ;;; line wrapping
+  ;; neck beards be damned, we don't need to hard wrap. The editor can soft wrap for us.
+  (remove-hook 'text-mode-hook 'turn-on-auto-fill)
+  (add-hook 'visual-line-mode-hook 'adaptive-wrap-prefix-mode)
+  (add-hook 'text-mode-hook 'visual-line-mode 1)
+  (add-hook 'prog-mode-hook
+            (lambda()
+              (toggle-truncate-lines t)
+                (outline-minor-mode t)))
 
-    ;; indicate visual-line-mode wrap
-    (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
-    (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
-    ;; but be gentle
-    (defface visual-line-wrap-face
-    '((t (:foreground "gray")))
-    "Face for visual line indicators.")
-    (set-fringe-bitmap-face 'left-curly-arrow 'visual-line-wrap-face)
-    (set-fringe-bitmap-face 'right-curly-arrow 'visual-line-wrap-face)
+  ;; indicate visual-line-mode wrap
+  (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
+  (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
+  ;; but be gentle
+  (defface visual-line-wrap-face
+  '((t (:foreground "gray")))
+  "Face for visual line indicators.")
+  (set-fringe-bitmap-face 'left-curly-arrow 'visual-line-wrap-face)
+  (set-fringe-bitmap-face 'right-curly-arrow 'visual-line-wrap-face)
 
-    ;; don't require two spaces for sentence end.
-    (setq sentence-end-double-space nil)
+  ;; don't require two spaces for sentence end.
+  (setq sentence-end-double-space nil)
 
-    ;; The beeping can be annoying--turn it off
-    (set-variable 'visible-bell t)
+  ;; The beeping can be annoying--turn it off
+  (set-variable 'visible-bell t)
 
-    ;; save place -- move to the place I was last time I visited this file
-    (save-place-mode t)
+  ;; save place -- move to the place I was last time I visited this file
+  (save-place-mode t)
 
-    ;; easy navigation in read-only buffers
-    (setq view-read-only t)
-    (with-eval-after-load "view-mode"
-      (define-key view-mode-map (kbd "s") 'swiper))
+  ;; easy navigation in read-only buffers
+  (setq view-read-only t)
+  (with-eval-after-load "view-mode"
+    (define-key view-mode-map (kbd "s") 'swiper))
 
 #+END_SRC
 
@@ -362,9 +366,7 @@ Emacs will never to as simple as Notepad, but perhaps it can be made more consis
   (define-key undo-tree-visualizer-mode-map (kbd "C-g") 'undo-tree-visualizer-quit)
   (define-key undo-tree-visualizer-mode-map (kbd "<escape> <escape> <escape>") 'undo-tree-visualizer-quit)
 
-
-
-  ;; ;; 
+  ;;
   ;; Make right-click do something close to what people expect
   (global-set-key (kbd "<mouse-3>") 'mouse3-popup-menu)
   ;; (global-set-key (kbd "C-f") 'isearch-forward)
@@ -377,6 +379,10 @@ Emacs will never to as simple as Notepad, but perhaps it can be made more consis
 
   ;; nicer mode line
   (mode-icons-mode)
+
+  ;; zoom in/out like we do everywhere else.
+  (global-set-key (kbd "C-+" 'text-scale-increase))
+  (global-set-key (kbd "C--" 'text-scale-decrease))
 #+END_SRC
 
 ** Window Management

@@ -112,9 +112,13 @@
 ;; better defaults are well, better... but we don't always agree
 (menu-bar-mode 1)
 
-;; Mouse scrolling behavior
-(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
-(setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
+;; scrolling behavior
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ; one line at a time
+(setq mouse-wheel-progressive-speed nil) ; don't accelerate scrolling
+(setq mouse-wheel-follow-mouse 't) ; scroll window under mouse
+(setq scroll-step 1) ; keyboard scroll one line at a time
+(setq scroll-preserve-screen-position t)
+(setq scroll-conservatively 101)
 
 ;; Use y/n instead of yes/no
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -188,9 +192,7 @@
 (define-key undo-tree-visualizer-mode-map (kbd "C-g") 'undo-tree-visualizer-quit)
 (define-key undo-tree-visualizer-mode-map (kbd "<escape> <escape> <escape>") 'undo-tree-visualizer-quit)
 
-
-
-;; ;; 
+;;
 ;; Make right-click do something close to what people expect
 (global-set-key (kbd "<mouse-3>") 'mouse3-popup-menu)
 ;; (global-set-key (kbd "C-f") 'isearch-forward)
@@ -203,6 +205,10 @@
 
 ;; nicer mode line
 (mode-icons-mode)
+
+;; zoom in/out like we do everywhere else.
+(global-set-key (kbd "C-+" 'text-scale-increase))
+(global-set-key (kbd "C--" 'text-scale-decrease))
 
 ;; Work spaces
 (setq eyebrowse-keymap-prefix (kbd "C-c C-l"))
