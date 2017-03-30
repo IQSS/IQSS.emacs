@@ -605,7 +605,7 @@
           mu4e-headers-fields '(
                                 (:human-date . 12)
                                 (:flags . 6)
-                                (:mailing-list . 10)
+                                ;; (:mailing-list . 10)
                                 (:from-or-to . 22)
                                 (:thread-subject)))
     ;; don't keep message buffers around
