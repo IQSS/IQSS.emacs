@@ -1,7 +1,7 @@
 Emacs for the (social science) masses
 =====================================
 
-This is an [https://www.gnu.org/software/emacs/](Emacs) configuration. There are many like it, but this one is mine. If you like it, make it yours! It provides lots of functionality while keeping things light and fast.
+This is an [Emacs](https://www.gnu.org/software/emacs/) configuration. There are many like it, but this one is mine. If you like it, make it yours! It provides lots of functionality while keeping things light and fast.
 
 Project goals and philosophy
 ----------------------------
@@ -26,4 +26,4 @@ Highlights of this Emacs configuration include:
 - Convenient window management, including navigation with `C-x O`, and undo/redo with `C-c left` and `C-c right`.
 - Dictionary-lookup using `C-c d`.
 
-For more information refer to the [https://izahn.github.io/dotemacs](documentation).
+For more information refer to the [documentation](https://izahn.github.io/dotemacs).
