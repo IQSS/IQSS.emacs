@@ -191,7 +191,6 @@ The main purpose of these emacs configuration files is to install and configure 
           diff-hl
           adaptive-wrap
           ;; melpa packages
-          composable
           command-log-mode
           undo-tree
           better-defaults
@@ -374,14 +373,6 @@ Emacs will never to as simple as Notepad, but perhaps it can be made more consis
   (define-key cua-global-keymap (kbd "<C-S-SPC>") 'cua-rectangle-mark-mode)
 #+END_SRC
 
-** Composable key bindings
-Emacs keybindings are not really composable (or really even consistent) by default. The =composable= package attempts to rectify that by bringing vim-style composability in a way that is consistent with standard Emacs keybindings. More information is available at https://github.com/paldepind/composable.el.
-
-#+BEGIN_SRC emacs-lisp
-(require 'composable)
-(composable-mode) ; Activates the default keybindings
-(composable-mark-mode) ; Use composable with C-SPC
-#+END_SRC
 ** Window Management
    :PROPERTIES:
    :CUSTOM_ID: window-management
