@@ -336,6 +336,8 @@ This section sets up various utilities and conveniences. Many of these are low p
 
   ;; easy navigation in read-only buffers
   (setq view-read-only t)
+  (define-key view-mode-map (kbd "s") 'swiper)
+
 #+END_SRC
 
 ** Make Emacs friendlier to newcomers

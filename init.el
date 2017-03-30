@@ -169,6 +169,7 @@
 
 ;; easy navigation in read-only buffers
 (setq view-read-only t)
+(define-key view-mode-map (kbd "s") 'swiper)
 
 ;; Use CUA mode to make life easier. We _do_ use standard copy/paste etc. 
 (cua-mode t)
