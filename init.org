@@ -95,8 +95,8 @@ Many standard Emacs keybindings have been replaced with versions that provide co
 *** REPL interaction
 This should be easy, and hopefully it is.
 
-- C-RET :: Mapped to language specific line/selection/expression evaluation. Want to evaluate code from a script? =C-RET= should "just work".
-- C-RET :: Mapped to language specific buffer evaluation. Want to evaluate a script? =C-S-RET= should "just work".
+- C-RET :: Mapped to language specific line/selection/expression evaluation. Want to evaluate code from a script? "Control-Enter" should just work.
+- C-S-RET :: Mapped to language specific buffer evaluation. Want to evaluate a script? "Control-Shift-Enter" should just work.
 
 *** Window management keys
 Some convenient window management keys are provided, in addition to the standard Emacs =C-x o= binding to navigate to "other window".
