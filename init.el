@@ -430,7 +430,8 @@
         (with-selected-window (car my-windows-list) (ess-execute-screen-options t)))
       (setq my-windows-list (cdr my-windows-list))))
   (add-to-list 'window-size-change-functions 'my-ess-execute-screen-options)
-  (define-key ess-mode-map (kbd "<C-return>") 'ess-eval-region-or-function-or-paragraph-and-step)
+  (define-key ess-mode-map (kbd "<C-return>") 'ess-eval-region-or-function-or-paragraph)
+  (define-key ess-mode-map (kbd "<C-S-return>") 'ess-eval-buffer)
   ;; truncate long lines in R source files
   (add-hook 'ess-mode-hook
             (lambda()
@@ -460,21 +461,27 @@
   (setq python-shell-completion-native-enable nil)
   ;; simple evaluation with C-ret
   (require 'eval-in-repl-python)
-  (define-key python-mode-map "\C-c\C-c" 'eir-eval-in-python)
-  (define-key python-mode-map (kbd "<C-return>") 'eir-eval-in-python))
+  (define-key python-mode-map (kbd ("C-c C-c") 'eir-eval-in-python)
+  (define-key python-mode-map (kbd "<C-return>") 'eir-eval-in-python)
+  (define-key python-mode-map (kbd "C-c C-b") 'python-shell-send-buffer)
+  (define-key python-mode-map (kbd "<C-S-return>") 'python-shell-send-buffer)))
 
 (with-eval-after-load "elisp-mode"
   (require 'company-elisp)
   ;; ielm
   (require 'eval-in-repl-ielm)
   ;; For .el files
-  (define-key emacs-lisp-mode-map "\C-c\C-c" 'eir-eval-in-ielm)
+  (define-key emacs-lisp-mode-map (kbd "C-c C-c") 'eir-eval-in-ielm)
   (define-key emacs-lisp-mode-map (kbd "<C-return>") 'eir-eval-in-ielm)
+  (define-key emacs-lisp-mode-map (kbd "C-c C-b") 'eval-buffer)
+  (define-key emacs-lisp-mode-map (kbd "<C-S-return>") 'eval-buffer)
   ;; For *scratch*
   (define-key lisp-interaction-mode-map "\C-c\C-c" 'eir-eval-in-ielm)
-  (define-key emacs-lisp-mode-map (kbd "<C-return>") 'eir-eval-in-ielm)
+  (define-key lisp-interaction-mode-map (kbd "<C-return>") 'eir-eval-in-ielm)
+  (define-key lisp-interaction-mode-map (kbd "C-c C-b") 'eval-buffer)
+  (define-key lisp-interaction-mode-map (kbd "<C-S-return>") 'eval-buffer)
   ;; For M-x info
-  (define-key Info-mode-map "\C-c\C-c" 'eir-eval-in-ielm)
+  (define-key Info-mode-map (kbd "C-c C-c") 'eir-eval-in-ielm)
   ;; Set up completions
   (add-hook 'emacs-lisp-mode-hook
             (lambda()
@@ -706,7 +713,8 @@ The app is chosen from your OS's preference."
 (require 'eval-in-repl-shell)
 (with-eval-after-load "sh-script"
   (define-key sh-mode-map "\C-c\C-c" 'eir-eval-in-shell)
-  (define-key sh-mode-map (kbd "<C-return>") 'eir-eval-in-shell))
+  (define-key sh-mode-map (kbd "<C-return>") 'eir-eval-in-shell)
+  (define-key sh-mode-map (kbd "<C-S-return>") 'executable-interpret))
 
 ;; Automatically adjust output width in commint buffers
 ;; from http://stackoverflow.com/questions/7987494/emacs-shell-mode-display-is-too-wide-after-splitting-window

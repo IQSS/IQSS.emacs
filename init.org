@@ -678,7 +678,7 @@ Load eval-in-repl for bash, elisp, and python interaction.
 Support for R in Emacs is good, thanks to http://ess.r-project.org/. As with other programming languages this configuration enables completion via the =tab= key and code evaluation with =C-ret=. Many more features are provided by ESS, refer to http://ess.r-project.org/ for details.
 
 #+BEGIN_SRC emacs-lisp
-    ;;;  ESS (Emacs Speaks Statistics)
+  ;;;  ESS (Emacs Speaks Statistics)
 
   ;; Start R in the working directory by default
   (setq ess-ask-for-ess-directory nil)
@@ -704,7 +704,8 @@ Support for R in Emacs is good, thanks to http://ess.r-project.org/. As with oth
           (with-selected-window (car my-windows-list) (ess-execute-screen-options t)))
         (setq my-windows-list (cdr my-windows-list))))
     (add-to-list 'window-size-change-functions 'my-ess-execute-screen-options)
-    (define-key ess-mode-map (kbd "<C-return>") 'ess-eval-region-or-function-or-paragraph-and-step)
+    (define-key ess-mode-map (kbd "<C-return>") 'ess-eval-region-or-function-or-paragraph)
+    (define-key ess-mode-map (kbd "<C-S-return>") 'ess-eval-buffer)
     ;; truncate long lines in R source files
     (add-hook 'ess-mode-hook
               (lambda()
@@ -743,8 +744,10 @@ Emacs has decent python support out of the box. As with other programming langua
     (setq python-shell-completion-native-enable nil)
     ;; simple evaluation with C-ret
     (require 'eval-in-repl-python)
-    (define-key python-mode-map "\C-c\C-c" 'eir-eval-in-python)
-    (define-key python-mode-map (kbd "<C-return>") 'eir-eval-in-python))
+    (define-key python-mode-map (kbd ("C-c C-c") 'eir-eval-in-python)
+    (define-key python-mode-map (kbd "<C-return>") 'eir-eval-in-python)
+    (define-key python-mode-map (kbd "C-c C-b") 'python-shell-send-buffer)
+    (define-key python-mode-map (kbd "<C-S-return>") 'python-shell-send-buffer)))
 #+END_SRC
 
 *** emacs lisp REPL (ielm)
@@ -760,13 +763,17 @@ If you want to get the most out of Emacs, you'll eventually need to learn a litt
     ;; ielm
     (require 'eval-in-repl-ielm)
     ;; For .el files
-    (define-key emacs-lisp-mode-map "\C-c\C-c" 'eir-eval-in-ielm)
+    (define-key emacs-lisp-mode-map (kbd "C-c C-c") 'eir-eval-in-ielm)
     (define-key emacs-lisp-mode-map (kbd "<C-return>") 'eir-eval-in-ielm)
+    (define-key emacs-lisp-mode-map (kbd "C-c C-b") 'eval-buffer)
+    (define-key emacs-lisp-mode-map (kbd "<C-S-return>") 'eval-buffer)
     ;; For *scratch*
     (define-key lisp-interaction-mode-map "\C-c\C-c" 'eir-eval-in-ielm)
-    (define-key emacs-lisp-mode-map (kbd "<C-return>") 'eir-eval-in-ielm)
+    (define-key lisp-interaction-mode-map (kbd "<C-return>") 'eir-eval-in-ielm)
+    (define-key lisp-interaction-mode-map (kbd "C-c C-b") 'eval-buffer)
+    (define-key lisp-interaction-mode-map (kbd "<C-S-return>") 'eval-buffer)
     ;; For M-x info
-    (define-key Info-mode-map "\C-c\C-c" 'eir-eval-in-ielm)
+    (define-key Info-mode-map (kbd "C-c C-c") 'eir-eval-in-ielm)
     ;; Set up completions
     (add-hook 'emacs-lisp-mode-hook
               (lambda()
@@ -1074,7 +1081,8 @@ There are several different shells available in Emacs by default. In addition =m
   (require 'eval-in-repl-shell)
   (with-eval-after-load "sh-script"
     (define-key sh-mode-map "\C-c\C-c" 'eir-eval-in-shell)
-    (define-key sh-mode-map (kbd "<C-return>") 'eir-eval-in-shell))
+    (define-key sh-mode-map (kbd "<C-return>") 'eir-eval-in-shell)
+    (define-key sh-mode-map (kbd "<C-S-return>") 'executable-interpret))
 
   ;; Automatically adjust output width in commint buffers
   ;; from http://stackoverflow.com/questions/7987494/emacs-shell-mode-display-is-too-wide-after-splitting-window
