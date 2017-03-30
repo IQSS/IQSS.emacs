@@ -704,10 +704,9 @@ The app is chosen from your OS's preference."
 ;; shell
 (require 'essh) ; if not done elsewhere; essh is in the local lisp folder
 (require 'eval-in-repl-shell)
-(add-hook 'sh-mode-hook
-          (lambda()
-            (local-set-key "\C-c\C-c" 'eir-eval-in-shell)
-            (local-set-key (kbd "<C-return>") 'eir-eval-in-shell)))
+(with-eval-after-load "sh-script"
+  (define-key sh-mode-map "\C-c\C-c" 'eir-eval-in-shell)
+  (define-key sh-mode-map (kbd "<C-return>") 'eir-eval-in-shell))
 
 ;; Automatically adjust output width in commint buffers
 ;; from http://stackoverflow.com/questions/7987494/emacs-shell-mode-display-is-too-wide-after-splitting-window
