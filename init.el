@@ -231,7 +231,6 @@
 ;; Dictionaries
 
 ;; default in case we don't find something local
-
 (global-set-key (kbd "C-c d") 'define-word-at-point)
 (global-set-key (kbd "C-c S-D") 'define-word)
 

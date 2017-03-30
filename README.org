@@ -398,14 +398,14 @@ The basic window navigation with =C-c C-o= does not make it easy to navigate qui
     (set-face-attribute 'aw-leading-char-face nil :height 2.5))
 #+END_SRC
 
-** Spell checking
+** Spell checking and dictionaries
    :PROPERTIES:
    :CUSTOM_ID: spell-checking
    :END:
 
-Emacs comes with spell checking built-in, it just needs to be turned on. By default automatic spell checking is enabled in =text-mode= and =prog-mode= buffers. More information is available at https://www.gnu.org/software/emacs/manual/html_mono/flymake.html#Using-Flymake.
+Emacs comes with spell checking built-in, it just needs to be turned on. By default automatic spell checking is enabled in =text-mode= and =prog-mode= buffers. You can also spell-check on demand with =ispell-word=, bound to =M-$=. Finally, dictionaries look-up is available and bound to =C-c d=.
 
-You can also spell-check on demand with =ispell-word=, bound to =M-$=.
+More information is available at https://www.gnu.org/software/emacs/manual/html_node/emacs/Spelling.html and https://github.com/abo-abo/define-word.
 
 #+BEGIN_SRC emacs-lisp
   ;; enable on-the-fly spell checking
@@ -428,7 +428,6 @@ You can also spell-check on demand with =ispell-word=, bound to =M-$=.
   ;; Dictionaries
 
   ;; default in case we don't find something local
-
   (global-set-key (kbd "C-c d") 'define-word-at-point)
   (global-set-key (kbd "C-c S-D") 'define-word)
 
