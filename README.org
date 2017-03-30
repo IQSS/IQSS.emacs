@@ -44,7 +44,7 @@ If you are an Emacs user, most things will mostly work as you expect, though you
 :PROPERTIES:
 :CUSTOM_ID: how-do-i-install-it
 :END:
-1) Make sure emacs >= version 25.1 is installed on your computer. See [[#suggested-external-programs][Suggested-external-programs]] for installation instructions.
+1) Make sure emacs >= version 25.1 is installed on your computer. See [[file:UsefullPrograms.org][this list of useful programs]] for installation instructions.
 2) Make sure you have [[http://git-scm.com/downloads][git]] installed on your computer. If you don't know what git is you might be interested in John McDonnell's [[http://nyuccl.org/pages/GitTutorial/][git tutorial]].
 3) Determine your emacs configuration directory. Open emacs and type =C-x f ~/ RET=. This should open a directory listing buffer. Note the path at the top of this file. This is were your =s.d= should go.
 4) Close Emacs.
