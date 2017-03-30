@@ -79,7 +79,7 @@ Note that some things still work "the Emacs way". Notably:
 - C-f :: Moves forward one character. To search use =C-s=.
 
 *** Searching and Completion
-Utilities have been configured to make it easy to search by file name as well as to search the contents of files. Some of this functionality works much better if certain system utilities are found. See [[file:UsefullPrograms.org][this list of useful programs]], especially /everything/ (windows only) and /the silver search/ or /ripgrep/.
+Utilities have been configured to make it easy to search by file name as well as to search the contents of files. Some of this functionality works much better if certain system utilities are found. See [[file:UsefulPrograms.html][this list of useful programs]], especially /everything/ (windows only) and /the silver searcher/ or /ripgrep/.
 
 - C-s :: Searches the active buffer using =swiper=.
 - C-S :: Searches files in the current directory (recursively) using =counsel-rg= or similar.
