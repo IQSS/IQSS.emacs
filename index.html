@@ -491,7 +491,7 @@ div.tocify {
         diff-hl
         adaptive-wrap
         <span class="co">;; melpa packages</span>
-        tango-plus-theme
+        apropospriate-theme
         mode-icons
         command-log-mode
         undo-tree
@@ -569,7 +569,8 @@ div.tocify {
 (load-theme 'adwaita <span class="kw">t</span>)
 (global-hl-line-mode)
 <span class="co">;; make highlight gentler</span>
-(face-spec-set  'hl-line '((<span class="kw">t</span> (:background <span class="st">&quot;gainsboro&quot;</span>))))
+(face-spec-set  'hl-line '((<span class="kw">t</span> (:background <span class="st">&quot;#f2f2f2&quot;</span>))))
+(face-spec-set 'font-lock-keyword-face '((<span class="kw">t</span> (:foreground <span class="st">&quot;#8b008b&quot;</span>))))
 
 <span class="co">;; better defaults are well, better... but we don't always agree</span>
 (menu-bar-mode <span class="dv">1</span>)
@@ -946,7 +947,7 @@ div.tocify {
         (with-selected-window (<span class="kw">car</span> my-windows-list) (ess-execute-screen-options <span class="kw">t</span>)))
       (<span class="kw">setq</span> my-windows-list (<span class="kw">cdr</span> my-windows-list))))
   (add-to-list 'window-size-change-functions 'my-ess-execute-screen-options)
-  (define-key ess-mode-map (kbd <span class="st">&quot;&lt;C-return&gt;&quot;</span>) 'ess-eval-region-or-function-or-paragraph)
+  (define-key ess-mode-map (kbd <span class="st">&quot;&lt;C-return&gt;&quot;</span>) 'ess-eval-region-or-function-or-paragraph-and-step)
   (define-key ess-mode-map (kbd <span class="st">&quot;&lt;C-S-return&gt;&quot;</span>) 'ess-eval-buffer)
   <span class="co">;; truncate long lines in R source files</span>
   (add-hook 'ess-mode-hook

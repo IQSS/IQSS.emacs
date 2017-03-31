@@ -42,7 +42,7 @@
         diff-hl
         adaptive-wrap
         ;; melpa packages
-        tango-plus-theme
+        apropospriate-theme
         mode-icons
         command-log-mode
         undo-tree
@@ -114,7 +114,8 @@
 (load-theme 'adwaita t)
 (global-hl-line-mode)
 ;; make highlight gentler
-(face-spec-set  'hl-line '((t (:background "gainsboro"))))
+(face-spec-set  'hl-line '((t (:background "#f2f2f2"))))
+(face-spec-set 'font-lock-keyword-face '((t (:foreground "#8b008b"))))
 
 ;; better defaults are well, better... but we don't always agree
 (menu-bar-mode 1)
@@ -447,7 +448,7 @@
         (with-selected-window (car my-windows-list) (ess-execute-screen-options t)))
       (setq my-windows-list (cdr my-windows-list))))
   (add-to-list 'window-size-change-functions 'my-ess-execute-screen-options)
-  (define-key ess-mode-map (kbd "<C-return>") 'ess-eval-region-or-function-or-paragraph)
+  (define-key ess-mode-map (kbd "<C-return>") 'ess-eval-region-or-function-or-paragraph-and-step)
   (define-key ess-mode-map (kbd "<C-S-return>") 'ess-eval-buffer)
   ;; truncate long lines in R source files
   (add-hook 'ess-mode-hook
