@@ -981,10 +981,10 @@ div.tocify {
   (<span class="kw">setq</span> python-shell-completion-native-enable <span class="kw">nil</span>)
   <span class="co">;; simple evaluation with C-ret</span>
   (<span class="kw">require</span> 'eval-in-repl-python)
-  (define-key python-mode-map (kbd (<span class="st">&quot;C-c C-c&quot;</span>) 'eir-eval-in-python)
+  (define-key python-mode-map (kbd <span class="st">&quot;C-c C-c&quot;</span>) 'eir-eval-in-python)
   (define-key python-mode-map (kbd <span class="st">&quot;&lt;C-return&gt;&quot;</span>) 'eir-eval-in-python)
   (define-key python-mode-map (kbd <span class="st">&quot;C-c C-b&quot;</span>) 'python-shell-send-buffer)
-  (define-key python-mode-map (kbd <span class="st">&quot;&lt;C-S-return&gt;&quot;</span>) 'python-shell-send-buffer)))</code></pre></div>
+  (define-key python-mode-map (kbd <span class="st">&quot;&lt;C-S-return&gt;&quot;</span>) 'python-shell-send-buffer))</code></pre></div>
 </div>
 <div id="emacs-lisp-repl" class="section level3">
 <h3>emacs lisp REPL (ielm)</h3>

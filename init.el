@@ -479,10 +479,10 @@
   (setq python-shell-completion-native-enable nil)
   ;; simple evaluation with C-ret
   (require 'eval-in-repl-python)
-  (define-key python-mode-map (kbd ("C-c C-c") 'eir-eval-in-python)
+  (define-key python-mode-map (kbd "C-c C-c") 'eir-eval-in-python)
   (define-key python-mode-map (kbd "<C-return>") 'eir-eval-in-python)
   (define-key python-mode-map (kbd "C-c C-b") 'python-shell-send-buffer)
-  (define-key python-mode-map (kbd "<C-S-return>") 'python-shell-send-buffer)))
+  (define-key python-mode-map (kbd "<C-S-return>") 'python-shell-send-buffer))
 
 (with-eval-after-load "elisp-mode"
   (require 'company-elisp)
