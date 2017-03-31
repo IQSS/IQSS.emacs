@@ -74,6 +74,8 @@ This configuration loads a lot of useful emacs packages, many of which add key b
 - C-o :: Open file, as in most other programs.
 - C-- :: Zoom out, as in most other programs.
 - C-+ :: Zoom in, as in most other programs. 
+- C-PgUp :: Beginning of buffer
+- C-PgDn :: End of buffer.
 
 Note that some things still work "the Emacs way". Notably:
 - C-a :: Goes to the beginning of the line. To select all use =C-x h=. 
@@ -194,6 +196,7 @@ The main purpose of these emacs configuration files is to install and configure 
           diff-hl
           adaptive-wrap
           ;; melpa packages
+          tango-plus-theme
           mode-icons
           command-log-mode
           undo-tree
@@ -279,6 +282,12 @@ We try to install most things using the package manager, but a few things need t
 This section sets up various utilities and conveniences. Many of these are low priority, so we set them first in order to allow any conflicting settings to be overridden later.
 
 #+BEGIN_SRC emacs-lisp
+  ;; the default theme is OK, but we can do better
+  (load-theme 'adwaita t)
+  (global-hl-line-mode)
+  ;; make highlight gentler
+  (face-spec-set  'hl-line '((t (:background "gainsboro"))))
+
   ;; better defaults are well, better... but we don't always agree
   (menu-bar-mode 1)
 
@@ -385,6 +394,10 @@ Emacs will never to as simple as Notepad, but perhaps it can be made more consis
   ;; zoom in/out like we do everywhere else.
   (global-set-key (kbd "C-+") 'text-scale-increase)
   (global-set-key (kbd "C--") 'text-scale-decrease)
+
+  ;; page up/down
+  (global-set-key (kbd "<C-prior>") 'beginning-of-buffer)
+  (global-set-key (kbd "<C-next>") 'end-of-buffer)
 #+END_SRC
 
 ** Window Management

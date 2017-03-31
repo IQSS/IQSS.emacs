@@ -42,6 +42,7 @@
         diff-hl
         adaptive-wrap
         ;; melpa packages
+        tango-plus-theme
         mode-icons
         command-log-mode
         undo-tree
@@ -108,6 +109,12 @@
 ;; on OSX Emacs needs help setting up the system paths
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
+
+;; the default theme is OK, but we can do better
+(load-theme 'adwaita t)
+(global-hl-line-mode)
+;; make highlight gentler
+(face-spec-set  'hl-line '((t (:background "gainsboro"))))
 
 ;; better defaults are well, better... but we don't always agree
 (menu-bar-mode 1)
@@ -209,6 +216,10 @@
 ;; zoom in/out like we do everywhere else.
 (global-set-key (kbd "C-+") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
+
+;; page up/down
+(global-set-key (kbd "<C-prior>") 'beginning-of-buffer)
+(global-set-key (kbd "<C-next>") 'end-of-buffer)
 
 ;; Work spaces
 (setq eyebrowse-keymap-prefix (kbd "C-c C-l"))
