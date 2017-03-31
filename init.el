@@ -114,7 +114,7 @@
 (load-theme 'adwaita t)
 (global-hl-line-mode)
 ;; make highlight gentler
-(face-spec-set  'hl-line '((t (:background "#f2f2f2"))))
+(face-spec-set  'hl-line '((t (:inherit nil :background "#f2f2f2"))))
 (face-spec-set 'font-lock-keyword-face '((t (:foreground "#8b008b"))))
 
 ;; better defaults are well, better... but we don't always agree
