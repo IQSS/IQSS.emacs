@@ -491,7 +491,6 @@ div.tocify {
         diff-hl
         adaptive-wrap
         <span class="co">;; melpa packages</span>
-        apropospriate-theme
         mode-icons
         command-log-mode
         undo-tree
@@ -565,14 +564,7 @@ div.tocify {
 <div id="miscellaneous" class="section level2">
 <h2>Tweak default Emacs settings</h2>
 <p>This section sets up various utilities and conveniences. Many of these are low priority, so we set them first in order to allow any conflicting settings to be overridden later.</p>
-<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;; the default theme is OK, but we can do better</span>
-(load-theme 'adwaita <span class="kw">t</span>)
-(global-hl-line-mode)
-<span class="co">;; make highlight gentler</span>
-(face-spec-set  'hl-line '((<span class="kw">t</span> (:inherit <span class="kw">nil</span> :background <span class="st">&quot;#f2f2f2&quot;</span>))))
-(face-spec-set 'font-lock-keyword-face '((<span class="kw">t</span> (:foreground <span class="st">&quot;#8b008b&quot;</span>))))
-
-<span class="co">;; better defaults are well, better... but we don't always agree</span>
+<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;; better defaults are well, better... but we don't always agree</span>
 (menu-bar-mode <span class="dv">1</span>)
 
 <span class="co">;; scrolling behavior</span>

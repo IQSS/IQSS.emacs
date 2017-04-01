@@ -42,7 +42,6 @@
         diff-hl
         adaptive-wrap
         ;; melpa packages
-        apropospriate-theme
         mode-icons
         command-log-mode
         undo-tree
@@ -109,13 +108,6 @@
 ;; on OSX Emacs needs help setting up the system paths
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
-
-;; the default theme is OK, but we can do better
-(load-theme 'adwaita t)
-(global-hl-line-mode)
-;; make highlight gentler
-(face-spec-set  'hl-line '((t (:inherit nil :background "#f2f2f2"))))
-(face-spec-set 'font-lock-keyword-face '((t (:foreground "#8b008b"))))
 
 ;; better defaults are well, better... but we don't always agree
 (menu-bar-mode 1)

@@ -196,7 +196,6 @@ The main purpose of these emacs configuration files is to install and configure 
           diff-hl
           adaptive-wrap
           ;; melpa packages
-          apropospriate-theme
           mode-icons
           command-log-mode
           undo-tree
@@ -282,13 +281,6 @@ We try to install most things using the package manager, but a few things need t
 This section sets up various utilities and conveniences. Many of these are low priority, so we set them first in order to allow any conflicting settings to be overridden later.
 
 #+BEGIN_SRC emacs-lisp
-  ;; the default theme is OK, but we can do better
-  (load-theme 'adwaita t)
-  (global-hl-line-mode)
-  ;; make highlight gentler
-  (face-spec-set  'hl-line '((t (:inherit nil :background "#f2f2f2"))))
-  (face-spec-set 'font-lock-keyword-face '((t (:foreground "#8b008b"))))
-
   ;; better defaults are well, better... but we don't always agree
   (menu-bar-mode 1)
 
