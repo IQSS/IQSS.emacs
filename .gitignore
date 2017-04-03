@@ -5,6 +5,5 @@
 !/README.md
 !/init.el
 !/init.elc
-!/lisp
-!/lisp/*
+!/lisp/*.el
 !/.gitignore
