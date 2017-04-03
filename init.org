@@ -978,18 +978,20 @@ Not everyone wants to read email in Emacs, but you can if you want. The settings
   (when (executable-find "mu")
     (autoload 'mu4e "mu4e" "Read your mail." t)
     (with-eval-after-load "mu4e"
+      (require 'mu4e)
+      (require 'mu4e-headers)
       (setq mu4e-headers-include-related t
             mu4e-headers-skip-duplicates t
+            ;; don't keep message buffers around
+            message-kill-buffer-on-exit t
+            ;; enable notifications
+            mu4e-enable-mode-line t
             mu4e-headers-fields '(
                                   (:human-date . 12)
                                   (:flags . 6)
                                   ;; (:mailing-list . 10)
                                   (:from-or-to . 22)
-                                  (:thread-subject)))
-      ;; don't keep message buffers around
-      (setq message-kill-buffer-on-exit t)
-      ;; enable notifications
-      (setq mu4e-enable-mode-line t)
+                                  (:subject)))
       ;; use org for composing rich text emails
       (require 'org-mu4e)
       (setq org-mu4e-convert-to-html t)
