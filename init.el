@@ -635,12 +635,13 @@
                                 ;; (:mailing-list . 10)
                                 (:from-or-to . 22)
                                 (:subject)))
-    ;; use org for composing rich text emails
-    (require 'org-mu4e)
-    (setq org-mu4e-convert-to-html t)
-    (define-key mu4e-headers-mode-map (kbd "C-c c") 'org-mu4e-store-and-capture)
-    (define-key mu4e-view-mode-map    (kbd "C-c c") 'org-mu4e-store-and-capture)
-    ;; render html
+    ;; ;; use org for composing rich text emails
+    ;; (require 'org-mu4e)
+    ;; (setq org-mu4e-convert-to-html t)
+    ;; (define-key mu4e-headers-mode-map (kbd "C-c c") 'org-mu4e-store-and-capture)
+    ;; (define-key mu4e-view-mode-map    (kbd "C-c c") 'org-mu4e-store-and-capture)
+    ;; ;; re
+    nder html
     (require 'mu4e-contrib)
     (setq mu4e-html2text-command 'mu4e-shr2text)
     (add-hook 'mu4e-view-mode-hook 'visual-line-mode)))
