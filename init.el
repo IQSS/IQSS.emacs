@@ -300,6 +300,7 @@
 (setq ivy-display-style nil)
 
 ;; Ivy-based interface to standard commands
+(global-set-key (kbd "C-h b") 'counsel-descbinds)
 (global-set-key (kbd "C-s") 'swiper)
 (global-set-key (kbd "C-r") 'swiper)
 ;; Search files in directory with C-S
