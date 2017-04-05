@@ -26,4 +26,11 @@ Highlights of this Emacs configuration include:
 - Convenient window management, including navigation with `C-x O`, and undo/redo with `C-c left` and `C-c right`.
 - Dictionary-lookup using `C-c d`.
 
+A note for Mac users
+--------------------
+The keybindings configured here use Windows-style. I wish I could make life easy for you by providing Mac style keyboard shortcuts, but that is simply too much work to be feasible. Basically this mostly boils down to "use the control key instead of the command key". For example, use "Control-q" to quit instead of "Command-q" as you do with other applications running on OS X.
+
+Documentation
+=============
+
 For more information refer to the [documentation](https://izahn.github.io/dotemacs).

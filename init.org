@@ -11,7 +11,6 @@
 
 This is an [[https://www.gnu.org/software/emacs/][Emacs]] configuration. There are many like it, but this one is mine. If you like it, make it yours! It provides lots of functionality while keeping things light and fast.
 
-
 The main goal of this project is to provide an Emacs configuration that works more or less they way you would expect an editor or IDE to work in the second decade of the twenty-first century, without losing the things that make Emacs special. This is challenging because basic Emacs commands often conflict with de facto standards. Each of these conflicts is a judgment call; hopefully a good balance has been reached. 
 
 Note that this documentation mostly uses Emacs notation for keybindings, e.g., =C= means "the Ctrl key", =M= means "the Meta (aka Alt) key", and =S= means "the Shift key". Refer to https://www.emacswiki.org/emacs/EmacsKeyNotation if you are not familiar with this notation.
@@ -23,7 +22,7 @@ Highlights of this Emacs configuration include:
   - =M-q= is hard warp, =M-Q= is unwrap
   - =C-s= searches in current buffer, =C=S= searches all buffers in the directory
   - =C-x f= (or =C-o=) opens files in the current directory, =C-x F= (or =C-O=) searches for files to open
-- Consistent and familiar code completion using the =tab= key.
+- Consistent and familiar code completion and indentation using the =tab= key.
 - Consistent and familiar code evaluation using =C-ret= and =C-S-ret=.
 - IDE-like configuration for R, Python, and LaTeX coding.
 - Literate programming configuration for running R, python, or other programming languages inside markdown or org-mode files.
@@ -34,6 +33,8 @@ Highlights of this Emacs configuration include:
 The upshot is that if you have never used Emacs before many things will work as you expect; a few will not, in which case you will need to search the web or read the Emacs documentation to learn the Emacs way. You can launch a built-in tutorial by pressing =C-h t= (that's "Control+h, then t"), or read the getting started documentation at https://www.gnu.org/software/emacs/tour/. A cheat-sheet / survival guide is available at https://www.gnu.org/software/emacs/refcards/pdf/survival.pdf. 
 
 If you are an Emacs user, most things will mostly work as you expect, though you may wish to familiarize yourself with the alternative "de facto standard" bindings configured here. The most glaring exception is the use of =C-v= to paste rather than scroll. My advice is to get in the habit of toggling read-only/view mode with =C-x C-q= (or =M-x read-only-mode=) when you need to do a lot of scrolling. In this mode =SPC= scrolls down and =S-SPC= scrolls up, just like it does in your web browser. When you must scroll down without toggling read-only mode you can use =Page Up= and =Page Down= (if your keyboard doesn't dedicated =Page Up= / =Page Down= keys try =Fn down= and =Fn up=). If you are an Emacs user and you find other key bindings that don't work as they should please open an issue in the [[https://github.com/izahn/dotemacs][github repo]].
+
+A note for Mac users: the keybindings configured here use Windows-style. I wish I could make life easy for you by providing Mac style keyboard shortcuts, but that is simply too much work to be feasible. Basically this mostly boils down to "use the control key instead of the command key". For example, use "Control-q" to quit instead of "Command-q" as you do with other applications running on OS X.
 
 * Quick start
 :PROPERTIES:
