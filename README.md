@@ -113,7 +113,7 @@ Other commonly used key bindings are listed in the table below.
   C-+      |Zoom in              |
   C-PgUp   |Beginning of buffer  |
   C-PgDn   |End of buffer        |
-  ---------|---------------------|-------------------------------------------------------------------------
+
 Note that some things still work "the Emacs way". Notably:
 
 C-a
@@ -144,7 +144,6 @@ to the standard Emacs `C-x o` binding to navigate to "other window".
   C-c left                | Undo a window layout change | 
   C-c right               | Redo a window layout change | 
   C-c C-l &lt;number&gt;  | Save/restore window layouts | This a somewhat advanced feature that lets you save and restore window layouts
-  --------- --------------|-----------------------------|--------------------------------------------------------------------------------
   
 ### Searching and Completion
 
@@ -159,7 +158,6 @@ of useful programs](UsefulPrograms.html), especially *everything*
   C-s      |Searches the current buffer using `swiper`  |
   C-S-s    |Searches files in the current directory     |
   C-x S-f  |(or **C-x O**) Searches by file name        |requires `mlocate` on linux, `everything` (<http://www.voidtools.com/>) on windows
-  ---------|--------------------------------------------|------------------------------------------------------------------------------------
   
 Many standard Emacs keybindings have been replaced with versions that
 provide completion suggestions. In-buffer completion can be triggered
@@ -170,7 +168,6 @@ with the `tab` key.
   tab    |Indent or complete                |
   S-C-v  |Paste from the clipboard history  |M - S - y = also works for this
   C-c r  |Search for a reference to insert  |You must set `bibtex-completion-bibliography` to your BibTeX files for this to work
-  -------|----------------------------------|-------------------------------------------------------------------------------------
   
 ### REPL interaction
 
@@ -186,7 +183,7 @@ etc.) use the keybindings below.
   ---------|--------------------------------------|----------------------------------------
   C-RET    |Line/selection/expression evaluation  |Works for R, python, shell, and others
   S-C-RET  |Buffer evaluation                     |Evaluate the whole script
-  ---------|--------------------------------------|----------------------------------------
+
 ### Other key bindings
 
 There are a few more odds-and-ends you might find useful:
@@ -225,7 +222,8 @@ easier to interact with external programs. For example,
 [R](http://r-project.org), and
 [AUCTEX](https://www.gnu.org/software/auctex/) makes it easy to interact
 with [LaTeX](http://tug.org/texlive/). If you need help installing these
-programs, [this short guide](UsefullPrograms.org) may help.
+programs, [this short guide](http://izahn.github.io/dotemacs/UsefulPrograms.html) 
+may help.
 
 Documentation
 =============
