@@ -481,6 +481,7 @@
           (ess-R-fl-keyword:F&T)
           (ess-R-fl-keyword:%op% . t)))))
 
+(defalias 'python 'run-python)
 (with-eval-after-load "python"
   ;; try to get indent/completion working nicely
   (setq python-indent-trigger-commands '(my-company-indent-or-complete-common indent-for-tab-command yas-expand yas/expand))
@@ -517,6 +518,7 @@
               (setq-local company-backends
                           (delete-dups (cons 'company-elisp (cons 'company-files company-backends)))))))
 
+(defalias 'haskell 'haskel-interactive-bring)
 (require 'company-ghci)
 (add-hook 'haskell-mode-hook (lambda ()
                                (setq-local company-backends
@@ -742,6 +744,8 @@ The app is chosen from your OS's preference."
   (define-key term-mode-map (kbd "C-j") 'term-char-mode)
   (define-key term-raw-map (kbd "C-j") 'term-line-mode))
 
+;; multi-term
+(defalias 'terminal 'multi-term)
 (with-eval-after-load "multi-term"
   (define-key term-mode-map (kbd "C-j") 'term-char-mode)
   (define-key term-raw-map (kbd "C-j") 'term-line-mode))

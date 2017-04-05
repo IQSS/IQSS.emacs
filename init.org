@@ -770,6 +770,7 @@ Support for R in Emacs is good, thanks to http://ess.r-project.org/. As with oth
 Emacs has decent python support out of the box. As with other programming languages you can get completion suggestions with the =tab= key, and evaluate code with =C-ret=. Many more features are provided and are accessible via the menu.
 
 #+BEGIN_SRC emacs-lisp
+  (defalias 'python 'run-python)
   (with-eval-after-load "python"
     ;; try to get indent/completion working nicely
     (setq python-indent-trigger-commands '(my-company-indent-or-complete-common indent-for-tab-command yas-expand yas/expand))
@@ -823,6 +824,7 @@ If you want to get the most out of Emacs, you'll eventually need to learn a litt
 I just recently started learning Haskell. There's not much to the configuration at this point, but you should get completion with =tab=.
 
 #+BEGIN_SRC emacs-lisp
+  (defalias 'haskell 'haskel-interactive-bring)
   (require 'company-ghci)
   (add-hook 'haskell-mode-hook (lambda ()
                                  (setq-local company-backends
@@ -1116,6 +1118,8 @@ There are several different shells available in Emacs by default. In addition =m
     (define-key term-mode-map (kbd "C-j") 'term-char-mode)
     (define-key term-raw-map (kbd "C-j") 'term-line-mode))
 
+  ;; multi-term
+  (defalias 'terminal 'multi-term)
   (with-eval-after-load "multi-term"
     (define-key term-mode-map (kbd "C-j") 'term-char-mode)
     (define-key term-raw-map (kbd "C-j") 'term-line-mode))
