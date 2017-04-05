@@ -254,7 +254,6 @@ div.tocify {
 <h1>What is this?</h1>
 <p>This is an <a href="https://www.gnu.org/software/emacs/">Emacs</a> configuration. There are many like it, but this one is mine. If you like it, make it yours! It provides lots of functionality while keeping things light and fast.</p>
 <p>The main goal of this project is to provide an Emacs configuration that works more or less they way you would expect an editor or IDE to work in the second decade of the twenty-first century, without losing the things that make Emacs special. This is challenging because basic Emacs commands often conflict with de facto standards. Each of these conflicts is a judgment call; hopefully a good balance has been reached.</p>
-<p>Note that this documentation mostly uses Emacs notation for keybindings, e.g., <code>C</code> means “the Ctrl key”, <code>M</code> means “the Meta (aka Alt) key”, and <code>S</code> means “the Shift key”. Refer to <a href="https://www.emacswiki.org/emacs/EmacsKeyNotation" class="uri">https://www.emacswiki.org/emacs/EmacsKeyNotation</a> if you are not familiar with this notation.</p>
 <p>Highlights of this Emacs configuration include:</p>
 <ul>
 <li>More standard select/copy/paste keys and right-click behavior makes it more familiar to those new to Emacs.</li>
@@ -289,6 +288,7 @@ div.tocify {
 <div id="modified-key-bindings" class="section level2">
 <h2>Important key bindings</h2>
 <p>This configuration loads a lot of useful emacs packages, many of which add key bindings. Documenting them all here would be too much (see the documentation for each package if you need the details), so this section describes only most important ones.</p>
+<p>Note that this documentation mostly uses Emacs notation for keybindings, e.g., <code>C</code> means “the Ctrl key”, <code>S</code> means “the Shift key”, and <code>M</code> means “the Meta (aka Alt) key”. Note that on a Mac <code>M</code> means “the Option key”. Refer to <a href="https://www.emacswiki.org/emacs/EmacsKeyNotation" class="uri">https://www.emacswiki.org/emacs/EmacsKeyNotation</a> if you are not familiar with this notation.</p>
 <div id="common-keyboard-shortcuts" class="section level3">
 <h3>Common keyboard shortcuts</h3>
 <p>The most important keyboard shortcut in Emacs is <code>M-x</code>. This brings up a search-able list of all Emacs commands. In fact you could use this interface for everything and never bother learning any of the other keybindings listed below. For example, to open a file you could type <code>M-x counsel-find-file &lt;ret&gt;</code> instead of <code>C-o</code>. Nobody does this in practice, because <code>C=o</code> is easier. But if you can’t remember the name of a keyboard shortcut don’t worry: just type <code>M-x</code> and search for the command you need.</p>

@@ -87,6 +87,13 @@ add key bindings. Documenting them all here would be too much (see the
 documentation for each package if you need the details), so this section
 describes only most important ones.
 
+Note that this documentation mostly uses Emacs notation for
+keybindings, e.g., `C` means "the Control key", `S` means "the Shift
+key", and `M` means "the Meta (aka Alt) key". Note that on a Mac `M`
+means "the Option key". Refer to
+<https://www.emacswiki.org/emacs/EmacsKeyNotation> if you are not
+familiar with this notation.
+
 ### Common keyboard shortcuts
 
 The most important keyboard shortcut in Emacs is `M-x`. This brings up a

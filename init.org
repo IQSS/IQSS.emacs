@@ -13,8 +13,6 @@ This is an [[https://www.gnu.org/software/emacs/][Emacs]] configuration. There a
 
 The main goal of this project is to provide an Emacs configuration that works more or less they way you would expect an editor or IDE to work in the second decade of the twenty-first century, without losing the things that make Emacs special. This is challenging because basic Emacs commands often conflict with de facto standards. Each of these conflicts is a judgment call; hopefully a good balance has been reached. 
 
-Note that this documentation mostly uses Emacs notation for keybindings, e.g., =C= means "the Ctrl key", =M= means "the Meta (aka Alt) key", and =S= means "the Shift key". Refer to https://www.emacswiki.org/emacs/EmacsKeyNotation if you are not familiar with this notation.
-
 Highlights of this Emacs configuration include:
 - More standard select/copy/paste keys and right-click behavior makes it more familiar to those new to Emacs.
 - Consistent and familiar code completion and indentation using the =tab= key.
@@ -58,6 +56,8 @@ Note that after installing this configuration emacs will be slow to start up the
 :CUSTOM_ID: modified-key-bindings
 :END:
 This configuration loads a lot of useful emacs packages, many of which add key bindings. Documenting them all here would be too much (see the documentation for each package if you need the details), so this section describes only most important ones.
+
+Note that this documentation mostly uses Emacs notation for keybindings, e.g., =C= means "the Ctrl key", =S= means "the Shift key", and =M= means "the Meta (aka Alt) key". Note that on a Mac =M= means "the Option key". Refer to https://www.emacswiki.org/emacs/EmacsKeyNotation if you are not familiar with this notation.
 
 *** Common keyboard shortcuts
 
