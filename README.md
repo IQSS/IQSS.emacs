@@ -57,8 +57,9 @@ How to I install it?
     in John McDonnell's 
     [git tutorial](http://nyuccl.org/pages/GitTutorial/).
 3.  Determine your emacs configuration directory. Open emacs and type
-    `C-x f ~/ RET`. This should open a directory listing buffer. Note
-    the path at the top of this file. This is were your `s.d` should go.
+    `C-x d ~/ RET`. This should open a directory listing buffer. Note
+    the path at the very top of this file. This is were your `.emacs.d` 
+    configuration directory should go.
 4.  Close Emacs.
 5.  Back up your existing `~/.emacs` file and `~/.emacs.d` directory
     (e.g., rename `.emacs` to `OLD.emacs` and rename `.emacs.d` to
