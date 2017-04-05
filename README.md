@@ -46,12 +46,12 @@ applications running on OS X.
 Quick start
 ===========
 
-How to I install it? {#how-do-i-install-it}
+How to I install it?
 --------------------
 
 1.  Make sure emacs &gt;= version 25.1 is installed on your computer.
-    See [this list of useful programs](UsefulPrograms.html) for
-    installation instructions.
+    See [this list of useful programs](http://izahn.github.io/dotemacs/UsefulPrograms.html) 
+    for installation instructions.
 2.  Make sure you have [git](http://git-scm.com/downloads) installed on
     your computer. If you don't know what git is you might be interested
     in John McDonnell's 
@@ -78,7 +78,7 @@ start up the first time. This is due to package installation; just be
 patient and wait for it to finish--subsequent start-ups will be much
 faster.
 
-Important key bindings {#modified-key-bindings}
+Important key bindings
 ----------------------
 
 This configuration loads a lot of useful emacs packages, many of which
