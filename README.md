@@ -107,20 +107,20 @@ command you need.
 
 Other commonly used key bindings are listed in the table below.
 
-  Key      |Description          |Notes
-  ---------|---------------------|-------------------------------------------------------------------------
-  C-o      |Open file            |
-  C-w      |Close window         |
-  C-q      |Quit                 |
-  S-arrow  |Select a region      |`C-SPC arrow` does the same thing. `C-S-SPC` selects rectangular region
-  C-c      |Copy selection       |
-  C-v      |Paste                |
-  C-z      |Undo                 |use `C-x U` or `M-z` to visualize your undo/redo history
-  S-C-z    |Redo                 |
-  C--      |Zoom out             |
-  C-+      |Zoom in              |
-  C-PgUp   |Beginning of buffer  |
-  C-PgDn   |End of buffer        |
+  Key        |Description          |Notes
+  -----------|---------------------|-------------------------------------------------------------------------
+  `C-o`      |Open file            |
+  `C-w`      |Close window         |
+  `C-q`      |Quit                 |
+  `S-arrow`  |Select a region      |`C-SPC arrow` does the same thing. `C-S-SPC` selects rectangular region
+  `C-c`      |Copy selection       |
+  `C-v`      |Paste                |
+  `C-z`      |Undo                 |use `C-x U` or `M-z` to visualize your undo/redo history
+  `S-C-z`    |Redo                 |
+  `C--`      |Zoom out             |
+  `C-+`      |Zoom in              |
+  `C-PgUp`   |Beginning of buffer  |
+  `C-PgDn`   |End of buffer        |
 
 Note that some things still work "the Emacs way". Notably:
 
@@ -147,11 +147,11 @@ to the standard Emacs `C-x o` binding to navigate to "other window".
 
   Key                     |Description                  |Notes
   ------------------------|-----------------------------|--------------------------------------------------------------------------------
-  C-x S-&lt;arrow&gt;     | Move to other window        | 
-  C-x S-0                 | Move to a window by number  | 
-  C-c left                | Undo a window layout change | 
-  C-c right               | Redo a window layout change | 
-  C-c C-l &lt;number&gt;  | Save/restore window layouts | This a somewhat advanced feature that lets you save and restore window layouts
+  `C-x S-<arrow>`         | Move to other window        | 
+  `C-x S-0`               | Move to a window by number  | 
+  `C-c left`              | Undo a window layout change | 
+  `C-c right`             | Redo a window layout change | 
+  `C-c C-l <number>`      | Save/restore window layouts | This a somewhat advanced feature that lets you save and restore window layouts
   
 ### Searching and Completion
 
@@ -161,11 +161,11 @@ works much better if certain system utilities are found. See [this list
 of useful programs](UsefulPrograms.html), especially *everything*
 (windows only) and *the silver searcher* or *ripgrep*.
 
-  Key      |Description                                 |Notes
-  ---------|--------------------------------------------|------------------------------------------------------------------------------------
-  C-s      |Searches the current buffer using `swiper`  |
-  C-S-s    |Searches files in the current directory     |
-  C-x S-f  |(or **C-x O**) Searches by file name        |requires `mlocate` on linux, `everything` (<http://www.voidtools.com/>) on windows
+  Key        |Description                                 |Notes
+  -----------|--------------------------------------------|------------------------------------------------------------------------------------
+  `C-s`      |Searches the current buffer using `swiper`  |
+  `C-S-s`    |Searches files in the current directory     |
+  `C-x S-f`  |(or `C-x O`) Searches by file name          |requires `mlocate` on linux, `everything` (<http://www.voidtools.com/>) on windows
   
 Many standard Emacs keybindings have been replaced with versions that
 provide completion suggestions. In-buffer completion can be triggered
@@ -173,9 +173,9 @@ with the `tab` key.
 
   Key    |Description                       |Notes
   -------|----------------------------------|-------------------------------------------------------------------------------------
-  tab    |Indent or complete                |
-  S-C-v  |Paste from the clipboard history  |M - S - y = also works for this
-  C-c r  |Search for a reference to insert  |You must set `bibtex-completion-bibliography` to your BibTeX files for this to work
+  `TAB`    |Indent or complete                |
+  `S-C-v`  |Paste from the clipboard history  |`M-S-y` also works for this
+  `C-c r`  |Search for a reference to insert  |You must set `bibtex-completion-bibliography` to your BibTeX files for this to work
   
 ### REPL interaction
 
@@ -187,10 +187,10 @@ terminals. For example, to start python just type `M-x python <ret>`.
 To execute a line, region, or buffer from a script (R, python, bash)
 etc.) use the keybindings below.
 
-  Key      |Description                           |Notes
-  ---------|--------------------------------------|----------------------------------------
-  C-RET    |Line/selection/expression evaluation  |Works for R, python, shell, and others
-  S-C-RET  |Buffer evaluation                     |Evaluate the whole script
+  Key        |Description                           |Notes
+  -----------|--------------------------------------|----------------------------------------
+  `C-RET`    |Line/selection/expression evaluation  |Works for R, python, shell, and others
+  `S-C-RET`  |Buffer evaluation                     |Evaluate the whole script
 
 ### Other key bindings
 

@@ -65,21 +65,21 @@ The most important keyboard shortcut in Emacs is =M-x=. This brings up a search-
 
 Other commonly used key bindings are listed in the table below.
 
-| Key     | Description         | Notes                                                                   |
-|---------+---------------------+-------------------------------------------------------------------------|
-| C-o     | Open file           |                                                                         |
-| C-w     | Close window        |                                                                         |
-| C-q     | Quit                |                                                                         |
-| S-arrow | Select a region     | =C-SPC arrow= does the same thing. =C-S-SPC= selects rectangular region |
-| C-c     | Copy selection      |                                                                         |
-| C-v     | Paste               |                                                                         |
-| C-z     | Undo                | use =C-x U=  or =M-z= to visualize your undo/redo history               |
-| S-C-z   | Redo                |                                                                         |
-| C--     | Zoom out            |                                                                         |
-| C-+     | Zoom in             |                                                                         |
-| C-PgUp  | Beginning of buffer |                                                                         |
-| C-PgDn  | End of buffer       |                                                                         |
-|---------+---------------------+-------------------------------------------------------------------------|
+| Key       | Description         | Notes                                                                   |
+|-----------+---------------------+-------------------------------------------------------------------------|
+| =C-o=     | Open file           |                                                                         |
+| =C-w=     | Close window        |                                                                         |
+| =C-q=     | Quit                |                                                                         |
+| =S-arrow= | Select a region     | =C-SPC arrow= does the same thing. =C-S-SPC= selects rectangular region |
+| =C-c=     | Copy selection      |                                                                         |
+| =C-v=     | Paste               |                                                                         |
+| =C-z=     | Undo                | use =C-x U=  or =M-z= to visualize your undo/redo history               |
+| =S-C-z=   | Redo                |                                                                         |
+| =C--=     | Zoom out            |                                                                         |
+| =C-+=     | Zoom in             |                                                                         |
+| =C-PgUp=  | Beginning of buffer |                                                                         |
+| =C-PgDn=  | End of buffer       |                                                                         |
+|-----------+---------------------+-------------------------------------------------------------------------|
 
 Note that some things still work "the Emacs way". Notably:
 - C-a :: Goes to the beginning of the line. To select all use =C-x h=. 
@@ -91,33 +91,33 @@ One of the things that makes Emacs different that most other applications is the
 
 Some other convenient window management keys are provided, in addition to the standard Emacs =C-x o= binding to navigate to "other window".
 
-| Key              | Description                 | Notes                                                                          |
-|------------------+-----------------------------+--------------------------------------------------------------------------------|
-| C-x S-<arrow>    | Move to other window        |                                                                                |
-| C-x S-0          | Move to a window by number  |                                                                                |
-| C-c left         | Undo a window layout change |                                                                                |
-| C-c right        | Redo a window layout change |                                                                                |
-| C-c C-l <number> | Save/restore window layouts | This a somewhat advanced feature that lets you save and restore window layouts |
-|------------------+-----------------------------+--------------------------------------------------------------------------------|
+| Key                | Description                 | Notes                                                                          |
+|--------------------+-----------------------------+--------------------------------------------------------------------------------|
+| =C-x S-<arrow>=    | Move to other window        |                                                                                |
+| =C-x S-0=          | Move to a window by number  |                                                                                |
+| =C-c left=         | Undo a window layout change |                                                                                |
+| =C-c right=        | Redo a window layout change |                                                                                |
+| =C-c C-l <number>= | Save/restore window layouts | This a somewhat advanced feature that lets you save and restore window layouts |
+|--------------------+-----------------------------+--------------------------------------------------------------------------------|
 
 *** Searching and Completion
 Utilities have been configured to make it easy to search by file name as well as to search the contents of files. Some of this functionality works much better if certain system utilities are found. See [[file:UsefulPrograms.html][this list of useful programs]], especially /everything/ (windows only) and /the silver searcher/ or /ripgrep/.
 
-| Key     | Description                                | Notes                                                                            |
-|---------+--------------------------------------------+----------------------------------------------------------------------------------|
-| C-s     | Searches the current buffer using =swiper= |                                                                                  |
-| C-S-s   | Searches files in the current directory    |                                                                                  |
-| C-x S-f | (or *C-x O*) Searches by file name         | requires =mlocate= on linux, =everything= (http://www.voidtools.com/) on windows |
-|---------+--------------------------------------------+----------------------------------------------------------------------------------|
+| Key       | Description                                | Notes                                                                            |
+|-----------+--------------------------------------------+----------------------------------------------------------------------------------|
+| =C-s=     | Searches the current buffer using =swiper= |                                                                                  |
+| =C-S-s=   | Searches files in the current directory    |                                                                                  |
+| =C-x S-f= | (or =C-x O=) Searches by file name         | requires =mlocate= on linux, =everything= (http://www.voidtools.com/) on windows |
+|-----------+--------------------------------------------+----------------------------------------------------------------------------------|
 
 Many standard Emacs keybindings have been replaced with versions that provide completion suggestions. In-buffer completion can be triggered with the =tab= key.
 
-| Key   | Description                      | Notes                                                                               |
-|-------+----------------------------------+-------------------------------------------------------------------------------------|
-| tab   | Indent or complete               |                                                                                     |
-| S-C-v | Paste from the clipboard history | M - S - y = also works for this                                                     |
-| C-c r | Search for a reference to insert | You must set =bibtex-completion-bibliography= to your BibTeX files for this to work |
-|-------+----------------------------------+-------------------------------------------------------------------------------------|
+| Key     | Description                      | Notes                                                                               |
+|---------+----------------------------------+-------------------------------------------------------------------------------------|
+| =TAB=   | Indent or complete               |                                                                                     |
+| =S-C-v= | Paste from the clipboard history | =M-S-y= also works for this                                                         |
+| =C-c r= | Search for a reference to insert | You must set =bibtex-completion-bibliography= to your BibTeX files for this to work |
+|---------+----------------------------------+-------------------------------------------------------------------------------------|
 
 *** REPL interaction
 This should be easy, and hopefully it is!
@@ -126,11 +126,11 @@ Aliases have been created for starting R, python, haskell, and terminals. For ex
 
 To execute a line, region, or buffer from a script (R, python, bash) etc.) use the keybindings below.
 
-| Key     | Description                          | Notes                                  |
-|---------+--------------------------------------+----------------------------------------|
-| C-RET   | Line/selection/expression evaluation | Works for R, python, shell, and others |
-| S-C-RET | Buffer evaluation                    | Evaluate the whole script              |
-|---------+--------------------------------------+----------------------------------------|
+| Key       | Description                          | Notes                                  |
+|-----------+--------------------------------------+----------------------------------------|
+| =C-RET=   | Line/selection/expression evaluation | Works for R, python, shell, and others |
+| =S-C-RET= | Buffer evaluation                    | Evaluate the whole script              |
+|-----------+--------------------------------------+----------------------------------------|
 
 *** Other key bindings
 :PROPERTIES:
@@ -158,12 +158,12 @@ Other key bindings can be discovered by =counsel-descbinds= (bound to =C-h b=) o
   :CUSTOM_ID: implementation
   :END:
 
-I used to have a long description about all the packages this configuration sets up, but showing you the actual code is better. Each section starts with a description of what it does, followed by the code that implements it.
+The remainder of this document contains the code used to configure Emacs. I used to have a long description about all the packages this configuration sets up, but showing you the actual code is better. Each section starts with a description of what it does, followed by the code that implements it.
 
-** Version check and preparation
-   :PROPERTIES:
-   :CUSTOM_ID: version-check
-   :END:
+* Version check and preparation
+  :PROPERTIES:
+  :CUSTOM_ID: version-check
+  :END:
 It is difficult to support multiple versions of emacs, so we will pick an arbitrary cutoff and throw an error if the version of emacs is "too old".
 
 #+BEGIN_SRC emacs-lisp
@@ -196,10 +196,10 @@ It is difficult to support multiple versions of emacs, so we will pick an arbitr
   (setq save-abbrevs 'silently)
 #+END_SRC
 
-** Install useful packages
-   :PROPERTIES:
-   :CUSTOM_ID: install-useful-packages
-   :END:
+* Install useful packages
+  :PROPERTIES:
+  :CUSTOM_ID: install-useful-packages
+  :END:
 The main purpose of these emacs configuration files is to install and configure useful emacs packages. Here we carry out the installation.
 
 #+BEGIN_SRC emacs-lisp
@@ -275,10 +275,10 @@ The main purpose of these emacs configuration files is to install and configure 
   (package-initialize)
 #+END_SRC
 
-** Add custom lisp directory to load path
-   :PROPERTIES:
-   :CUSTOM_ID: add-custom-lisp-directory-to-load-path
-   :END:
+* Add custom lisp directory to load path
+  :PROPERTIES:
+  :CUSTOM_ID: add-custom-lisp-directory-to-load-path
+  :END:
 We try to install most things using the package manager, but a few things need to be included in a custom lisp directory. Add it to the path so we can load from it easily.
 #+BEGIN_SRC emacs-lisp
   ;; add custom lisp directory to path
@@ -298,10 +298,10 @@ We try to install most things using the package manager, but a few things need t
 
 #+RESULTS:
 
-** Tweak default Emacs settings
-   :PROPERTIES:
-   :CUSTOM_ID: miscellaneous
-   :END:
+* Tweak default Emacs settings
+  :PROPERTIES:
+  :CUSTOM_ID: miscellaneous
+  :END:
 
 This section sets up various utilities and conveniences. Many of these are low priority, so we set them first in order to allow any conflicting settings to be overridden later.
 
@@ -373,7 +373,7 @@ This section sets up various utilities and conveniences. Many of these are low p
 
 #+END_SRC
 
-** Make Emacs friendlier to newcomers
+* Make Emacs friendlier to newcomers
 Emacs will never to as simple as Notepad, but perhaps it can be made more consistent with the way most other programs behave.
 
 #+BEGIN_SRC emacs-lisp
@@ -427,10 +427,10 @@ Emacs will never to as simple as Notepad, but perhaps it can be made more consis
   (global-set-key (kbd "<C-next>") 'end-of-buffer)
 #+END_SRC
 
-** Window Management
-   :PROPERTIES:
-   :CUSTOM_ID: window-management
-   :END:
+* Window Management
+  :PROPERTIES:
+  :CUSTOM_ID: window-management
+  :END:
 
 =windmove= allows you to move point to adjacent windows; these functions are bound to =C-x S-<arrow>=. For example, to move to the window below, press "Control-x shift-down", and to move to the window to the right press "Control-x shift-right". Finally, you can use =C-x O= to quickly navigate to an window arbitrary window (e.g., diagonal from the current window).
 
@@ -458,10 +458,10 @@ Emacs has [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Configurat
     (set-face-attribute 'aw-leading-char-face nil :height 2.5))
 #+END_SRC
 
-** Spell checking and dictionaries
-   :PROPERTIES:
-   :CUSTOM_ID: spell-checking
-   :END:
+* Spell checking and dictionaries
+  :PROPERTIES:
+  :CUSTOM_ID: spell-checking
+  :END:
 
 Emacs comes with spell checking built-in, it just needs to be turned on. By default automatic spell checking is enabled in =text-mode= and =prog-mode= buffers. You can also spell-check on demand with =ispell-word=, bound to =M-$=. Finally, dictionaries look-up is available and bound to =C-c d=.
 
@@ -506,10 +506,10 @@ More information is available at https://www.gnu.org/software/emacs/manual/html_
                  (setq-local font-lock-string-face 'default))))
 #+END_SRC
 
-** Printing
-   :PROPERTIES:
-   :CUSTOM_ID: printing
-   :END:
+* Printing
+  :PROPERTIES:
+  :CUSTOM_ID: printing
+  :END:
 If you're using [[http://vgoulet.act.ulaval.ca/en/emacs/windows/][Vincent Goulet's emacs]] on Windows printing should work out of the box. If you're on Linux or Mac the experience of printing from emacs may leave something to be desired. Here we try to make it work a little better by making it easier to preview buffers in a web browser (you can print from there as usual) and by using [[http://sourceforge.net/projects/gtklp/][gtklp]] on Linux if it is available.
 
 #+BEGIN_SRC emacs-lisp
@@ -526,11 +526,10 @@ If you're using [[http://vgoulet.act.ulaval.ca/en/emacs/windows/][Vincent Goulet
     (setq hfyview-quick-print-in-files-menu t)
     (require 'hfyview))
 #+END_SRC
-
-** Minibuffer hints and completion
-   :PROPERTIES:
-   :CUSTOM_ID: minibuffer-hints-and-completion
-   :END:
+* Minibuffer hints and completion
+  :PROPERTIES:
+  :CUSTOM_ID: minibuffer-hints-and-completion
+  :END:
 There are several different systems for providing completion hints in emacs. The default pcomplete system shows completions on demand (usually bound to tab key) in an emacs buffer. Here we set up ivy, which instead shows these completions on-the-fly in the minibuffer. These completions are primarily used to show available files (e.g., with ~find-file~) and emacs functions (e.g., with ~execute-extended-command~). More information is available at http://oremacs.com/swiper/.
 
 Note that completion for in-buffer text (e.g., methods in python-mode, or arguments in R-mode) are handled separately by [[#auto-complete-configuration][company-mode]].
@@ -597,10 +596,10 @@ Note that completion for in-buffer text (e.g., methods in python-mode, or argume
 
 #+END_SRC
 
-** Auto-complete configuration
-   :PROPERTIES:
-   :CUSTOM_ID: auto-complete-configuration
-   :END:
+* Auto-complete configuration
+  :PROPERTIES:
+  :CUSTOM_ID: auto-complete-configuration
+  :END:
 Here we configure in-buffer text completion using the company-mode package. These completions are available on-demand using =tab= for in-buffer popup or =C-tab= for search-able minibuffer list. More information is available at https://company-mode.github.io/.
 
 #+BEGIN_SRC emacs-lisp
@@ -657,10 +656,10 @@ Here we configure in-buffer text completion using the company-mode package. Thes
   (add-hook 'after-init-hook 'global-company-mode)
 #+END_SRC
 
-** Which-key
-   :PROPERTIES:
-   :CUSTOM_ID: which-key
-   :END:
+* Which-key
+  :PROPERTIES:
+  :CUSTOM_ID: which-key
+  :END:
 
 This mode shows a keymap when an incomplete command is entered. It is especially useful for families of commands with a prefix, e.g., =C-c C-o= for =outline-mode= commands, or =C-c C-v= for =org-babel= commands. Just start typing your command and pause if you want a hint.
 
@@ -669,7 +668,7 @@ This mode shows a keymap when an incomplete command is entered. It is especially
 (which-key-mode)
 #+END_SRC
 
-** Flycheck
+* Flycheck
 Provides on-the-fly syntax checking. Depends on external tools, e.g, [[https://cran.rstudio.com/web/packages/lintr/index.html][lintr]] for R code, [[https://flake8.readthedocs.io/en/latest/][flake8]] for python. See http://www.flycheck.org/en/latest/languages.html#flycheck-languages for supported languages and tools.
 
 Note that active on-the-fly syntax checking is _disabled_ by default since I find it too annoying. You can still use =flycheck= to check your syntax on demand using =flycheck-compile=, and you can enable on-the-fly checking with =M-x flycheck-mode=.
@@ -679,10 +678,10 @@ Note that active on-the-fly syntax checking is _disabled_ by default since I fin
   ;; (global-flycheck-mode)
 #+END_SRC
 
-** Outline-magic
-   :PROPERTIES:
-   :CUSTOM_ID: outline-magic
-   :END:
+* Outline-magic
+  :PROPERTIES:
+  :CUSTOM_ID: outline-magic
+  :END:
 I encourage you to use [[*Note taking and outlining (Org-mode)][org-mode]] for note taking and outlining, but it can be convenient to treat arbitrary buffers as outlines. The outline-magic mode can help with that.
 
 #+BEGIN_SRC emacs-lisp
@@ -696,16 +695,19 @@ I encourage you to use [[*Note taking and outlining (Org-mode)][org-mode]] for n
               (define-key outline-minor-mode-map "\C-c\C-o\t" 'outline-cycle)))
 #+END_SRC
 
-** Major modes configuration
-   :PROPERTIES:
-   :CUSTOM_ID: major-modes-configuration
-   :END:
+* Demonstration tools (command-log-mode)
 
+=command-log-mode= is useful for giving emacs demonstrations/tutorials. It shows the keys you've pressed and the commands they called. More information is available at https://github.com/lewang/command-log-mode.
 
-*** General REPL (comint) config
-    :PROPERTIES:
-    :CUSTOM_ID: general-repl-config
-    :END:
+#+BEGIN_SRC emacs-lisp
+  (setq command-log-mode-auto-show t)
+  (global-set-key (kbd "C-x cl") 'global-command-log-mode)
+#+END_SRC
+
+* General REPL (comint) config
+  :PROPERTIES:
+  :CUSTOM_ID: general-repl-config
+  :END:
 
 Many programs using REPLs are derived from =comint-mode=, so we can affect all of them by changing =comint-mode= settings. Here we disable line wrapping and ask programs to echo the input.
 
@@ -726,10 +728,10 @@ Load eval-in-repl for bash, elisp, and python interaction.
   (setq comint-move-point-for-output t)
 #+END_SRC
 
-*** Run R in emacs (ESS)
-    :PROPERTIES:
-    :CUSTOM_ID: run-r-in-emacs
-    :END:
+* Run R in emacs (ESS)
+  :PROPERTIES:
+  :CUSTOM_ID: run-r-in-emacs
+  :END:
 
 Support for R in Emacs is good, thanks to http://ess.r-project.org/. As with other programming languages this configuration enables completion via the =tab= key and code evaluation with =C-ret=. Many more features are provided by ESS, refer to http://ess.r-project.org/ for details.
 
@@ -785,10 +787,10 @@ Support for R in Emacs is good, thanks to http://ess.r-project.org/. As with oth
             (ess-R-fl-keyword:%op% . t)))))
 #+END_SRC
 
-*** Run python in emacs (python-mode)
-    :PROPERTIES:
-    :CUSTOM_ID: run-python-in-emacs
-    :END:
+* Run python in emacs (python-mode)
+  :PROPERTIES:
+  :CUSTOM_ID: run-python-in-emacs
+  :END:
 
 Emacs has decent python support out of the box. As with other programming languages you can get completion suggestions with the =tab= key, and evaluate code with =C-ret=. Many more features are provided and are accessible via the menu.
 
@@ -807,10 +809,10 @@ Emacs has decent python support out of the box. As with other programming langua
     (define-key python-mode-map (kbd "<C-S-return>") 'python-shell-send-buffer))
 #+END_SRC
 
-*** emacs lisp REPL (ielm)
-    :PROPERTIES:
-    :CUSTOM_ID: emacs-lisp-repl
-    :END:
+* emacs lisp REPL (ielm)
+  :PROPERTIES:
+  :CUSTOM_ID: emacs-lisp-repl
+  :END:
 
 If you want to get the most out of Emacs, you'll eventually need to learn a little Emacs-lisp. This configuration helps by providing a standard =C-ret= evaluation key binding, and by providing completion with the =tab= key.
 
@@ -840,10 +842,10 @@ If you want to get the most out of Emacs, you'll eventually need to learn a litt
                             (delete-dups (cons 'company-elisp (cons 'company-files company-backends)))))))
 #+END_SRC
 
-*** Haskell mode
-    :PROPERTIES:
-    :CUSTOM_ID: light-weight-markup-language
-    :END:
+* Haskell mode
+  :PROPERTIES:
+  :CUSTOM_ID: light-weight-markup-language
+  :END:
 I just recently started learning Haskell. There's not much to the configuration at this point, but you should get completion with =tab=.
 
 #+BEGIN_SRC emacs-lisp
@@ -855,10 +857,10 @@ I just recently started learning Haskell. There's not much to the configuration 
   (add-hook 'haskell-interactive-mode-hook 'company-mode)
 #+END_SRC
 
-*** Light-weight markup language (Markdown mode)
-    :PROPERTIES:
-    :CUSTOM_ID: light-weight-markup-language
-    :END:
+* Light-weight markup language (Markdown mode)
+  :PROPERTIES:
+  :CUSTOM_ID: light-weight-markup-language
+  :END:
 
 Markdown is a light-weight markup language that makes easy things easy and stays out of your way. You can export Markdown documents to a wide range of formats including .pdf (via latex), .html, .doc, and more using =pandoc=. For more information about authoring markdown in Emacs refer to http://jblevins.org/projects/markdown-mode/. For information about Markdown syntax or exporting to other formats refer to http://pandoc.org.
 
@@ -868,10 +870,10 @@ Markdown is a light-weight markup language that makes easy things easy and stays
   (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 #+END_SRC
 
-*** Typesetting markup (AucTeX)
-    :PROPERTIES:
-    :CUSTOM_ID: typesetting-markup
-    :END:
+* Typesetting markup (AucTeX)
+  :PROPERTIES:
+  :CUSTOM_ID: typesetting-markup
+  :END:
 I don't write nearly as much in LaTeX as I used to, as Markdown and/or Org mode are simpler and good enough for my needs. But LaTeX is still the tool of choice for much academic writing, so we use AUCTEX and turn on lots of features. Completion of math and latex commands is available with =tab=, and auto-compile is available with =C-ret=.
 
   See https://www.gnu.org/software/auctex/ for more details about AUCTEX. 
@@ -922,7 +924,7 @@ I don't write nearly as much in LaTeX as I used to, as Markdown and/or Org mode 
 #+END_SRC
 
 
-*** Citations (ivy-bibtex)
+** Citations (ivy-bibtex)
 This allows you to search your BibTeX files for references to insert into the current document. For it to work you will need to set `bibtex-completion-bibliography` to the location of your BibTeX files.
 
 Initiate a citation search with =ivy-bibtex=, bound to =C-c r=.
@@ -933,10 +935,10 @@ See https://github.com/tmalsburg/helm-bibtex for information about reading attac
   (setq ivy-bibtex-default-action 'ivy-bibtex-insert-citation)
   (global-set-key (kbd "C-c r") 'ivy-bibtex)
 #+END_SRC
-*** Note taking and outlining (Org-mode)
-    :PROPERTIES:
-    :CUSTOM_ID: note-taking-and-outlining
-    :END:
+* Note taking and outlining (Org-mode)
+  :PROPERTIES:
+  :CUSTOM_ID: note-taking-and-outlining
+  :END:
 
 Org mode is a powerful markup-language native to Emacs. It can be compared to markdown, but it has many more features. I use it for note taking a preparing lecture materials, but people use it for all kinds of things, from TODO lists to project planning to authoring academic papers. The settings below try to make Org mode play nicely with other packages, and enable many of the literate programming features. More information about Org mode can be found at [[http://orgmode.org]]. 
 
@@ -986,10 +988,10 @@ Org mode is a powerful markup-language native to Emacs. It can be compared to ma
 
 #+END_SRC
 
-*** Multiple modes in one "buffer" (polymode)
-    :PROPERTIES:
-    :CUSTOM_ID: multiple-modes-in-one-buffer
-    :END:
+* Multiple modes in one "buffer" (polymode)
+  :PROPERTIES:
+  :CUSTOM_ID: multiple-modes-in-one-buffer
+  :END:
 
 Emacs uses different /modes/ for different kinds of files and buffers. This is what makes is possible to have one set of behaviors when editing LaTeX, and a different set of behaviors when writing R code. But what if we want to do both, in the same file? Then we need to have multiple modes, in the same buffer, and we can thanks to [[https://github.com/vspinu/polymode][polymode]]. 
 
@@ -1022,7 +1024,7 @@ Emacs uses different /modes/ for different kinds of files and buffers. This is w
                    (require 'ess-site)))))
 #+END_SRC
 
-*** Email (mu4e)
+* Email (mu4e)
 Not everyone wants to read email in Emacs, but you can if you want. The settings below configure some basic things, but you will need additional configuration to set up your email accounts. See the [[http://www.djcbsoftware.nl/code/mu/mu4e/index.html#Top][mue4 manual]] and [[http://www.djcbsoftware.nl/code/mu/mu4e/Example-configurations.html#Example-configurations][example configurations]] for details.
 
 #+BEGIN_SRC emacs-lisp
@@ -1055,10 +1057,10 @@ Not everyone wants to read email in Emacs, but you can if you want. The settings
       (add-hook 'mu4e-view-mode-hook 'visual-line-mode)))
 #+END_SRC
 
-*** File browsing (Dired+)
-    :PROPERTIES:
-    :CUSTOM_ID: file-browsing
-    :END:
+* File browsing (Dired+)
+  :PROPERTIES:
+  :CUSTOM_ID: file-browsing
+  :END:
 Emacs makes a decent file browser, we just need to tweak a few things to make it nicer. In particular you can open files in an external program using the =E= key.
 
 #+BEGIN_SRC emacs-lisp
@@ -1129,10 +1131,10 @@ Emacs makes a decent file browser, we just need to tweak a few things to make it
     (define-key dired-mode-map (kbd "E") 'xah-open-in-external-app))
 #+END_SRC
 
-*** Shell modes (term, shell and eshell)
-    :PROPERTIES:
-    :CUSTOM_ID: shell-modes
-    :END:
+* Shell modes (term, shell and eshell)
+  :PROPERTIES:
+  :CUSTOM_ID: shell-modes
+  :END:
 There are several different shells available in Emacs by default. In addition =multi-term= is available to give you a nicer way of running your default shell in Emacs. Convenience functions are enabled to set your EDITOR variable so that Emacs will be used as your editor when running shell commands inside Emacs. 
 
 #+BEGIN_SRC emacs-lisp
@@ -1209,16 +1211,7 @@ There are several different shells available in Emacs by default. In addition =m
   (require 'git-commit)
 #+END_SRC
 
-** Demonstration tools (command-log-mode)
-
-=command-log-mode= is useful for giving emacs demonstrations/tutorials. It shows the keys you've pressed and the commands they called. More information is available at https://github.com/lewang/command-log-mode.
-
-#+BEGIN_SRC emacs-lisp
-  (setq command-log-mode-auto-show t)
-  (global-set-key (kbd "C-x cl") 'global-command-log-mode)
-#+END_SRC
-
-** Final touches
+* Final touches
 This Emacs configuration sets up lots of packages and configures a number of keybindings. To add our own customizations, place them in =~/.emacs.d/custom.el=. This file will be sourced last, so you always have the ability to override any settings provided here.
 
 #+BEGIN_SRC emacs-lisp

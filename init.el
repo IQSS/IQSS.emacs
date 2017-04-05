@@ -418,6 +418,9 @@
             (require 'outline-magic)
             (define-key outline-minor-mode-map "\C-c\C-o\t" 'outline-cycle)))
 
+(setq command-log-mode-auto-show t)
+(global-set-key (kbd "C-x cl") 'global-command-log-mode)
+
 ;; require the main file containing common functions
 (require 'eval-in-repl)
 (setq comint-process-echoes t)
@@ -811,9 +814,6 @@ The app is chosen from your OS's preference."
 
 (shell-command-with-editor-mode t)
 (require 'git-commit)
-
-(setq command-log-mode-auto-show t)
-(global-set-key (kbd "C-x cl") 'global-command-log-mode)
 
 ;; save settings made using the customize interface to a sparate file
 (setq custom-file (concat user-emacs-directory "custom.el"))

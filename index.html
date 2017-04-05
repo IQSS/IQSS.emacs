@@ -303,62 +303,62 @@ div.tocify {
 </thead>
 <tbody>
 <tr class="odd">
-<td>C-o</td>
+<td><code>C-o</code></td>
 <td>Open file</td>
 <td></td>
 </tr>
 <tr class="even">
-<td>C-w</td>
+<td><code>C-w</code></td>
 <td>Close window</td>
 <td></td>
 </tr>
 <tr class="odd">
-<td>C-q</td>
+<td><code>C-q</code></td>
 <td>Quit</td>
 <td></td>
 </tr>
 <tr class="even">
-<td>S-arrow</td>
+<td><code>S-arrow</code></td>
 <td>Select a region</td>
 <td><code>C-SPC arrow</code> does the same thing. <code>C-S-SPC</code> selects rectangular region</td>
 </tr>
 <tr class="odd">
-<td>C-c</td>
+<td><code>C-c</code></td>
 <td>Copy selection</td>
 <td></td>
 </tr>
 <tr class="even">
-<td>C-v</td>
+<td><code>C-v</code></td>
 <td>Paste</td>
 <td></td>
 </tr>
 <tr class="odd">
-<td>C-z</td>
+<td><code>C-z</code></td>
 <td>Undo</td>
 <td>use <code>C-x U</code> or <code>M-z</code> to visualize your undo/redo history</td>
 </tr>
 <tr class="even">
-<td>S-C-z</td>
+<td><code>S-C-z</code></td>
 <td>Redo</td>
 <td></td>
 </tr>
 <tr class="odd">
-<td>C–</td>
+<td><code>C--</code></td>
 <td>Zoom out</td>
 <td></td>
 </tr>
 <tr class="even">
-<td>C-+</td>
+<td><code>C-+</code></td>
 <td>Zoom in</td>
 <td></td>
 </tr>
 <tr class="odd">
-<td>C-PgUp</td>
+<td><code>C-PgUp</code></td>
 <td>Beginning of buffer</td>
 <td></td>
 </tr>
 <tr class="even">
-<td>C-PgDn</td>
+<td><code>C-PgDn</code></td>
 <td>End of buffer</td>
 <td></td>
 </tr>
@@ -391,27 +391,27 @@ div.tocify {
 </thead>
 <tbody>
 <tr class="odd">
-<td>C-x S-&lt;arrow&gt;</td>
+<td><code>C-x S-&lt;arrow&gt;</code></td>
 <td>Move to other window</td>
 <td></td>
 </tr>
 <tr class="even">
-<td>C-x S-0</td>
+<td><code>C-x S-0</code></td>
 <td>Move to a window by number</td>
 <td></td>
 </tr>
 <tr class="odd">
-<td>C-c left</td>
+<td><code>C-c left</code></td>
 <td>Undo a window layout change</td>
 <td></td>
 </tr>
 <tr class="even">
-<td>C-c right</td>
+<td><code>C-c right</code></td>
 <td>Redo a window layout change</td>
 <td></td>
 </tr>
 <tr class="odd">
-<td>C-c C-l &lt;number&gt;</td>
+<td><code>C-c C-l &lt;number&gt;</code></td>
 <td>Save/restore window layouts</td>
 <td>This a somewhat advanced feature that lets you save and restore window layouts</td>
 </tr>
@@ -431,18 +431,18 @@ div.tocify {
 </thead>
 <tbody>
 <tr class="odd">
-<td>C-s</td>
+<td><code>C-s</code></td>
 <td>Searches the current buffer using <code>swiper</code></td>
 <td></td>
 </tr>
 <tr class="even">
-<td>C-S-s</td>
+<td><code>C-S-s</code></td>
 <td>Searches files in the current directory</td>
 <td></td>
 </tr>
 <tr class="odd">
-<td>C-x S-f</td>
-<td>(or <strong>C-x O</strong>) Searches by file name</td>
+<td><code>C-x S-f</code></td>
+<td>(or <code>C-x O</code>) Searches by file name</td>
 <td>requires <code>mlocate</code> on linux, <code>everything</code> (<a href="http://www.voidtools.com/" class="uri">http://www.voidtools.com/</a>) on windows</td>
 </tr>
 </tbody>
@@ -458,17 +458,17 @@ div.tocify {
 </thead>
 <tbody>
 <tr class="odd">
-<td>tab</td>
+<td><code>TAB</code></td>
 <td>Indent or complete</td>
 <td></td>
 </tr>
 <tr class="even">
-<td>S-C-v</td>
+<td><code>S-C-v</code></td>
 <td>Paste from the clipboard history</td>
-<td>M - S - y = also works for this</td>
+<td><code>M-S-y</code> also works for this</td>
 </tr>
 <tr class="odd">
-<td>C-c r</td>
+<td><code>C-c r</code></td>
 <td>Search for a reference to insert</td>
 <td>You must set <code>bibtex-completion-bibliography</code> to your BibTeX files for this to work</td>
 </tr>
@@ -490,12 +490,12 @@ div.tocify {
 </thead>
 <tbody>
 <tr class="odd">
-<td>C-RET</td>
+<td><code>C-RET</code></td>
 <td>Line/selection/expression evaluation</td>
 <td>Works for R, python, shell, and others</td>
 </tr>
 <tr class="even">
-<td>S-C-RET</td>
+<td><code>S-C-RET</code></td>
 <td>Buffer evaluation</td>
 <td>Evaluate the whole script</td>
 </tr>
@@ -538,9 +538,10 @@ div.tocify {
 </div>
 <div id="implementation" class="section level1">
 <h1>Implementation</h1>
-<p>I used to have a long description about all the packages this configuration sets up, but showing you the actual code is better. Each section starts with a description of what it does, followed by the code that implements it.</p>
-<div id="version-check" class="section level2">
-<h2>Version check and preparation</h2>
+<p>The remainder of this document contains the code used to configure Emacs. I used to have a long description about all the packages this configuration sets up, but showing you the actual code is better. Each section starts with a description of what it does, followed by the code that implements it.</p>
+</div>
+<div id="version-check" class="section level1">
+<h1>Version check and preparation</h1>
 <p>It is difficult to support multiple versions of emacs, so we will pick an arbitrary cutoff and throw an error if the version of emacs is “too old”.</p>
 <div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">(<span class="kw">when</span> (<span class="op">&lt;</span> (string-to-number 
            (concat 
@@ -570,8 +571,8 @@ div.tocify {
                                     outline-mode-prefix-map)))
 (<span class="kw">setq</span> save-abbrevs 'silently)</code></pre></div>
 </div>
-<div id="install-useful-packages" class="section level2">
-<h2>Install useful packages</h2>
+<div id="install-useful-packages" class="section level1">
+<h1>Install useful packages</h1>
 <p>The main purpose of these emacs configuration files is to install and configure useful emacs packages. Here we carry out the installation.</p>
 <div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;; load the package manager</span>
 (<span class="kw">require</span> 'package)
@@ -644,8 +645,8 @@ div.tocify {
   (package-install-selected-packages))
 (package-initialize)</code></pre></div>
 </div>
-<div id="add-custom-lisp-directory-to-load-path" class="section level2">
-<h2>Add custom lisp directory to load path</h2>
+<div id="add-custom-lisp-directory-to-load-path" class="section level1">
+<h1>Add custom lisp directory to load path</h1>
 <p>We try to install most things using the package manager, but a few things need to be included in a custom lisp directory. Add it to the path so we can load from it easily.</p>
 <div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;; add custom lisp directory to path</span>
 (<span class="kw">let</span> ((default-directory (concat user-emacs-directory <span class="st">&quot;lisp/&quot;</span>)))
@@ -661,8 +662,8 @@ div.tocify {
 (<span class="kw">when</span> (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))</code></pre></div>
 </div>
-<div id="miscellaneous" class="section level2">
-<h2>Tweak default Emacs settings</h2>
+<div id="miscellaneous" class="section level1">
+<h1>Tweak default Emacs settings</h1>
 <p>This section sets up various utilities and conveniences. Many of these are low priority, so we set them first in order to allow any conflicting settings to be overridden later.</p>
 <div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;; better defaults are well, better... but we don't always agree</span>
 (menu-bar-mode <span class="dv">1</span>)
@@ -730,8 +731,8 @@ div.tocify {
   (define-key view-mode-map (kbd <span class="st">&quot;s&quot;</span>) 'swiper))
 </code></pre></div>
 </div>
-<div id="make-emacs-friendlier-to-newcomers" class="section level2">
-<h2>Make Emacs friendlier to newcomers</h2>
+<div id="make-emacs-friendlier-to-newcomers" class="section level1">
+<h1>Make Emacs friendlier to newcomers</h1>
 <p>Emacs will never to as simple as Notepad, but perhaps it can be made more consistent with the way most other programs behave.</p>
 <div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;; Use CUA mode to make life easier. We _do_ use standard copy/paste etc. </span>
 (cua-mode <span class="kw">t</span>)
@@ -782,8 +783,8 @@ div.tocify {
 (global-set-key (kbd <span class="st">&quot;&lt;C-prior&gt;&quot;</span>) 'beginning-of-buffer)
 (global-set-key (kbd <span class="st">&quot;&lt;C-next&gt;&quot;</span>) 'end-of-buffer)</code></pre></div>
 </div>
-<div id="window-management" class="section level2">
-<h2>Window Management</h2>
+<div id="window-management" class="section level1">
+<h1>Window Management</h1>
 <p><code>windmove</code> allows you to move point to adjacent windows; these functions are bound to <code>C-x S-&lt;arrow&gt;</code>. For example, to move to the window below, press “Control-x shift-down”, and to move to the window to the right press “Control-x shift-right”. Finally, you can use <code>C-x O</code> to quickly navigate to an window arbitrary window (e.g., diagonal from the current window).</p>
 <p><code>winner-mode</code> allows you to undo/redo window configuration changes. Use <code>C-c &lt;left&gt;</code> to undo and <code>C-c &lt;right&gt;</code> to redo.</p>
 <p>Emacs has <a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Configuration-Registers.html#Configuration-Registers">window layout management</a>, built-in but it’s not convenient to use. <a href="https://github.com/wasamasa/eyebrowse">Eyebrowse</a> makes it easier, so we use that. Create a new layout with <code>C-c C-l C-n</code>, switch with <code>C-c C-l #</code> .</p>
@@ -805,8 +806,8 @@ div.tocify {
 (with-eval-after-load <span class="st">&quot;ace-window&quot;</span>
   (set-face-attribute 'aw-leading-char-face <span class="kw">nil</span> :height <span class="fl">2.5</span>))</code></pre></div>
 </div>
-<div id="spell-checking" class="section level2">
-<h2>Spell checking and dictionaries</h2>
+<div id="spell-checking" class="section level1">
+<h1>Spell checking and dictionaries</h1>
 <p>Emacs comes with spell checking built-in, it just needs to be turned on. By default automatic spell checking is enabled in <code>text-mode</code> and <code>prog-mode</code> buffers. You can also spell-check on demand with <code>ispell-word</code>, bound to <code>M-$</code>. Finally, dictionaries look-up is available and bound to <code>C-c d</code>.</p>
 <p>More information is available at <a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Spelling.html" class="uri">https://www.gnu.org/software/emacs/manual/html_node/emacs/Spelling.html</a> and <a href="https://github.com/abo-abo/define-word" class="uri">https://github.com/abo-abo/define-word</a>.</p>
 <div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;; enable on-the-fly spell checking</span>
@@ -846,8 +847,8 @@ div.tocify {
             '(<span class="kw">lambda</span>()
                (setq-local font-lock-string-face 'default))))</code></pre></div>
 </div>
-<div id="printing" class="section level2">
-<h2>Printing</h2>
+<div id="printing" class="section level1">
+<h1>Printing</h1>
 <p>If you’re using <a href="http://vgoulet.act.ulaval.ca/en/emacs/windows/">Vincent Goulet’s emacs</a> on Windows printing should work out of the box. If you’re on Linux or Mac the experience of printing from emacs may leave something to be desired. Here we try to make it work a little better by making it easier to preview buffers in a web browser (you can print from there as usual) and by using <a href="http://sourceforge.net/projects/gtklp/">gtklp</a> on Linux if it is available.</p>
 <div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">
 (<span class="kw">when</span> (<span class="kw">eq</span> system-type 'gnu/linux)
@@ -862,8 +863,8 @@ div.tocify {
   (<span class="kw">setq</span> hfyview-quick-print-in-files-menu <span class="kw">t</span>)
   (<span class="kw">require</span> 'hfyview))</code></pre></div>
 </div>
-<div id="minibuffer-hints-and-completion" class="section level2">
-<h2>Minibuffer hints and completion</h2>
+<div id="minibuffer-hints-and-completion" class="section level1">
+<h1>Minibuffer hints and completion</h1>
 <p>There are several different systems for providing completion hints in emacs. The default pcomplete system shows completions on demand (usually bound to tab key) in an emacs buffer. Here we set up ivy, which instead shows these completions on-the-fly in the minibuffer. These completions are primarily used to show available files (e.g., with <code>find-file</code>) and emacs functions (e.g., with <code>execute-extended-command</code>). More information is available at <a href="http://oremacs.com/swiper/" class="uri">http://oremacs.com/swiper/</a>.</p>
 <p>Note that completion for in-buffer text (e.g., methods in python-mode, or arguments in R-mode) are handled separately by <a href="#auto-complete-configuration">company-mode</a>.</p>
 <div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">(ivy-mode <span class="dv">1</span>)
@@ -926,8 +927,8 @@ div.tocify {
 (recentf-mode <span class="dv">1</span>)
 </code></pre></div>
 </div>
-<div id="auto-complete-configuration" class="section level2">
-<h2>Auto-complete configuration</h2>
+<div id="auto-complete-configuration" class="section level1">
+<h1>Auto-complete configuration</h1>
 <p>Here we configure in-buffer text completion using the company-mode package. These completions are available on-demand using <code>tab</code> for in-buffer popup or <code>C-tab</code> for search-able minibuffer list. More information is available at <a href="https://company-mode.github.io/" class="uri">https://company-mode.github.io/</a>.</p>
 <div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">(<span class="kw">require</span> 'company)
 <span class="co">;; cancel if input doesn't match, be patient, and don't complete automatically.</span>
@@ -981,21 +982,21 @@ div.tocify {
 <span class="co">;; not sure why this should be set in a hook, but that is how the manual says to do it.</span>
 (add-hook 'after-init-hook 'global-company-mode)</code></pre></div>
 </div>
-<div id="which-key" class="section level2">
-<h2>Which-key</h2>
+<div id="which-key" class="section level1">
+<h1>Which-key</h1>
 <p>This mode shows a keymap when an incomplete command is entered. It is especially useful for families of commands with a prefix, e.g., <code>C-c C-o</code> for <code>outline-mode</code> commands, or <code>C-c C-v</code> for <code>org-babel</code> commands. Just start typing your command and pause if you want a hint.</p>
 <div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;; (require 'which-key)</span>
 (which-key-mode)</code></pre></div>
 </div>
-<div id="flycheck" class="section level2">
-<h2>Flycheck</h2>
+<div id="flycheck" class="section level1">
+<h1>Flycheck</h1>
 <p>Provides on-the-fly syntax checking. Depends on external tools, e.g, <a href="https://cran.rstudio.com/web/packages/lintr/index.html">lintr</a> for R code, <a href="https://flake8.readthedocs.io/en/latest/">flake8</a> for python. See <a href="http://www.flycheck.org/en/latest/languages.html#flycheck-languages" class="uri">http://www.flycheck.org/en/latest/languages.html#flycheck-languages</a> for supported languages and tools.</p>
 <p>Note that active on-the-fly syntax checking is <strong>disabled</strong> by default since I find it too annoying. You can still use <code>flycheck</code> to check your syntax on demand using <code>flycheck-compile</code>, and you can enable on-the-fly checking with <code>M-x flycheck-mode</code>.</p>
 <div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">(<span class="kw">require</span> 'flycheck)
 <span class="co">;; (global-flycheck-mode)</span></code></pre></div>
 </div>
-<div id="outline-magic" class="section level2">
-<h2>Outline-magic</h2>
+<div id="outline-magic" class="section level1">
+<h1>Outline-magic</h1>
 <p>I encourage you to use <em>org-mode</em> for note taking and outlining, but it can be convenient to treat arbitrary buffers as outlines. The outline-magic mode can help with that.</p>
 <div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;;; Configure outline minor modes</span>
 <span class="co">;; Less crazy key bindings for outline-minor-mode</span>
@@ -1006,10 +1007,14 @@ div.tocify {
             (<span class="kw">require</span> 'outline-magic)
             (define-key outline-minor-mode-map <span class="st">&quot;\C-c\C-o</span>\t<span class="st">&quot;</span> 'outline-cycle)))</code></pre></div>
 </div>
-<div id="major-modes-configuration" class="section level2">
-<h2>Major modes configuration</h2>
-<div id="general-repl-config" class="section level3">
-<h3>General REPL (comint) config</h3>
+<div id="demonstration-tools-command-log-mode" class="section level1">
+<h1>Demonstration tools (command-log-mode)</h1>
+<p><code>command-log-mode</code> is useful for giving emacs demonstrations/tutorials. It shows the keys you’ve pressed and the commands they called. More information is available at <a href="https://github.com/lewang/command-log-mode" class="uri">https://github.com/lewang/command-log-mode</a>.</p>
+<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">(<span class="kw">setq</span> command-log-mode-auto-show <span class="kw">t</span>)
+(global-set-key (kbd <span class="st">&quot;C-x cl&quot;</span>) 'global-command-log-mode)</code></pre></div>
+</div>
+<div id="general-repl-config" class="section level1">
+<h1>General REPL (comint) config</h1>
 <p>Many programs using REPLs are derived from <code>comint-mode</code>, so we can affect all of them by changing <code>comint-mode</code> settings. Here we disable line wrapping and ask programs to echo the input.</p>
 <p>Load eval-in-repl for bash, elisp, and python interaction.</p>
 <div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;; require the main file containing common functions</span>
@@ -1026,8 +1031,8 @@ div.tocify {
 (<span class="kw">setq</span> comint-scroll-to-bottom-on-output <span class="kw">t</span>)
 (<span class="kw">setq</span> comint-move-point-for-output <span class="kw">t</span>)</code></pre></div>
 </div>
-<div id="run-r-in-emacs" class="section level3">
-<h3>Run R in emacs (ESS)</h3>
+<div id="run-r-in-emacs" class="section level1">
+<h1>Run R in emacs (ESS)</h1>
 <p>Support for R in Emacs is good, thanks to <a href="http://ess.r-project.org/" class="uri">http://ess.r-project.org/</a>. As with other programming languages this configuration enables completion via the <code>tab</code> key and code evaluation with <code>C-ret</code>. Many more features are provided by ESS, refer to <a href="http://ess.r-project.org/" class="uri">http://ess.r-project.org/</a> for details.</p>
 <div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;;;  ESS (Emacs Speaks Statistics)</span>
 
@@ -1079,8 +1084,8 @@ div.tocify {
           (ess-R-fl-keyword:F&amp;T)
           (ess-R-fl-keyword:%op% . <span class="kw">t</span>)))))</code></pre></div>
 </div>
-<div id="run-python-in-emacs" class="section level3">
-<h3>Run python in emacs (python-mode)</h3>
+<div id="run-python-in-emacs" class="section level1">
+<h1>Run python in emacs (python-mode)</h1>
 <p>Emacs has decent python support out of the box. As with other programming languages you can get completion suggestions with the <code>tab</code> key, and evaluate code with <code>C-ret</code>. Many more features are provided and are accessible via the menu.</p>
 <div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">(defalias 'python 'run-python)
 (with-eval-after-load <span class="st">&quot;python&quot;</span>
@@ -1095,8 +1100,8 @@ div.tocify {
   (define-key python-mode-map (kbd <span class="st">&quot;C-c C-b&quot;</span>) 'python-shell-send-buffer)
   (define-key python-mode-map (kbd <span class="st">&quot;&lt;C-S-return&gt;&quot;</span>) 'python-shell-send-buffer))</code></pre></div>
 </div>
-<div id="emacs-lisp-repl" class="section level3">
-<h3>emacs lisp REPL (ielm)</h3>
+<div id="emacs-lisp-repl" class="section level1">
+<h1>emacs lisp REPL (ielm)</h1>
 <p>If you want to get the most out of Emacs, you’ll eventually need to learn a little Emacs-lisp. This configuration helps by providing a standard <code>C-ret</code> evaluation key binding, and by providing completion with the <code>tab</code> key.</p>
 <div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">(with-eval-after-load <span class="st">&quot;elisp-mode&quot;</span>
   (<span class="kw">require</span> 'company-elisp)
@@ -1122,8 +1127,8 @@ div.tocify {
               (setq-local company-backends
                           (delete-dups (<span class="kw">cons</span> 'company-elisp (<span class="kw">cons</span> 'company-files company-backends)))))))</code></pre></div>
 </div>
-<div id="light-weight-markup-language" class="section level3">
-<h3>Haskell mode</h3>
+<div id="light-weight-markup-language" class="section level1">
+<h1>Haskell mode</h1>
 <p>I just recently started learning Haskell. There’s not much to the configuration at this point, but you should get completion with <code>tab</code>.</p>
 <div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">(defalias 'haskell 'haskel-interactive-bring)
 (<span class="kw">require</span> 'company-ghci)
@@ -1132,15 +1137,15 @@ div.tocify {
                                            (delete-dups (<span class="kw">cons</span> 'company-ghci (<span class="kw">cons</span> 'company-files company-backends))))))
 (add-hook 'haskell-interactive-mode-hook 'company-mode)</code></pre></div>
 </div>
-<div id="light-weight-markup-language" class="section level3">
-<h3>Light-weight markup language (Markdown mode)</h3>
+<div id="light-weight-markup-language" class="section level1">
+<h1>Light-weight markup language (Markdown mode)</h1>
 <p>Markdown is a light-weight markup language that makes easy things easy and stays out of your way. You can export Markdown documents to a wide range of formats including .pdf (via latex), .html, .doc, and more using <code>pandoc</code>. For more information about authoring markdown in Emacs refer to <a href="http://jblevins.org/projects/markdown-mode/" class="uri">http://jblevins.org/projects/markdown-mode/</a>. For information about Markdown syntax or exporting to other formats refer to <a href="http://pandoc.org" class="uri">http://pandoc.org</a>.</p>
 <div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;; Use markdown-mode for files with .markdown or .md extensions</span>
 (add-to-list 'auto-mode-alist '(<span class="st">&quot;</span>\\<span class="st">.markdown</span>\\<span class="st">'&quot;</span> . markdown-mode))
 (add-to-list 'auto-mode-alist '(<span class="st">&quot;</span>\\<span class="st">.md</span>\\<span class="st">'&quot;</span> . markdown-mode))</code></pre></div>
 </div>
-<div id="typesetting-markup" class="section level3">
-<h3>Typesetting markup (AucTeX)</h3>
+<div id="typesetting-markup" class="section level1">
+<h1>Typesetting markup (AucTeX)</h1>
 <p>I don’t write nearly as much in LaTeX as I used to, as Markdown and/or Org mode are simpler and good enough for my needs. But LaTeX is still the tool of choice for much academic writing, so we use AUCTEX and turn on lots of features. Completion of math and latex commands is available with <code>tab</code>, and auto-compile is available with <code>C-ret</code>.</p>
 <p>See <a href="https://www.gnu.org/software/auctex/" class="uri">https://www.gnu.org/software/auctex/</a> for more details about AUCTEX.</p>
 <div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;; AucTeX config</span>
@@ -1185,17 +1190,17 @@ div.tocify {
   (add-hook 'bibtex-mode-hook
             (<span class="kw">lambda</span> ()
               (define-key bibtex-mode-map <span class="st">&quot;\M-q&quot;</span> 'bibtex-fill-entry))))</code></pre></div>
-</div>
-<div id="citations-ivy-bibtex" class="section level3">
-<h3>Citations (ivy-bibtex)</h3>
+<div id="citations-ivy-bibtex" class="section level2">
+<h2>Citations (ivy-bibtex)</h2>
 <p>This allows you to search your BibTeX files for references to insert into the current document. For it to work you will need to set `bibtex-completion-bibliography` to the location of your BibTeX files.</p>
 <p>Initiate a citation search with <code>ivy-bibtex</code>, bound to <code>C-c r</code>.</p>
 <p>See <a href="https://github.com/tmalsburg/helm-bibtex" class="uri">https://github.com/tmalsburg/helm-bibtex</a> for information about reading attached .pdf files, searching online bibliography sources and more.</p>
 <div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">(<span class="kw">setq</span> ivy-bibtex-default-action 'ivy-bibtex-insert-citation)
 (global-set-key (kbd <span class="st">&quot;C-c r&quot;</span>) 'ivy-bibtex)</code></pre></div>
 </div>
-<div id="note-taking-and-outlining" class="section level3">
-<h3>Note taking and outlining (Org-mode)</h3>
+</div>
+<div id="note-taking-and-outlining" class="section level1">
+<h1>Note taking and outlining (Org-mode)</h1>
 <p>Org mode is a powerful markup-language native to Emacs. It can be compared to markdown, but it has many more features. I use it for note taking a preparing lecture materials, but people use it for all kinds of things, from TODO lists to project planning to authoring academic papers. The settings below try to make Org mode play nicely with other packages, and enable many of the literate programming features. More information about Org mode can be found at <a href="http://orgmode.org" class="uri">http://orgmode.org</a>.</p>
 <div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">(with-eval-after-load <span class="st">&quot;org&quot;</span>
   <span class="co">;; no compay mode in org buffers</span>
@@ -1241,8 +1246,8 @@ div.tocify {
   (<span class="kw">setq</span> org-confirm-babel-evaluate <span class="kw">nil</span>))
 </code></pre></div>
 </div>
-<div id="multiple-modes-in-one-buffer" class="section level3">
-<h3>Multiple modes in one “buffer” (polymode)</h3>
+<div id="multiple-modes-in-one-buffer" class="section level1">
+<h1>Multiple modes in one “buffer” (polymode)</h1>
 <p>Emacs uses different <em>modes</em> for different kinds of files and buffers. This is what makes is possible to have one set of behaviors when editing LaTeX, and a different set of behaviors when writing R code. But what if we want to do both, in the same file? Then we need to have multiple modes, in the same buffer, and we can thanks to <a href="https://github.com/vspinu/polymode">polymode</a>.</p>
 <div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;;; polymode</span>
 <span class="co">;; polymode requires emacs &gt;= 24.3, does not work on the RCE. </span>
@@ -1271,8 +1276,8 @@ div.tocify {
                (<span class="kw">unless</span> (featurep 'ess-site)
                  (<span class="kw">require</span> 'ess-site)))))</code></pre></div>
 </div>
-<div id="email-mu4e" class="section level3">
-<h3>Email (mu4e)</h3>
+<div id="email-mu4e" class="section level1">
+<h1>Email (mu4e)</h1>
 <p>Not everyone wants to read email in Emacs, but you can if you want. The settings below configure some basic things, but you will need additional configuration to set up your email accounts. See the <a href="http://www.djcbsoftware.nl/code/mu/mu4e/index.html#Top">mue4 manual</a> and <a href="http://www.djcbsoftware.nl/code/mu/mu4e/Example-configurations.html#Example-configurations">example configurations</a> for details.</p>
 <div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">(<span class="kw">when</span> (executable-find <span class="st">&quot;mu&quot;</span>)
   (autoload 'mu4e <span class="st">&quot;mu4e&quot;</span> <span class="st">&quot;Read your mail.&quot;</span> <span class="kw">t</span>)
@@ -1302,8 +1307,8 @@ div.tocify {
     (<span class="kw">setq</span> mu4e-html2text-command 'mu4e-shr2text)
     (add-hook 'mu4e-view-mode-hook 'visual-line-mode)))</code></pre></div>
 </div>
-<div id="file-browsing" class="section level3">
-<h3>File browsing (Dired+)</h3>
+<div id="file-browsing" class="section level1">
+<h1>File browsing (Dired+)</h1>
 <p>Emacs makes a decent file browser, we just need to tweak a few things to make it nicer. In particular you can open files in an external program using the <code>E</code> key.</p>
 <div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;;; Dired and Dired+ configuration</span>
 (add-hook 'dired-mode-hook 
@@ -1371,8 +1376,8 @@ div.tocify {
   <span class="co">;; open files from dired with &quot;E&quot;</span>
   (define-key dired-mode-map (kbd <span class="st">&quot;E&quot;</span>) 'xah-open-in-external-app))</code></pre></div>
 </div>
-<div id="shell-modes" class="section level3">
-<h3>Shell modes (term, shell and eshell)</h3>
+<div id="shell-modes" class="section level1">
+<h1>Shell modes (term, shell and eshell)</h1>
 <p>There are several different shells available in Emacs by default. In addition <code>multi-term</code> is available to give you a nicer way of running your default shell in Emacs. Convenience functions are enabled to set your EDITOR variable so that Emacs will be used as your editor when running shell commands inside Emacs.</p>
 <div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;; term</span>
 (with-eval-after-load <span class="st">&quot;term&quot;</span>
@@ -1446,15 +1451,8 @@ div.tocify {
 (shell-command-with-editor-mode <span class="kw">t</span>)
 (<span class="kw">require</span> 'git-commit)</code></pre></div>
 </div>
-</div>
-<div id="demonstration-tools-command-log-mode" class="section level2">
-<h2>Demonstration tools (command-log-mode)</h2>
-<p><code>command-log-mode</code> is useful for giving emacs demonstrations/tutorials. It shows the keys you’ve pressed and the commands they called. More information is available at <a href="https://github.com/lewang/command-log-mode" class="uri">https://github.com/lewang/command-log-mode</a>.</p>
-<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">(<span class="kw">setq</span> command-log-mode-auto-show <span class="kw">t</span>)
-(global-set-key (kbd <span class="st">&quot;C-x cl&quot;</span>) 'global-command-log-mode)</code></pre></div>
-</div>
-<div id="final-touches" class="section level2">
-<h2>Final touches</h2>
+<div id="final-touches" class="section level1">
+<h1>Final touches</h1>
 <p>This Emacs configuration sets up lots of packages and configures a number of keybindings. To add our own customizations, place them in <code>~/.emacs.d/custom.el</code>. This file will be sourced last, so you always have the ability to override any settings provided here.</p>
 <div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;; save settings made using the customize interface to a sparate file</span>
 (<span class="kw">setq</span> custom-file (concat user-emacs-directory <span class="st">&quot;custom.el&quot;</span>))
@@ -1484,7 +1482,6 @@ div.tocify {
 <span class="co">;; Change default buffer name.</span>
 (<span class="kw">setq</span> untitled-new-buffer-default-name <span class="st">&quot;Untitled&quot;</span>)
 </code></pre></div>
-</div>
 </div>
 <div id="concluding-remarks" class="section level1">
 <h1>Concluding remarks</h1>
