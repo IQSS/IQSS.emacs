@@ -1,27 +1,47 @@
 Emacs for the (social science) masses
 =====================================
 
-This is an [Emacs](https://www.gnu.org/software/emacs/) configuration. There are many like it, but this one is mine. If you like it, make it yours! It provides lots of functionality while keeping things light and fast.
+This is an [Emacs](https://www.gnu.org/software/emacs/) configuration.
+There are many like it, but this one is mine. If you like it, make it
+yours! It provides lots of functionality while keeping things light
+and fast.
 
 Project goals and philosophy
 ----------------------------
 
-The main goal of this project is to provide an Emacs configuration that works more or less they way you would expect an editor or IDE to work in the second decade of the twenty-first century, without losing the things that make Emacs special. This is challenging because basic Emacs commands often conflict with de facto standards. Each of these conflicts is a judgment call; hopefully a good balance has been reached. The overarching philosophy is pragmatism; we're trying to make Emacs as useful as possible.
+The main goal of this project is to provide an Emacs configuration
+that works more or less they way you would expect an editor or IDE to
+work in the second decade of the twenty-first century, without losing
+the things that make Emacs special. This is challenging because basic
+Emacs commands often conflict with de facto standards. Each of these
+conflicts is a judgment call; hopefully a good balance has been
+reached. The overarching philosophy is pragmatism; we're trying to
+make Emacs as useful as possible.
 
 Feature highlights
 ------------------
 
 Highlights of this Emacs configuration include:
-- More standard select/copy/paste keys and right-click behavior makes it more familiar to those new to Emacs.
-- Consistent and familiar indentation *and* code completion using the `tab` key.
+- More standard select/copy/paste keys and right-click behavior makes
+  it more familiar to those new to Emacs.
+- Consistent and familiar indentation *and* code completion using the
+  `tab` key.
 - Consistent and familiar code evaluation using `C-ret`.
-- Literate programming configuration for running R, python, or other programming languages inside markdown or org-mode files.
-- Powerful and simple search-based tools for finding commands, files and buffers, inserting citations etc.
+- Literate programming configuration for running R, python, or other
+  programming languages inside markdown or org-mode files.
+- Powerful and simple search-based tools for finding commands, files
+  and buffers, inserting citations etc.
 - Convenient window management
 
 A note for Mac users
 --------------------
-The keybindings configured here use Windows-style. I wish I could make life easy for you by providing Mac style keyboard shortcuts, but that is simply too much work to be feasible. Basically this mostly boils down to "use the control key instead of the command key". For example, use "Control-q" to quit instead of "Command-q" as you do with other applications running on OS X.
+
+The keybindings configured here use Windows-style. I wish I could make
+life easy for you by providing Mac style keyboard shortcuts, but that
+is simply too much work to be feasible. Basically this mostly boils
+down to "use the control key instead of the command key". For example,
+use "Control-q" to quit instead of "Command-q" as you do with other
+applications running on OS X.
 
 Quick start
 ===========
@@ -79,21 +99,21 @@ command you need.
 
 Other commonly used key bindings are listed in the table below.
 
-  Key       Description           Notes
-  --------- --------------------- -------------------------------------------------------------------------
-  C-o       Open file             
-  C-w       Close window          
-  C-q       Quit                  
-  S-arrow   Select a region       `C-SPC arrow` does the same thing. `C-S-SPC` selects rectangular region
-  C-c       Copy selection        
-  C-v       Paste                 
-  C-z       Undo                  use `C-x U` or `M-z` to visualize your undo/redo history
-  S-C-z     Redo                  
-  C--       Zoom out              
-  C-+       Zoom in               
-  C-PgUp    Beginning of buffer   
-  C-PgDn    End of buffer         
-
+  Key      |Description          |Notes
+  ---------|---------------------|-------------------------------------------------------------------------
+  C-o      |Open file            |
+  C-w      |Close window         |
+  C-q      |Quit                 |
+  S-arrow  |Select a region      |`C-SPC arrow` does the same thing. `C-S-SPC` selects rectangular region
+  C-c      |Copy selection       |
+  C-v      |Paste                |
+  C-z      |Undo                 |use `C-x U` or `M-z` to visualize your undo/redo history
+  S-C-z    |Redo                 |
+  C--      |Zoom out             |
+  C-+      |Zoom in              |
+  C-PgUp   |Beginning of buffer  |
+  C-PgDn   |End of buffer        |
+  ---------|---------------------|-------------------------------------------------------------------------
 Note that some things still work "the Emacs way". Notably:
 
 C-a
@@ -117,14 +137,15 @@ Emacs do what it wants and the revert the layout using `C-c left`.
 Some other convenient window management keys are provided, in addition
 to the standard Emacs `C-x o` binding to navigate to "other window".
 
-  Key                      Description                   Notes
-  ------------------------ ----------------------------- --------------------------------------------------------------------------------
-  C-x S-&lt;arrow&gt;      Move to other window          
-  C-x S-0                  Move to a window by number    
-  C-c left                 Undo a window layout change   
-  C-c right                Redo a window layout change   
-  C-c C-l &lt;number&gt;   Save/restore window layouts   This a somewhat advanced feature that lets you save and restore window layouts
-
+  Key                     |Description                  |Notes
+  ------------------------|-----------------------------|--------------------------------------------------------------------------------
+  C-x S-&lt;arrow&gt;     | Move to other window        | 
+  C-x S-0                 | Move to a window by number  | 
+  C-c left                | Undo a window layout change | 
+  C-c right               | Redo a window layout change | 
+  C-c C-l &lt;number&gt;  | Save/restore window layouts | This a somewhat advanced feature that lets you save and restore window layouts
+  --------- --------------|-----------------------------|--------------------------------------------------------------------------------
+  
 ### Searching and Completion
 
 Utilities have been configured to make it easy to search by file name as
@@ -133,22 +154,24 @@ works much better if certain system utilities are found. See [this list
 of useful programs](UsefulPrograms.html), especially *everything*
 (windows only) and *the silver searcher* or *ripgrep*.
 
-  Key       Description                                  Notes
-  --------- -------------------------------------------- ------------------------------------------------------------------------------------
-  C-s       Searches the current buffer using `swiper`   
-  C-S-s     Searches files in the current directory      
-  C-x S-f   (or **C-x O**) Searches by file name         requires `mlocate` on linux, `everything` (<http://www.voidtools.com/>) on windows
-
+  Key      |Description                                 |Notes
+  ---------|--------------------------------------------|------------------------------------------------------------------------------------
+  C-s      |Searches the current buffer using `swiper`  |
+  C-S-s    |Searches files in the current directory     |
+  C-x S-f  |(or **C-x O**) Searches by file name        |requires `mlocate` on linux, `everything` (<http://www.voidtools.com/>) on windows
+  ---------|--------------------------------------------|------------------------------------------------------------------------------------
+  
 Many standard Emacs keybindings have been replaced with versions that
 provide completion suggestions. In-buffer completion can be triggered
 with the `tab` key.
 
-  Key     Description                        Notes
-  ------- ---------------------------------- -------------------------------------------------------------------------------------
-  tab     Indent or complete                 
-  S-C-v   Paste from the clipboard history   M - S - y = also works for this
-  C-c r   Search for a reference to insert   You must set `bibtex-completion-bibliography` to your BibTeX files for this to work
-
+  Key    |Description                       |Notes
+  -------|----------------------------------|-------------------------------------------------------------------------------------
+  tab    |Indent or complete                |
+  S-C-v  |Paste from the clipboard history  |M - S - y = also works for this
+  C-c r  |Search for a reference to insert  |You must set `bibtex-completion-bibliography` to your BibTeX files for this to work
+  -------|----------------------------------|-------------------------------------------------------------------------------------
+  
 ### REPL interaction
 
 This should be easy, and hopefully it is!
@@ -159,11 +182,11 @@ terminals. For example, to start python just type `M-x python <ret>`.
 To execute a line, region, or buffer from a script (R, python, bash)
 etc.) use the keybindings below.
 
-  Key       Description                            Notes
-  --------- -------------------------------------- ----------------------------------------
-  C-RET     Line/selection/expression evaluation   Works for R, python, shell, and others
-  S-C-RET   Buffer evaluation                      Evaluate the whole script
-
+  Key      |Description                           |Notes
+  ---------|--------------------------------------|----------------------------------------
+  C-RET    |Line/selection/expression evaluation  |Works for R, python, shell, and others
+  S-C-RET  |Buffer evaluation                     |Evaluate the whole script
+  ---------|--------------------------------------|----------------------------------------
 ### Other key bindings
 
 There are a few more odds-and-ends you might find useful:
