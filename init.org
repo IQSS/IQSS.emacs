@@ -17,18 +17,11 @@ Note that this documentation mostly uses Emacs notation for keybindings, e.g., =
 
 Highlights of this Emacs configuration include:
 - More standard select/copy/paste keys and right-click behavior makes it more familiar to those new to Emacs.
-- Consistent use of the =shift= key to for related functionality. For example:
-  - =C-z= is undo, =C-Z= is redo
-  - =M-q= is hard warp, =M-Q= is unwrap
-  - =C-s= searches in current buffer, =C=S= searches all buffers in the directory
-  - =C-x f= (or =C-o=) opens files in the current directory, =C-x F= (or =C-O=) searches for files to open
 - Consistent and familiar code completion and indentation using the =tab= key.
 - Consistent and familiar code evaluation using =C-ret= and =C-S-ret=.
-- IDE-like configuration for R, Python, and LaTeX coding.
 - Literate programming configuration for running R, python, or other programming languages inside markdown or org-mode files.
 - Powerful and simple search-based tools for finding commands, files and buffers, inserting citations etc.
-- Convenient window management, including navigation with =C-x O=, and undo/redo with =C-c left= and =C-c right=.
-- Dictionary-lookup using =C-c d=.
+- Convenient window management, including navigation with =C-x S-<arrow>=, and undo/redo with =C-c left= and =C-c right=.
 
 The upshot is that if you have never used Emacs before many things will work as you expect; a few will not, in which case you will need to search the web or read the Emacs documentation to learn the Emacs way. You can launch a built-in tutorial by pressing =C-h t= (that's "Control+h, then t"), or read the getting started documentation at https://www.gnu.org/software/emacs/tour/. A cheat-sheet / survival guide is available at https://www.gnu.org/software/emacs/refcards/pdf/survival.pdf. 
 
@@ -66,69 +59,98 @@ Note that after installing this configuration emacs will be slow to start up the
 :END:
 This configuration loads a lot of useful emacs packages, many of which add key bindings. Documenting them all here would be too much (see the documentation for each package if you need the details), so this section describes only most important ones.
 
-*** Standard keyboard shortcuts
-- S-arrow :: Select a region, as in many other programs.
-- C-c :: Copy selection, as in most other programs. 
-- C-v :: Paste, as in most other programs. Select from the clipboard history with =S-C-v=.
-- C-z :: Undo, as in most other programs.
-- S-C-z :: Redo, as in most other programs. Use =C-x U=  or =M-z= to visualize your undo/redo history.
-- C-o :: Open file, as in most other programs.
-- C-- :: Zoom out, as in most other programs.
-- C-+ :: Zoom in, as in most other programs. 
-- C-PgUp :: Beginning of buffer
-- C-PgDn :: End of buffer.
+*** Common keyboard shortcuts
+
+The most important keyboard shortcut in Emacs is =M-x=. This brings up a search-able list of all Emacs commands. In fact you could use this interface for everything and never bother learning any of the other keybindings listed below. For example, to open a file you could type =M-x counsel-find-file <ret>= instead of =C-o=. Nobody does this in practice, because =C=o= is easier. But if you can't remember the name of a keyboard shortcut don't worry: just type =M-x= and search for the command you need.
+
+Other commonly used key bindings are listed in the table below.
+
+| Key     | Description         | Notes                                                                   |
+|---------+---------------------+-------------------------------------------------------------------------|
+| C-o     | Open file           |                                                                         |
+| C-w     | Close window        |                                                                         |
+| C-q     | Quit                |                                                                         |
+| S-arrow | Select a region     | =C-SPC arrow= does the same thing. =C-S-SPC= selects rectangular region |
+| C-c     | Copy selection      |                                                                         |
+| C-v     | Paste               |                                                                         |
+| C-z     | Undo                | use =C-x U=  or =M-z= to visualize your undo/redo history               |
+| S-C-z   | Redo                |                                                                         |
+| C--     | Zoom out            |                                                                         |
+| C-+     | Zoom in             |                                                                         |
+| C-PgUp  | Beginning of buffer |                                                                         |
+| C-PgDn  | End of buffer       |                                                                         |
+|---------+---------------------+-------------------------------------------------------------------------|
 
 Note that some things still work "the Emacs way". Notably:
 - C-a :: Goes to the beginning of the line. To select all use =C-x h=. 
 - C-s :: Searches. To save, use =C-x s=. 
 - C-f :: Moves forward one character. To search use =C-s=.
 
+*** Window management
+One of the things that makes Emacs different that most other applications is the way that it handles windows. Unlike most Integrated Development Environments, there is no fixed layout. Instead, windows are created and killed as needed. New Emacs uses sometimes try to get Emacs to stop messing with their window layout -- my approach is to just let Emacs do what it wants and the revert the layout using =C-c left=.
+
+Some other convenient window management keys are provided, in addition to the standard Emacs =C-x o= binding to navigate to "other window".
+
+| Key              | Description                 | Notes                                                                          |
+|------------------+-----------------------------+--------------------------------------------------------------------------------|
+| C-x S-<arrow>    | Move to other window        |                                                                                |
+| C-x S-0          | Move to a window by number  |                                                                                |
+| C-c left         | Undo a window layout change |                                                                                |
+| C-c right        | Redo a window layout change |                                                                                |
+| C-c C-l <number> | Save/restore window layouts | This a somewhat advanced feature that lets you save and restore window layouts |
+|------------------+-----------------------------+--------------------------------------------------------------------------------|
+
 *** Searching and Completion
 Utilities have been configured to make it easy to search by file name as well as to search the contents of files. Some of this functionality works much better if certain system utilities are found. See [[file:UsefulPrograms.html][this list of useful programs]], especially /everything/ (windows only) and /the silver searcher/ or /ripgrep/.
 
-- C-s :: Searches the active buffer using =swiper=.
-- C-S :: Searches files in the current directory (recursively) using =counsel-rg= or similar.
-- C-x F :: (or *C-x O*) Searches by file name -- requires =mlocate= on linux, =everything= (http://www.voidtools.com/) on windows.
+| Key     | Description                                | Notes                                                                            |
+|---------+--------------------------------------------+----------------------------------------------------------------------------------|
+| C-s     | Searches the current buffer using =swiper= |                                                                                  |
+| C-S-s   | Searches files in the current directory    |                                                                                  |
+| C-x S-f | (or *C-x O*) Searches by file name         | requires =mlocate= on linux, =everything= (http://www.voidtools.com/) on windows |
+|---------+--------------------------------------------+----------------------------------------------------------------------------------|
 
 Many standard Emacs keybindings have been replaced with versions that provide completion suggestions. In-buffer completion can be triggered with the =tab= key.
 
-- tab :: Mapped to =company-complete=, use for completion indentation and completion.
-- M-y :: Remapped to =counsel-yank-pop= to browse the kill ring interactively. =S-C-v= also works for this.
-- M-x :: Remapped to =counsel-M-x= to interactively search for interactive functions.
-- C-c r :: Mapped to =ivy-bibtex= to search for a citation to insert. You must set =bibtex-completion-bibliography= to your BibTeX files for this to work.
+| Key   | Description                      | Notes                                                                               |
+|-------+----------------------------------+-------------------------------------------------------------------------------------|
+| tab   | Indent or complete               |                                                                                     |
+| S-C-v | Paste from the clipboard history | M - S - y = also works for this                                                     |
+| C-c r | Search for a reference to insert | You must set =bibtex-completion-bibliography= to your BibTeX files for this to work |
+|-------+----------------------------------+-------------------------------------------------------------------------------------|
 
 *** REPL interaction
-This should be easy, and hopefully it is.
+This should be easy, and hopefully it is!
 
-- C-RET :: Mapped to language specific line/selection/expression evaluation. Want to evaluate code from a script? "Control-Enter" should just work.
-- C-S-RET :: Mapped to language specific buffer evaluation. Want to evaluate a script? "Control-Shift-Enter" should just work.
+Aliases have been created for starting R, python, haskell, and terminals. For example, to start python just type =M-x python <ret>=.
 
-*** Window management keys
-Some convenient window management keys are provided, in addition to the standard Emacs =C-x o= binding to navigate to "other window".
+To execute a line, region, or buffer from a script (R, python, bash) etc.) use the keybindings below.
 
-- C-x O :: (Ctrl-x shift-o) mapped to =ace-window=, use to quickly navigate to a window by number.
-- C-c left :: Mapped to =winner-undo=, use to undo a window change.
-- C-c right :: Mapped to =winner-redo=, use to redo a window change.
-- C-c C-l # :: Mapped to =eybrowse-switch-to-window-config=, use to save/restore window layouts.
+| Key     | Description                          | Notes                                  |
+|---------+--------------------------------------+----------------------------------------|
+| C-RET   | Line/selection/expression evaluation | Works for R, python, shell, and others |
+| S-C-RET | Buffer evaluation                    | Evaluate the whole script              |
+|---------+--------------------------------------+----------------------------------------|
 
 *** Other key bindings
 :PROPERTIES:
 :CUSTOM_ID: other-key-bindings
 :END:
 
-- S-C-SPC :: Mapped to =cua-rectangle-mark-mode=, use to edit rectangular regions.
-- C-up :: Mapped to =scroll-down-1=.
-- C-down :: Mapped to =scroll-up-1=.
-- M-Q :: Mapped to =unfill-paragraph=, use to remove line breaks from a paragraph.
-- C-c C-o t :: Mapped to =outline-cycle=, use to hide/show when outline-minor-mode is active (outline-minor mode is enabled in programming modes and in LaTeX-mode).
-- C-x cl :: Mapped to =global-command-log-mode=, use to echo keybindings for tutorials. 
-- M-q :: Remapped to =bibtex-fill-entry= (bibtex mode only).
-- E :: Open in external application (dired mode only)
+There are a few more odds-and-ends you might find useful:
 
-Other key bindings can be discovered by =describe-bindings= (bound to =C-h b=) or =counsel-descbinds= (access with =M-x counsel-descbinds RET=), or via the menus.
+- S-C-SPC :: Edit rectangular regions
+- C-up / C-down :: Scroll up or down
+- M-q :: Hard-wrap a paragraph
+- M-S-Q :: Remove line breaks from a paragraph
+- C-c C-o t :: Hide/show outline (outline-minor mode is enabled in programming modes and in LaTeX-mode)
+- C-x cl :: Echo keybindings for tutorials. 
+- C-c d :: Lookup word in dictionary.
 
-* Interacting with external programs
-Many of the Emacs features configured here are designed to make it easier to interact with external programs. For example, [[http://ess.r-project.org][ESS]] makes it easy to interact with [[http://r-project.org][R]], and [[https://www.gnu.org/software/auctex/][AUCTEX]] makes it easy to interact with [[http://tug.org/texlive/][LaTeX]]. If you need help installing these programs, [[file:UsefullPrograms.org][this short guide]] may help. 
+Other key bindings can be discovered by =counsel-descbinds= (bound to =C-h b=) or via the menus.
+
+** Interacting with external programs
+ Many of the Emacs features configured here are designed to make it easier to interact with external programs. For example, [[http://ess.r-project.org][ESS]] makes it easy to interact with [[http://r-project.org][R]], and [[https://www.gnu.org/software/auctex/][AUCTEX]] makes it easy to interact with [[http://tug.org/texlive/][LaTeX]]. If you need help installing these programs, [[file:UsefullPrograms.org][this short guide]] may help. 
 
 
 * Implementation

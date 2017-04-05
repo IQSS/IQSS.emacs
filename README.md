@@ -13,18 +13,11 @@ Feature highlights
 
 Highlights of this Emacs configuration include:
 - More standard select/copy/paste keys and right-click behavior makes it more familiar to those new to Emacs.
-- Consistent use of the `shift` key to for related functionality. For example:
-  - `C-z` is undo, `C-Z` is redo
-  - `M-q` is hard warp, `M-Q` is unwrap
-  - `C-s` searches in current buffer, `C-S` searches all buffers in the directory
-  - `C-x f` (or `C-o`) opens files in the current directory, `C-x F` (or `C-O`) searches for files to open
 - Consistent and familiar indentation *and* code completion using the `tab` key.
 - Consistent and familiar code evaluation using `C-ret`.
-- IDE-like configuration for R, Python, and LaTeX coding.
 - Literate programming configuration for running R, python, or other programming languages inside markdown or org-mode files.
 - Powerful and simple search-based tools for finding commands, files and buffers, inserting citations etc.
-- Convenient window management, including navigation with `C-x O`, and undo/redo with `C-c left` and `C-c right`.
-- Dictionary-lookup using `C-c d`.
+- Convenient window management
 
 A note for Mac users
 --------------------

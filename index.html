@@ -258,23 +258,15 @@ div.tocify {
 <p>Highlights of this Emacs configuration include:</p>
 <ul>
 <li>More standard select/copy/paste keys and right-click behavior makes it more familiar to those new to Emacs.</li>
-<li>Consistent use of the <code>shift</code> key to for related functionality. For example:
-<ul>
-<li><code>C-z</code> is undo, <code>C-Z</code> is redo</li>
-<li><code>M-q</code> is hard warp, <code>M-Q</code> is unwrap</li>
-<li><code>C-s</code> searches in current buffer, <code>C=S</code> searches all buffers in the directory</li>
-<li><code>C-x f</code> (or <code>C-o</code>) opens files in the current directory, <code>C-x F</code> (or <code>C-O</code>) searches for files to open</li>
-</ul></li>
-<li>Consistent and familiar code completion using the <code>tab</code> key.</li>
+<li>Consistent and familiar code completion and indentation using the <code>tab</code> key.</li>
 <li>Consistent and familiar code evaluation using <code>C-ret</code> and <code>C-S-ret</code>.</li>
-<li>IDE-like configuration for R, Python, and LaTeX coding.</li>
 <li>Literate programming configuration for running R, python, or other programming languages inside markdown or org-mode files.</li>
 <li>Powerful and simple search-based tools for finding commands, files and buffers, inserting citations etc.</li>
-<li>Convenient window management, including navigation with <code>C-x O</code>, and undo/redo with <code>C-c left</code> and <code>C-c right</code>.</li>
-<li>Dictionary-lookup using <code>C-c d</code>.</li>
+<li>Convenient window management, including navigation with <code>C-x S-&lt;arrow&gt;</code>, and undo/redo with <code>C-c left</code> and <code>C-c right</code>.</li>
 </ul>
 <p>The upshot is that if you have never used Emacs before many things will work as you expect; a few will not, in which case you will need to search the web or read the Emacs documentation to learn the Emacs way. You can launch a built-in tutorial by pressing <code>C-h t</code> (that’s “Control+h, then t”), or read the getting started documentation at <a href="https://www.gnu.org/software/emacs/tour/" class="uri">https://www.gnu.org/software/emacs/tour/</a>. A cheat-sheet / survival guide is available at <a href="https://www.gnu.org/software/emacs/refcards/pdf/survival.pdf" class="uri">https://www.gnu.org/software/emacs/refcards/pdf/survival.pdf</a>.</p>
 <p>If you are an Emacs user, most things will mostly work as you expect, though you may wish to familiarize yourself with the alternative “de facto standard” bindings configured here. The most glaring exception is the use of <code>C-v</code> to paste rather than scroll. My advice is to get in the habit of toggling read-only/view mode with <code>C-x C-q</code> (or <code>M-x read-only-mode</code>) when you need to do a lot of scrolling. In this mode <code>SPC</code> scrolls down and <code>S-SPC</code> scrolls up, just like it does in your web browser. When you must scroll down without toggling read-only mode you can use <code>Page Up</code> and <code>Page Down</code> (if your keyboard doesn’t dedicated <code>Page Up</code> / <code>Page Down</code> keys try <code>Fn down</code> and <code>Fn up</code>). If you are an Emacs user and you find other key bindings that don’t work as they should please open an issue in the <a href="https://github.com/izahn/dotemacs">github repo</a>.</p>
+<p>A note for Mac users: the keybindings configured here use Windows-style. I wish I could make life easy for you by providing Mac style keyboard shortcuts, but that is simply too much work to be feasible. Basically this mostly boils down to “use the control key instead of the command key”. For example, use “Control-q” to quit instead of “Command-q” as you do with other applications running on OS X.</p>
 </div>
 <div id="quick-start" class="section level1">
 <h1>Quick start</h1>
@@ -297,40 +289,81 @@ div.tocify {
 <div id="modified-key-bindings" class="section level2">
 <h2>Important key bindings</h2>
 <p>This configuration loads a lot of useful emacs packages, many of which add key bindings. Documenting them all here would be too much (see the documentation for each package if you need the details), so this section describes only most important ones.</p>
-<div id="standard-keyboard-shortcuts" class="section level3">
-<h3>Standard keyboard shortcuts</h3>
-<dl>
-<dt>S-arrow</dt>
-<dd>Select a region, as in many other programs.
-</dd>
-<dt>C-c</dt>
-<dd>Copy selection, as in most other programs.
-</dd>
-<dt>C-v</dt>
-<dd>Paste, as in most other programs. Select from the clipboard history with <code>S-C-v</code>.
-</dd>
-<dt>C-z</dt>
-<dd>Undo, as in most other programs.
-</dd>
-<dt>S-C-z</dt>
-<dd>Redo, as in most other programs. Use <code>C-x U</code> or <code>M-z</code> to visualize your undo/redo history.
-</dd>
-<dt>C-o</dt>
-<dd>Open file, as in most other programs.
-</dd>
-<dt>C–</dt>
-<dd>Zoom out, as in most other programs.
-</dd>
-<dt>C-+</dt>
-<dd>Zoom in, as in most other programs.
-</dd>
-<dt>C-PgUp</dt>
-<dd>Beginning of buffer
-</dd>
-<dt>C-PgDn</dt>
-<dd>End of buffer.
-</dd>
-</dl>
+<div id="common-keyboard-shortcuts" class="section level3">
+<h3>Common keyboard shortcuts</h3>
+<p>The most important keyboard shortcut in Emacs is <code>M-x</code>. This brings up a search-able list of all Emacs commands. In fact you could use this interface for everything and never bother learning any of the other keybindings listed below. For example, to open a file you could type <code>M-x counsel-find-file &lt;ret&gt;</code> instead of <code>C-o</code>. Nobody does this in practice, because <code>C=o</code> is easier. But if you can’t remember the name of a keyboard shortcut don’t worry: just type <code>M-x</code> and search for the command you need.</p>
+<p>Other commonly used key bindings are listed in the table below.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Key</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>C-o</td>
+<td>Open file</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>C-w</td>
+<td>Close window</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>C-q</td>
+<td>Quit</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>S-arrow</td>
+<td>Select a region</td>
+<td><code>C-SPC arrow</code> does the same thing. <code>C-S-SPC</code> selects rectangular region</td>
+</tr>
+<tr class="odd">
+<td>C-c</td>
+<td>Copy selection</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>C-v</td>
+<td>Paste</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>C-z</td>
+<td>Undo</td>
+<td>use <code>C-x U</code> or <code>M-z</code> to visualize your undo/redo history</td>
+</tr>
+<tr class="even">
+<td>S-C-z</td>
+<td>Redo</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>C–</td>
+<td>Zoom out</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>C-+</td>
+<td>Zoom in</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>C-PgUp</td>
+<td>Beginning of buffer</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>C-PgDn</td>
+<td>End of buffer</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p>Note that some things still work “the Emacs way”. Notably:</p>
 <dl>
 <dt>C-a</dt>
@@ -344,101 +377,164 @@ div.tocify {
 </dd>
 </dl>
 </div>
+<div id="window-management" class="section level3">
+<h3>Window management</h3>
+<p>One of the things that makes Emacs different that most other applications is the way that it handles windows. Unlike most Integrated Development Environments, there is no fixed layout. Instead, windows are created and killed as needed. New Emacs uses sometimes try to get Emacs to stop messing with their window layout – my approach is to just let Emacs do what it wants and the revert the layout using <code>C-c left</code>.</p>
+<p>Some other convenient window management keys are provided, in addition to the standard Emacs <code>C-x o</code> binding to navigate to “other window”.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Key</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>C-x S-&lt;arrow&gt;</td>
+<td>Move to other window</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>C-x S-0</td>
+<td>Move to a window by number</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>C-c left</td>
+<td>Undo a window layout change</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>C-c right</td>
+<td>Redo a window layout change</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>C-c C-l &lt;number&gt;</td>
+<td>Save/restore window layouts</td>
+<td>This a somewhat advanced feature that lets you save and restore window layouts</td>
+</tr>
+</tbody>
+</table>
+</div>
 <div id="searching-and-completion" class="section level3">
 <h3>Searching and Completion</h3>
 <p>Utilities have been configured to make it easy to search by file name as well as to search the contents of files. Some of this functionality works much better if certain system utilities are found. See <a href="UsefulPrograms.html">this list of useful programs</a>, especially <em>everything</em> (windows only) and <em>the silver searcher</em> or <em>ripgrep</em>.</p>
-<dl>
-<dt>C-s</dt>
-<dd>Searches the active buffer using <code>swiper</code>.
-</dd>
-<dt>C-S</dt>
-<dd>Searches files in the current directory (recursively) using <code>counsel-rg</code> or similar.
-</dd>
-<dt>C-x F</dt>
-<dd>(or <strong>C-x O</strong>) Searches by file name – requires <code>mlocate</code> on linux, <code>everything</code> (<a href="http://www.voidtools.com/" class="uri">http://www.voidtools.com/</a>) on windows.
-</dd>
-</dl>
+<table>
+<thead>
+<tr class="header">
+<th>Key</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>C-s</td>
+<td>Searches the current buffer using <code>swiper</code></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>C-S-s</td>
+<td>Searches files in the current directory</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>C-x S-f</td>
+<td>(or <strong>C-x O</strong>) Searches by file name</td>
+<td>requires <code>mlocate</code> on linux, <code>everything</code> (<a href="http://www.voidtools.com/" class="uri">http://www.voidtools.com/</a>) on windows</td>
+</tr>
+</tbody>
+</table>
 <p>Many standard Emacs keybindings have been replaced with versions that provide completion suggestions. In-buffer completion can be triggered with the <code>tab</code> key.</p>
-<dl>
-<dt>tab</dt>
-<dd>Mapped to <code>company-complete</code>, use for completion indentation and completion.
-</dd>
-<dt>M-y</dt>
-<dd>Remapped to <code>counsel-yank-pop</code> to browse the kill ring interactively. <code>S-C-v</code> also works for this.
-</dd>
-<dt>M-x</dt>
-<dd>Remapped to <code>counsel-M-x</code> to interactively search for interactive functions.
-</dd>
-<dt>C-c r</dt>
-<dd>Mapped to <code>ivy-bibtex</code> to search for a citation to insert. You must set <code>bibtex-completion-bibliography</code> to your BibTeX files for this to work.
-</dd>
-</dl>
+<table>
+<thead>
+<tr class="header">
+<th>Key</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>tab</td>
+<td>Indent or complete</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>S-C-v</td>
+<td>Paste from the clipboard history</td>
+<td>M - S - y = also works for this</td>
+</tr>
+<tr class="odd">
+<td>C-c r</td>
+<td>Search for a reference to insert</td>
+<td>You must set <code>bibtex-completion-bibliography</code> to your BibTeX files for this to work</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="repl-interaction" class="section level3">
 <h3>REPL interaction</h3>
-<p>This should be easy, and hopefully it is.</p>
-<dl>
-<dt>C-RET</dt>
-<dd>Mapped to language specific line/selection/expression evaluation. Want to evaluate code from a script? “Control-Enter” should just work.
-</dd>
-<dt>C-S-RET</dt>
-<dd>Mapped to language specific buffer evaluation. Want to evaluate a script? “Control-Shift-Enter” should just work.
-</dd>
-</dl>
-</div>
-<div id="window-management-keys" class="section level3">
-<h3>Window management keys</h3>
-<p>Some convenient window management keys are provided, in addition to the standard Emacs <code>C-x o</code> binding to navigate to “other window”.</p>
-<dl>
-<dt>C-x O</dt>
-<dd>(Ctrl-x shift-o) mapped to <code>ace-window</code>, use to quickly navigate to a window by number.
-</dd>
-<dt>C-c left</dt>
-<dd>Mapped to <code>winner-undo</code>, use to undo a window change.
-</dd>
-<dt>C-c right</dt>
-<dd>Mapped to <code>winner-redo</code>, use to redo a window change.
-</dd>
-<dt>C-c C-l #</dt>
-<dd>Mapped to <code>eybrowse-switch-to-window-config</code>, use to save/restore window layouts.
-</dd>
-</dl>
+<p>This should be easy, and hopefully it is!</p>
+<p>Aliases have been created for starting R, python, haskell, and terminals. For example, to start python just type <code>M-x python &lt;ret&gt;</code>.</p>
+<p>To execute a line, region, or buffer from a script (R, python, bash) etc.) use the keybindings below.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Key</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>C-RET</td>
+<td>Line/selection/expression evaluation</td>
+<td>Works for R, python, shell, and others</td>
+</tr>
+<tr class="even">
+<td>S-C-RET</td>
+<td>Buffer evaluation</td>
+<td>Evaluate the whole script</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="other-key-bindings" class="section level3">
 <h3>Other key bindings</h3>
+<p>There are a few more odds-and-ends you might find useful:</p>
 <dl>
 <dt>S-C-SPC</dt>
-<dd>Mapped to <code>cua-rectangle-mark-mode</code>, use to edit rectangular regions.
+<dd>Edit rectangular regions
 </dd>
-<dt>C-up</dt>
-<dd>Mapped to <code>scroll-down-1</code>.
-</dd>
-<dt>C-down</dt>
-<dd>Mapped to <code>scroll-up-1</code>.
-</dd>
-<dt>M-Q</dt>
-<dd>Mapped to <code>unfill-paragraph</code>, use to remove line breaks from a paragraph.
-</dd>
-<dt>C-c C-o t</dt>
-<dd>Mapped to <code>outline-cycle</code>, use to hide/show when outline-minor-mode is active (outline-minor mode is enabled in programming modes and in LaTeX-mode).
-</dd>
-<dt>C-x cl</dt>
-<dd>Mapped to <code>global-command-log-mode</code>, use to echo keybindings for tutorials.
+<dt>C-up / C-down</dt>
+<dd>Scroll up or down
 </dd>
 <dt>M-q</dt>
-<dd>Remapped to <code>bibtex-fill-entry</code> (bibtex mode only).
+<dd>Hard-wrap a paragraph
 </dd>
-<dt>E</dt>
-<dd>Open in external application (dired mode only)
+<dt>M-S-Q</dt>
+<dd>Remove line breaks from a paragraph
+</dd>
+<dt>C-c C-o t</dt>
+<dd>Hide/show outline (outline-minor mode is enabled in programming modes and in LaTeX-mode)
+</dd>
+<dt>C-x cl</dt>
+<dd>Echo keybindings for tutorials.
+</dd>
+<dt>C-c d</dt>
+<dd>Lookup word in dictionary.
 </dd>
 </dl>
-<p>Other key bindings can be discovered by <code>describe-bindings</code> (bound to <code>C-h b</code>) or <code>counsel-descbinds</code> (access with <code>M-x counsel-descbinds RET</code>), or via the menus.</p>
+<p>Other key bindings can be discovered by <code>counsel-descbinds</code> (bound to <code>C-h b</code>) or via the menus.</p>
 </div>
 </div>
-</div>
-<div id="interacting-with-external-programs" class="section level1">
-<h1>Interacting with external programs</h1>
+<div id="interacting-with-external-programs" class="section level2">
+<h2>Interacting with external programs</h2>
 <p>Many of the Emacs features configured here are designed to make it easier to interact with external programs. For example, <a href="http://ess.r-project.org">ESS</a> makes it easy to interact with <a href="http://r-project.org">R</a>, and <a href="https://www.gnu.org/software/auctex/">AUCTEX</a> makes it easy to interact with <a href="http://tug.org/texlive/">LaTeX</a>. If you need help installing these programs, <a href="UsefullPrograms.org">this short guide</a> may help.</p>
+</div>
 </div>
 <div id="implementation" class="section level1">
 <h1>Implementation</h1>
@@ -570,14 +666,14 @@ div.tocify {
 <p>This section sets up various utilities and conveniences. Many of these are low priority, so we set them first in order to allow any conflicting settings to be overridden later.</p>
 <div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;; better defaults are well, better... but we don't always agree</span>
 (menu-bar-mode <span class="dv">1</span>)
+(scroll-bar-mode <span class="dv">1</span>)
 
 <span class="co">;; scrolling behavior</span>
 (<span class="kw">setq</span> mouse-wheel-scroll-amount '(<span class="dv">1</span> ((shift) . <span class="dv">1</span>))) <span class="co">; one line at a time</span>
 (<span class="kw">setq</span> mouse-wheel-progressive-speed <span class="kw">nil</span>) <span class="co">; don't accelerate scrolling</span>
 (<span class="kw">setq</span> mouse-wheel-follow-mouse 't) <span class="co">; scroll window under mouse</span>
-(<span class="kw">setq</span> scroll-step <span class="dv">1</span>) <span class="co">; keyboard scroll one line at a time</span>
 (<span class="kw">setq</span> scroll-preserve-screen-position <span class="kw">t</span>)
-(<span class="kw">setq</span> scroll-conservatively <span class="dv">101</span>)
+(<span class="kw">setq</span> scroll-conservatively <span class="dv">100000</span>)
 
 <span class="co">;; Use y/n instead of yes/no</span>
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -586,9 +682,7 @@ div.tocify {
 (line-number-mode <span class="dv">1</span>)    <span class="co">; makes the line number show up</span>
 (column-number-mode <span class="dv">1</span>)  <span class="co">; makes the column number show up</span>
 
-<span class="co">;; ;; smooth scrolling with C-up/C-down</span>
-(<span class="kw">require</span> 'smooth-scroll)
-(smooth-scroll-mode)
+<span class="co">;; smooth horizontal scrolling</span>
 (global-set-key [(control down)] 'scroll-up-<span class="dv">1</span>)
 (global-set-key [(control up)] 'scroll-down-<span class="dv">1</span>)
 (global-set-key [(control left)] 'scroll-right-<span class="dv">1</span>)
@@ -644,6 +738,17 @@ div.tocify {
 
 <span class="co">;; (cua-selection-mode t) ;; uncomment this to get cua goodness without copy/paste etc.</span>
 
+<span class="co">;; make control-q quit</span>
+(global-set-key (kbd <span class="st">&quot;C-q&quot;</span>) 'save-buffers-kill-terminal)
+
+<span class="co">;; make control-w close window</span>
+(global-set-key (kbd <span class="st">&quot;C-w&quot;</span>) 'delete-window)
+(define-key cua--region-keymap (kbd <span class="st">&quot;C-w&quot;</span>) 'cua-cut-region)
+
+<span class="co">;; new buffer (not quite what you expect, but we emacs users need C-n</span>
+(<span class="kw">setq</span> untitled-new-buffer-major-modes '(text-mode r-mode python-mode LaTeX-mode markdown-mode org-mode))
+(global-set-key (kbd <span class="st">&quot;C-S-n&quot;</span>) 'untitled-new-buffer-with-select-major-mode)
+
 <span class="co">;; ;; Make control-z undo</span>
 (global-undo-tree-mode <span class="kw">t</span>)
 (global-set-key (kbd <span class="st">&quot;C-z&quot;</span>) 'undo)
@@ -679,15 +784,21 @@ div.tocify {
 </div>
 <div id="window-management" class="section level2">
 <h2>Window Management</h2>
+<p><code>windmove</code> allows you to move point to adjacent windows; these functions are bound to <code>C-x S-&lt;arrow&gt;</code>. For example, to move to the window below, press “Control-x shift-down”, and to move to the window to the right press “Control-x shift-right”. Finally, you can use <code>C-x O</code> to quickly navigate to an window arbitrary window (e.g., diagonal from the current window).</p>
+<p><code>winner-mode</code> allows you to undo/redo window configuration changes. Use <code>C-c &lt;left&gt;</code> to undo and <code>C-c &lt;right&gt;</code> to redo.</p>
 <p>Emacs has <a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Configuration-Registers.html#Configuration-Registers">window layout management</a>, built-in but it’s not convenient to use. <a href="https://github.com/wasamasa/eyebrowse">Eyebrowse</a> makes it easier, so we use that. Create a new layout with <code>C-c C-l C-n</code>, switch with <code>C-c C-l #</code> .</p>
-<p>The basic window navigation with <code>C-c C-o</code> does not make it easy to navigate quickly to a specific window, so we use <code>ace-window</code> for that. Use <code>C-x O</code> to quickly navigate to a window.</p>
-<p><code>winner-mode</code> allows you to undo/redo window configuration changes. Use <code>C-c &lt;left&gt;</code> to undo adn <code>C-c &lt;right&gt;</code> to redo.</p>
 <div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;; Work spaces</span>
 (<span class="kw">setq</span> eyebrowse-keymap-prefix (kbd <span class="st">&quot;C-c C-l&quot;</span>))
 (eyebrowse-mode <span class="kw">t</span>)
 
 <span class="co">;; Undo/redo window changes</span>
 (winner-mode <span class="dv">1</span>)
+
+<span class="co">;; windmove </span>
+(global-set-key (kbd <span class="st">&quot;C-x &lt;S-left&gt;&quot;</span>) 'windmove-left)
+(global-set-key (kbd <span class="st">&quot;C-x &lt;S-right&gt;&quot;</span>) 'windmove-right)
+(global-set-key (kbd <span class="st">&quot;C-x &lt;S-up&gt;&quot;</span>) 'windmove-up)
+(global-set-key (kbd <span class="st">&quot;C-x &lt;S-down&gt;&quot;</span>) 'windmove-down)
 
 <span class="co">;; use ace-window for navigating windows</span>
 (global-set-key (kbd <span class="st">&quot;C-x O&quot;</span>) 'ace-window)
@@ -970,7 +1081,8 @@ div.tocify {
 <div id="run-python-in-emacs" class="section level3">
 <h3>Run python in emacs (python-mode)</h3>
 <p>Emacs has decent python support out of the box. As with other programming languages you can get completion suggestions with the <code>tab</code> key, and evaluate code with <code>C-ret</code>. Many more features are provided and are accessible via the menu.</p>
-<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">(with-eval-after-load <span class="st">&quot;python&quot;</span>
+<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">(defalias 'python 'run-python)
+(with-eval-after-load <span class="st">&quot;python&quot;</span>
   <span class="co">;; try to get indent/completion working nicely</span>
   (<span class="kw">setq</span> python-indent-trigger-commands '(my-company-indent-or-complete-common indent-for-tab-command yas-expand yas/expand))
   <span class="co">;; readline support is wonky at the moment</span>
@@ -1012,7 +1124,8 @@ div.tocify {
 <div id="light-weight-markup-language" class="section level3">
 <h3>Haskell mode</h3>
 <p>I just recently started learning Haskell. There’s not much to the configuration at this point, but you should get completion with <code>tab</code>.</p>
-<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">(<span class="kw">require</span> 'company-ghci)
+<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">(defalias 'haskell 'haskel-interactive-bring)
+(<span class="kw">require</span> 'company-ghci)
 (add-hook 'haskell-mode-hook (<span class="kw">lambda</span> ()
                                (setq-local company-backends
                                            (delete-dups (<span class="kw">cons</span> 'company-ghci (<span class="kw">cons</span> 'company-files company-backends))))))
@@ -1265,6 +1378,8 @@ div.tocify {
   (define-key term-mode-map (kbd <span class="st">&quot;C-j&quot;</span>) 'term-char-mode)
   (define-key term-raw-map (kbd <span class="st">&quot;C-j&quot;</span>) 'term-line-mode))
 
+<span class="co">;; multi-term</span>
+(defalias 'terminal 'multi-term)
 (with-eval-after-load <span class="st">&quot;multi-term&quot;</span>
   (define-key term-mode-map (kbd <span class="st">&quot;C-j&quot;</span>) 'term-char-mode)
   (define-key term-raw-map (kbd <span class="st">&quot;C-j&quot;</span>) 'term-line-mode))
