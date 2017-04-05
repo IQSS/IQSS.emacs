@@ -518,6 +518,8 @@ div.tocify {
         smooth-scroll
         unfill
         company
+        company-math
+        company-auctex
         ess
         markdown-mode
         polymode
@@ -1048,14 +1050,22 @@ div.tocify {
   (<span class="kw">setq</span> reftex-save-parse-info <span class="kw">t</span>)
   (<span class="kw">setq</span> reftex-use-multiple-selection-buffers <span class="kw">t</span>)
   (<span class="kw">setq</span> reftex-plug-into-AUCTeX <span class="kw">t</span>)
-  (add-hook 'LaTeX-mode-hook
+  (add-hook 'TeX-mode-hook
             (<span class="kw">lambda</span> ()
               (turn-on-reftex)
               (TeX-PDF-mode <span class="kw">t</span>)
               (LaTeX-math-mode)
               (TeX-source-correlate-mode <span class="kw">t</span>)
               (imenu-add-to-menubar <span class="st">&quot;Index&quot;</span>)
-              (outline-minor-mode)))
+              (outline-minor-mode)
+              (<span class="kw">require</span> 'company-math)
+              (<span class="kw">require</span> 'company-auctex)
+              (company-auctex-init)
+              (setq-local company-backends (delete-dups
+                                            (<span class="kw">cons</span> '(company-math-symbols-latex
+                                                    company-auctex-macros
+                                                    company-auctex-environments)
+                                                  (<span class="kw">cons</span> 'company-files company-backends))))))    
   (add-hook 'bibtex-mode-hook
             (<span class="kw">lambda</span> ()
               (define-key bibtex-mode-map <span class="st">&quot;\M-q&quot;</span> 'bibtex-fill-entry))))</code></pre></div>
@@ -1151,24 +1161,27 @@ div.tocify {
 <div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">(<span class="kw">when</span> (executable-find <span class="st">&quot;mu&quot;</span>)
   (autoload 'mu4e <span class="st">&quot;mu4e&quot;</span> <span class="st">&quot;Read your mail.&quot;</span> <span class="kw">t</span>)
   (with-eval-after-load <span class="st">&quot;mu4e&quot;</span>
+    (<span class="kw">require</span> 'mu4e)
+    (<span class="kw">require</span> 'mu4e-headers)
     (<span class="kw">setq</span> mu4e-headers-include-related <span class="kw">t</span>
           mu4e-headers-skip-duplicates <span class="kw">t</span>
+          <span class="co">;; don't keep message buffers around</span>
+          message-kill-buffer-on-exit <span class="kw">t</span>
+          <span class="co">;; enable notifications</span>
+          mu4e-enable-mode-line <span class="kw">t</span>
           mu4e-headers-fields '(
                                 (:human-date . <span class="dv">12</span>)
                                 (:flags . <span class="dv">6</span>)
                                 <span class="co">;; (:mailing-list . 10)</span>
                                 (:from-or-to . <span class="dv">22</span>)
-                                (:thread-subject)))
-    <span class="co">;; don't keep message buffers around</span>
-    (<span class="kw">setq</span> message-kill-buffer-on-exit <span class="kw">t</span>)
-    <span class="co">;; enable notifications</span>
-    (<span class="kw">setq</span> mu4e-enable-mode-line <span class="kw">t</span>)
-    <span class="co">;; use org for composing rich text emails</span>
-    (<span class="kw">require</span> 'org-mu4e)
-    (<span class="kw">setq</span> org-mu4e-convert-to-html <span class="kw">t</span>)
-    (define-key mu4e-headers-mode-map (kbd <span class="st">&quot;C-c c&quot;</span>) 'org-mu4e-store-and-capture)
-    (define-key mu4e-view-mode-map    (kbd <span class="st">&quot;C-c c&quot;</span>) 'org-mu4e-store-and-capture)
-    <span class="co">;; render html</span>
+                                (:subject)))
+    <span class="co">;; ;; use org for composing rich text emails</span>
+    <span class="co">;; (require 'org-mu4e)</span>
+    <span class="co">;; (setq org-mu4e-convert-to-html t)</span>
+    <span class="co">;; (define-key mu4e-headers-mode-map (kbd &quot;C-c c&quot;) 'org-mu4e-store-and-capture)</span>
+    <span class="co">;; (define-key mu4e-view-mode-map    (kbd &quot;C-c c&quot;) 'org-mu4e-store-and-capture)</span>
+    <span class="co">;; ;; re</span>
+    nder html
     (<span class="kw">require</span> 'mu4e-contrib)
     (<span class="kw">setq</span> mu4e-html2text-command 'mu4e-shr2text)
     (add-hook 'mu4e-view-mode-hook 'visual-line-mode)))</code></pre></div>
