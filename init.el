@@ -181,6 +181,9 @@
 
 ;; (cua-selection-mode t) ;; uncomment this to get cua goodness without copy/paste etc.
 
+;; make control-q quit
+(global-set-key (kbd "C-q") 'save-buffers-kill-terminal)
+
 ;; ;; Make control-z undo
 (global-undo-tree-mode t)
 (global-set-key (kbd "C-z") 'undo)

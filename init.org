@@ -359,6 +359,9 @@ Emacs will never to as simple as Notepad, but perhaps it can be made more consis
 
   ;; (cua-selection-mode t) ;; uncomment this to get cua goodness without copy/paste etc.
 
+  ;; make control-q quit
+  (global-set-key (kbd "C-q") 'save-buffers-kill-terminal)
+
   ;; ;; Make control-z undo
   (global-undo-tree-mode t)
   (global-set-key (kbd "C-z") 'undo)
