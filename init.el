@@ -221,6 +221,12 @@
 ;; Undo/redo window changes
 (winner-mode 1)
 
+;; windmove 
+(global-set-key (kbd "C-x <S-left>") 'windmove-left)
+(global-set-key (kbd "C-x <S-right>") 'windmove-right)
+(global-set-key (kbd "C-x <S-up>") 'windmove-up)
+(global-set-key (kbd "C-x <S-down>") 'windmove-down)
+
 ;; use ace-window for navigating windows
 (global-set-key (kbd "C-x O") 'ace-window)
 (with-eval-after-load "ace-window"

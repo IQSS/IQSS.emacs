@@ -398,11 +398,11 @@ Emacs will never to as simple as Notepad, but perhaps it can be made more consis
    :CUSTOM_ID: window-management
    :END:
 
-Emacs has [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Configuration-Registers.html#Configuration-Registers][window layout management]], built-in but it's not convenient to use. [[https://github.com/wasamasa/eyebrowse][Eyebrowse]] makes it easier, so we use that. Create a new layout with =C-c C-l C-n=, switch with =C-c C-l #= . 
+=windmove= allows you to move point to adjacent windows; these functions are bound to =C-x S-<arrow>=. For example, to move to the window below, press "Control-x shift-down", and to move to the window to the right press "Control-x shift-right". Finally, you can use =C-x O= to quickly navigate to an window arbitrary window (e.g., diagonal from the current window).
 
-The basic window navigation with =C-c C-o= does not make it easy to navigate quickly to a specific window, so we use =ace-window= for that. Use =C-x O= to quickly navigate to a window.
+=winner-mode= allows you to undo/redo window configuration changes. Use =C-c <left>= to undo and =C-c <right>= to redo.
 
-=winner-mode= allows you to undo/redo window configuration changes. Use =C-c <left>= to undo adn =C-c <right>= to redo.
+Emacs has [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Configuration-Registers.html#Configuration-Registers][window layout management]], built-in but it's not convenient to use. [[https://github.com/wasamasa/eyebrowse][Eyebrowse]] makes it easier, so we use that. Create a new layout with =C-c C-l C-n=, switch with =C-c C-l #= .
 
 #+BEGIN_SRC emacs-lisp
   ;; Work spaces
@@ -411,6 +411,12 @@ The basic window navigation with =C-c C-o= does not make it easy to navigate qui
 
   ;; Undo/redo window changes
   (winner-mode 1)
+
+  ;; windmove 
+  (global-set-key (kbd "C-x <S-left>") 'windmove-left)
+  (global-set-key (kbd "C-x <S-right>") 'windmove-right)
+  (global-set-key (kbd "C-x <S-up>") 'windmove-up)
+  (global-set-key (kbd "C-x <S-down>") 'windmove-down)
 
   ;; use ace-window for navigating windows
   (global-set-key (kbd "C-x O") 'ace-window)
