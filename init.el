@@ -297,7 +297,7 @@
 (setq counsel-find-file-ignore-regexp "\\`\\.")
 (setq ivy-use-virtual-buffers t)
 (setq ivy-count-format "(%d/%d) ")
-(setq ivy-display-style nil)
+;; (setq ivy-display-style nil)
 
 ;; Ivy-based interface to standard commands
 (global-set-key (kbd "C-h b") 'counsel-descbinds)

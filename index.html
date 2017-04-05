@@ -871,9 +871,10 @@ div.tocify {
 (<span class="kw">setq</span> counsel-find-file-ignore-regexp <span class="st">&quot;</span>\\<span class="st">`</span>\\<span class="st">.&quot;</span>)
 (<span class="kw">setq</span> ivy-use-virtual-buffers <span class="kw">t</span>)
 (<span class="kw">setq</span> ivy-count-format <span class="st">&quot;(%d/%d) &quot;</span>)
-(<span class="kw">setq</span> ivy-display-style <span class="kw">nil</span>)
+<span class="co">;; (setq ivy-display-style nil)</span>
 
 <span class="co">;; Ivy-based interface to standard commands</span>
+(global-set-key (kbd <span class="st">&quot;C-h b&quot;</span>) 'counsel-descbinds)
 (global-set-key (kbd <span class="st">&quot;C-s&quot;</span>) 'swiper)
 (global-set-key (kbd <span class="st">&quot;C-r&quot;</span>) 'swiper)
 <span class="co">;; Search files in directory with C-S</span>
