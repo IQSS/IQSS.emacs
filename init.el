@@ -184,6 +184,10 @@
 ;; make control-q quit
 (global-set-key (kbd "C-q") 'save-buffers-kill-terminal)
 
+;; make control-w close window
+(global-set-key (kbd "C-w") 'delete-window)
+(define-key cua--region-keymap (kbd "C-w") 'cua-cut-region)
+
 ;; new buffer (not quite what you expect, but we emacs users need C-n
 (setq untitled-new-buffer-major-modes '(text-mode r-mode python-mode LaTeX-mode markdown-mode org-mode))
 (global-set-key (kbd "C-S-n") 'untitled-new-buffer-with-select-major-mode)
