@@ -69,6 +69,8 @@
         smooth-scroll
         unfill
         company
+        company-math
+        company-auctex
         ess
         markdown-mode
         polymode
@@ -533,14 +535,22 @@
   (setq reftex-save-parse-info t)
   (setq reftex-use-multiple-selection-buffers t)
   (setq reftex-plug-into-AUCTeX t)
-  (add-hook 'LaTeX-mode-hook
+  (add-hook 'TeX-mode-hook
             (lambda ()
               (turn-on-reftex)
               (TeX-PDF-mode t)
               (LaTeX-math-mode)
               (TeX-source-correlate-mode t)
               (imenu-add-to-menubar "Index")
-              (outline-minor-mode)))
+              (outline-minor-mode)
+              (require 'company-math)
+              (require 'company-auctex)
+              (company-auctex-init)
+              (setq-local company-backends (delete-dups
+                                            (cons '(company-math-symbols-latex
+                                                    company-auctex-macros
+                                                    company-auctex-environments)
+                                                  (cons 'company-files company-backends))))))    
   (add-hook 'bibtex-mode-hook
             (lambda ()
               (define-key bibtex-mode-map "\M-q" 'bibtex-fill-entry))))
