@@ -124,13 +124,13 @@ Other commonly used key bindings are listed in the table below.
 
 Note that some things still work "the Emacs way". Notably:
 
-C-a
+`C-a`
 :   Goes to the beginning of the line. To select all use `C-x h`.
 
-C-s
+`C-s`
 :   Searches. To save, use `C-x s`.
 
-C-f
+`C-f`
 :   Moves forward one character. To search use `C-s`.
 
 ### Window management
@@ -196,26 +196,26 @@ etc.) use the keybindings below.
 
 There are a few more odds-and-ends you might find useful:
 
-S-C-SPC
+`S-C-SPC`
 :   Edit rectangular regions
 
-C-up / C-down
+`C-up` / `C-down`
 :   Scroll up or down
 
-M-q
+`M-q`
 :   Hard-wrap a paragraph
 
-M-S-Q
+`M-S-Q`
 :   Remove line breaks from a paragraph
 
-C-c C-o t
+`C-c C-o t`
 :   Hide/show outline (outline-minor mode is enabled in programming
     modes and in LaTeX-mode)
 
-C-x cl
+`C-x c l`
 :   Echo keybindings for tutorials.
 
-C-c d
+`C-c d`
 :   Lookup word in dictionary.
 
 Other key bindings can be discovered by `counsel-descbinds` (bound to

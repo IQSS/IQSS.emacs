@@ -82,9 +82,9 @@ Other commonly used key bindings are listed in the table below.
 |-----------+---------------------+-------------------------------------------------------------------------|
 
 Note that some things still work "the Emacs way". Notably:
-- C-a :: Goes to the beginning of the line. To select all use =C-x h=. 
-- C-s :: Searches. To save, use =C-x s=. 
-- C-f :: Moves forward one character. To search use =C-s=.
+- =C-a= :: Goes to the beginning of the line. To select all use =C-x h=. 
+- =C-s= :: Searches. To save, use =C-x s=. 
+- =C-f= :: Moves forward one character. To search use =C-s=.
 
 *** Window management
 One of the things that makes Emacs different that most other applications is the way that it handles windows. Unlike most Integrated Development Environments, there is no fixed layout. Instead, windows are created and killed as needed. New Emacs uses sometimes try to get Emacs to stop messing with their window layout -- my approach is to just let Emacs do what it wants and the revert the layout using =C-c left=.
@@ -139,13 +139,13 @@ To execute a line, region, or buffer from a script (R, python, bash) etc.) use t
 
 There are a few more odds-and-ends you might find useful:
 
-- S-C-SPC :: Edit rectangular regions
-- C-up / C-down :: Scroll up or down
-- M-q :: Hard-wrap a paragraph
-- M-S-Q :: Remove line breaks from a paragraph
-- C-c C-o t :: Hide/show outline (outline-minor mode is enabled in programming modes and in LaTeX-mode)
-- C-x cl :: Echo keybindings for tutorials. 
-- C-c d :: Lookup word in dictionary.
+- =S-C-SPC= :: Edit rectangular regions
+- =C-up= / =C-down= :: Scroll up or down
+- =M-q= :: Hard-wrap a paragraph
+- =M-S-Q= :: Remove line breaks from a paragraph
+- =C-c C-o t= :: Hide/show outline (outline-minor mode is enabled in programming modes and in LaTeX-mode)
+- =C-x cl= :: Echo keybindings for tutorials. 
+- =C-c d= :: Lookup word in dictionary.
 
 Other key bindings can be discovered by =counsel-descbinds= (bound to =C-h b=) or via the menus.
 
