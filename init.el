@@ -183,7 +183,7 @@
 ;; (cua-selection-mode t) ;; uncomment this to get cua goodness without copy/paste etc.
 
 ;; make control-q quit
-(global-set-key (kbd "C-q") 'save-buffers-kill-terminal)
+(global-set-key (kbd "C-S-q") 'save-buffers-kill-terminal)
 
 ;; make control-w close window
 (global-set-key (kbd "C-w") 'delete-window)

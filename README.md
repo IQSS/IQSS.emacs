@@ -111,7 +111,7 @@ Other commonly used key bindings are listed in the table below.
   -----------|---------------------|-------------------------------------------------------------------------
   `C-o`      |Open file            |
   `C-w`      |Close window         |
-  `C-q`      |Quit                 |
+  `C-S-q`    |Quit                 |
   `S-arrow`  |Select a region      |`C-SPC arrow` does the same thing. `C-S-SPC` selects rectangular region
   `C-c`      |Copy selection       |
   `C-v`      |Paste                |
