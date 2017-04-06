@@ -216,7 +216,7 @@
 (define-key cua-global-keymap (kbd "<C-S-SPC>") 'cua-rectangle-mark-mode)
 
 ;; nicer mode line
-(mode-icons-mode)
+;; (mode-icons-mode)
 
 ;; zoom in/out like we do everywhere else.
 (global-set-key (kbd "C-+") 'text-scale-increase)
