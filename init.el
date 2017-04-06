@@ -130,6 +130,7 @@
 (column-number-mode 1)  ; makes the column number show up
 
 ;; smooth horizontal scrolling
+(require 'smooth-scroll)
 (global-set-key [(control down)] 'scroll-up-1)
 (global-set-key [(control up)] 'scroll-down-1)
 (global-set-key [(control left)] 'scroll-right-1)
