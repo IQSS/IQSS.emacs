@@ -293,6 +293,9 @@
   (setq hfyview-quick-print-in-files-menu t)
   (require 'hfyview))
 
+;; make sure we wrap in the minibuffer
+(add-hook 'minibuffer-setup-hook '(lambda() (setq truncate-lines nil)))
+
 (ivy-mode 1)
 
 (setq counsel-find-file-ignore-regexp "\\`\\.")
