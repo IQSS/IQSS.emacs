@@ -42,7 +42,7 @@
         diff-hl
         adaptive-wrap
         ;; melpa packages
-        mode-icons
+        ;; mode-icons ; slows things down, can be buggy
         command-log-mode
         undo-tree
         better-defaults
@@ -826,10 +826,9 @@ The app is chosen from your OS's preference."
 ; (require 'diminish)
 (diminish 'visual-line-mode)
 (diminish 'which-key-mode)
-(diminish 'smooth-scroll-mode)
-;; (diminish 'company-mode "comp")
-;; (diminish 'outline-minor-mode "outline")
-;; (diminish 'undo-tree-mode)
+(diminish 'company-mode "comp")
+(diminish 'outline-minor-mode "outln")
+(diminish 'undo-tree-mode)
 
 
 ;; No, we do not need the splash screen
