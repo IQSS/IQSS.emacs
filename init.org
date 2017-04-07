@@ -255,6 +255,7 @@ The main purpose of these emacs configuration files is to install and configure 
           haskell-mode
           ghc
           company-ghci
+          dante
           flycheck
           scala-mode
           ensime
@@ -859,6 +860,7 @@ I just recently started learning Haskell. There's not much to the configuration 
                                  (setq-local company-backends
                                              (delete-dups (cons 'company-ghci (cons 'company-files company-backends))))))
   (add-hook 'haskell-interactive-mode-hook 'company-mode)
+  (add-hook 'haskell-mode-hook 'dante-mode)
 #+END_SRC
 
 * Light-weight markup language (Markdown mode)

@@ -78,6 +78,7 @@
         haskell-mode
         ghc
         company-ghci
+        dante
         flycheck
         scala-mode
         ensime
@@ -532,6 +533,7 @@
                                (setq-local company-backends
                                            (delete-dups (cons 'company-ghci (cons 'company-files company-backends))))))
 (add-hook 'haskell-interactive-mode-hook 'company-mode)
+(add-hook 'haskell-mode-hook 'dante-mode)
 
 ;; Use markdown-mode for files with .markdown or .md extensions
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
