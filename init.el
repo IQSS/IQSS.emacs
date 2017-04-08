@@ -168,7 +168,7 @@
 (setq sentence-end-double-space nil)
 
 ;; The beeping can be annoying--turn it off
-(set-variable 'visible-bell t)
+(setq visible-bell t)
 
 ;; save place -- move to the place I was last time I visited this file
 (save-place-mode t)
@@ -527,13 +527,13 @@
               (setq-local company-backends
                           (delete-dups (cons 'company-elisp (cons 'company-files company-backends)))))))
 
-(defalias 'haskell 'haskel-interactive-bring)
-(require 'company-ghci)
+(defalias 'haskell 'haskell-interactive-bring)
+
 (add-hook 'haskell-mode-hook (lambda ()
+                               (dante-mode)
                                (setq-local company-backends
                                            (delete-dups (cons 'company-ghci (cons 'company-files company-backends))))))
 (add-hook 'haskell-interactive-mode-hook 'company-mode)
-(add-hook 'haskell-mode-hook 'dante-mode)
 
 ;; Use markdown-mode for files with .markdown or .md extensions
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
