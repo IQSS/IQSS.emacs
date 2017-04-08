@@ -761,9 +761,9 @@ The app is chosen from your OS's preference."
   (define-key term-raw-map (kbd "C-j") 'term-line-mode))
 
 ;; shell
-(require 'essh) ; if not done elsewhere; essh is in the local lisp folder
-(require 'eval-in-repl-shell)
 (with-eval-after-load "sh-script"
+  (require 'essh) ; if not done elsewhere; essh is in the local lisp folder
+  (require 'eval-in-repl-shell)
   (define-key sh-mode-map "\C-c\C-c" 'eir-eval-in-shell)
   (define-key sh-mode-map (kbd "<C-return>") 'eir-eval-in-shell)
   (define-key sh-mode-map (kbd "<C-S-return>") 'executable-interpret))
@@ -786,15 +786,6 @@ The app is chosen from your OS's preference."
             ;; add this hook as buffer local, so it runs once per window.
             (add-hook 'window-configuration-change-hook 'comint-fix-window-size nil t)))
 
-;; extra completion for eshell
-(add-hook 'eshell-mode-hook
-          (lambda()
-            ;; programs that don't work well in eshell and should be run in visual mode
-            (add-to-list 'eshell-visual-commands "ssh")
-            (add-to-list 'eshell-visual-commands "tail")
-            (add-to-list 'eshell-visual-commands "htop")
-            (setq eshell-visual-subcommands '(("git" "log" "diff" "show")))))
-
 ;; Use emacs as editor when running external processes or using shells in emacs
 (when (and (string-match-p "remacs" (prin1-to-string (frame-list)))
            (executable-find "remacsclient"))
@@ -815,6 +806,11 @@ The app is chosen from your OS's preference."
             (call-interactively 'comint-clear-buffer)))
 (add-hook 'eshell-mode-hook
           (lambda()
+            ;; programs that don't work well in eshell and should be run in visual mode
+            (add-to-list 'eshell-visual-commands "ssh")
+            (add-to-list 'eshell-visual-commands "tail")
+            (add-to-list 'eshell-visual-commands "htop")
+            ;; git editor support
             (with-editor-export-editor)
             (with-editor-export-git-editor)))
 
