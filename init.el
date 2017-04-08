@@ -411,7 +411,7 @@
 ;; (require 'which-key)
 (which-key-mode)
 
-(require 'flycheck)
+;; (require 'flycheck)
 ;; (global-flycheck-mode)
 
 ;;; Configure outline minor modes
