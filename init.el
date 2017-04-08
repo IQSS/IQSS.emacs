@@ -752,13 +752,19 @@ The app is chosen from your OS's preference."
 ;; term
 (with-eval-after-load "term"
   (define-key term-mode-map (kbd "C-j") 'term-char-mode)
-  (define-key term-raw-map (kbd "C-j") 'term-line-mode))
+  (define-key term-raw-map (kbd "C-j") 'term-line-mode)
+  (require 'with-editor)
+  (require 'git-commit)
+  (shell-command-with-editor-mode t))
 
 ;; multi-term
 (defalias 'terminal 'multi-term)
 (with-eval-after-load "multi-term"
   (define-key term-mode-map (kbd "C-j") 'term-char-mode)
-  (define-key term-raw-map (kbd "C-j") 'term-line-mode))
+  (define-key term-raw-map (kbd "C-j") 'term-line-mode)
+  (require 'with-editor)
+  (require 'git-commit)
+  (shell-command-with-editor-mode t))
 
 ;; shell
 (with-eval-after-load "sh-script"
@@ -767,6 +773,15 @@ The app is chosen from your OS's preference."
   (define-key sh-mode-map "\C-c\C-c" 'eir-eval-in-shell)
   (define-key sh-mode-map (kbd "<C-return>") 'eir-eval-in-shell)
   (define-key sh-mode-map (kbd "<C-S-return>") 'executable-interpret))
+(with-eval-after-load "shell"
+  (require 'with-editor)
+  (require 'git-commit)
+  (shell-command-with-editor-mode t))
+
+(with-eval-after-load "eshell"
+  (require 'with-editor)
+  (require 'git-commit)
+  (shell-command-with-editor-mode t))
 
 ;; Automatically adjust output width in commint buffers
 ;; from http://stackoverflow.com/questions/7987494/emacs-shell-mode-display-is-too-wide-after-splitting-window
@@ -791,18 +806,18 @@ The app is chosen from your OS's preference."
            (executable-find "remacsclient"))
   (setq with-editor-emacsclient-executable (executable-find "remacsclient")))
 
-(require 'with-editor)
+
 (add-hook 'shell-mode-hook
           (lambda()
             (with-editor-export-editor)
             (with-editor-export-git-editor)
-            (sleep-for 0.5) ; this is bad, but thinking hurts and it works.
+            ;;(sleep-for 0.5) ; this is bad, but thinking hurts and it works.
             (call-interactively 'comint-clear-buffer)))
 (add-hook 'term-exec-hook
           (lambda()
             (with-editor-export-editor)
             (with-editor-export-git-editor)
-            (sleep-for 0.5) ; see comment above
+            ;;(sleep-for 0.5) ; see comment above
             (call-interactively 'comint-clear-buffer)))
 (add-hook 'eshell-mode-hook
           (lambda()
@@ -813,9 +828,6 @@ The app is chosen from your OS's preference."
             ;; git editor support
             (with-editor-export-editor)
             (with-editor-export-git-editor)))
-
-(shell-command-with-editor-mode t)
-(require 'git-commit)
 
 ;; save settings made using the customize interface to a sparate file
 (setq custom-file (concat user-emacs-directory "custom.el"))
