@@ -122,6 +122,14 @@
 (setq mouse-wheel-follow-mouse 't) ; scroll window under mouse
 (setq scroll-preserve-screen-position t)
 (setq scroll-conservatively 100000)
+(setq scroll-error-top-bottom t)
+(setq scroll-preserve-screen-position t)
+;; scroll without moving point
+(require 'smooth-scroll)
+(global-set-key [(control down)] 'scroll-up-1)
+(global-set-key [(control up)] 'scroll-down-1)
+(global-set-key [(control left)] 'scroll-right-1)
+(global-set-key [(control right)] 'scroll-left-1)
 
 ;; Use y/n instead of yes/no
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -129,13 +137,6 @@
 (transient-mark-mode 1) ; makes the region visible
 (line-number-mode 1)    ; makes the line number show up
 (column-number-mode 1)  ; makes the column number show up
-
-;; smooth horizontal scrolling
-(require 'smooth-scroll)
-(global-set-key [(control down)] 'scroll-up-1)
-(global-set-key [(control up)] 'scroll-down-1)
-(global-set-key [(control left)] 'scroll-right-1)
-(global-set-key [(control right)] 'scroll-left-1)
 
 ;; make home and end behave
 (global-set-key (kbd "<home>") 'move-beginning-of-line)
