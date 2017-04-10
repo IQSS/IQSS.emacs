@@ -222,6 +222,7 @@ The main purpose of these emacs configuration files is to install and configure 
           ;; melpa packages
           ;; mode-icons ; slows things down, can be buggy
           pdf-tools
+          auto-package-update
           visual-regexp
           command-log-mode
           undo-tree
@@ -288,6 +289,12 @@ The main purpose of these emacs configuration files is to install and configure 
     (package-install (cadr (assq 'org package-archive-contents)))
     (package-install-selected-packages))
   (package-initialize)
+
+  ;; make sure packages stay up to date
+  (setq auto-package-update-delete-old-versions t)
+  (add-hook 'auto-package-update-before-hook
+          (lambda () (message "New package versions located, updating now")))
+  (auto-package-update-maybe)
 #+END_SRC
 
 * Add custom lisp directory to load path

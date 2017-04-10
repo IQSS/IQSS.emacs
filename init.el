@@ -45,6 +45,7 @@
         ;; melpa packages
         ;; mode-icons ; slows things down, can be buggy
         pdf-tools
+        auto-package-update
         visual-regexp
         command-log-mode
         undo-tree
@@ -111,6 +112,12 @@
   (package-install (cadr (assq 'org package-archive-contents)))
   (package-install-selected-packages))
 (package-initialize)
+
+;; make sure packages stay up to date
+(setq auto-package-update-delete-old-versions t)
+(add-hook 'auto-package-update-before-hook
+        (lambda () (message "New package versions located, updating now")))
+(auto-package-update-maybe)
 
 ;; add custom lisp directory to path
 (let ((default-directory (concat user-emacs-directory "lisp/")))
