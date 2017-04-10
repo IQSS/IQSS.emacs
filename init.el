@@ -45,6 +45,7 @@
         ;; melpa packages
         ;; mode-icons ; slows things down, can be buggy
         pdf-tools
+        visual-regexp
         command-log-mode
         undo-tree
         better-defaults
@@ -325,7 +326,9 @@
 ;; Ivy-based interface to standard commands
 (global-set-key (kbd "C-h b") 'counsel-descbinds)
 (global-set-key (kbd "C-s") 'swiper)
-(global-set-key (kbd "C-r") 'swiper)
+;; visual query replace
+(global-set-key (kbd "C-r") 'vr/replace)
+(global-set-key (kbd "C-S-r") 'vr/query-replace)
 ;; Search files in directory with C-S
 (global-set-key (kbd "C-S-s") 'find-grep-dired); default if we don't find something better
 (cond
