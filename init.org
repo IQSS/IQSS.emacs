@@ -557,8 +557,7 @@ Note that completion for in-buffer text (e.g., methods in python-mode, or argume
 
 #+BEGIN_SRC emacs-lisp
   ;; make sure we wrap in the minibuffer
-  (add-hook 'minibuffer-setup-hook '(lambda() (setq truncate-lines nil)))
-
+  ;;  (add-hook 'minibuffer-setup-hook '(lambda() (setq truncate-lines nil)))
   (ivy-mode 1)
 
   (setq counsel-find-file-ignore-regexp "\\`\\.")
