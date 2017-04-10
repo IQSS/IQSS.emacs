@@ -41,8 +41,10 @@
         windresize
         diff-hl
         adaptive-wrap
+        golden-ratio
         ;; melpa packages
         ;; mode-icons ; slows things down, can be buggy
+        pdf-tools
         command-log-mode
         undo-tree
         better-defaults
@@ -90,6 +92,17 @@
         define-word
         ox-pandoc
         untitled-new-buffer))
+
+;; hide compilation buffer when complete
+;; from http://emacs.stackexchange.com/questions/62/hide-compilation-window
+(add-hook 'compilation-finish-functions
+          (lambda (buf str)
+            (if (null (string-match ".*exited abnormally.*" str))
+                ;;no errors, make the compilation window go away in a few seconds
+                (progn
+                  (let ((win  (get-buffer-window buf 'visible)))
+                    (when win (delete-window win)))))))
+
 ;; install packages if needed
 (unless (every 'package-installed-p package-selected-packages)
   (package-refresh-contents)
@@ -227,6 +240,11 @@
 ;; page up/down
 (global-set-key (kbd "<C-prior>") 'beginning-of-buffer)
 (global-set-key (kbd "<C-next>") 'end-of-buffer)
+
+;; Good default window sizes
+(require 'golden-ratio)
+(setq golden-ratio-auto-scale t)
+(golden-ratio-mode 1)
 
 ;; Work spaces
 (setq eyebrowse-keymap-prefix (kbd "C-c C-l"))
@@ -578,10 +596,20 @@
                                             (cons '(company-math-symbols-latex
                                                     company-auctex-macros
                                                     company-auctex-environments)
-                                                  (cons 'company-files company-backends))))))    
-  (add-hook 'bibtex-mode-hook
-            (lambda ()
-              (define-key bibtex-mode-map "\M-q" 'bibtex-fill-entry))))
+                                                  (cons 'company-files company-backends)))))
+            ;; Use pdf-tools to open PDF files
+            (when (eq system-type 'gnu/linux)
+              (pdf-tools-install)
+              (setq TeX-view-program-selection '((output-pdf "PDF Tools")))
+              TeX-source-correlate-start-server t
+              ;; Update PDF buffers after successful LaTeX runs
+              (add-hook 'TeX-after-TeX-LaTeX-command-finished-hook
+                        'TeX-revert-document-buffer))))
+
+  (with-eval-after-load "bibtex"
+    (add-hook 'bibtex-mode-hook
+          (lambda ()
+            (define-key bibtex-mode-map "\M-q" 'bibtex-fill-entry))))
 
 (setq ivy-bibtex-default-action 'ivy-bibtex-insert-citation)
 (global-set-key (kbd "C-c r") 'ivy-bibtex)
