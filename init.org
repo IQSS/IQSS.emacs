@@ -284,6 +284,7 @@ The main purpose of these emacs configuration files is to install and configure 
 
   ;; install packages if needed
   (unless (every 'package-installed-p package-selected-packages)
+    (message "Missing packages detected, please wait...")
     (package-refresh-contents)
     ;; org needs to be installed first
     (package-install (cadr (assq 'org package-archive-contents)))
