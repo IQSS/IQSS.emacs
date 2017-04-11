@@ -120,6 +120,11 @@
 (auto-package-update-maybe)
 
 ;; add custom lisp directory to path
+(unless
+    (file-exists-p (concat user-emacs-directory "lisp"))
+  (make-directory (concat user-emacs-directory "lisp")))
+
+;; add custom lisp directory to path
 (let ((default-directory (concat user-emacs-directory "lisp/")))
   (setq load-path
         (append

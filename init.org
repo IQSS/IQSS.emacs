@@ -304,6 +304,11 @@ The main purpose of these emacs configuration files is to install and configure 
 We try to install most things using the package manager, but a few things need to be included in a custom lisp directory. Add it to the path so we can load from it easily.
 #+BEGIN_SRC emacs-lisp
   ;; add custom lisp directory to path
+  (unless
+      (file-exists-p (concat user-emacs-directory "lisp"))
+    (make-directory (concat user-emacs-directory "lisp")))
+
+  ;; add custom lisp directory to path
   (let ((default-directory (concat user-emacs-directory "lisp/")))
     (setq load-path
           (append
