@@ -1287,7 +1287,7 @@ This Emacs configuration sets up lots of packages and configures a number of key
   (diminish 'company-mode "comp")
   (diminish 'outline-minor-mode "outln")
   (diminish 'undo-tree-mode)
-  
+
 
   ;; No, we do not need the splash screen
   (setq inhibit-startup-screen t)
@@ -1295,7 +1295,8 @@ This Emacs configuration sets up lots of packages and configures a number of key
   ;; start with untitled new buffer
   (add-hook 'after-init-hook
             '(lambda()
-                   (untitled-new-buffer-with-select-major-mode 'text-mode)))
+               (setq inhibit-startup-screen t) ;; yes, we really want to do this!
+               (untitled-new-buffer-with-select-major-mode 'text-mode)))
 
   (setq untitled-new-buffer-major-modes '(text-mode emacs-lisp-mode))
   ;; Change default buffer name.

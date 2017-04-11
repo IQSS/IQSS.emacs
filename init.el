@@ -894,7 +894,8 @@ The app is chosen from your OS's preference."
 ;; start with untitled new buffer
 (add-hook 'after-init-hook
           '(lambda()
-                 (untitled-new-buffer-with-select-major-mode 'text-mode)))
+             (setq inhibit-startup-screen t) ;; yes, we really want to do this!
+             (untitled-new-buffer-with-select-major-mode 'text-mode)))
 
 (setq untitled-new-buffer-major-modes '(text-mode emacs-lisp-mode))
 ;; Change default buffer name.
