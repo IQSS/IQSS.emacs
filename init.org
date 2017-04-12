@@ -412,14 +412,20 @@ Emacs will never to as simple as Notepad, but perhaps it can be made more consis
 
   ;; (cua-selection-mode t) ;; uncomment this to get cua goodness without copy/paste etc.
 
-  ;; make control-q quit
+  ;; make shift-control-q quit
   (global-set-key (kbd "C-S-q") 'save-buffers-kill-terminal)
 
-  ;; make control-w close window
-  (global-set-key (kbd "C-w") 'delete-window)
+  ;; make shift-control-s save
+  (global-set-key (kbd "C-S-s") 'save-buffer)
+
+  ;; make shift-control-f find
+  (global-set-key (kbd "C-S-F") 'swiper)
+
+  ;; make shift-control-w close window
+  (global-set-key (kbd "C-S-w") 'delete-window)
   (define-key cua--region-keymap (kbd "C-w") 'cua-cut-region)
 
-  ;; new buffer (not quite what you expect, but we emacs users need C-n
+  ;; make shift-control-n open a new buffer
   (setq untitled-new-buffer-major-modes '(text-mode r-mode python-mode LaTeX-mode markdown-mode org-mode))
   (global-set-key (kbd "C-S-n") 'untitled-new-buffer-with-select-major-mode)
 
