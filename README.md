@@ -105,33 +105,35 @@ practice, because `C=o` is easier. But if you can't remember the name of
 a keyboard shortcut don't worry: just type `M-x` and search for the
 command you need.
 
-Other commonly used key bindings are listed in the table below.
+The second most important keyboard shortcut is `C-g`. If Emacs starts
+doing something you don't want it to, press `C-g` to cancel. If it
+doesn't work, press `C-g` again.
 
-  Key        |Description          |Notes
-  -----------|---------------------|-------------------------------------------------------------------------
-  `C-o`      |Open file            |
-  `C-w`      |Close window         |
-  `C-S-q`    |Quit                 |
-  `S-arrow`  |Select a region      |`C-SPC arrow` does the same thing. `C-S-SPC` selects rectangular region
-  `C-c`      |Copy selection       |
-  `C-v`      |Paste                |
-  `C-z`      |Undo                 |use `C-x U` or `M-z` to visualize your undo/redo history
-  `S-C-z`    |Redo                 |
-  `C--`      |Zoom out             |
-  `C-+`      |Zoom in              |
-  `C-PgUp`   |Beginning of buffer  |
-  `C-PgDn`   |End of buffer        |
+Other commonly used key bindings are listed in the table below. Note
+that many of these keybindings are modeled after windows defaults, but
+often require you to press the `S` (shift) key as well.
 
-Note that some things still work "the Emacs way". Notably:
+  Key        |Description             |Notes
+  -----------|------------------------|-------------------------------------------------------------------------
+  `C-o`      |Open file               |
+  `C-S-n`    |Open new file           |
+  `C-S-s`    |Save file               |
+  `C-S-o`    |Search for file by name |
+  `C-S-w`    |Close window            |
+  `C-S-q`    |Quit                    |
+  `C-S-f`    |Find in file            | 
+  `C-c f`    |Find in directory       |
+  `C-S-a`    |Select all              |
+  `S-arrow`  |Select a region         |`C-SPC arrow` does the same thing. `C-S-SPC` selects rectangular region
+  `C-c`      |Copy selection          |
+  `C-v`      |Paste                   |
+  `C-z`      |Undo                    |use `C-x U` or `M-z` to visualize your undo/redo history
+  `S-C-z`    |Redo                    |
+  `C--`      |Zoom out                |
+  `C-+`      |Zoom in                 |
+  `C-PgUp`   |Beginning of buffer     |
+  `C-PgDn`   |End of buffer           |
 
-`C-a`
-:   Goes to the beginning of the line. To select all use `C-x h`.
-
-`C-s`
-:   Searches. To save, use `C-x s`.
-
-`C-f`
-:   Moves forward one character. To search use `C-s`.
 
 ### Window management
 

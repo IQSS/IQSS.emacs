@@ -220,6 +220,9 @@
 ;; make shift-control-f find
 (global-set-key (kbd "C-S-F") 'swiper)
 
+;; make shift-control-a select all
+(global-set-key (kbd "C-S-a") 'mark-whole-buffer)
+
 ;; make shift-control-w close window
 (global-set-key (kbd "C-S-w") 'delete-window)
 (define-key cua--region-keymap (kbd "C-w") 'cua-cut-region)
@@ -348,15 +351,20 @@
 ;; visual query replace
 (global-set-key (kbd "C-r") 'vr/replace)
 (global-set-key (kbd "C-S-r") 'vr/query-replace)
-;; Search files in directory with C-S
-(global-set-key (kbd "C-S-s") 'find-grep-dired); default if we don't find something better
+;; default file searcher if we don't find something better
+(global-set-key (kbd "C-c f") 'find-grep-dired)
+(global-set-key (kbd "C-c f") 'find-grep-dired)
+;; use better searching tool if available
 (cond
  ((executable-find "rg") ; search with ripgrep if we have it
-  (global-set-key (kbd "C-S-s") 'counsel-rg))
+  (global-set-key (kbd "C-c f") 'counsel-rg)
+  (global-set-key (kbd "C-c s") 'counsel-rg))
  ((executable-find "ag") ; otherwise search with ag if we have it
-  (global-set-key (kbd "C-S-s") 'counsel-ag))
+  (global-set-key (kbd "C-c f") 'counsel-ag)
+  (global-set-key (kbd "C-c s") 'counsel-ag))
  ((executable-find "pt") ; otherwise search with pt if we have it
-  (global-set-key (kbd "C-S-s") 'counsel-pt)))
+  (global-set-key (kbd "C-c f") 'counsel-pt)
+  (global-set-key (kbd "C-c f") 'counsel-pt)))
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "M-y") 'counsel-yank-pop)
 (global-set-key (kbd "C-S-v") 'counsel-yank-pop)
@@ -366,9 +374,15 @@
 (when (memq window-system '(mac ns)) ; use mdfind on Mac. TODO: what about windows?
   (setq locate-command "mdfind")
   (setq counsel-locate-cmd 'counsel-locate-cmd-mdfind))
-(global-set-key (kbd "C-x C-S-F") 'find-name-dired) ; default in case we don't have something better
-(global-set-key (kbd "C-x C-S-F") 'counsel-locate)
-(global-set-key (kbd "C-S-O") 'counsel-locate)
+;; default file-finding in case we don't have something better
+(global-set-key (kbd "C-x C-S-F") 'find-name-dired)
+(global-set-key (kbd "C-S-O") 'find-name-dired)
+(global-set-key (kbd "C-c l") 'find-name-dired)
+;; use locate if we have it.
+(when (executable-find "locate")
+  (global-set-key (kbd "C-c l") 'counsel-locate)
+  (global-set-key (kbd "C-S-O") 'counsel-locate)
+  (global-set-key (kbd "C-x C-S-F") 'counsel-locate))
 (global-set-key (kbd "C-x C-r") 'counsel-recentf)
 (global-set-key (kbd "<C-tab>") 'counsel-company)
 (global-set-key (kbd "<f1> f") 'counsel-describe-function)
@@ -380,7 +394,7 @@
 (global-set-key (kbd "C-c g") 'counsel-git)
 (global-set-key (kbd "C-c j") 'counsel-git-grep)
 (global-set-key (kbd "C-c k") 'counsel-ag)
-(global-set-key (kbd "C-x l") 'counsel-locate)
+
 ;; Ivy-resume and other commands
 
 (global-set-key (kbd "C-c i") 'ivy-resume)

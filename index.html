@@ -291,8 +291,9 @@ div.tocify {
 <p>Note that this documentation mostly uses Emacs notation for keybindings, e.g., <code>C</code> means “the Ctrl key”, <code>S</code> means “the Shift key”, and <code>M</code> means “the Meta (aka Alt) key”. Note that on a Mac <code>M</code> means “the Option key”. Refer to <a href="https://www.emacswiki.org/emacs/EmacsKeyNotation" class="uri">https://www.emacswiki.org/emacs/EmacsKeyNotation</a> if you are not familiar with this notation.</p>
 <div id="common-keyboard-shortcuts" class="section level3">
 <h3>Common keyboard shortcuts</h3>
-<p>The most important keyboard shortcut in Emacs is <code>M-x</code>. This brings up a search-able list of all Emacs commands. In fact you could use this interface for everything and never bother learning any of the other keybindings listed below. For example, to open a file you could type <code>M-x counsel-find-file &lt;ret&gt;</code> instead of <code>C-o</code>. Nobody does this in practice, because <code>C=o</code> is easier. But if you can’t remember the name of a keyboard shortcut don’t worry: just type <code>M-x</code> and search for the command you need.</p>
-<p>Other commonly used key bindings are listed in the table below.</p>
+<p>The most important keyboard shortcut in Emacs is <code>M-x</code>. This brings up a search-able list of all Emacs commands. In fact you could use this interface for everything and never bother learning any of the other keybindings listed below. For example, to open a file you could type <code>M-x counsel-find-file &lt;ret&gt;</code> instead of <code>C-o</code>. Nobody does this in practice, because <code>C-o</code> is easier. But if you can’t remember the name of a keyboard shortcut don’t worry: just type <code>M-x</code> and search for the command you need.</p>
+<p>The second most important keyboard shortcut is <code>C-g</code>. If Emacs starts doing something you don’t want it to, press <code>C-g</code> to cancel. If it doesn’t work, press <code>C-g</code> again.</p>
+<p>Other commonly used key bindings are listed in the table below. Note that many of these keybindings are modeled after windows defaults, but often require you to press the <code>S</code> (shift) key as well.</p>
 <table>
 <thead>
 <tr class="header">
@@ -308,13 +309,43 @@ div.tocify {
 <td></td>
 </tr>
 <tr class="even">
-<td><code>C-w</code></td>
-<td>Close window</td>
+<td><code>C-S-n</code></td>
+<td>Open new file</td>
 <td></td>
 </tr>
 <tr class="odd">
-<td><code>C-q</code></td>
+<td><code>C-S-s</code></td>
+<td>Save file</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>C-S-o</code></td>
+<td>Search for a file to open</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>C-S-f</code></td>
+<td>Find in file</td>
+<td><code>C-s</code> (think “search”) does the same thing.</td>
+</tr>
+<tr class="even">
+<td><code>C-c f</code></td>
+<td>Find in directory</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>C-S-w</code></td>
+<td>Close window</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>C-S-q</code></td>
 <td>Quit</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>C-S-a</code></td>
+<td>Select all</td>
 <td></td>
 </tr>
 <tr class="even">
@@ -364,18 +395,6 @@ div.tocify {
 </tr>
 </tbody>
 </table>
-<p>Note that some things still work “the Emacs way”. Notably:</p>
-<dl>
-<dt><code>C-a</code></dt>
-<dd>Goes to the beginning of the line. To select all use <code>C-x h</code>.
-</dd>
-<dt><code>C-s</code></dt>
-<dd>Searches. To save, use <code>C-x s</code>.
-</dd>
-<dt><code>C-f</code></dt>
-<dd>Moves forward one character. To search use <code>C-s</code>.
-</dd>
-</dl>
 </div>
 <div id="window-management" class="section level3">
 <h3>Window management</h3>
@@ -589,8 +608,12 @@ div.tocify {
         windresize
         diff-hl
         adaptive-wrap
+        golden-ratio
         <span class="co">;; melpa packages</span>
-        mode-icons
+        <span class="co">;; mode-icons ; slows things down, can be buggy</span>
+        pdf-tools
+        auto-package-update
+        visual-regexp
         command-log-mode
         undo-tree
         better-defaults
@@ -626,6 +649,7 @@ div.tocify {
         haskell-mode
         ghc
         company-ghci
+        dante
         flycheck
         scala-mode
         ensime
@@ -637,18 +661,41 @@ div.tocify {
         define-word
         ox-pandoc
         untitled-new-buffer))
+
+<span class="co">;; hide compilation buffer when complete</span>
+<span class="co">;; from http://emacs.stackexchange.com/questions/62/hide-compilation-window</span>
+(add-hook 'compilation-finish-functions
+          (<span class="kw">lambda</span> (buf str)
+            (<span class="kw">if</span> (<span class="kw">null</span> (string-match <span class="st">&quot;.*exited abnormally.*&quot;</span> str))
+                <span class="co">;;no errors, make the compilation window go away in a few seconds</span>
+                (<span class="kw">progn</span>
+                  (<span class="kw">let</span> ((win  (get-buffer-window buf 'visible)))
+                    (<span class="kw">when</span> win (delete-window win)))))))
+
 <span class="co">;; install packages if needed</span>
 (<span class="kw">unless</span> (<span class="kw">every</span> 'package-installed-p package-selected-packages)
+  (message <span class="st">&quot;Missing packages detected, please wait...&quot;</span>)
   (package-refresh-contents)
   <span class="co">;; org needs to be installed first</span>
   (package-install (<span class="kw">cadr</span> (assq 'org package-archive-contents)))
   (package-install-selected-packages))
-(package-initialize)</code></pre></div>
+(package-initialize)
+
+<span class="co">;; make sure packages stay up to date</span>
+(<span class="kw">setq</span> auto-package-update-delete-old-versions <span class="kw">t</span>)
+(add-hook 'auto-package-update-before-hook
+        (<span class="kw">lambda</span> () (message <span class="st">&quot;New package versions located, updating now&quot;</span>)))
+(auto-package-update-maybe)</code></pre></div>
 </div>
 <div id="add-custom-lisp-directory-to-load-path" class="section level1">
 <h1>Add custom lisp directory to load path</h1>
 <p>We try to install most things using the package manager, but a few things need to be included in a custom lisp directory. Add it to the path so we can load from it easily.</p>
 <div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;; add custom lisp directory to path</span>
+(<span class="kw">unless</span>
+    (file-exists-p (concat user-emacs-directory <span class="st">&quot;lisp&quot;</span>))
+  (make-directory (concat user-emacs-directory <span class="st">&quot;lisp&quot;</span>)))
+
+<span class="co">;; add custom lisp directory to path</span>
 (<span class="kw">let</span> ((default-directory (concat user-emacs-directory <span class="st">&quot;lisp/&quot;</span>)))
   (<span class="kw">setq</span> load-path
         (<span class="kw">append</span>
@@ -675,6 +722,14 @@ div.tocify {
 (<span class="kw">setq</span> mouse-wheel-follow-mouse 't) <span class="co">; scroll window under mouse</span>
 (<span class="kw">setq</span> scroll-preserve-screen-position <span class="kw">t</span>)
 (<span class="kw">setq</span> scroll-conservatively <span class="dv">100000</span>)
+(<span class="kw">setq</span> scroll-error-top-bottom <span class="kw">t</span>)
+(<span class="kw">setq</span> scroll-preserve-screen-position <span class="kw">t</span>)
+<span class="co">;; scroll without moving point</span>
+(<span class="kw">require</span> 'smooth-scroll)
+(global-set-key [(control down)] 'scroll-up-<span class="dv">1</span>)
+(global-set-key [(control up)] 'scroll-down-<span class="dv">1</span>)
+(global-set-key [(control left)] 'scroll-right-<span class="dv">1</span>)
+(global-set-key [(control right)] 'scroll-left-<span class="dv">1</span>)
 
 <span class="co">;; Use y/n instead of yes/no</span>
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -682,12 +737,6 @@ div.tocify {
 (transient-mark-mode <span class="dv">1</span>) <span class="co">; makes the region visible</span>
 (line-number-mode <span class="dv">1</span>)    <span class="co">; makes the line number show up</span>
 (column-number-mode <span class="dv">1</span>)  <span class="co">; makes the column number show up</span>
-
-<span class="co">;; smooth horizontal scrolling</span>
-(global-set-key [(control down)] 'scroll-up-<span class="dv">1</span>)
-(global-set-key [(control up)] 'scroll-down-<span class="dv">1</span>)
-(global-set-key [(control left)] 'scroll-right-<span class="dv">1</span>)
-(global-set-key [(control right)] 'scroll-left-<span class="dv">1</span>)
 
 <span class="co">;; make home and end behave</span>
 (global-set-key (kbd <span class="st">&quot;&lt;home&gt;&quot;</span>) 'move-beginning-of-line)
@@ -720,7 +769,7 @@ div.tocify {
 (<span class="kw">setq</span> sentence-end-double-space <span class="kw">nil</span>)
 
 <span class="co">;; The beeping can be annoying--turn it off</span>
-(set-variable 'visible-bell <span class="kw">t</span>)
+(<span class="kw">setq</span> visible-bell <span class="kw">t</span>)
 
 <span class="co">;; save place -- move to the place I was last time I visited this file</span>
 (save-place-mode <span class="kw">t</span>)
@@ -739,14 +788,23 @@ div.tocify {
 
 <span class="co">;; (cua-selection-mode t) ;; uncomment this to get cua goodness without copy/paste etc.</span>
 
-<span class="co">;; make control-q quit</span>
-(global-set-key (kbd <span class="st">&quot;C-q&quot;</span>) 'save-buffers-kill-terminal)
+<span class="co">;; make shift-control-q quit</span>
+(global-set-key (kbd <span class="st">&quot;C-S-q&quot;</span>) 'save-buffers-kill-terminal)
 
-<span class="co">;; make control-w close window</span>
-(global-set-key (kbd <span class="st">&quot;C-w&quot;</span>) 'delete-window)
+<span class="co">;; make shift-control-s save</span>
+(global-set-key (kbd <span class="st">&quot;C-S-s&quot;</span>) 'save-buffer)
+
+<span class="co">;; make shift-control-f find</span>
+(global-set-key (kbd <span class="st">&quot;C-S-F&quot;</span>) 'swiper)
+
+<span class="co">;; make shift-control-a select all</span>
+(global-set-key (kbd <span class="st">&quot;C-S-a&quot;</span>) 'mark-whole-buffer)
+
+<span class="co">;; make shift-control-w close window</span>
+(global-set-key (kbd <span class="st">&quot;C-S-w&quot;</span>) 'delete-window)
 (define-key cua--region-keymap (kbd <span class="st">&quot;C-w&quot;</span>) 'cua-cut-region)
 
-<span class="co">;; new buffer (not quite what you expect, but we emacs users need C-n</span>
+<span class="co">;; make shift-control-n open a new buffer</span>
 (<span class="kw">setq</span> untitled-new-buffer-major-modes '(text-mode r-mode python-mode LaTeX-mode markdown-mode org-mode))
 (global-set-key (kbd <span class="st">&quot;C-S-n&quot;</span>) 'untitled-new-buffer-with-select-major-mode)
 
@@ -773,7 +831,7 @@ div.tocify {
 (define-key cua-global-keymap (kbd <span class="st">&quot;&lt;C-S-SPC&gt;&quot;</span>) 'cua-rectangle-mark-mode)
 
 <span class="co">;; nicer mode line</span>
-(mode-icons-mode)
+<span class="co">;; (mode-icons-mode)</span>
 
 <span class="co">;; zoom in/out like we do everywhere else.</span>
 (global-set-key (kbd <span class="st">&quot;C-+&quot;</span>) 'text-scale-increase)
@@ -788,7 +846,12 @@ div.tocify {
 <p><code>windmove</code> allows you to move point to adjacent windows; these functions are bound to <code>C-x S-&lt;arrow&gt;</code>. For example, to move to the window below, press “Control-x shift-down”, and to move to the window to the right press “Control-x shift-right”. Finally, you can use <code>C-x O</code> to quickly navigate to an window arbitrary window (e.g., diagonal from the current window).</p>
 <p><code>winner-mode</code> allows you to undo/redo window configuration changes. Use <code>C-c &lt;left&gt;</code> to undo and <code>C-c &lt;right&gt;</code> to redo.</p>
 <p>Emacs has <a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Configuration-Registers.html#Configuration-Registers">window layout management</a>, built-in but it’s not convenient to use. <a href="https://github.com/wasamasa/eyebrowse">Eyebrowse</a> makes it easier, so we use that. Create a new layout with <code>C-c C-l C-n</code>, switch with <code>C-c C-l #</code> .</p>
-<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;; Work spaces</span>
+<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;; Good default window sizes</span>
+(<span class="kw">require</span> 'golden-ratio)
+(<span class="kw">setq</span> golden-ratio-auto-scale <span class="kw">t</span>)
+(golden-ratio-mode <span class="dv">1</span>)
+
+<span class="co">;; Work spaces</span>
 (<span class="kw">setq</span> eyebrowse-keymap-prefix (kbd <span class="st">&quot;C-c C-l&quot;</span>))
 (eyebrowse-mode <span class="kw">t</span>)
 
@@ -867,7 +930,9 @@ div.tocify {
 <h1>Minibuffer hints and completion</h1>
 <p>There are several different systems for providing completion hints in emacs. The default pcomplete system shows completions on demand (usually bound to tab key) in an emacs buffer. Here we set up ivy, which instead shows these completions on-the-fly in the minibuffer. These completions are primarily used to show available files (e.g., with <code>find-file</code>) and emacs functions (e.g., with <code>execute-extended-command</code>). More information is available at <a href="http://oremacs.com/swiper/" class="uri">http://oremacs.com/swiper/</a>.</p>
 <p>Note that completion for in-buffer text (e.g., methods in python-mode, or arguments in R-mode) are handled separately by <a href="#auto-complete-configuration">company-mode</a>.</p>
-<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">(ivy-mode <span class="dv">1</span>)
+<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;; make sure we wrap in the minibuffer</span>
+<span class="co">;;  (add-hook 'minibuffer-setup-hook '(lambda() (setq truncate-lines nil)))</span>
+(ivy-mode <span class="dv">1</span>)
 
 (<span class="kw">setq</span> counsel-find-file-ignore-regexp <span class="st">&quot;</span>\\<span class="st">`</span>\\<span class="st">.&quot;</span>)
 (<span class="kw">setq</span> ivy-use-virtual-buffers <span class="kw">t</span>)
@@ -877,16 +942,23 @@ div.tocify {
 <span class="co">;; Ivy-based interface to standard commands</span>
 (global-set-key (kbd <span class="st">&quot;C-h b&quot;</span>) 'counsel-descbinds)
 (global-set-key (kbd <span class="st">&quot;C-s&quot;</span>) 'swiper)
-(global-set-key (kbd <span class="st">&quot;C-r&quot;</span>) 'swiper)
-<span class="co">;; Search files in directory with C-S</span>
-(global-set-key (kbd <span class="st">&quot;C-S-s&quot;</span>) 'find-grep-dired)<span class="co">; default if we don't find something better</span>
+<span class="co">;; visual query replace</span>
+(global-set-key (kbd <span class="st">&quot;C-r&quot;</span>) 'vr/replace)
+(global-set-key (kbd <span class="st">&quot;C-S-r&quot;</span>) 'vr/query-replace)
+<span class="co">;; default file searcher if we don't find something better</span>
+(global-set-key (kbd <span class="st">&quot;C-c f&quot;</span>) 'find-grep-dired)
+(global-set-key (kbd <span class="st">&quot;C-c f&quot;</span>) 'find-grep-dired)
+<span class="co">;; use better searching tool if available</span>
 (<span class="kw">cond</span>
  ((executable-find <span class="st">&quot;rg&quot;</span>) <span class="co">; search with ripgrep if we have it</span>
-  (global-set-key (kbd <span class="st">&quot;C-S-s&quot;</span>) 'counsel-rg))
+  (global-set-key (kbd <span class="st">&quot;C-c f&quot;</span>) 'counsel-rg)
+  (global-set-key (kbd <span class="st">&quot;C-c s&quot;</span>) 'counsel-rg))
  ((executable-find <span class="st">&quot;ag&quot;</span>) <span class="co">; otherwise search with ag if we have it</span>
-  (global-set-key (kbd <span class="st">&quot;C-S-s&quot;</span>) 'counsel-ag))
+  (global-set-key (kbd <span class="st">&quot;C-c f&quot;</span>) 'counsel-ag)
+  (global-set-key (kbd <span class="st">&quot;C-c s&quot;</span>) 'counsel-ag))
  ((executable-find <span class="st">&quot;pt&quot;</span>) <span class="co">; otherwise search with pt if we have it</span>
-  (global-set-key (kbd <span class="st">&quot;C-S-s&quot;</span>) 'counsel-pt)))
+  (global-set-key (kbd <span class="st">&quot;C-c f&quot;</span>) 'counsel-pt)
+  (global-set-key (kbd <span class="st">&quot;C-c f&quot;</span>) 'counsel-pt)))
 (global-set-key (kbd <span class="st">&quot;M-x&quot;</span>) 'counsel-M-x)
 (global-set-key (kbd <span class="st">&quot;M-y&quot;</span>) 'counsel-yank-pop)
 (global-set-key (kbd <span class="st">&quot;C-S-v&quot;</span>) 'counsel-yank-pop)
@@ -896,9 +968,15 @@ div.tocify {
 (<span class="kw">when</span> (memq window-system '(mac ns)) <span class="co">; use mdfind on Mac. TODO: what about windows?</span>
   (<span class="kw">setq</span> locate-command <span class="st">&quot;mdfind&quot;</span>)
   (<span class="kw">setq</span> counsel-locate-cmd 'counsel-locate-cmd-mdfind))
-(global-set-key (kbd <span class="st">&quot;C-x C-S-F&quot;</span>) 'find-name-dired) <span class="co">; default in case we don't have something better</span>
-(global-set-key (kbd <span class="st">&quot;C-x C-S-F&quot;</span>) 'counsel-locate)
-(global-set-key (kbd <span class="st">&quot;C-S-O&quot;</span>) 'counsel-locate)
+<span class="co">;; default file-finding in case we don't have something better</span>
+(global-set-key (kbd <span class="st">&quot;C-x C-S-F&quot;</span>) 'find-name-dired)
+(global-set-key (kbd <span class="st">&quot;C-S-O&quot;</span>) 'find-name-dired)
+(global-set-key (kbd <span class="st">&quot;C-c l&quot;</span>) 'find-name-dired)
+<span class="co">;; use locate if we have it.</span>
+(<span class="kw">when</span> (executable-find <span class="st">&quot;locate&quot;</span>)
+  (global-set-key (kbd <span class="st">&quot;C-c l&quot;</span>) 'counsel-locate)
+  (global-set-key (kbd <span class="st">&quot;C-S-O&quot;</span>) 'counsel-locate)
+  (global-set-key (kbd <span class="st">&quot;C-x C-S-F&quot;</span>) 'counsel-locate))
 (global-set-key (kbd <span class="st">&quot;C-x C-r&quot;</span>) 'counsel-recentf)
 (global-set-key (kbd <span class="st">&quot;&lt;C-tab&gt;&quot;</span>) 'counsel-company)
 (global-set-key (kbd <span class="st">&quot;&lt;f1&gt; f&quot;</span>) 'counsel-describe-function)
@@ -910,8 +988,7 @@ div.tocify {
 (global-set-key (kbd <span class="st">&quot;C-c g&quot;</span>) 'counsel-git)
 (global-set-key (kbd <span class="st">&quot;C-c j&quot;</span>) 'counsel-git-grep)
 (global-set-key (kbd <span class="st">&quot;C-c k&quot;</span>) 'counsel-ag)
-(global-set-key (kbd <span class="st">&quot;C-x l&quot;</span>) 'counsel-locate)
-(global-set-key (kbd <span class="st">&quot;C-S-o&quot;</span>) 'counsel-rhythmbox)
+
 <span class="co">;; Ivy-resume and other commands</span>
 
 (global-set-key (kbd <span class="st">&quot;C-c i&quot;</span>) 'ivy-resume)
@@ -992,7 +1069,7 @@ div.tocify {
 <h1>Flycheck</h1>
 <p>Provides on-the-fly syntax checking. Depends on external tools, e.g, <a href="https://cran.rstudio.com/web/packages/lintr/index.html">lintr</a> for R code, <a href="https://flake8.readthedocs.io/en/latest/">flake8</a> for python. See <a href="http://www.flycheck.org/en/latest/languages.html#flycheck-languages" class="uri">http://www.flycheck.org/en/latest/languages.html#flycheck-languages</a> for supported languages and tools.</p>
 <p>Note that active on-the-fly syntax checking is <strong>disabled</strong> by default since I find it too annoying. You can still use <code>flycheck</code> to check your syntax on demand using <code>flycheck-compile</code>, and you can enable on-the-fly checking with <code>M-x flycheck-mode</code>.</p>
-<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">(<span class="kw">require</span> 'flycheck)
+<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;; (require 'flycheck)</span>
 <span class="co">;; (global-flycheck-mode)</span></code></pre></div>
 </div>
 <div id="outline-magic" class="section level1">
@@ -1130,9 +1207,10 @@ div.tocify {
 <div id="light-weight-markup-language" class="section level1">
 <h1>Haskell mode</h1>
 <p>I just recently started learning Haskell. There’s not much to the configuration at this point, but you should get completion with <code>tab</code>.</p>
-<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">(defalias 'haskell 'haskel-interactive-bring)
-(<span class="kw">require</span> 'company-ghci)
+<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">(defalias 'haskell 'haskell-interactive-bring)
+
 (add-hook 'haskell-mode-hook (<span class="kw">lambda</span> ()
+                               (dante-mode)
                                (setq-local company-backends
                                            (delete-dups (<span class="kw">cons</span> 'company-ghci (<span class="kw">cons</span> 'company-files company-backends))))))
 (add-hook 'haskell-interactive-mode-hook 'company-mode)</code></pre></div>
@@ -1186,10 +1264,20 @@ div.tocify {
                                             (<span class="kw">cons</span> '(company-math-symbols-latex
                                                     company-auctex-macros
                                                     company-auctex-environments)
-                                                  (<span class="kw">cons</span> 'company-files company-backends))))))    
-  (add-hook 'bibtex-mode-hook
-            (<span class="kw">lambda</span> ()
-              (define-key bibtex-mode-map <span class="st">&quot;\M-q&quot;</span> 'bibtex-fill-entry))))</code></pre></div>
+                                                  (<span class="kw">cons</span> 'company-files company-backends)))))
+            <span class="co">;; Use pdf-tools to open PDF files</span>
+            (<span class="kw">when</span> (<span class="kw">eq</span> system-type 'gnu/linux)
+              (pdf-tools-install)
+              (<span class="kw">setq</span> TeX-view-program-selection '((output-pdf <span class="st">&quot;PDF Tools&quot;</span>)))
+              TeX-source-correlate-start-server <span class="kw">t</span>
+              <span class="co">;; Update PDF buffers after successful LaTeX runs</span>
+              (add-hook 'TeX-after-TeX-LaTeX-command-finished-hook
+                        'TeX-revert-document-buffer))))
+
+  (with-eval-after-load <span class="st">&quot;bibtex&quot;</span>
+    (add-hook 'bibtex-mode-hook
+          (<span class="kw">lambda</span> ()
+            (define-key bibtex-mode-map <span class="st">&quot;\M-q&quot;</span> 'bibtex-fill-entry))))</code></pre></div>
 <div id="citations-ivy-bibtex" class="section level2">
 <h2>Citations (ivy-bibtex)</h2>
 <p>This allows you to search your BibTeX files for references to insert into the current document. For it to work you will need to set `bibtex-completion-bibliography` to the location of your BibTeX files.</p>
@@ -1301,8 +1389,8 @@ div.tocify {
     <span class="co">;; (setq org-mu4e-convert-to-html t)</span>
     <span class="co">;; (define-key mu4e-headers-mode-map (kbd &quot;C-c c&quot;) 'org-mu4e-store-and-capture)</span>
     <span class="co">;; (define-key mu4e-view-mode-map    (kbd &quot;C-c c&quot;) 'org-mu4e-store-and-capture)</span>
-    <span class="co">;; ;; re</span>
-    nder html
+    <span class="co">;; </span>
+    <span class="co">;; rerender html</span>
     (<span class="kw">require</span> 'mu4e-contrib)
     (<span class="kw">setq</span> mu4e-html2text-command 'mu4e-shr2text)
     (add-hook 'mu4e-view-mode-hook 'visual-line-mode)))</code></pre></div>
@@ -1379,24 +1467,40 @@ div.tocify {
 <div id="shell-modes" class="section level1">
 <h1>Shell modes (term, shell and eshell)</h1>
 <p>There are several different shells available in Emacs by default. In addition <code>multi-term</code> is available to give you a nicer way of running your default shell in Emacs. Convenience functions are enabled to set your EDITOR variable so that Emacs will be used as your editor when running shell commands inside Emacs.</p>
-<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;; term</span>
+<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">
+<span class="co">;; term</span>
 (with-eval-after-load <span class="st">&quot;term&quot;</span>
   (define-key term-mode-map (kbd <span class="st">&quot;C-j&quot;</span>) 'term-char-mode)
-  (define-key term-raw-map (kbd <span class="st">&quot;C-j&quot;</span>) 'term-line-mode))
+  (define-key term-raw-map (kbd <span class="st">&quot;C-j&quot;</span>) 'term-line-mode)
+  (<span class="kw">require</span> 'with-editor)
+  (<span class="kw">require</span> 'git-commit)
+  (shell-command-with-editor-mode <span class="kw">t</span>))
 
 <span class="co">;; multi-term</span>
 (defalias 'terminal 'multi-term)
 (with-eval-after-load <span class="st">&quot;multi-term&quot;</span>
   (define-key term-mode-map (kbd <span class="st">&quot;C-j&quot;</span>) 'term-char-mode)
-  (define-key term-raw-map (kbd <span class="st">&quot;C-j&quot;</span>) 'term-line-mode))
+  (define-key term-raw-map (kbd <span class="st">&quot;C-j&quot;</span>) 'term-line-mode)
+  (<span class="kw">require</span> 'with-editor)
+  (<span class="kw">require</span> 'git-commit)
+  (shell-command-with-editor-mode <span class="kw">t</span>))
 
 <span class="co">;; shell</span>
-(<span class="kw">require</span> 'essh) <span class="co">; if not done elsewhere; essh is in the local lisp folder</span>
-(<span class="kw">require</span> 'eval-in-repl-shell)
 (with-eval-after-load <span class="st">&quot;sh-script&quot;</span>
+  (<span class="kw">require</span> 'essh) <span class="co">; if not done elsewhere; essh is in the local lisp folder</span>
+  (<span class="kw">require</span> 'eval-in-repl-shell)
   (define-key sh-mode-map <span class="st">&quot;\C-c\C-c&quot;</span> 'eir-eval-in-shell)
   (define-key sh-mode-map (kbd <span class="st">&quot;&lt;C-return&gt;&quot;</span>) 'eir-eval-in-shell)
   (define-key sh-mode-map (kbd <span class="st">&quot;&lt;C-S-return&gt;&quot;</span>) 'executable-interpret))
+(with-eval-after-load <span class="st">&quot;shell&quot;</span>
+  (<span class="kw">require</span> 'with-editor)
+  (<span class="kw">require</span> 'git-commit)
+  (shell-command-with-editor-mode <span class="kw">t</span>))
+
+(with-eval-after-load <span class="st">&quot;eshell&quot;</span>
+  (<span class="kw">require</span> 'with-editor)
+  (<span class="kw">require</span> 'git-commit)
+  (shell-command-with-editor-mode <span class="kw">t</span>))
 
 <span class="co">;; Automatically adjust output width in commint buffers</span>
 <span class="co">;; from http://stackoverflow.com/questions/7987494/emacs-shell-mode-display-is-too-wide-after-splitting-window</span>
@@ -1416,40 +1520,33 @@ div.tocify {
             <span class="co">;; add this hook as buffer local, so it runs once per window.</span>
             (add-hook 'window-configuration-change-hook 'comint-fix-window-size <span class="kw">nil</span> <span class="kw">t</span>)))
 
-<span class="co">;; extra completion for eshell</span>
+<span class="co">;; Use emacs as editor when running external processes or using shells in emacs</span>
+(<span class="kw">when</span> (<span class="kw">and</span> (string-match-p <span class="st">&quot;remacs&quot;</span> (<span class="kw">prin1-to-string</span> (frame-list)))
+           (executable-find <span class="st">&quot;remacsclient&quot;</span>))
+  (<span class="kw">setq</span> with-editor-emacsclient-executable (executable-find <span class="st">&quot;remacsclient&quot;</span>)))
+
+
+(add-hook 'shell-mode-hook
+          (<span class="kw">lambda</span>()
+            (with-editor-export-editor)
+            (with-editor-export-git-editor)
+            <span class="co">;;(sleep-for 0.5) ; this is bad, but thinking hurts and it works.</span>
+            (call-interactively 'comint-clear-buffer)))
+(add-hook 'term-exec-hook
+          (<span class="kw">lambda</span>()
+            (with-editor-export-editor)
+            (with-editor-export-git-editor)
+            <span class="co">;;(sleep-for 0.5) ; see comment above</span>
+            (call-interactively 'comint-clear-buffer)))
 (add-hook 'eshell-mode-hook
           (<span class="kw">lambda</span>()
             <span class="co">;; programs that don't work well in eshell and should be run in visual mode</span>
             (add-to-list 'eshell-visual-commands <span class="st">&quot;ssh&quot;</span>)
             (add-to-list 'eshell-visual-commands <span class="st">&quot;tail&quot;</span>)
             (add-to-list 'eshell-visual-commands <span class="st">&quot;htop&quot;</span>)
-            (<span class="kw">setq</span> eshell-visual-subcommands '((<span class="st">&quot;git&quot;</span> <span class="st">&quot;log&quot;</span> <span class="st">&quot;diff&quot;</span> <span class="st">&quot;show&quot;</span>)))))
-
-<span class="co">;; Use emacs as editor when running external processes or using shells in emacs</span>
-(<span class="kw">when</span> (<span class="kw">and</span> (string-match-p <span class="st">&quot;remacs&quot;</span> (<span class="kw">prin1-to-string</span> (frame-list)))
-           (executable-find <span class="st">&quot;remacsclient&quot;</span>))
-  (<span class="kw">setq</span> with-editor-emacsclient-executable (executable-find <span class="st">&quot;remacsclient&quot;</span>)))
-
-(<span class="kw">require</span> 'with-editor)
-(add-hook 'shell-mode-hook
-          (<span class="kw">lambda</span>()
+            <span class="co">;; git editor support</span>
             (with-editor-export-editor)
-            (with-editor-export-git-editor)
-            (sleep-for <span class="fl">0.5</span>) <span class="co">; this is bad, but thinking hurts and it works.</span>
-            (call-interactively 'comint-clear-buffer)))
-(add-hook 'term-exec-hook
-          (<span class="kw">lambda</span>()
-            (with-editor-export-editor)
-            (with-editor-export-git-editor)
-            (sleep-for <span class="fl">0.5</span>) <span class="co">; see comment above</span>
-            (call-interactively 'comint-clear-buffer)))
-(add-hook 'eshell-mode-hook
-          (<span class="kw">lambda</span>()
-            (with-editor-export-editor)
-            (with-editor-export-git-editor)))
-
-(shell-command-with-editor-mode <span class="kw">t</span>)
-(<span class="kw">require</span> 'git-commit)</code></pre></div>
+            (with-editor-export-git-editor)))</code></pre></div>
 </div>
 <div id="final-touches" class="section level1">
 <h1>Final touches</h1>
@@ -1464,10 +1561,9 @@ div.tocify {
 <span class="co">; (require 'diminish)</span>
 (diminish 'visual-line-mode)
 (diminish 'which-key-mode)
-(diminish 'smooth-scroll-mode)
-<span class="co">;; (diminish 'company-mode &quot;comp&quot;)</span>
-<span class="co">;; (diminish 'outline-minor-mode &quot;outline&quot;)</span>
-<span class="co">;; (diminish 'undo-tree-mode)</span>
+(diminish 'company-mode <span class="st">&quot;comp&quot;</span>)
+(diminish 'outline-minor-mode <span class="st">&quot;outln&quot;</span>)
+(diminish 'undo-tree-mode)
 
 
 <span class="co">;; No, we do not need the splash screen</span>
@@ -1476,7 +1572,8 @@ div.tocify {
 <span class="co">;; start with untitled new buffer</span>
 (add-hook 'after-init-hook
           '(<span class="kw">lambda</span>()
-                 (untitled-new-buffer-with-select-major-mode 'text-mode)))
+             (<span class="kw">setq</span> inhibit-startup-screen <span class="kw">t</span>) <span class="co">;; yes, we really want to do this!</span>
+             (untitled-new-buffer-with-select-major-mode 'text-mode)))
 
 (<span class="kw">setq</span> untitled-new-buffer-major-modes '(text-mode emacs-lisp-mode))
 <span class="co">;; Change default buffer name.</span>
