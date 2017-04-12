@@ -61,7 +61,7 @@ Note that this documentation mostly uses Emacs notation for keybindings, e.g., =
 
 *** Common keyboard shortcuts
 
-The most important keyboard shortcut in Emacs is =M-x=. This brings up a search-able list of all Emacs commands. In fact you could use this interface for everything and never bother learning any of the other keybindings listed below. For example, to open a file you could type =M-x counsel-find-file <ret>= instead of =C-o=. Nobody does this in practice, because =C=o= is easier. But if you can't remember the name of a keyboard shortcut don't worry: just type =M-x= and search for the command you need.
+The most important keyboard shortcut in Emacs is =M-x=. This brings up a search-able list of all Emacs commands. In fact you could use this interface for everything and never bother learning any of the other keybindings listed below. For example, to open a file you could type =M-x counsel-find-file <ret>= instead of =C-o=. Nobody does this in practice, because =C-o= is easier. But if you can't remember the name of a keyboard shortcut don't worry: just type =M-x= and search for the command you need.
 
 Other commonly used key bindings are listed in the table below.
 
