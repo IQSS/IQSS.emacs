@@ -43,8 +43,8 @@ Installation
 =================
 
 Installers for configured versions of Emacs are available for 
-[Mac OS X](https://github.com/izahn/dotemacs/releases/download/v0.2/Emacs-25.1-1-modified-5.dmg)
-and [Windows](https://github.com/izahn/dotemacs/releases/download/v0.2/emacs-25.1-2-modified-5.exe).
+[Mac OS X](https://github.com/izahn/dotemacs/releases/download/v.0.2/Emacs-25.1-1-modified-5.dmg)
+and [Windows](https://github.com/izahn/dotemacs/releases/download/v.0.2/emacs-25.1-2-modified-5.exe).
 
 Alternatively, you can install Emacs from another source and copy this
 configuration manually:
