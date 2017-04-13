@@ -1,5 +1,5 @@
 #+AUTHOR:  Ista Zahn
-#+TITLE: An emacs config for social scientists
+#+TITLE: Emacs for the rest of us
 #+STARTUP: showall
 #+PROPERTY: header-args:emacs-lisp    :tangle init.el
 
@@ -32,137 +32,7 @@ A note for Mac users: the keybindings configured here use Windows-style. I wish 
 :CUSTOM_ID: quick-start
 :END:
 
-** How to I install it?
-:PROPERTIES:
-:CUSTOM_ID: how-do-i-install-it
-:END:
-1) Make sure emacs >= version 25.1 is installed on your computer. See [[file:UsefulPrograms.html][this list of useful programs]] for installation instructions.
-2) Make sure you have [[http://git-scm.com/downloads][git]] installed on your computer. If you don't know what git is you might be interested in John McDonnell's [[http://nyuccl.org/pages/GitTutorial/][git tutorial]].
-3) Determine your emacs configuration directory. Open emacs and type =C-x d ~/ RET=. This should open a directory listing buffer. Note the path at the top of this file. This is were your =.emacs.d= configuration directory should go.
-4) Close Emacs.
-5) Back up your existing =~/.emacs= file and =~/.emacs.d= directory (e.g., rename =.emacs= to =OLD.emacs= and rename =.emacs.d= to =OLD.emacs.d=).
-6) Clone this repository into =~/.emacs.d= by opening a terminal and running =git clone http://github.com/izahn/dotemacs ~/.emacs.d=.
-
-If you don't know how to use git, you can skip steps 2 and 6 and simply [[https://github.com/izahn/dotemacs/archive/master.zip][download the files as a zip archive]], extract them, and move them into your .emacs.d directory instead.
-
-** First run
-:PROPERTIES:
-:CUSTOM_ID: first-run
-:END:
-Note that after installing this configuration emacs will be slow to start up the first time. This is due to package installation; just be patient and wait for it to finish--subsequent start-ups will be much faster.
-
-** Important key bindings
-:PROPERTIES:
-:CUSTOM_ID: modified-key-bindings
-:END:
-This configuration loads a lot of useful emacs packages, many of which add key bindings. Documenting them all here would be too much (see the documentation for each package if you need the details), so this section describes only most important ones.
-
-Note that this documentation mostly uses Emacs notation for keybindings, e.g., =C= means "the Ctrl key", =S= means "the Shift key", and =M= means "the Meta (aka Alt) key". Note that on a Mac =M= means "the Option key". Refer to https://www.emacswiki.org/emacs/EmacsKeyNotation if you are not familiar with this notation.
-
-*** Common keyboard shortcuts
-
-The most important keyboard shortcut in Emacs is =M-x=. This brings up a search-able list of all Emacs commands. In fact you could use this interface for everything and never bother learning any of the other keybindings listed below. For example, to open a file you could type =M-x counsel-find-file <ret>= instead of =C-o=. Nobody does this in practice, because =C-o= is easier. But if you can't remember the name of a keyboard shortcut don't worry: just type =M-x= and search for the command you need.
-
-The second most important keyboard shortcut is =C-g=. If Emacs starts doing something you don't want it to, press =C-g= to cancel. If it doesn't work, press =C-g= again.
-
-Other commonly used key bindings are listed in the table below. Note that many of these keybindings are modeled after windows defaults, but often require you to press the =S= (shift) key as well.
-
-| Key       | Description               | Notes                                                                   |
-|-----------+---------------------------+-------------------------------------------------------------------------|
-| =C-o=     | Open file                 |                                                                         |
-| =C-S-n=   | Open new file             |                                                                         |
-| =C-S-s=   | Save file                 |                                                                         |
-| =C-S-o=   | Search for a file to open |                                                                         |
-| =C-S-f=   | Find in file              | =C-s= (think "search") does the same thing.                             |
-| =C-c f=   | Find in directory         |                                                                         |
-| =C-S-w=   | Close window              |                                                                         |
-| =C-S-q=   | Quit                      |                                                                         |
-| =C-S-a=   | Select all                |                                                                         |
-| =S-arrow= | Select a region           | =C-SPC arrow= does the same thing. =C-S-SPC= selects rectangular region |
-| =C-c=     | Copy selection            |                                                                         |
-| =C-v=     | Paste                     |                                                                         |
-| =C-z=     | Undo                      | use =C-x U=  or =M-z= to visualize your undo/redo history               |
-| =S-C-z=   | Redo                      |                                                                         |
-| =C--=     | Zoom out                  |                                                                         |
-| =C-+=     | Zoom in                   |                                                                         |
-| =C-PgUp=  | Beginning of buffer       |                                                                         |
-| =C-PgDn=  | End of buffer             |                                                                         |
-|-----------+---------------------------+-------------------------------------------------------------------------|
-
-
-*** Window management
-One of the things that makes Emacs different that most other applications is the way that it handles windows. Unlike most Integrated Development Environments, there is no fixed layout. Instead, windows are created and killed as needed. New Emacs uses sometimes try to get Emacs to stop messing with their window layout -- my approach is to just let Emacs do what it wants and the revert the layout using =C-c left=.
-
-Some other convenient window management keys are provided, in addition to the standard Emacs =C-x o= binding to navigate to "other window".
-
-| Key                | Description                 | Notes                                                                          |
-|--------------------+-----------------------------+--------------------------------------------------------------------------------|
-| =C-x S-<arrow>=    | Move to other window        |                                                                                |
-| =C-x S-0=          | Move to a window by number  |                                                                                |
-| =C-c left=         | Undo a window layout change |                                                                                |
-| =C-c right=        | Redo a window layout change |                                                                                |
-| =C-c C-l <number>= | Save/restore window layouts | This a somewhat advanced feature that lets you save and restore window layouts |
-|--------------------+-----------------------------+--------------------------------------------------------------------------------|
-
-*** Searching and Completion
-Utilities have been configured to make it easy to search by file name as well as to search the contents of files. Some of this functionality works much better if certain system utilities are found. See [[file:UsefulPrograms.html][this list of useful programs]], especially /everything/ (windows only) and /the silver searcher/ or /ripgrep/.
-
-| Key       | Description                                | Notes                                                                            |
-|-----------+--------------------------------------------+----------------------------------------------------------------------------------|
-| =C-s=     | Searches the current buffer using =swiper= |                                                                                  |
-| =C-S-s=   | Searches files in the current directory    |                                                                                  |
-| =C-x S-f= | (or =C-x O=) Searches by file name         | requires =mlocate= on linux, =everything= (http://www.voidtools.com/) on windows |
-|-----------+--------------------------------------------+----------------------------------------------------------------------------------|
-
-Many standard Emacs keybindings have been replaced with versions that provide completion suggestions. In-buffer completion can be triggered with the =tab= key.
-
-| Key     | Description                      | Notes                                                                               |
-|---------+----------------------------------+-------------------------------------------------------------------------------------|
-| =TAB=   | Indent or complete               |                                                                                     |
-| =S-C-v= | Paste from the clipboard history | =M-S-y= also works for this                                                         |
-| =C-c r= | Search for a reference to insert | You must set =bibtex-completion-bibliography= to your BibTeX files for this to work |
-|---------+----------------------------------+-------------------------------------------------------------------------------------|
-
-*** REPL interaction
-This should be easy, and hopefully it is!
-
-Aliases have been created for starting R, python, haskell, and terminals. For example, to start python just type =M-x python <ret>=.
-
-To execute a line, region, or buffer from a script (R, python, bash) etc.) use the keybindings below.
-
-| Key       | Description                          | Notes                                  |
-|-----------+--------------------------------------+----------------------------------------|
-| =C-RET=   | Line/selection/expression evaluation | Works for R, python, shell, and others |
-| =S-C-RET= | Buffer evaluation                    | Evaluate the whole script              |
-|-----------+--------------------------------------+----------------------------------------|
-
-*** Other key bindings
-:PROPERTIES:
-:CUSTOM_ID: other-key-bindings
-:END:
-
-There are a few more odds-and-ends you might find useful:
-
-- =S-C-SPC= :: Edit rectangular regions
-- =C-up= / =C-down= :: Scroll up or down
-- =M-q= :: Hard-wrap a paragraph
-- =M-S-Q= :: Remove line breaks from a paragraph
-- =C-c C-o t= :: Hide/show outline (outline-minor mode is enabled in programming modes and in LaTeX-mode)
-- =C-x cl= :: Echo keybindings for tutorials. 
-- =C-c d= :: Lookup word in dictionary.
-
-Other key bindings can be discovered by =counsel-descbinds= (bound to =C-h b=) or via the menus.
-
-** Interacting with external programs
- Many of the Emacs features configured here are designed to make it easier to interact with external programs. For example, [[http://ess.r-project.org][ESS]] makes it easy to interact with [[http://r-project.org][R]], and [[https://www.gnu.org/software/auctex/][AUCTEX]] makes it easy to interact with [[http://tug.org/texlive/][LaTeX]]. If you need help installing these programs, [[file:UsefullPrograms.org][this short guide]] may help. 
-
-
-* Implementation
-  :PROPERTIES:
-  :CUSTOM_ID: implementation
-  :END:
-
-The remainder of this document contains the code used to configure Emacs. I used to have a long description about all the packages this configuration sets up, but showing you the actual code is better. Each section starts with a description of what it does, followed by the code that implements it.
+See [[file:QuickStart.html][the quick start guide]] for instructions on installing and using Emacs with this configuration.
 
 * Version check and preparation
   :PROPERTIES:
@@ -623,12 +493,10 @@ Note that completion for in-buffer text (e.g., methods in python-mode, or argume
     (setq counsel-locate-cmd 'counsel-locate-cmd-mdfind))
   ;; default file-finding in case we don't have something better
   (global-set-key (kbd "C-x C-S-F") 'find-name-dired)
-  (global-set-key (kbd "C-S-O") 'find-name-dired)
   (global-set-key (kbd "C-c l") 'find-name-dired)
   ;; use locate if we have it.
   (when (executable-find "locate")
     (global-set-key (kbd "C-c l") 'counsel-locate)
-    (global-set-key (kbd "C-S-O") 'counsel-locate)
     (global-set-key (kbd "C-x C-S-F") 'counsel-locate))
   (global-set-key (kbd "C-x C-r") 'counsel-recentf)
   (global-set-key (kbd "<C-tab>") 'counsel-company)

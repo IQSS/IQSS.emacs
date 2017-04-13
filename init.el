@@ -376,12 +376,10 @@
   (setq counsel-locate-cmd 'counsel-locate-cmd-mdfind))
 ;; default file-finding in case we don't have something better
 (global-set-key (kbd "C-x C-S-F") 'find-name-dired)
-(global-set-key (kbd "C-S-O") 'find-name-dired)
 (global-set-key (kbd "C-c l") 'find-name-dired)
 ;; use locate if we have it.
 (when (executable-find "locate")
   (global-set-key (kbd "C-c l") 'counsel-locate)
-  (global-set-key (kbd "C-S-O") 'counsel-locate)
   (global-set-key (kbd "C-x C-S-F") 'counsel-locate))
 (global-set-key (kbd "C-x C-r") 'counsel-recentf)
 (global-set-key (kbd "<C-tab>") 'counsel-company)
