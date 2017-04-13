@@ -41,7 +41,6 @@
         windresize
         diff-hl
         adaptive-wrap
-        golden-ratio
         ;; melpa packages
         ;; mode-icons ; slows things down, can be buggy
         pdf-tools
@@ -263,11 +262,6 @@
 ;; page up/down
 (global-set-key (kbd "<C-prior>") 'beginning-of-buffer)
 (global-set-key (kbd "<C-next>") 'end-of-buffer)
-
-;; Good default window sizes
-(require 'golden-ratio)
-(setq golden-ratio-auto-scale t)
-(golden-ratio-mode 1)
 
 ;; Work spaces
 (setq eyebrowse-keymap-prefix (kbd "C-c C-l"))
