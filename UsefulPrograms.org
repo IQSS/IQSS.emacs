@@ -2,15 +2,10 @@
 #+TITLE: Useful programs you can use from Emacs
 #+STARTUP: showall
 
-While emacs alone is very powerful, one of it's most important strengths is its ability to inter-operate with other software programs. Links to the download pages for several programs that can be used from with emacs are provided below (they are also very useful on their own!). Installation of all these programs follows normal conventions on each platform, just download, run the installer, and follow the instructions. Everything besides Emacs itself is optional, but installing everything is highly recommended.
+While Emacs alone is very powerful, one of it's most important strengths is its ability to inter-operate with other software programs. Links to the download pages for several programs that can be used from with emacs are provided below (they are also very useful on their own!). Installation of all these programs follows normal conventions on each platform, just download, run the installer, and follow the instructions. Everything besides Emacs itself is optional, but installing everything is highly recommended.
 
 * Installation
 
- - Emacs :: Obviously.
-   - Windows :: https://vigou3.github.io/emacs-modified-windows/
-   - Mac :: https://emacsformacosx.com/
-   - Linux :: Use your package manager, or see http://www.gnu.org/software/emacs/#Obtaining
- - ripgrep :: Used for searching within files: https://github.com/BurntSushi/ripgrep#installation
  - Everything (windows only!) :: For searching files by name: http://www.voidtools.com/
  - R :: The platform and environment for statistical computing: http://cran.r-project.org/
  - LaTeX :: For the best typesetting around.
@@ -21,19 +16,11 @@ While emacs alone is very powerful, one of it's most important strengths is its 
  - Pandoc :: For converting documents from one format to another: https://github.com/jgm/pandoc/releases
  - Stardict (linux only) :: If you want to use a local =stardict= dictionary, use your package manager to install =stardict= and =sdcv=. Word lookup will fall back to a web-based tool if =sdcv= is not available. 
 
-* External program configuration and use
+* Basic configuration
   :PROPERTIES:
   :CUSTOM_ID: external-program-configuration-and-use
   :END:
 While a detailed instructions on how to use these programs would take years, you can get started with the quickly. Here are some quick pointers and links to more detailed tutorials.
-
-** Emacs
-   :PROPERTIES:
-   :CUSTOM_ID: emacs
-   :END:
-Emacs configuration is complex, and we will not go into it here except to say that the main configuration file is named =init.el= and can usually be found in a directory named =.emacs.d=, which is usually in your home directory. There are many pre-packaged emacs configurations that you can use simply by copying them to your =.emacs.d= directory, including the one at [[https://github.com/izahn/dotemacs]].
-
-You can almost just start emacs and start typing as you would in any other text editor, though you should be aware that Emacs uses different keyboard shortcuts than those you may be accustomed to. There is a introductory tutorial built into Emacs that you can access from the Help menu; IBM provides another excellent [[http://www.ibm.com/developerworks/aix/tutorials/au-emacs1/index.html][emacs tutorial]].
 
 ** R
    :PROPERTIES:

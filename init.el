@@ -205,30 +205,13 @@
 (with-eval-after-load "view-mode"
   (define-key view-mode-map (kbd "s") 'swiper))
 
-;; Use CUA mode to make life easier. We _do_ use standard copy/paste etc. 
+;; Use CUA mode to make life easier. We do _not__ use standard copy/paste etc. (see below).
 (cua-mode t)
 
-;; (cua-selection-mode t) ;; uncomment this to get cua goodness without copy/paste etc.
+(cua-selection-mode t) ;; cua goodness without copy/paste etc.
 
-;; make shift-control-q quit
-(global-set-key (kbd "C-S-q") 'save-buffers-kill-terminal)
-
-;; make shift-control-s save
-(global-set-key (kbd "C-S-s") 'save-buffer)
-
-;; make shift-control-f find
-(global-set-key (kbd "C-S-F") 'swiper)
-
-;; make shift-control-a select all
-(global-set-key (kbd "C-S-a") 'mark-whole-buffer)
-
-;; make shift-control-w close window
-(global-set-key (kbd "C-S-w") 'delete-window)
-(define-key cua--region-keymap (kbd "C-w") 'cua-cut-region)
-
-;; make shift-control-n open a new buffer
-(setq untitled-new-buffer-major-modes '(text-mode r-mode python-mode LaTeX-mode markdown-mode org-mode))
-(global-set-key (kbd "C-S-n") 'untitled-new-buffer-with-select-major-mode)
+;; load windows-style keys using windows key instead of control.
+(require 'win-win)
 
 ;; ;; Make control-z undo
 (global-undo-tree-mode t)
@@ -361,7 +344,6 @@
   (global-set-key (kbd "C-c f") 'counsel-pt)))
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "M-y") 'counsel-yank-pop)
-(global-set-key (kbd "C-S-v") 'counsel-yank-pop)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
 (global-set-key (kbd "C-o") 'counsel-find-file)
 ;; search for files to open with "C-O=
@@ -374,7 +356,8 @@
 ;; use locate if we have it.
 (when (executable-find "locate")
   (global-set-key (kbd "C-c l") 'counsel-locate)
-  (global-set-key (kbd "C-x C-S-F") 'counsel-locate))
+  ;;(global-set-key (kbd "C-x C-S-F") 'counsel-locate) ;; FIXME -- need better key
+)
 (global-set-key (kbd "C-x C-r") 'counsel-recentf)
 (global-set-key (kbd "<C-tab>") 'counsel-company)
 (global-set-key (kbd "<f1> f") 'counsel-describe-function)

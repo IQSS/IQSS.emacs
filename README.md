@@ -15,63 +15,83 @@ Project goals and philosophy
 The main goal of this project is to provide an Emacs configuration
 that works more or less they way you would expect an editor or IDE to
 work in the second decade of the twenty-first century, without losing
-the things that make Emacs special. The overarching philosophy is
-pragmatism; we're trying to make Emacs as useful as possible, and to
-reduce the time needed to start using Emacs productively.
+the things that make Emacs special. The included packages were
+selected with social scientists in mind (e.g., it includes support for
+R, Stata, Python, Markdown, and LaTeX).
+
+The overarching philosophy is pragmatism; we're trying to make Emacs
+as useful as possible, and to reduce the time needed to start using
+Emacs productively.
 
 Feature highlights
 ==========================
 
 Highlights of this Emacs configuration include:
-- More standard select/copy/paste keys and right-click behavior makes
-  it more familiar to those new to Emacs.
-- Consistent and familiar indentation *and* code completion using the
-  `tab` key.
-- Consistent and familiar code evaluation using `C-ret`.
 - Literate programming configuration for running R, python, or other
   programming languages inside markdown or org-mode files.
+- Consistent and familiar code evaluation using `C-ret`.
+- Consistent and familiar indentation *and* code completion using the
+  `tab` key.
+- Support for LaTeX and other markup languages.
 - Powerful and simple search-based tools for finding commands, files
   and buffers, inserting citations etc.
+- More standard select/copy/paste keys and right-click behavior makes
+  it more familiar to those new to Emacs.
 - Convenient window management
 
-Quick start
-===========
+Installation
+=================
 
-How to I install it?
---------------------
+Installers for configured versions of Emacs are available for 
+[Mac OS X](https://github.com/izahn/dotemacs/releases/download/v0.2/Emacs-25.1-1-modified-5.dmg)
+and [Windows](https://github.com/izahn/dotemacs/releases/download/v0.2/emacs-25.1-2-modified-5.exe).
 
-1.  Make sure emacs &gt;= version 25.1 is installed on your computer.
-    See [this list of useful programs](http://izahn.github.io/dotemacs/UsefulPrograms.html) 
-    for installation instructions.
-2.  Make sure you have [git](http://git-scm.com/downloads) installed on
-    your computer. If you don't know what git is you might be interested
-    in John McDonnell's 
-    [git tutorial](http://nyuccl.org/pages/GitTutorial/).
-3.  Determine your emacs configuration directory. Open emacs and type
-    `C-x d ~/ RET`. This should open a directory listing buffer. Note
-    the path at the very top of this file. This is were your `.emacs.d` 
-    configuration directory should go.
-4.  Close Emacs.
-5.  Back up your existing `~/.emacs` file and `~/.emacs.d` directory
-    (e.g., rename `.emacs` to `OLD.emacs` and rename `.emacs.d` to
-    `OLD.emacs.d`).
-6.  Clone this repository into `~/.emacs.d` by opening a terminal and
-    running `git clone http://github.com/izahn/dotemacs ~/.emacs.d`.
+Alternatively, you can install Emacs from another source and copy this
+configuration manually:
 
-If you don't know how to use git, you can skip steps 2 and 6 and simply
+1.  Back up any existing `~/.emacs.d` directory.
+2.  Clone this repository using `git` by opening a terminal and
+    running `git clone https://github.com/izahn/dotemacs.git ~/.emacs.d`.
+
+If you don't know how to use git, you can skip step 2 and
 [download the files as a zip archive](https://github.com/izahn/dotemacs/archive/master.zip),
 extract them, and move them into your .emacs.d directory instead.
 
 First run
----------
+=============
 
 Note that after installing this configuration emacs will be slow to
 start up the first time. This is due to package installation; just be
 patient and wait for it to finish--subsequent start-ups will be much
 faster.
 
-Important key bindings
-----------------------
+
+Getting started
+======================
+
+If you have never used Emacs before many things will work as you
+expect. This is especially true on Mac OS X. If you use Windows, note
+that **standard Windows shortcuts starting with `control` have been
+shifted to the `windows` key**. For example, to copy use `win-c`
+rather than `control-c`, and to paste use `win-v` rather than `control-c`.
+
+A few things may not work as you expect, in which case you will need
+to search the web or read the Emacs documentation to learn the Emacs
+way. You can launch a built-in tutorial by pressing =C-h t= (that's
+"Control+h, then t"), or read the getting started documentation at
+https://www.gnu.org/software/emacs/tour/. A cheat-sheet / survival
+guide is available at
+https://www.gnu.org/software/emacs/refcards/pdf/survival.pdf.
+
+If you are an Emacs user, most things will mostly work as you expect,
+though you may wish to familiarize yourself with the alternative key
+bindings configured here. If you are an Emacs user and you find key
+bindings that don't work as they should please open an issue in
+the [[https://github.com/izahn/dotemacs][github repo]].
+
+
+Keyboard shortcuts
+==========================
 
 This documentation mostly uses Emacs notation for keybindings, e.g.,
 `C` means "the Control key", `S` means "the Shift key", and `M` means
@@ -79,54 +99,42 @@ This documentation mostly uses Emacs notation for keybindings, e.g.,
 key". Refer to <https://www.emacswiki.org/emacs/EmacsKeyNotation> if
 you are not familiar with this notation.
 
-The most important keyboard shortcut in Emacs is `M-x`. This brings up a
-search-able list of all Emacs commands. In fact you could use this
-interface for everything and never bother learning any of the other
-keybindings listed below. For example, to open a file you could type
-`M-x counsel-find-file <ret>` instead of `C-o`. Nobody does this in
-practice, because `C=o` is easier. But if you can't remember the name of
-a keyboard shortcut don't worry: just type `M-x` and search for the
-command you need.
+The most important keyboard shortcut in Emacs is `M-x` (that's "hold
+down Alt and press x" Windows, and "hold down Option and press x" on
+Mac). `M-x` brings up a search-able list of all Emacs commands. In fact
+you could use this interface for everything and never bother learning
+any of the other keybindings listed below. For example, to open a file
+you could type `M-x counsel-find-file <ret>` instead of `win-o`. Nobody
+does this in practice, because `win-o` is easier. But if you can't
+remember the name of a keyboard shortcut don't worry: just type `M-x`
+and search for the command you need.
 
-The second most important keyboard shortcut is `C-g`. If Emacs starts
-doing something you don't want it to, press `C-g` to cancel. If it
-doesn't work, press `C-g` again.
+The second most important keyboard shortcut is `C-g` (that's "hold
+down control and press g"). If Emacs starts doing something you don't
+want it to, press `C-g` to cancel. If it doesn't work, press `C-g`
+again.
 
 Other commonly used key bindings are listed in the following sections.
-Note that many of these keybindings are modeled after Windows
-defaults, but often require you to press the `S` (shift) key as well.
 
-### Basic file management
+Standard shortcuts
+----------------------
 
-  Key        |Description             |Notes
-  -----------|------------------------|-------------------------------------------------------------------------
-  `C-o`      |Open file               |
-  `C-c l`    |Search for file by name | Think "l for locate"
-  `C-S-n`    |Open new file           |
-  `C-S-s`    |Save file               |
-  `C-S-w`    |Close window            |
-  `C-S-q`    |Quit                    |
-  `C--`      |Zoom out                |
-  `C-+`      |Zoom in                 |
+On Mac OS X standard keyboard shortcuts should mostly work as
+expected.
 
-### Basic navigation and text manipulation
+On Windows, many common keyboard shortcuts start with the control key.
+This is a problem for Emacs, since many of it's most-used shortcuts
+conflict with the usual Windows meaning. For example, `C-a` means
+"select all" on Windows, but "go to the beginning of the line" in
+Emacs. The solution adopted here is to move standard Windows
+keybindings to the `win` key. The advantage is that we retain normal
+Emacs behavior (`C-a` has the Emacs meaning of "go to the beginnign of
+the line). The disadvantage is that you'll have to get used to
+pressing different keys (`win-a` instead of `c-a` to select all).
 
-Arrow key navigation as well as `Home`/`End` and `Page up`/`Page down`
-should behave as you expect. Additional key bindings are displayed in
-the table below.
 
-  Key        |Description             |Notes
-  -----------|------------------------|-------------------------------------------------------------------------
-  `C-S-a`    |Select all              |
-  `S-arrow`  |Movement with selection |`C-SPC arrow` does the same thing. `C-S-SPC` selects rectangular region
-  `C-PgUp`   |Beginning of buffer     |
-  `C-PgDn`   |End of buffer           |
-  `C-c`      |Copy selection          |
-  `C-v`      |Paste                   |
-  `C-z`      |Undo                    |use `C-x U` or `M-z` to visualize your undo/redo history
-  `S-C-z`    |Redo                    |
-
-### Window management
+Window management
+----------------------
 
 One of the things that makes Emacs different that most other
 applications is the way that it handles windows. Unlike most Integrated
@@ -147,7 +155,8 @@ Here are
   `C-c right`             | Redo a window layout change | 
   `C-c C-l <number>`      | Save/restore window layouts | This a somewhat advanced feature that lets you save and restore window layouts
   
-### Searching and Completion
+Searching and Completion
+------------------------------
 
 Utilities have been configured to make it easy to search by file name as
 well as to search the contents of files. Some of this functionality
@@ -155,23 +164,24 @@ works much better if certain system utilities are found. See [this list
 of useful programs](UsefulPrograms.html), especially *everything*
 (windows only) and *the silver searcher* or *ripgrep*.
 
+Basic search/replace should work as you expect, except that again on
+Windows you should use the `win` key instead of the `control` key. For
+example, you can use `win-f` to search.
+
+In addition, you can search for files in a directory by name or
+contents using the keys described in the table below.
+
   Key        |Description                                 |Notes
   -----------|--------------------------------------------|------------------------------------------------------------------------------------
-  `C-S-f`    |Find in file                                |
+  `win-f`    |Find in file                                |
   `C-c l`    |Searches for files by name                  |(think "locates")
   `C-c f`    |(or `C-c s`) Searches file contents         |requires `mlocate` on linux, `everything` (<http://www.voidtools.com/>) on windows
+  `TAB`      |Indent or complete                          |
+  `win-S-v`  |Paste from the clipboard history            |`M-S-y` also works for this
+  `C-c r`    |Search for a reference to insert            |You must set `bibtex-completion-bibliography` to your BibTeX files for this to work
   
-Many standard Emacs keybindings have been replaced with versions that
-provide completion suggestions. In-buffer completion can be triggered
-with the `tab` key.
-
-  Key      |Description                       |Notes
-  ---------|----------------------------------|-------------------------------------------------------------------------------------
-  `TAB`    |Indent or complete                |
-  `C-S-v`  |Paste from the clipboard history  |`M-S-y` also works for this
-  `C-c r`  |Search for a reference to insert  |You must set `bibtex-completion-bibliography` to your BibTeX files for this to work
-  
-### REPL interaction
+REPL interaction
+--------------------
 
 This should be easy, and hopefully it is!
 

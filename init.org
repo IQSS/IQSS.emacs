@@ -3,34 +3,7 @@
 #+STARTUP: showall
 #+PROPERTY: header-args:emacs-lisp    :tangle init.el
 
-
-* What is this?
-:PROPERTIES:
-:CUSTOM_ID: what-is-this
-:END:
-
-This is an [[https://www.gnu.org/software/emacs/][Emacs]] configuration. There are many like it, but this one is mine. If you like it, make it yours! It provides lots of functionality while keeping things light and fast.
-
-The main goal of this project is to provide an Emacs configuration that works more or less they way you would expect an editor or IDE to work in the second decade of the twenty-first century, without losing the things that make Emacs special. This is challenging because basic Emacs commands often conflict with de facto standards. Each of these conflicts is a judgment call; hopefully a good balance has been reached. 
-
-Highlights of this Emacs configuration include:
-- More standard select/copy/paste keys and right-click behavior makes it more familiar to those new to Emacs.
-- Consistent and familiar code completion and indentation using the =tab= key.
-- Consistent and familiar code evaluation using =C-ret= and =C-S-ret=.
-- Literate programming configuration for running R, python, or other programming languages inside markdown or org-mode files.
-- Powerful and simple search-based tools for finding commands, files and buffers, inserting citations etc.
-- Convenient window management, including navigation with =C-x S-<arrow>=, and undo/redo with =C-c left= and =C-c right=.
-
-The upshot is that if you have never used Emacs before many things will work as you expect; a few will not, in which case you will need to search the web or read the Emacs documentation to learn the Emacs way. You can launch a built-in tutorial by pressing =C-h t= (that's "Control+h, then t"), or read the getting started documentation at https://www.gnu.org/software/emacs/tour/. A cheat-sheet / survival guide is available at https://www.gnu.org/software/emacs/refcards/pdf/survival.pdf. 
-
-If you are an Emacs user, most things will mostly work as you expect, though you may wish to familiarize yourself with the alternative "de facto standard" bindings configured here. The most glaring exception is the use of =C-v= to paste rather than scroll. My advice is to get in the habit of toggling read-only/view mode with =C-x C-q= (or =M-x read-only-mode=) when you need to do a lot of scrolling. In this mode =SPC= scrolls down and =S-SPC= scrolls up, just like it does in your web browser. When you must scroll down without toggling read-only mode you can use =Page Up= and =Page Down= (if your keyboard doesn't dedicated =Page Up= / =Page Down= keys try =Fn down= and =Fn up=). If you are an Emacs user and you find other key bindings that don't work as they should please open an issue in the [[https://github.com/izahn/dotemacs][github repo]].
-
-A note for Mac users: the keybindings configured here use Windows-style. I wish I could make life easy for you by providing Mac style keyboard shortcuts, but that is simply too much work to be feasible. Basically this mostly boils down to "use the control key instead of the command key". For example, use "Control-q" to quit instead of "Command-q" as you do with other applications running on OS X.
-
-* Quick start
-:PROPERTIES:
-:CUSTOM_ID: quick-start
-:END:
+This file documents the configuration used by "Emacs for the rest of us".
 
 See [[file:QuickStart.html][the quick start guide]] for instructions on installing and using Emacs with this configuration.
 
@@ -280,30 +253,13 @@ This section sets up various utilities and conveniences. Many of these are low p
 Emacs will never to as simple as Notepad, but perhaps it can be made more consistent with the way most other programs behave.
 
 #+BEGIN_SRC emacs-lisp
-  ;; Use CUA mode to make life easier. We _do_ use standard copy/paste etc. 
+  ;; Use CUA mode to make life easier. We do _not__ use standard copy/paste etc. (see below).
   (cua-mode t)
 
-  ;; (cua-selection-mode t) ;; uncomment this to get cua goodness without copy/paste etc.
+  (cua-selection-mode t) ;; cua goodness without copy/paste etc.
 
-  ;; make shift-control-q quit
-  (global-set-key (kbd "C-S-q") 'save-buffers-kill-terminal)
-
-  ;; make shift-control-s save
-  (global-set-key (kbd "C-S-s") 'save-buffer)
-
-  ;; make shift-control-f find
-  (global-set-key (kbd "C-S-F") 'swiper)
-
-  ;; make shift-control-a select all
-  (global-set-key (kbd "C-S-a") 'mark-whole-buffer)
-
-  ;; make shift-control-w close window
-  (global-set-key (kbd "C-S-w") 'delete-window)
-  (define-key cua--region-keymap (kbd "C-w") 'cua-cut-region)
-
-  ;; make shift-control-n open a new buffer
-  (setq untitled-new-buffer-major-modes '(text-mode r-mode python-mode LaTeX-mode markdown-mode org-mode))
-  (global-set-key (kbd "C-S-n") 'untitled-new-buffer-with-select-major-mode)
+  ;; load windows-style keys using windows key instead of control.
+  (require 'win-win)
 
   ;; ;; Make control-z undo
   (global-undo-tree-mode t)
@@ -478,7 +434,6 @@ Note that completion for in-buffer text (e.g., methods in python-mode, or argume
     (global-set-key (kbd "C-c f") 'counsel-pt)))
   (global-set-key (kbd "M-x") 'counsel-M-x)
   (global-set-key (kbd "M-y") 'counsel-yank-pop)
-  (global-set-key (kbd "C-S-v") 'counsel-yank-pop)
   (global-set-key (kbd "C-x C-f") 'counsel-find-file)
   (global-set-key (kbd "C-o") 'counsel-find-file)
   ;; search for files to open with "C-O=
@@ -491,7 +446,8 @@ Note that completion for in-buffer text (e.g., methods in python-mode, or argume
   ;; use locate if we have it.
   (when (executable-find "locate")
     (global-set-key (kbd "C-c l") 'counsel-locate)
-    (global-set-key (kbd "C-x C-S-F") 'counsel-locate))
+    ;;(global-set-key (kbd "C-x C-S-F") 'counsel-locate) ;; FIXME -- need better key
+  )
   (global-set-key (kbd "C-x C-r") 'counsel-recentf)
   (global-set-key (kbd "<C-tab>") 'counsel-company)
   (global-set-key (kbd "<f1> f") 'counsel-describe-function)
