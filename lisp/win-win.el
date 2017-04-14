@@ -1,6 +1,7 @@
-;;; win-win.el --- lisp side of interface with NeXT/Open/GNUstep/MacOS X window system  -*- lexical-binding: t -*-
+;;; win-win.el --- Standard keybindings using the win key instead of control  -*- lexical-binding: t -*-
 
-;; This file is modified from ns-win.el, with changes and additions by Ista Zahn.
+;; This file is modified from ns-win.el, with changes and additions
+;; by Ista Zahn.
 ;; The original copyright notice is retained below.
 
 ;; Copyright (C) 1993-1994, 2005-2016 Free Software Foundation, Inc.
@@ -10,6 +11,7 @@
 ;;	Scott Bender
 ;;	Christophe de Dinechin
 ;;	Adrian Robert
+;;      Ista Zahn
 ;; Keywords: terminals
 
 ;; This file is not part of GNU Emacs
@@ -109,7 +111,7 @@
 (define-key global-map [?\s-s] 'save-buffer)
 (define-key global-map [?\s-u] 'revert-buffer)
 (define-key global-map [?\s-v] 'cua-paste)
-(define-key global-map [?\s-w] 'delete-frame)
+(define-key global-map [?\s-w] 'kill-buffer-and-window)
 (define-key global-map [?\s-x] 'cua-cut)
 (define-key global-map [?\s-y] 'counsel-yank-pop)
 (define-key global-map [?\s-z] 'undo)

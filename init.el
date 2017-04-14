@@ -891,6 +891,6 @@ The app is chosen from your OS's preference."
              (setq inhibit-startup-screen t) ;; yes, we really want to do this!
              (untitled-new-buffer-with-select-major-mode 'text-mode)))
 
-(setq untitled-new-buffer-major-modes '(text-mode emacs-lisp-mode))
+(setq untitled-new-buffer-major-modes '(text-mode python-mode r-mode markdown-mode LaTeX-mode emacs-lisp-mode))
 ;; Change default buffer name.
-(setq untitled-new-buffer-default-name "Untitled")
+(setq untitled-new-buffer-default-name "*Untitled*")
