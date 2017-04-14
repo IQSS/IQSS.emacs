@@ -76,6 +76,7 @@
         company-auctex
         ess
         markdown-mode
+        pandoc-mode
         polymode
         eval-in-repl
         haskell-mode
@@ -566,6 +567,9 @@
 ;; Use markdown-mode for files with .markdown or .md extensions
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+(add-hook 'markdown-mode-hook 'turn-on-orgtbl)
+(when (executable-find "pandoc")
+  (add-hook 'markdown-mode-hook 'pandoc-mode))
 
 ;; AucTeX config
 (with-eval-after-load "Latex"
@@ -643,6 +647,8 @@
   (require 'ox-html)
   (require 'ox-latex)
   (require 'ox-odt)
+  (when (executable-find "pandoc")
+    (require 'ox-pandoc))
 
   (require 'org-capture)
   (require 'org-protocol)
@@ -689,7 +695,7 @@
   (add-hook 'polymode-init-host-hook
             '(lambda()
                (adaptive-wrap-prefix-mode -1)
-               (electric-indent-mode -1)
+               (electric-indent-local-mode -1)
                (unless (featurep 'ess-site)
                  (require 'ess-site)))))
 

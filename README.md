@@ -212,4 +212,4 @@ may help.
 More information
 =============
 
-For more information refer to the [annotated configuration file](https://izahn.github.io/dotemacs).
+For more information refer to the [annotated configuration file](https://izahn.github.io/dotemacs/init.html).

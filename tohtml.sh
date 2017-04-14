@@ -2,7 +2,7 @@
 
 pandoc +RTS -K512m -RTS init.org \
        --to html \
-       --output index.html \
+       --output init.html \
        --smart \
        --email-obfuscation none \
        --self-contained \
@@ -42,7 +42,7 @@ pandoc +RTS -K512m -RTS UsefulPrograms.org \
 
 pandoc +RTS -K512m -RTS README.md \
        --to html \
-       --output QuickStart.html \
+       --output index.html \
        --smart \
        --email-obfuscation none \
        --self-contained \

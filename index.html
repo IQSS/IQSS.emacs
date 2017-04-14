@@ -9,7 +9,6 @@
 <meta name="generator" content="pandoc" />
 
 
-<meta name="author" content="Ista Zahn" />
 
 
 <title>Emacs for the rest of us</title>
@@ -26,49 +25,6 @@
 <script src="data:application/x-javascript;base64,CgovKioKICogalF1ZXJ5IFBsdWdpbjogU3RpY2t5IFRhYnMKICoKICogQGF1dGhvciBBaWRhbiBMaXN0ZXIgPGFpZGFuQHBocC5uZXQ+CiAqIGFkYXB0ZWQgYnkgUnViZW4gQXJzbGFuIHRvIGFjdGl2YXRlIHBhcmVudCB0YWJzIHRvbwogKiBodHRwOi8vd3d3LmFpZGFubGlzdGVyLmNvbS8yMDE0LzAzL3BlcnNpc3RpbmctdGhlLXRhYi1zdGF0ZS1pbi1ib290c3RyYXAvCiAqLwooZnVuY3Rpb24oJCkgewogICJ1c2Ugc3RyaWN0IjsKICAkLmZuLnJtYXJrZG93blN0aWNreVRhYnMgPSBmdW5jdGlvbigpIHsKICAgIHZhciBjb250ZXh0ID0gdGhpczsKICAgIC8vIFNob3cgdGhlIHRhYiBjb3JyZXNwb25kaW5nIHdpdGggdGhlIGhhc2ggaW4gdGhlIFVSTCwgb3IgdGhlIGZpcnN0IHRhYgogICAgdmFyIHNob3dTdHVmZkZyb21IYXNoID0gZnVuY3Rpb24oKSB7CiAgICAgIHZhciBoYXNoID0gd2luZG93LmxvY2F0aW9uLmhhc2g7CiAgICAgIHZhciBzZWxlY3RvciA9IGhhc2ggPyAnYVtocmVmPSInICsgaGFzaCArICciXScgOiAnbGkuYWN0aXZlID4gYSc7CiAgICAgIHZhciAkc2VsZWN0b3IgPSAkKHNlbGVjdG9yLCBjb250ZXh0KTsKICAgICAgaWYoJHNlbGVjdG9yLmRhdGEoJ3RvZ2dsZScpID09PSAidGFiIikgewogICAgICAgICRzZWxlY3Rvci50YWIoJ3Nob3cnKTsKICAgICAgICAvLyB3YWxrIHVwIHRoZSBhbmNlc3RvcnMgb2YgdGhpcyBlbGVtZW50LCBzaG93IGFueSBoaWRkZW4gdGFicwogICAgICAgICRzZWxlY3Rvci5wYXJlbnRzKCcuc2VjdGlvbi50YWJzZXQnKS5lYWNoKGZ1bmN0aW9uKGksIGVsbSkgewogICAgICAgICAgdmFyIGxpbmsgPSAkKCdhW2hyZWY9IiMnICsgJChlbG0pLmF0dHIoJ2lkJykgKyAnIl0nKTsKICAgICAgICAgIGlmKGxpbmsuZGF0YSgndG9nZ2xlJykgPT09ICJ0YWIiKSB7CiAgICAgICAgICAgIGxpbmsudGFiKCJzaG93Iik7CiAgICAgICAgICB9CiAgICAgICAgfSk7CiAgICAgIH0KICAgIH07CgoKICAgIC8vIFNldCB0aGUgY29ycmVjdCB0YWIgd2hlbiB0aGUgcGFnZSBsb2FkcwogICAgc2hvd1N0dWZmRnJvbUhhc2goY29udGV4dCk7CgogICAgLy8gU2V0IHRoZSBjb3JyZWN0IHRhYiB3aGVuIGEgdXNlciB1c2VzIHRoZWlyIGJhY2svZm9yd2FyZCBidXR0b24KICAgICQod2luZG93KS5vbignaGFzaGNoYW5nZScsIGZ1bmN0aW9uKCkgewogICAgICBzaG93U3R1ZmZGcm9tSGFzaChjb250ZXh0KTsKICAgIH0pOwoKICAgIC8vIENoYW5nZSB0aGUgVVJMIHdoZW4gdGFicyBhcmUgY2xpY2tlZAogICAgJCgnYScsIGNvbnRleHQpLm9uKCdjbGljaycsIGZ1bmN0aW9uKGUpIHsKICAgICAgaGlzdG9yeS5wdXNoU3RhdGUobnVsbCwgbnVsbCwgdGhpcy5ocmVmKTsKICAgICAgc2hvd1N0dWZmRnJvbUhhc2goY29udGV4dCk7CiAgICB9KTsKCiAgICByZXR1cm4gdGhpczsKICB9Owp9KGpRdWVyeSkpOwoKd2luZG93LmJ1aWxkVGFic2V0cyA9IGZ1bmN0aW9uKHRvY0lEKSB7CgogIC8vIGJ1aWxkIGEgdGFic2V0IGZyb20gYSBzZWN0aW9uIGRpdiB3aXRoIHRoZSAudGFic2V0IGNsYXNzCiAgZnVuY3Rpb24gYnVpbGRUYWJzZXQodGFic2V0KSB7CgogICAgLy8gY2hlY2sgZm9yIGZhZGUgYW5kIHBpbGxzIG9wdGlvbnMKICAgIHZhciBmYWRlID0gdGFic2V0Lmhhc0NsYXNzKCJ0YWJzZXQtZmFkZSIpOwogICAgdmFyIHBpbGxzID0gdGFic2V0Lmhhc0NsYXNzKCJ0YWJzZXQtcGlsbHMiKTsKICAgIHZhciBuYXZDbGFzcyA9IHBpbGxzID8gIm5hdi1waWxscyIgOiAibmF2LXRhYnMiOwoKICAgIC8vIGRldGVybWluZSB0aGUgaGVhZGluZyBsZXZlbCBvZiB0aGUgdGFic2V0IGFuZCB0YWJzCiAgICB2YXIgbWF0Y2ggPSB0YWJzZXQuYXR0cignY2xhc3MnKS5tYXRjaCgvbGV2ZWwoXGQpIC8pOwogICAgaWYgKG1hdGNoID09PSBudWxsKQogICAgICByZXR1cm47CiAgICB2YXIgdGFic2V0TGV2ZWwgPSBOdW1iZXIobWF0Y2hbMV0pOwogICAgdmFyIHRhYkxldmVsID0gdGFic2V0TGV2ZWwgKyAxOwoKICAgIC8vIGZpbmQgYWxsIHN1YmhlYWRpbmdzIGltbWVkaWF0ZWx5IGJlbG93CiAgICB2YXIgdGFicyA9IHRhYnNldC5maW5kKCJkaXYuc2VjdGlvbi5sZXZlbCIgKyB0YWJMZXZlbCk7CiAgICBpZiAoIXRhYnMubGVuZ3RoKQogICAgICByZXR1cm47CgogICAgLy8gY3JlYXRlIHRhYmxpc3QgYW5kIHRhYi1jb250ZW50IGVsZW1lbnRzCiAgICB2YXIgdGFiTGlzdCA9ICQoJzx1bCBjbGFzcz0ibmF2ICcgKyBuYXZDbGFzcyArICciIHJvbGU9InRhYmxpc3QiPjwvdWw+Jyk7CiAgICAkKHRhYnNbMF0pLmJlZm9yZSh0YWJMaXN0KTsKICAgIHZhciB0YWJDb250ZW50ID0gJCgnPGRpdiBjbGFzcz0idGFiLWNvbnRlbnQiPjwvZGl2PicpOwogICAgJCh0YWJzWzBdKS5iZWZvcmUodGFiQ29udGVudCk7CgogICAgLy8gYnVpbGQgdGhlIHRhYnNldAogICAgdmFyIGFjdGl2ZVRhYiA9IDA7CiAgICB0YWJzLmVhY2goZnVuY3Rpb24oaSkgewoKICAgICAgLy8gZ2V0IHRoZSB0YWIgZGl2CiAgICAgIHZhciB0YWIgPSAkKHRhYnNbaV0pOwoKICAgICAgLy8gZ2V0IHRoZSBpZCB0aGVuIHNhbml0aXplIGl0IGZvciB1c2Ugd2l0aCBib290c3RyYXAgdGFicwogICAgICB2YXIgaWQgPSB0YWIuYXR0cignaWQnKTsKCiAgICAgIC8vIHNlZSBpZiB0aGlzIGlzIG1hcmtlZCBhcyB0aGUgYWN0aXZlIHRhYgogICAgICBpZiAodGFiLmhhc0NsYXNzKCdhY3RpdmUnKSkKICAgICAgICBhY3RpdmVUYWIgPSBpOwoKICAgICAgLy8gcmVtb3ZlIGFueSB0YWJsZSBvZiBjb250ZW50cyBlbnRyaWVzIGFzc29jaWF0ZWQgd2l0aAogICAgICAvLyB0aGlzIElEIChzaW5jZSB3ZSdsbCBiZSByZW1vdmluZyB0aGUgaGVhZGluZyBlbGVtZW50KQogICAgICAkKCJkaXYjIiArIHRvY0lEICsgIiBsaSBhW2hyZWY9JyMiICsgaWQgKyAiJ10iKS5wYXJlbnQoKS5yZW1vdmUoKTsKCiAgICAgIC8vIHNhbml0aXplIHRoZSBpZCBmb3IgdXNlIHdpdGggYm9vdHN0cmFwIHRhYnMKICAgICAgaWQgPSBpZC5yZXBsYWNlKC9bLlwvPyYhIzw+XS9nLCAnJykucmVwbGFjZSgvXHMvZywgJ18nKTsKICAgICAgdGFiLmF0dHIoJ2lkJywgaWQpOwoKICAgICAgLy8gZ2V0IHRoZSBoZWFkaW5nIGVsZW1lbnQgd2l0aGluIGl0LCBncmFiIGl0J3MgdGV4dCwgdGhlbiByZW1vdmUgaXQKICAgICAgdmFyIGhlYWRpbmcgPSB0YWIuZmluZCgnaCcgKyB0YWJMZXZlbCArICc6Zmlyc3QnKTsKICAgICAgdmFyIGhlYWRpbmdUZXh0ID0gaGVhZGluZy5odG1sKCk7CiAgICAgIGhlYWRpbmcucmVtb3ZlKCk7CgogICAgICAvLyBidWlsZCBhbmQgYXBwZW5kIHRoZSB0YWIgbGlzdCBpdGVtCiAgICAgIHZhciBhID0gJCgnPGEgcm9sZT0idGFiIiBkYXRhLXRvZ2dsZT0idGFiIj4nICsgaGVhZGluZ1RleHQgKyAnPC9hPicpOwogICAgICBhLmF0dHIoJ2hyZWYnLCAnIycgKyBpZCk7CiAgICAgIGEuYXR0cignYXJpYS1jb250cm9scycsIGlkKTsKICAgICAgdmFyIGxpID0gJCgnPGxpIHJvbGU9InByZXNlbnRhdGlvbiI+PC9saT4nKTsKICAgICAgbGkuYXBwZW5kKGEpOwogICAgICB0YWJMaXN0LmFwcGVuZChsaSk7CgogICAgICAvLyBzZXQgaXQncyBhdHRyaWJ1dGVzCiAgICAgIHRhYi5hdHRyKCdyb2xlJywgJ3RhYnBhbmVsJyk7CiAgICAgIHRhYi5hZGRDbGFzcygndGFiLXBhbmUnKTsKICAgICAgdGFiLmFkZENsYXNzKCd0YWJiZWQtcGFuZScpOwogICAgICBpZiAoZmFkZSkKICAgICAgICB0YWIuYWRkQ2xhc3MoJ2ZhZGUnKTsKCiAgICAgIC8vIG1vdmUgaXQgaW50byB0aGUgdGFiIGNvbnRlbnQgZGl2CiAgICAgIHRhYi5kZXRhY2goKS5hcHBlbmRUbyh0YWJDb250ZW50KTsKICAgIH0pOwoKICAgIC8vIHNldCBhY3RpdmUgdGFiCiAgICAkKHRhYkxpc3QuY2hpbGRyZW4oJ2xpJylbYWN0aXZlVGFiXSkuYWRkQ2xhc3MoJ2FjdGl2ZScpOwogICAgdmFyIGFjdGl2ZSA9ICQodGFiQ29udGVudC5jaGlsZHJlbignZGl2LnNlY3Rpb24nKVthY3RpdmVUYWJdKTsKICAgIGFjdGl2ZS5hZGRDbGFzcygnYWN0aXZlJyk7CiAgICBpZiAoZmFkZSkKICAgICAgYWN0aXZlLmFkZENsYXNzKCdpbicpOwoKICAgIGlmICh0YWJzZXQuaGFzQ2xhc3MoInRhYnNldC1zdGlja3kiKSkKICAgICAgdGFic2V0LnJtYXJrZG93blN0aWNreVRhYnMoKTsKICB9CgogIC8vIGNvbnZlcnQgc2VjdGlvbiBkaXZzIHdpdGggdGhlIC50YWJzZXQgY2xhc3MgdG8gdGFic2V0cwogIHZhciB0YWJzZXRzID0gJCgiZGl2LnNlY3Rpb24udGFic2V0Iik7CiAgdGFic2V0cy5lYWNoKGZ1bmN0aW9uKGkpIHsKICAgIGJ1aWxkVGFic2V0KCQodGFic2V0c1tpXSkpOwogIH0pOwp9OwoK"></script>
 
 
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-pre, code { background-color: #f8f8f8; }
-code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
-code > span.dt { color: #204a87; } /* DataType */
-code > span.dv { color: #0000cf; } /* DecVal */
-code > span.bn { color: #0000cf; } /* BaseN */
-code > span.fl { color: #0000cf; } /* Float */
-code > span.ch { color: #4e9a06; } /* Char */
-code > span.st { color: #4e9a06; } /* String */
-code > span.co { color: #8f5902; font-style: italic; } /* Comment */
-code > span.ot { color: #8f5902; } /* Other */
-code > span.al { color: #ef2929; } /* Alert */
-code > span.fu { color: #000000; } /* Function */
-code > span.er { color: #a40000; font-weight: bold; } /* Error */
-code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #000000; } /* Constant */
-code > span.sc { color: #000000; } /* SpecialChar */
-code > span.vs { color: #4e9a06; } /* VerbatimString */
-code > span.ss { color: #4e9a06; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #000000; } /* Variable */
-code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
-code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
-code > span.ex { } /* Extension */
-code > span.at { color: #c4a000; } /* Attribute */
-code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
-code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
-</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 
 
 <style type="text/css">
@@ -245,1012 +201,148 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Emacs for the rest of us</h1>
-<h4 class="author"><em>Ista Zahn</em></h4>
 
 </div>
 
 
-<p>This file documents the configuration used by “Emacs for the rest of us”.</p>
-<p>See <a href="QuickStart.html">the quick start guide</a> for instructions on installing and using Emacs with this configuration.</p>
-<div id="version-check" class="section level1">
-<h1>Version check and preparation</h1>
-<p>It is difficult to support multiple versions of emacs, so we will pick an arbitrary cutoff and throw an error if the version of emacs is “too old”.</p>
-<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">(<span class="kw">when</span> (<span class="op">&lt;</span> (string-to-number 
-           (concat 
-            (number-to-string emacs-major-version) 
-            <span class="st">&quot;.&quot;</span> 
-            (number-to-string emacs-minor-version)))
-          <span class="fl">25.1</span>)
-  (<span class="kw">error</span> <span class="st">&quot;Your version of emacs is very old and must be upgraded before you can use these packages!&quot;</span>))
-
-<span class="co">;; set coding system so emacs doesn't choke on melpa file listings</span>
-(set-language-environment 'utf-<span class="dv">8</span>)
-(<span class="kw">setq</span> locale-coding-system 'utf-<span class="dv">8</span>)
-(set-default-coding-systems 'utf-<span class="dv">8</span>)
-(set-terminal-coding-system 'utf-<span class="dv">8</span>)
-(<span class="kw">unless</span> (<span class="kw">eq</span> system-type 'windows-nt)
-  (set-selection-coding-system 'utf-<span class="dv">8</span>))
-(prefer-coding-system 'utf-<span class="dv">8</span>)
-(<span class="kw">setq</span> buffer-file-coding-system 'utf-<span class="dv">8</span>)
-(<span class="kw">setq</span> x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
-
-(<span class="kw">require</span> 'cl)
-
-<span class="co">;; set things that need to be set before packages load</span>
-(<span class="kw">setq</span> outline-minor-mode-prefix <span class="st">&quot;\C-c\C-o&quot;</span>)
-(add-hook 'outline-minor-mode-hook
-          (<span class="kw">lambda</span> () (local-set-key <span class="st">&quot;\C-c\C-o&quot;</span>
-                                    outline-mode-prefix-map)))
-(<span class="kw">setq</span> save-abbrevs 'silently)</code></pre></div>
+<p>This is an <a href="https://www.gnu.org/software/emacs/">Emacs</a> configuration. There are many like it, but this one is mine. If you like it, make it yours! It provides lots of functionality while keeping things light and fast. It tries to tames Emacs, making it behave more like other applications you use.</p>
+<div id="project-goals-and-philosophy" class="section level1">
+<h1>Project goals and philosophy</h1>
+<p>The main goal of this project is to provide an Emacs configuration that works more or less they way you would expect an editor or IDE to work in the second decade of the twenty-first century, without losing the things that make Emacs special. The included packages were selected with social scientists in mind (e.g., it includes support for R, Stata, Python, Markdown, and LaTeX).</p>
+<p>The overarching philosophy is pragmatism; we’re trying to make Emacs as useful as possible, and to reduce the time needed to start using Emacs productively.</p>
 </div>
-<div id="install-useful-packages" class="section level1">
-<h1>Install useful packages</h1>
-<p>The main purpose of these emacs configuration files is to install and configure useful emacs packages. Here we carry out the installation.</p>
-<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;; load the package manager</span>
-(<span class="kw">require</span> 'package)
-(package-initialize <span class="kw">t</span>)
-
-<span class="co">;; Add additional package sources</span>
-(add-to-list 'package-archives 
-             '(<span class="st">&quot;melpa&quot;</span> . <span class="st">&quot;http://melpa.milkbox.net/packages/&quot;</span>) <span class="kw">t</span>)
-
-<span class="co">;; Make a list of the packages you want</span>
-(<span class="kw">setq</span> package-selected-packages
-      '(<span class="co">;; gnu packages</span>
-        auctex
-        windresize
-        diff-hl
-        adaptive-wrap
-        <span class="co">;; melpa packages</span>
-        <span class="co">;; mode-icons ; slows things down, can be buggy</span>
-        pdf-tools
-        auto-package-update
-        visual-regexp
-        command-log-mode
-        undo-tree
-        better-defaults
-        diminish
-        dired+
-        ace-window
-        howdoi
-        auctex-latexmk
-        multi-term
-        with-editor
-        git-commit
-        magit
-        eyebrowse
-        mouse3
-        swiper
-        counsel
-        flx-ido
-        smex
-        ivy-bibtex
-        hydra
-        ivy-hydra
-        which-key
-        outline-magic
-        smooth-scroll
-        unfill
-        company
-        company-math
-        company-auctex
-        ess
-        markdown-mode
-        polymode
-        eval-in-repl
-        haskell-mode
-        ghc
-        company-ghci
-        dante
-        flycheck
-        scala-mode
-        ensime
-        sbt-mode
-        exec-path-from-shell
-        htmlize
-        sdcv <span class="co">;; stardictionary</span>
-        osx-dictionary
-        define-word
-        ox-pandoc
-        untitled-new-buffer))
-
-<span class="co">;; hide compilation buffer when complete</span>
-<span class="co">;; from http://emacs.stackexchange.com/questions/62/hide-compilation-window</span>
-(add-hook 'compilation-finish-functions
-          (<span class="kw">lambda</span> (buf str)
-            (<span class="kw">if</span> (<span class="kw">null</span> (string-match <span class="st">&quot;.*exited abnormally.*&quot;</span> str))
-                <span class="co">;;no errors, make the compilation window go away in a few seconds</span>
-                (<span class="kw">progn</span>
-                  (<span class="kw">let</span> ((win  (get-buffer-window buf 'visible)))
-                    (<span class="kw">when</span> win (delete-window win)))))))
-
-<span class="co">;; install packages if needed</span>
-(<span class="kw">unless</span> (<span class="kw">every</span> 'package-installed-p package-selected-packages)
-  (message <span class="st">&quot;Missing packages detected, please wait...&quot;</span>)
-  (package-refresh-contents)
-  <span class="co">;; org needs to be installed first</span>
-  (package-install (<span class="kw">cadr</span> (assq 'org package-archive-contents)))
-  (package-install-selected-packages))
-(package-initialize)
-
-<span class="co">;; make sure packages stay up to date</span>
-(<span class="kw">setq</span> auto-package-update-delete-old-versions <span class="kw">t</span>)
-(add-hook 'auto-package-update-before-hook
-        (<span class="kw">lambda</span> () (message <span class="st">&quot;New package versions located, updating now&quot;</span>)))
-(auto-package-update-maybe)</code></pre></div>
+<div id="feature-highlights" class="section level1">
+<h1>Feature highlights</h1>
+<p>Highlights of this Emacs configuration include: - Literate programming configuration for running R, python, or other programming languages inside markdown or org-mode files. - Consistent and familiar code evaluation using <code>C-ret</code>. - Consistent and familiar indentation <em>and</em> code completion using the <code>tab</code> key. - Support for LaTeX and other markup languages. - Powerful and simple search-based tools for finding commands, files and buffers, inserting citations etc. - More standard select/copy/paste keys and right-click behavior makes it more familiar to those new to Emacs. - Convenient window management</p>
 </div>
-<div id="add-custom-lisp-directory-to-load-path" class="section level1">
-<h1>Add custom lisp directory to load path</h1>
-<p>We try to install most things using the package manager, but a few things need to be included in a custom lisp directory. Add it to the path so we can load from it easily.</p>
-<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;; add custom lisp directory to path</span>
-(<span class="kw">unless</span>
-    (file-exists-p (concat user-emacs-directory <span class="st">&quot;lisp&quot;</span>))
-  (make-directory (concat user-emacs-directory <span class="st">&quot;lisp&quot;</span>)))
-
-<span class="co">;; add custom lisp directory to path</span>
-(<span class="kw">let</span> ((default-directory (concat user-emacs-directory <span class="st">&quot;lisp/&quot;</span>)))
-  (<span class="kw">setq</span> load-path
-        (<span class="kw">append</span>
-         (<span class="kw">let</span> ((load-path (copy-sequence load-path))) <span class="co">;; Shadow</span>
-           (<span class="kw">append</span> 
-            (copy-sequence (normal-top-level-add-to-load-path '(<span class="st">&quot;.&quot;</span>)))
-            (normal-top-level-add-subdirs-to-load-path)))
-         load-path)))
-
-<span class="co">;; on OSX Emacs needs help setting up the system paths</span>
-(<span class="kw">when</span> (memq window-system '(mac ns))
-  (exec-path-from-shell-initialize))</code></pre></div>
+<div id="installation" class="section level1">
+<h1>Installation</h1>
+<p>Installers for configured versions of Emacs are available for <a href="https://github.com/izahn/dotemacs/releases/download/v.0.2/Emacs-25.1-1-modified-5.dmg">Mac OS X</a> and <a href="https://github.com/izahn/dotemacs/releases/download/v.0.2/emacs-25.1-2-modified-5.exe">Windows</a>.</p>
+<p>Alternatively, you can install Emacs from another source and copy this configuration manually:</p>
+<ol style="list-style-type: decimal">
+<li>Back up any existing <code>~/.emacs.d</code> directory.</li>
+<li>Clone this repository using <code>git</code> by opening a terminal and running <code>git clone https://github.com/izahn/dotemacs.git ~/.emacs.d</code>.</li>
+</ol>
+<p>If you don’t know how to use git, you can skip step 2 and <a href="https://github.com/izahn/dotemacs/archive/master.zip">download the files as a zip archive</a>, extract them, and move them into your .emacs.d directory instead.</p>
 </div>
-<div id="miscellaneous" class="section level1">
-<h1>Tweak default Emacs settings</h1>
-<p>This section sets up various utilities and conveniences. Many of these are low priority, so we set them first in order to allow any conflicting settings to be overridden later.</p>
-<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;; better defaults are well, better... but we don't always agree</span>
-(menu-bar-mode <span class="dv">1</span>)
-(scroll-bar-mode <span class="dv">1</span>)
-
-<span class="co">;; scrolling behavior</span>
-(<span class="kw">setq</span> mouse-wheel-scroll-amount '(<span class="dv">1</span> ((shift) . <span class="dv">1</span>))) <span class="co">; one line at a time</span>
-(<span class="kw">setq</span> mouse-wheel-progressive-speed <span class="kw">nil</span>) <span class="co">; don't accelerate scrolling</span>
-(<span class="kw">setq</span> mouse-wheel-follow-mouse 't) <span class="co">; scroll window under mouse</span>
-(<span class="kw">setq</span> scroll-preserve-screen-position <span class="kw">t</span>)
-(<span class="kw">setq</span> scroll-conservatively <span class="dv">100000</span>)
-(<span class="kw">setq</span> scroll-error-top-bottom <span class="kw">t</span>)
-(<span class="kw">setq</span> scroll-preserve-screen-position <span class="kw">t</span>)
-<span class="co">;; scroll without moving point</span>
-(<span class="kw">require</span> 'smooth-scroll)
-(global-set-key [(control down)] 'scroll-up-<span class="dv">1</span>)
-(global-set-key [(control up)] 'scroll-down-<span class="dv">1</span>)
-(global-set-key [(control left)] 'scroll-right-<span class="dv">1</span>)
-(global-set-key [(control right)] 'scroll-left-<span class="dv">1</span>)
-
-<span class="co">;; Use y/n instead of yes/no</span>
-(fset 'yes-or-no-p 'y-or-n-p)
-
-(transient-mark-mode <span class="dv">1</span>) <span class="co">; makes the region visible</span>
-(line-number-mode <span class="dv">1</span>)    <span class="co">; makes the line number show up</span>
-(column-number-mode <span class="dv">1</span>)  <span class="co">; makes the column number show up</span>
-
-<span class="co">;; make home and end behave</span>
-(global-set-key (kbd <span class="st">&quot;&lt;home&gt;&quot;</span>) 'move-beginning-of-line)
-(global-set-key (kbd <span class="st">&quot;&lt;end&gt;&quot;</span>) 'move-end-of-line)
-
-<span class="co">;; enable toggling paragraph un-fill</span>
-(define-key global-map <span class="st">&quot;\M-Q&quot;</span> 'unfill-paragraph)
-
-<span class="co">;;; line wrapping</span>
-<span class="co">;; neck beards be damned, we don't need to hard wrap. The editor can soft wrap for us.</span>
-(remove-hook 'text-mode-hook 'turn-on-auto-fill)
-(add-hook 'visual-line-mode-hook 'adaptive-wrap-prefix-mode)
-(add-hook 'text-mode-hook 'visual-line-mode <span class="dv">1</span>)
-(add-hook 'prog-mode-hook
-          (<span class="kw">lambda</span>()
-            (toggle-truncate-lines <span class="kw">t</span>)
-              (outline-minor-mode <span class="kw">t</span>)))
-
-<span class="co">;; indicate visual-line-mode wrap</span>
-(<span class="kw">setq</span> visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
-(<span class="kw">setq</span> visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
-<span class="co">;; but be gentle</span>
-(defface visual-line-wrap-face
-'((<span class="kw">t</span> (:foreground <span class="st">&quot;gray&quot;</span>)))
-<span class="st">&quot;Face for visual line indicators.&quot;</span>)
-(set-fringe-bitmap-face 'left-curly-arrow 'visual-line-wrap-face)
-(set-fringe-bitmap-face 'right-curly-arrow 'visual-line-wrap-face)
-
-<span class="co">;; don't require two spaces for sentence end.</span>
-(<span class="kw">setq</span> sentence-end-double-space <span class="kw">nil</span>)
-
-<span class="co">;; The beeping can be annoying--turn it off</span>
-(<span class="kw">setq</span> visible-bell <span class="kw">t</span>)
-
-<span class="co">;; save place -- move to the place I was last time I visited this file</span>
-(save-place-mode <span class="kw">t</span>)
-
-<span class="co">;; easy navigation in read-only buffers</span>
-(<span class="kw">setq</span> view-read-only <span class="kw">t</span>)
-(with-eval-after-load <span class="st">&quot;view-mode&quot;</span>
-  (define-key view-mode-map (kbd <span class="st">&quot;s&quot;</span>) 'swiper))
-</code></pre></div>
+<div id="first-run" class="section level1">
+<h1>First run</h1>
+<p>Note that after installing this configuration emacs will be slow to start up the first time. This is due to package installation; just be patient and wait for it to finish–subsequent start-ups will be much faster.</p>
 </div>
-<div id="make-emacs-friendlier-to-newcomers" class="section level1">
-<h1>Make Emacs friendlier to newcomers</h1>
-<p>Emacs will never to as simple as Notepad, but perhaps it can be made more consistent with the way most other programs behave.</p>
-<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;; Use CUA mode to make life easier. We do _not__ use standard copy/paste etc. (see below).</span>
-(cua-mode <span class="kw">t</span>)
-
-(cua-selection-mode <span class="kw">t</span>) <span class="co">;; cua goodness without copy/paste etc.</span>
-
-<span class="co">;; load windows-style keys using windows key instead of control.</span>
-(<span class="kw">require</span> 'win-win)
-
-<span class="co">;; ;; Make control-z undo</span>
-(global-undo-tree-mode <span class="kw">t</span>)
-(global-set-key (kbd <span class="st">&quot;C-z&quot;</span>) 'undo)
-(define-key undo-tree-map (kbd <span class="st">&quot;C-S-z&quot;</span>) 'undo-tree-redo)
-(define-key undo-tree-map (kbd <span class="st">&quot;C-x u&quot;</span>) 'undo)
-(define-key undo-tree-map (kbd <span class="st">&quot;C-x U&quot;</span>) 'undo-tree-visualize)
-(define-key undo-tree-map (kbd <span class="st">&quot;M-z&quot;</span>) 'undo-tree-visualize)
-<span class="co">;; Make C-g quit undo tree</span>
-(define-key undo-tree-visualizer-mode-map (kbd <span class="st">&quot;C-g&quot;</span>) 'undo-tree-visualizer-quit)
-(define-key undo-tree-visualizer-mode-map (kbd <span class="st">&quot;&lt;escape&gt; &lt;escape&gt; &lt;escape&gt;&quot;</span>) 'undo-tree-visualizer-quit)
-
-<span class="co">;;</span>
-<span class="co">;; Make right-click do something close to what people expect</span>
-(global-set-key (kbd <span class="st">&quot;&lt;mouse-3&gt;&quot;</span>) 'mouse3-popup-menu)
-<span class="co">;; (global-set-key (kbd &quot;C-f&quot;) 'isearch-forward)</span>
-<span class="co">;; (global-set-key (kbd &quot;C-s&quot;) 'save-buffer)</span>
-<span class="co">;; (global-set-key (kbd &quot;C-o&quot;) 'counsel-find-file)</span>
-(define-key cua-global-keymap (kbd <span class="st">&quot;&lt;C-S-SPC&gt;&quot;</span>) <span class="kw">nil</span>)
-(define-key cua-global-keymap (kbd <span class="st">&quot;&lt;C-return&gt;&quot;</span>) <span class="kw">nil</span>)
-(<span class="kw">setq</span> cua-rectangle-mark-key (kbd <span class="st">&quot;&lt;C-S-SPC&gt;&quot;</span>))
-(define-key cua-global-keymap (kbd <span class="st">&quot;&lt;C-S-SPC&gt;&quot;</span>) 'cua-rectangle-mark-mode)
-
-<span class="co">;; nicer mode line</span>
-<span class="co">;; (mode-icons-mode)</span>
-
-<span class="co">;; zoom in/out like we do everywhere else.</span>
-(global-set-key (kbd <span class="st">&quot;C-+&quot;</span>) 'text-scale-increase)
-(global-set-key (kbd <span class="st">&quot;C--&quot;</span>) 'text-scale-decrease)
-
-<span class="co">;; page up/down</span>
-(global-set-key (kbd <span class="st">&quot;&lt;C-prior&gt;&quot;</span>) 'beginning-of-buffer)
-(global-set-key (kbd <span class="st">&quot;&lt;C-next&gt;&quot;</span>) 'end-of-buffer)</code></pre></div>
+<div id="getting-started" class="section level1">
+<h1>Getting started</h1>
+<p>If you have never used Emacs before many things will work as you expect. This is especially true on Mac OS X. If you use Windows, note that <strong>standard Windows shortcuts starting with <code>control</code> have been shifted to the <code>windows</code> key</strong>. For example, to copy use <code>win-c</code> rather than <code>control-c</code>, and to paste use <code>win-v</code> rather than <code>control-c</code>.</p>
+<p>A few things may not work as you expect, in which case you will need to search the web or read the Emacs documentation to learn the Emacs way. You can launch a built-in tutorial by pressing =C-h t= (that’s “Control+h, then t”), or read the getting started documentation at https://www.gnu.org/software/emacs/tour/. A cheat-sheet / survival guide is available at https://www.gnu.org/software/emacs/refcards/pdf/survival.pdf.</p>
+<p>If you are an Emacs user, most things will mostly work as you expect, though you may wish to familiarize yourself with the alternative key bindings configured here. If you are an Emacs user and you find key bindings that don’t work as they should please open an issue in the [[https://github.com/izahn/dotemacs][github repo]].</p>
 </div>
-<div id="window-management" class="section level1">
-<h1>Window Management</h1>
-<p><code>windmove</code> allows you to move point to adjacent windows; these functions are bound to <code>C-x S-&lt;arrow&gt;</code>. For example, to move to the window below, press “Control-x shift-down”, and to move to the window to the right press “Control-x shift-right”. Finally, you can use <code>C-x O</code> to quickly navigate to an window arbitrary window (e.g., diagonal from the current window).</p>
-<p><code>winner-mode</code> allows you to undo/redo window configuration changes. Use <code>C-c &lt;left&gt;</code> to undo and <code>C-c &lt;right&gt;</code> to redo.</p>
-<p>Emacs has <a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Configuration-Registers.html#Configuration-Registers">window layout management</a>, built-in but it’s not convenient to use. <a href="https://github.com/wasamasa/eyebrowse">Eyebrowse</a> makes it easier, so we use that. Create a new layout with <code>C-c C-l C-n</code>, switch with <code>C-c C-l #</code> .</p>
-<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;; Work spaces</span>
-(<span class="kw">setq</span> eyebrowse-keymap-prefix (kbd <span class="st">&quot;C-c C-l&quot;</span>))
-(eyebrowse-mode <span class="kw">t</span>)
-
-<span class="co">;; Undo/redo window changes</span>
-(winner-mode <span class="dv">1</span>)
-
-<span class="co">;; windmove </span>
-(global-set-key (kbd <span class="st">&quot;C-x &lt;S-left&gt;&quot;</span>) 'windmove-left)
-(global-set-key (kbd <span class="st">&quot;C-x &lt;S-right&gt;&quot;</span>) 'windmove-right)
-(global-set-key (kbd <span class="st">&quot;C-x &lt;S-up&gt;&quot;</span>) 'windmove-up)
-(global-set-key (kbd <span class="st">&quot;C-x &lt;S-down&gt;&quot;</span>) 'windmove-down)
-
-<span class="co">;; use ace-window for navigating windows</span>
-(global-set-key (kbd <span class="st">&quot;C-x O&quot;</span>) 'ace-window)
-(with-eval-after-load <span class="st">&quot;ace-window&quot;</span>
-  (set-face-attribute 'aw-leading-char-face <span class="kw">nil</span> :height <span class="fl">2.5</span>))</code></pre></div>
+<div id="keyboard-shortcuts" class="section level1">
+<h1>Keyboard shortcuts</h1>
+<p>This documentation mostly uses Emacs notation for keybindings, e.g., <code>C</code> means “the Control key”, <code>S</code> means “the Shift key”, and <code>M</code> means “the Meta (aka Alt) key”. Note that on a Mac <code>M</code> means “the Option key”. Refer to <a href="https://www.emacswiki.org/emacs/EmacsKeyNotation" class="uri">https://www.emacswiki.org/emacs/EmacsKeyNotation</a> if you are not familiar with this notation.</p>
+<p>The most important keyboard shortcut in Emacs is <code>M-x</code> (that’s “hold down Alt and press x” Windows, and “hold down Option and press x” on Mac). <code>M-x</code> brings up a search-able list of all Emacs commands. In fact you could use this interface for everything and never bother learning any of the other keybindings listed below. For example, to open a file you could type <code>M-x counsel-find-file &lt;ret&gt;</code> instead of <code>win-o</code>. Nobody does this in practice, because <code>win-o</code> is easier. But if you can’t remember the name of a keyboard shortcut don’t worry: just type <code>M-x</code> and search for the command you need.</p>
+<p>The second most important keyboard shortcut is <code>C-g</code> (that’s “hold down control and press g”). If Emacs starts doing something you don’t want it to, press <code>C-g</code> to cancel. If it doesn’t work, press <code>C-g</code> again.</p>
+<p>Other commonly used key bindings are listed in the following sections.</p>
+<div id="standard-shortcuts" class="section level2">
+<h2>Standard shortcuts</h2>
+<p>On Mac OS X standard keyboard shortcuts should mostly work as expected.</p>
+<p>On Windows, many common keyboard shortcuts start with the control key. This is a problem for Emacs, since many of it’s most-used shortcuts conflict with the usual Windows meaning. For example, <code>C-a</code> means “select all” on Windows, but “go to the beginning of the line” in Emacs. The solution adopted here is to move standard Windows keybindings to the <code>win</code> key. The advantage is that we retain normal Emacs behavior (<code>C-a</code> has the Emacs meaning of “go to the beginnign of the line). The disadvantage is that you’ll have to get used to pressing different keys (<code>win-a</code> instead of <code>c-a</code> to select all).</p>
 </div>
-<div id="spell-checking" class="section level1">
-<h1>Spell checking and dictionaries</h1>
-<p>Emacs comes with spell checking built-in, it just needs to be turned on. By default automatic spell checking is enabled in <code>text-mode</code> and <code>prog-mode</code> buffers. You can also spell-check on demand with <code>ispell-word</code>, bound to <code>M-$</code>. Finally, dictionaries look-up is available and bound to <code>C-c d</code>.</p>
-<p>More information is available at <a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Spelling.html" class="uri">https://www.gnu.org/software/emacs/manual/html_node/emacs/Spelling.html</a> and <a href="https://github.com/abo-abo/define-word" class="uri">https://github.com/abo-abo/define-word</a>.</p>
-<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;; enable on-the-fly spell checking</span>
-(add-hook 'text-mode-hook
-          (<span class="kw">lambda</span> ()
-            (flyspell-mode <span class="dv">1</span>)))
-<span class="co">;; prevent flyspell from finding mistakes in the code</span>
-(add-hook 'prog-mode-hook
-          (<span class="kw">lambda</span> ()
-            <span class="co">;; `ispell-comments-and-strings'</span>
-            (flyspell-prog-mode)))
-
-<span class="co">;; ispell should not check code blocks in org mode</span>
-(add-to-list 'ispell-skip-region-alist '(<span class="st">&quot;:</span>\\<span class="st">(PROPERTIES</span>\\<span class="st">|LOGBOOK</span>\\<span class="st">):&quot;</span> . <span class="st">&quot;:END:&quot;</span>))
-(add-to-list 'ispell-skip-region-alist '(<span class="st">&quot;</span><span class="ch">#\\</span><span class="st">+BEGIN_SRC&quot;</span> . <span class="st">&quot;</span><span class="ch">#\\</span><span class="st">+END_SRC&quot;</span>))
-(add-to-list 'ispell-skip-region-alist '(<span class="st">&quot;</span><span class="ch">#\\</span><span class="st">+begin_src&quot;</span> . <span class="st">&quot;</span><span class="ch">#\\</span><span class="st">+end_src&quot;</span>))
-(add-to-list 'ispell-skip-region-alist '(<span class="st">&quot;^</span><span class="ch">#\\</span><span class="st">+begin_example &quot;</span> . <span class="st">&quot;</span><span class="ch">#\\</span><span class="st">+end_example$&quot;</span>))
-(add-to-list 'ispell-skip-region-alist '(<span class="st">&quot;^</span><span class="ch">#\\</span><span class="st">+BEGIN_EXAMPLE &quot;</span> . <span class="st">&quot;</span><span class="ch">#\\</span><span class="st">+END_EXAMPLE$&quot;</span>))
-
-<span class="co">;; Dictionaries</span>
-
-<span class="co">;; default in case we don't find something local</span>
-(global-set-key (kbd <span class="st">&quot;C-c d&quot;</span>) 'define-word-at-point)
-(global-set-key (kbd <span class="st">&quot;C-c S-D&quot;</span>) 'define-word)
-
-<span class="co">;; use dictionary app on os x</span>
-(<span class="kw">when</span> (memq window-system '(mac ns))
-  (global-set-key (kbd <span class="st">&quot;C-c d&quot;</span>) 'osx-dictionary-search-word-at-point)
-  (global-set-key (kbd <span class="st">&quot;C-c S-D&quot;</span>) 'osx-dictionary-search-input))
-
-<span class="co">;; Use stardict if we find a usable interface</span>
-(<span class="kw">when</span> (executable-find <span class="st">&quot;sdcv&quot;</span>)
-  (<span class="kw">require</span> 'sdcv)
-  (global-set-key (kbd <span class="st">&quot;C-c d&quot;</span>) 'sdcv-search-input)
-  (global-set-key (kbd <span class="st">&quot;C-c S-D&quot;</span>) 'sdcv-search-pointer+)
-  (add-hook 'sdcv-mode-hook
-            '(<span class="kw">lambda</span>()
-               (setq-local font-lock-string-face 'default))))</code></pre></div>
+<div id="window-management" class="section level2">
+<h2>Window management</h2>
+<p>One of the things that makes Emacs different that most other applications is the way that it handles windows. Unlike most Integrated Development Environments, there is no fixed layout. Instead, windows are created and killed as needed. New Emacs uses sometimes try to get Emacs to stop messing with their window layout – my approach is to just let Emacs do what it wants and the revert the layout using <code>C-c left</code>.</p>
+<p>Here are Key |Description |Notes ————————|—————————–|——————————————————————————– <code>C-x 2</code> | Split horizontally | <code>C-x 3</code> | Split vertically | <code>C-x 1</code> | Remove splits | <code>C-x S-&lt;arrow&gt;</code> | Move to other window | <code>C-x S-0</code> | Move to a window by number | <code>C-c left</code> | Undo a window layout change | <code>C-c right</code> | Redo a window layout change | <code>C-c C-l &lt;number&gt;</code> | Save/restore window layouts | This a somewhat advanced feature that lets you save and restore window layouts</p>
 </div>
-<div id="printing" class="section level1">
-<h1>Printing</h1>
-<p>If you’re using <a href="http://vgoulet.act.ulaval.ca/en/emacs/windows/">Vincent Goulet’s emacs</a> on Windows printing should work out of the box. If you’re on Linux or Mac the experience of printing from emacs may leave something to be desired. Here we try to make it work a little better by making it easier to preview buffers in a web browser (you can print from there as usual) and by using <a href="http://sourceforge.net/projects/gtklp/">gtklp</a> on Linux if it is available.</p>
-<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">
-(<span class="kw">when</span> (<span class="kw">eq</span> system-type 'gnu/linux)
-  (<span class="kw">setq</span> hfyview-quick-print-in-files-menu <span class="kw">t</span>)
-  (<span class="kw">require</span> 'hfyview)
-  (<span class="kw">setq</span> mygtklp (executable-find <span class="st">&quot;gtklp&quot;</span>))
-  (<span class="kw">when</span> mygtklp
-    (<span class="kw">setq</span> lpr-command <span class="st">&quot;gtklp&quot;</span>)
-    (<span class="kw">setq</span> ps-lpr-command <span class="st">&quot;gtklp&quot;</span>)))
-
-(<span class="kw">when</span> (<span class="kw">eq</span> system-type 'darwin)
-  (<span class="kw">setq</span> hfyview-quick-print-in-files-menu <span class="kw">t</span>)
-  (<span class="kw">require</span> 'hfyview))</code></pre></div>
+<div id="searching-and-completion" class="section level2">
+<h2>Searching and Completion</h2>
+<p>Utilities have been configured to make it easy to search by file name as well as to search the contents of files. Some of this functionality works much better if certain system utilities are found. See <a href="UsefulPrograms.html">this list of useful programs</a>, especially <em>everything</em> (windows only) and <em>the silver searcher</em> or <em>ripgrep</em>.</p>
+<p>Basic search/replace should work as you expect, except that again on Windows you should use the <code>win</code> key instead of the <code>control</code> key. For example, you can use <code>win-f</code> to search.</p>
+<p>In addition, you can search for files in a directory by name or contents using the keys described in the table below.</p>
+<table>
+<colgroup>
+<col width="8%"></col>
+<col width="31%"></col>
+<col width="59%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th>Key</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>win-f</code></td>
+<td>Find in file</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>C-c l</code></td>
+<td>Searches for files by name</td>
+<td>(think “locates”)</td>
+</tr>
+<tr class="odd">
+<td><code>C-c f</code></td>
+<td>(or <code>C-c s</code>) Searches file contents</td>
+<td>requires <code>mlocate</code> on linux, <code>everything</code> (<a href="http://www.voidtools.com/" class="uri">http://www.voidtools.com/</a>) on windows</td>
+</tr>
+<tr class="even">
+<td><code>TAB</code></td>
+<td>Indent or complete</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>win-S-v</code></td>
+<td>Paste from the clipboard history</td>
+<td><code>M-S-y</code> also works for this</td>
+</tr>
+<tr class="even">
+<td><code>C-c r</code></td>
+<td>Search for a reference to insert</td>
+<td>You must set <code>bibtex-completion-bibliography</code> to your BibTeX files for this to work</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="minibuffer-hints-and-completion" class="section level1">
-<h1>Minibuffer hints and completion</h1>
-<p>There are several different systems for providing completion hints in emacs. The default pcomplete system shows completions on demand (usually bound to tab key) in an emacs buffer. Here we set up ivy, which instead shows these completions on-the-fly in the minibuffer. These completions are primarily used to show available files (e.g., with <code>find-file</code>) and emacs functions (e.g., with <code>execute-extended-command</code>). More information is available at <a href="http://oremacs.com/swiper/" class="uri">http://oremacs.com/swiper/</a>.</p>
-<p>Note that completion for in-buffer text (e.g., methods in python-mode, or arguments in R-mode) are handled separately by <a href="#auto-complete-configuration">company-mode</a>.</p>
-<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;; make sure we wrap in the minibuffer</span>
-<span class="co">;;  (add-hook 'minibuffer-setup-hook '(lambda() (setq truncate-lines nil)))</span>
-(ivy-mode <span class="dv">1</span>)
-
-(<span class="kw">setq</span> counsel-find-file-ignore-regexp <span class="st">&quot;</span>\\<span class="st">`</span>\\<span class="st">.&quot;</span>)
-(<span class="kw">setq</span> ivy-use-virtual-buffers <span class="kw">t</span>)
-(<span class="kw">setq</span> ivy-count-format <span class="st">&quot;(%d/%d) &quot;</span>)
-<span class="co">;; (setq ivy-display-style nil)</span>
-
-<span class="co">;; Ivy-based interface to standard commands</span>
-(global-set-key (kbd <span class="st">&quot;C-h b&quot;</span>) 'counsel-descbinds)
-(global-set-key (kbd <span class="st">&quot;C-s&quot;</span>) 'swiper)
-<span class="co">;; visual query replace</span>
-(global-set-key (kbd <span class="st">&quot;C-r&quot;</span>) 'vr/replace)
-(global-set-key (kbd <span class="st">&quot;C-S-r&quot;</span>) 'vr/query-replace)
-<span class="co">;; default file searcher if we don't find something better</span>
-(global-set-key (kbd <span class="st">&quot;C-c f&quot;</span>) 'find-grep-dired)
-(global-set-key (kbd <span class="st">&quot;C-c f&quot;</span>) 'find-grep-dired)
-<span class="co">;; use better searching tool if available</span>
-(<span class="kw">cond</span>
- ((executable-find <span class="st">&quot;rg&quot;</span>) <span class="co">; search with ripgrep if we have it</span>
-  (global-set-key (kbd <span class="st">&quot;C-c f&quot;</span>) 'counsel-rg)
-  (global-set-key (kbd <span class="st">&quot;C-c s&quot;</span>) 'counsel-rg))
- ((executable-find <span class="st">&quot;ag&quot;</span>) <span class="co">; otherwise search with ag if we have it</span>
-  (global-set-key (kbd <span class="st">&quot;C-c f&quot;</span>) 'counsel-ag)
-  (global-set-key (kbd <span class="st">&quot;C-c s&quot;</span>) 'counsel-ag))
- ((executable-find <span class="st">&quot;pt&quot;</span>) <span class="co">; otherwise search with pt if we have it</span>
-  (global-set-key (kbd <span class="st">&quot;C-c f&quot;</span>) 'counsel-pt)
-  (global-set-key (kbd <span class="st">&quot;C-c f&quot;</span>) 'counsel-pt)))
-(global-set-key (kbd <span class="st">&quot;M-x&quot;</span>) 'counsel-M-x)
-(global-set-key (kbd <span class="st">&quot;M-y&quot;</span>) 'counsel-yank-pop)
-(global-set-key (kbd <span class="st">&quot;C-x C-f&quot;</span>) 'counsel-find-file)
-(global-set-key (kbd <span class="st">&quot;C-o&quot;</span>) 'counsel-find-file)
-<span class="co">;; search for files to open with &quot;C-O=</span>
-(<span class="kw">when</span> (memq window-system '(mac ns)) <span class="co">; use mdfind on Mac. TODO: what about windows?</span>
-  (<span class="kw">setq</span> locate-command <span class="st">&quot;mdfind&quot;</span>)
-  (<span class="kw">setq</span> counsel-locate-cmd 'counsel-locate-cmd-mdfind))
-<span class="co">;; default file-finding in case we don't have something better</span>
-(global-set-key (kbd <span class="st">&quot;C-x C-S-F&quot;</span>) 'find-name-dired)
-(global-set-key (kbd <span class="st">&quot;C-c l&quot;</span>) 'find-name-dired)
-<span class="co">;; use locate if we have it.</span>
-(<span class="kw">when</span> (executable-find <span class="st">&quot;locate&quot;</span>)
-  (global-set-key (kbd <span class="st">&quot;C-c l&quot;</span>) 'counsel-locate)
-  <span class="co">;;(global-set-key (kbd &quot;C-x C-S-F&quot;) 'counsel-locate) ;; FIXME -- need better key</span>
-)
-(global-set-key (kbd <span class="st">&quot;C-x C-r&quot;</span>) 'counsel-recentf)
-(global-set-key (kbd <span class="st">&quot;&lt;C-tab&gt;&quot;</span>) 'counsel-company)
-(global-set-key (kbd <span class="st">&quot;&lt;f1&gt; f&quot;</span>) 'counsel-describe-function)
-(global-set-key (kbd <span class="st">&quot;&lt;f1&gt; v&quot;</span>) 'counsel-describe-variable)
-(global-set-key (kbd <span class="st">&quot;&lt;f1&gt; l&quot;</span>) 'counsel-load-library)
-(global-set-key (kbd <span class="st">&quot;&lt;f2&gt; i&quot;</span>) 'counsel-info-lookup-symbol)
-(global-set-key (kbd <span class="st">&quot;&lt;f2&gt; u&quot;</span>) 'counsel-unicode-char)
-<span class="co">;; Ivy-based interface to shell and system tools</span>
-(global-set-key (kbd <span class="st">&quot;C-c g&quot;</span>) 'counsel-git)
-(global-set-key (kbd <span class="st">&quot;C-c j&quot;</span>) 'counsel-git-grep)
-(global-set-key (kbd <span class="st">&quot;C-c k&quot;</span>) 'counsel-ag)
-
-<span class="co">;; Ivy-resume and other commands</span>
-
-(global-set-key (kbd <span class="st">&quot;C-c i&quot;</span>) 'ivy-resume)
-
-<span class="co">;; Make Ivy more like ido</span>
-(define-key ivy-minibuffer-map (kbd <span class="st">&quot;&lt;return&gt;&quot;</span>) 'ivy-alt-done)
-(define-key ivy-minibuffer-map (kbd <span class="st">&quot;C-d&quot;</span>) 'ivy-done)
-(define-key ivy-minibuffer-map (kbd <span class="st">&quot;C-b&quot;</span>) 'ivy-immediate-done)
-(define-key ivy-minibuffer-map (kbd <span class="st">&quot;C-f&quot;</span>) 'ivy-immediate-done)
-
-<span class="co">;; show recently opened files</span>
-(<span class="kw">setq</span> recentf-max-menu-items <span class="dv">50</span>)
-(recentf-mode <span class="dv">1</span>)
-</code></pre></div>
+<div id="repl-interaction" class="section level2">
+<h2>REPL interaction</h2>
+<p>This should be easy, and hopefully it is!</p>
+<p>Aliases have been created for starting R, python, haskell, and terminals. For example, to start python just type <code>M-x python &lt;ret&gt;</code>.</p>
+<p>To execute a line, region, or buffer from a script (R, python, bash) etc.) use the keybindings below.</p>
+<table>
+<colgroup>
+<col width="13%"></col>
+<col width="42%"></col>
+<col width="44%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th>Key</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>C-RET</code></td>
+<td>Line/selection/expression evaluation</td>
+<td>Works for R, python, shell, and others</td>
+</tr>
+<tr class="even">
+<td><code>S-C-RET</code></td>
+<td>Buffer evaluation</td>
+<td>Evaluate the whole script</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="auto-complete-configuration" class="section level1">
-<h1>Auto-complete configuration</h1>
-<p>Here we configure in-buffer text completion using the company-mode package. These completions are available on-demand using <code>tab</code> for in-buffer popup or <code>C-tab</code> for search-able minibuffer list. More information is available at <a href="https://company-mode.github.io/" class="uri">https://company-mode.github.io/</a>.</p>
-<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">(<span class="kw">require</span> 'company)
-<span class="co">;; cancel if input doesn't match, be patient, and don't complete automatically.</span>
-(<span class="kw">setq</span> company-require-match <span class="kw">nil</span>
-      company-async-timeout <span class="dv">6</span>
-      company-idle-delay <span class="kw">nil</span>
-      company-global-modes '(<span class="kw">not</span> term-mode))
-<span class="co">;; complete using C-tab</span>
-(global-set-key (kbd <span class="st">&quot;&lt;C-tab&gt;&quot;</span>) 'counsel-company)
-<span class="co">;; use C-n and C-p to cycle through completions</span>
-<span class="co">;; (define-key company-mode-map (kbd &quot;&lt;tab&gt;&quot;) 'company-complete)</span>
-(define-key company-active-map (kbd <span class="st">&quot;C-n&quot;</span>) 'company-select-next)
-(define-key company-active-map (kbd <span class="st">&quot;&lt;tab&gt;&quot;</span>) 'company-complete-common)
-(define-key company-active-map (kbd <span class="st">&quot;C-p&quot;</span>) 'company-select-previous)
-(define-key company-active-map (kbd <span class="st">&quot;&lt;backtab&gt;&quot;</span>) 'company-select-previous)
-
-(<span class="kw">require</span> 'company-capf)
-<span class="co">;; put company-capf and company-files at the beginning of the list</span>
-(<span class="kw">setq</span> company-backends
-      '(company-files company-capf company-nxml company-css company-cmake company-semantic company-clang company-xcode company-eclim))
-(setq-default company-backends
-              '(company-files company-capf company-nxml company-css company-cmake company-semantic company-clang company-xcode company-eclim))
-
-<span class="co">;;Use tab to complete.</span>
-<span class="co">;; See https://github.com/company-mode/company-mode/issues/94 for another approach.</span>
-
-<span class="co">;; this is a copy-paste from the company-package with extra conditions to make</span>
-<span class="co">;; sure we don't offer completions in the middle of a word.</span>
-
-(<span class="kw">defun</span><span class="fu"> my-company-indent-or-complete-common </span>()
-  <span class="st">&quot;Indent the current line or region, or complete the common part.&quot;</span>
-  (interactive)
-  (<span class="kw">cond</span>
-   ((use-region-p)
-    (indent-region (region-beginning) (region-end)))
-   ((<span class="kw">and</span> (<span class="kw">not</span> (looking-at <span class="st">&quot;</span>\\<span class="st">w</span>\\<span class="st">|</span>\\<span class="st">s_&quot;</span>))
-         (memq indent-line-function
-               '(indent-relative indent-relative-maybe)))
-    (company-complete-common))
-   ((<span class="kw">let</span> ((old-point (point))
-          (old-tick (buffer-chars-modified-tick))
-          (tab-always-indent <span class="kw">t</span>))
-      (call-interactively #'indent-for-tab-command)
-      (<span class="kw">when</span> (<span class="kw">and</span> (<span class="kw">eq</span> old-point (point))
-                 (<span class="kw">eq</span> old-tick (buffer-chars-modified-tick))
-                 (<span class="kw">not</span> (looking-at <span class="st">&quot;</span>\\<span class="st">w</span>\\<span class="st">|</span>\\<span class="st">s_&quot;</span>)))
-        (company-complete-common))))))
-
-(define-key company-mode-map (kbd <span class="st">&quot;&lt;tab&gt;&quot;</span>) 'my-company-indent-or-complete-common)
-
-<span class="co">;; not sure why this should be set in a hook, but that is how the manual says to do it.</span>
-(add-hook 'after-init-hook 'global-company-mode)</code></pre></div>
-</div>
-<div id="which-key" class="section level1">
-<h1>Which-key</h1>
-<p>This mode shows a keymap when an incomplete command is entered. It is especially useful for families of commands with a prefix, e.g., <code>C-c C-o</code> for <code>outline-mode</code> commands, or <code>C-c C-v</code> for <code>org-babel</code> commands. Just start typing your command and pause if you want a hint.</p>
-<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;; (require 'which-key)</span>
-(which-key-mode)</code></pre></div>
-</div>
-<div id="flycheck" class="section level1">
-<h1>Flycheck</h1>
-<p>Provides on-the-fly syntax checking. Depends on external tools, e.g, <a href="https://cran.rstudio.com/web/packages/lintr/index.html">lintr</a> for R code, <a href="https://flake8.readthedocs.io/en/latest/">flake8</a> for python. See <a href="http://www.flycheck.org/en/latest/languages.html#flycheck-languages" class="uri">http://www.flycheck.org/en/latest/languages.html#flycheck-languages</a> for supported languages and tools.</p>
-<p>Note that active on-the-fly syntax checking is <strong>disabled</strong> by default since I find it too annoying. You can still use <code>flycheck</code> to check your syntax on demand using <code>flycheck-compile</code>, and you can enable on-the-fly checking with <code>M-x flycheck-mode</code>.</p>
-<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;; (require 'flycheck)</span>
-<span class="co">;; (global-flycheck-mode)</span></code></pre></div>
-</div>
-<div id="outline-magic" class="section level1">
-<h1>Outline-magic</h1>
-<p>I encourage you to use <em>org-mode</em> for note taking and outlining, but it can be convenient to treat arbitrary buffers as outlines. The outline-magic mode can help with that.</p>
-<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;;; Configure outline minor modes</span>
-<span class="co">;; Less crazy key bindings for outline-minor-mode</span>
-(<span class="kw">setq</span> outline-minor-mode-prefix <span class="st">&quot;\C-c\C-o&quot;</span>)
-<span class="co">;; load outline-magic along with outline-minor-mode</span>
-(add-hook 'outline-minor-mode-hook 
-          (<span class="kw">lambda</span> () 
-            (<span class="kw">require</span> 'outline-magic)
-            (define-key outline-minor-mode-map <span class="st">&quot;\C-c\C-o</span>\t<span class="st">&quot;</span> 'outline-cycle)))</code></pre></div>
-</div>
-<div id="demonstration-tools-command-log-mode" class="section level1">
-<h1>Demonstration tools (command-log-mode)</h1>
-<p><code>command-log-mode</code> is useful for giving emacs demonstrations/tutorials. It shows the keys you’ve pressed and the commands they called. More information is available at <a href="https://github.com/lewang/command-log-mode" class="uri">https://github.com/lewang/command-log-mode</a>.</p>
-<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">(<span class="kw">setq</span> command-log-mode-auto-show <span class="kw">t</span>)
-(global-set-key (kbd <span class="st">&quot;C-x cl&quot;</span>) 'global-command-log-mode)</code></pre></div>
-</div>
-<div id="general-repl-config" class="section level1">
-<h1>General REPL (comint) config</h1>
-<p>Many programs using REPLs are derived from <code>comint-mode</code>, so we can affect all of them by changing <code>comint-mode</code> settings. Here we disable line wrapping and ask programs to echo the input.</p>
-<p>Load eval-in-repl for bash, elisp, and python interaction.</p>
-<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;; require the main file containing common functions</span>
-(<span class="kw">require</span> 'eval-in-repl)
-(<span class="kw">setq</span> comint-process-echoes <span class="kw">t</span>)
-
-<span class="co">;; truncate lines in comint buffers</span>
-(add-hook 'comint-mode-hook
-          (<span class="kw">lambda</span>()
-            (<span class="kw">setq</span> truncate-lines <span class="dv">1</span>)))
-
-<span class="co">;; Scroll down for input and output</span>
-(<span class="kw">setq</span> comint-scroll-to-bottom-on-input <span class="kw">t</span>)
-(<span class="kw">setq</span> comint-scroll-to-bottom-on-output <span class="kw">t</span>)
-(<span class="kw">setq</span> comint-move-point-for-output <span class="kw">t</span>)</code></pre></div>
-</div>
-<div id="run-r-in-emacs" class="section level1">
-<h1>Run R in emacs (ESS)</h1>
-<p>Support for R in Emacs is good, thanks to <a href="http://ess.r-project.org/" class="uri">http://ess.r-project.org/</a>. As with other programming languages this configuration enables completion via the <code>tab</code> key and code evaluation with <code>C-ret</code>. Many more features are provided by ESS, refer to <a href="http://ess.r-project.org/" class="uri">http://ess.r-project.org/</a> for details.</p>
-<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;;;  ESS (Emacs Speaks Statistics)</span>
-
-<span class="co">;; Start R in the working directory by default</span>
-(<span class="kw">setq</span> ess-ask-for-ess-directory <span class="kw">nil</span>)
-
-<span class="co">;; Make sure ESS is loaded before we configure it</span>
-(autoload 'julia <span class="st">&quot;ess-julia&quot;</span> <span class="st">&quot;Start a Julia REPL.&quot;</span> <span class="kw">t</span>)
-(with-eval-after-load <span class="st">&quot;ess-site&quot;</span>
-  <span class="co">;; see https://github.com/emacs-ess/ESS/pull/390 for ideas on how to integrate tab completion</span>
-  <span class="co">;; disable ehoing input</span>
-  (<span class="kw">setq</span> ess-eval-visibly <span class="kw">nil</span>)
-  <span class="co">;; Start R in the working directory by default</span>
-  (<span class="kw">setq</span> ess-ask-for-ess-directory <span class="kw">nil</span>)
-  <span class="co">;; Use tab completion</span>
-  (<span class="kw">setq</span> ess-tab-complete-in-script <span class="kw">t</span>)
-  <span class="co">;; extra ESS stuff inspired by https://github.com/gaborcsardi/dot-emacs/blob/master/.emacs</span>
-  (ess-toggle-underscore <span class="kw">nil</span>)
-  (<span class="kw">defun</span><span class="fu"> my-ess-execute-screen-options </span>(foo)
-    <span class="st">&quot;cycle through windows whose major mode is inferior-ess-mode and fix width&quot;</span>
-    (interactive)
-    (<span class="kw">setq</span> my-windows-list (window-list))
-    (while my-windows-list
-      (<span class="kw">when</span> (with-selected-window (<span class="kw">car</span> my-windows-list) (<span class="kw">string=</span> <span class="st">&quot;inferior-ess-mode&quot;</span> major-mode))
-        (with-selected-window (<span class="kw">car</span> my-windows-list) (ess-execute-screen-options <span class="kw">t</span>)))
-      (<span class="kw">setq</span> my-windows-list (<span class="kw">cdr</span> my-windows-list))))
-  (add-to-list 'window-size-change-functions 'my-ess-execute-screen-options)
-  (define-key ess-mode-map (kbd <span class="st">&quot;&lt;C-return&gt;&quot;</span>) 'ess-eval-region-or-function-or-paragraph-and-step)
-  (define-key ess-mode-map (kbd <span class="st">&quot;&lt;C-S-return&gt;&quot;</span>) 'ess-eval-buffer)
-  <span class="co">;; truncate long lines in R source files</span>
-  (add-hook 'ess-mode-hook
-            (<span class="kw">lambda</span>()
-              <span class="co">;; don't wrap long lines</span>
-              (toggle-truncate-lines <span class="kw">t</span>)
-              (outline-minor-mode <span class="kw">t</span>)))
-  <span class="co">;; highlight function calls and operators</span>
-  (<span class="kw">setq</span> ess-R-font-lock-keywords
-        (<span class="kw">quote</span>
-         ((ess-R-fl-keyword:modifiers)
-          (ess-R-fl-keyword:fun-defs . <span class="kw">t</span>)
-          (ess-R-fl-keyword:keywords . <span class="kw">t</span>)
-          (ess-R-fl-keyword:assign-ops . <span class="kw">t</span>)
-          (ess-R-fl-keyword:constants . <span class="dv">1</span>)
-          (ess-fl-keyword:fun-calls . <span class="kw">t</span>)
-          (ess-fl-keyword:numbers)
-          (ess-fl-keyword:operators . <span class="kw">t</span>)
-          (ess-fl-keyword:delimiters)
-          (ess-fl-keyword:=)
-          (ess-R-fl-keyword:F&amp;T)
-          (ess-R-fl-keyword:%op% . <span class="kw">t</span>)))))</code></pre></div>
-</div>
-<div id="run-python-in-emacs" class="section level1">
-<h1>Run python in emacs (python-mode)</h1>
-<p>Emacs has decent python support out of the box. As with other programming languages you can get completion suggestions with the <code>tab</code> key, and evaluate code with <code>C-ret</code>. Many more features are provided and are accessible via the menu.</p>
-<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">(defalias 'python 'run-python)
-(with-eval-after-load <span class="st">&quot;python&quot;</span>
-  <span class="co">;; try to get indent/completion working nicely</span>
-  (<span class="kw">setq</span> python-indent-trigger-commands '(my-company-indent-or-complete-common indent-for-tab-command yas-expand yas/expand))
-  <span class="co">;; readline support is wonky at the moment</span>
-  (<span class="kw">setq</span> python-shell-completion-native-enable <span class="kw">nil</span>)
-  <span class="co">;; simple evaluation with C-ret</span>
-  (<span class="kw">require</span> 'eval-in-repl-python)
-  (define-key python-mode-map (kbd <span class="st">&quot;C-c C-c&quot;</span>) 'eir-eval-in-python)
-  (define-key python-mode-map (kbd <span class="st">&quot;&lt;C-return&gt;&quot;</span>) 'eir-eval-in-python)
-  (define-key python-mode-map (kbd <span class="st">&quot;C-c C-b&quot;</span>) 'python-shell-send-buffer)
-  (define-key python-mode-map (kbd <span class="st">&quot;&lt;C-S-return&gt;&quot;</span>) 'python-shell-send-buffer))</code></pre></div>
-</div>
-<div id="emacs-lisp-repl" class="section level1">
-<h1>emacs lisp REPL (ielm)</h1>
-<p>If you want to get the most out of Emacs, you’ll eventually need to learn a little Emacs-lisp. This configuration helps by providing a standard <code>C-ret</code> evaluation key binding, and by providing completion with the <code>tab</code> key.</p>
-<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">(with-eval-after-load <span class="st">&quot;elisp-mode&quot;</span>
-  (<span class="kw">require</span> 'company-elisp)
-  <span class="co">;; ielm</span>
-  (<span class="kw">require</span> 'eval-in-repl-ielm)
-  <span class="co">;; For .el files</span>
-  (define-key emacs-lisp-mode-map (kbd <span class="st">&quot;C-c C-c&quot;</span>) 'eir-eval-in-ielm)
-  (define-key emacs-lisp-mode-map (kbd <span class="st">&quot;&lt;C-return&gt;&quot;</span>) 'eir-eval-in-ielm)
-  (define-key emacs-lisp-mode-map (kbd <span class="st">&quot;C-c C-b&quot;</span>) 'eval-buffer)
-  (define-key emacs-lisp-mode-map (kbd <span class="st">&quot;&lt;C-S-return&gt;&quot;</span>) 'eval-buffer)
-  <span class="co">;; For *scratch*</span>
-  (define-key lisp-interaction-mode-map <span class="st">&quot;\C-c\C-c&quot;</span> 'eir-eval-in-ielm)
-  (define-key lisp-interaction-mode-map (kbd <span class="st">&quot;&lt;C-return&gt;&quot;</span>) 'eir-eval-in-ielm)
-  (define-key lisp-interaction-mode-map (kbd <span class="st">&quot;C-c C-b&quot;</span>) 'eval-buffer)
-  (define-key lisp-interaction-mode-map (kbd <span class="st">&quot;&lt;C-S-return&gt;&quot;</span>) 'eval-buffer)
-  <span class="co">;; For M-x info</span>
-  (define-key Info-mode-map (kbd <span class="st">&quot;C-c C-c&quot;</span>) 'eir-eval-in-ielm)
-  <span class="co">;; Set up completions</span>
-  (add-hook 'emacs-lisp-mode-hook
-            (<span class="kw">lambda</span>()
-              <span class="co">;; make sure completion calls company-elisp first</span>
-              (<span class="kw">require</span> 'company-elisp)
-              (setq-local company-backends
-                          (delete-dups (<span class="kw">cons</span> 'company-elisp (<span class="kw">cons</span> 'company-files company-backends)))))))</code></pre></div>
-</div>
-<div id="light-weight-markup-language" class="section level1">
-<h1>Haskell mode</h1>
-<p>I just recently started learning Haskell. There’s not much to the configuration at this point, but you should get completion with <code>tab</code>.</p>
-<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">(defalias 'haskell 'haskell-interactive-bring)
-
-(add-hook 'haskell-mode-hook (<span class="kw">lambda</span> ()
-                               (dante-mode)
-                               (setq-local company-backends
-                                           (delete-dups (<span class="kw">cons</span> 'company-ghci (<span class="kw">cons</span> 'company-files company-backends))))))
-(add-hook 'haskell-interactive-mode-hook 'company-mode)</code></pre></div>
-</div>
-<div id="light-weight-markup-language" class="section level1">
-<h1>Light-weight markup language (Markdown mode)</h1>
-<p>Markdown is a light-weight markup language that makes easy things easy and stays out of your way. You can export Markdown documents to a wide range of formats including .pdf (via latex), .html, .doc, and more using <code>pandoc</code>. For more information about authoring markdown in Emacs refer to <a href="http://jblevins.org/projects/markdown-mode/" class="uri">http://jblevins.org/projects/markdown-mode/</a>. For information about Markdown syntax or exporting to other formats refer to <a href="http://pandoc.org" class="uri">http://pandoc.org</a>.</p>
-<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;; Use markdown-mode for files with .markdown or .md extensions</span>
-(add-to-list 'auto-mode-alist '(<span class="st">&quot;</span>\\<span class="st">.markdown</span>\\<span class="st">'&quot;</span> . markdown-mode))
-(add-to-list 'auto-mode-alist '(<span class="st">&quot;</span>\\<span class="st">.md</span>\\<span class="st">'&quot;</span> . markdown-mode))</code></pre></div>
-</div>
-<div id="typesetting-markup" class="section level1">
-<h1>Typesetting markup (AucTeX)</h1>
-<p>I don’t write nearly as much in LaTeX as I used to, as Markdown and/or Org mode are simpler and good enough for my needs. But LaTeX is still the tool of choice for much academic writing, so we use AUCTEX and turn on lots of features. Completion of math and latex commands is available with <code>tab</code>, and auto-compile is available with <code>C-ret</code>.</p>
-<p>See <a href="https://www.gnu.org/software/auctex/" class="uri">https://www.gnu.org/software/auctex/</a> for more details about AUCTEX.</p>
-<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;; AucTeX config</span>
-(with-eval-after-load <span class="st">&quot;Latex&quot;</span>
-  <span class="co">;; Easy compile key</span>
-  (define-key LaTeX-mode-map (kbd <span class="st">&quot;&lt;C-return&gt;&quot;</span>) 'TeX-command-run-all)
-  <span class="co">;; Allow paragraph filling in tables</span>
-  (<span class="kw">setq</span> LaTeX-indent-environment-list
-        (delq (<span class="kw">assoc</span> <span class="st">&quot;table&quot;</span> LaTeX-indent-environment-list)
-              LaTeX-indent-environment-list))
-  (<span class="kw">setq</span> LaTeX-indent-environment-list
-        (delq (<span class="kw">assoc</span> <span class="st">&quot;table*&quot;</span> LaTeX-indent-environment-list)
-              LaTeX-indent-environment-list))
-  <span class="co">;; Misc. latex settings</span>
-  (<span class="kw">setq</span> TeX-parse-self <span class="kw">t</span>
-        TeX-auto-save <span class="kw">t</span>)
-  (setq-default TeX-master <span class="kw">nil</span>)
-  <span class="co">;; Add beamer frames to outline list</span>
-  (<span class="kw">setq</span> TeX-outline-extra
-        '((<span class="st">&quot;.*</span>\\\\<span class="st">begin{frame}</span>\n\\<span class="st">|.*</span>\\\\<span class="st">begin{frame}</span>\\<span class="st">[.*</span>\\<span class="st">]</span>\\<span class="st">|.*</span>\\\\<span class="st">begin{frame}.*{.*}</span>\\<span class="st">|.*[       ]*</span>\\\\<span class="st">frametitle</span>\\<span class="st">b&quot;</span> <span class="dv">3</span>)))
-  <span class="co">;; reftex settings</span>
-  (<span class="kw">setq</span> reftex-enable-partial-scans <span class="kw">t</span>)
-  (<span class="kw">setq</span> reftex-save-parse-info <span class="kw">t</span>)
-  (<span class="kw">setq</span> reftex-use-multiple-selection-buffers <span class="kw">t</span>)
-  (<span class="kw">setq</span> reftex-plug-into-AUCTeX <span class="kw">t</span>)
-  (add-hook 'TeX-mode-hook
-            (<span class="kw">lambda</span> ()
-              (turn-on-reftex)
-              (TeX-PDF-mode <span class="kw">t</span>)
-              (LaTeX-math-mode)
-              (TeX-source-correlate-mode <span class="kw">t</span>)
-              (imenu-add-to-menubar <span class="st">&quot;Index&quot;</span>)
-              (outline-minor-mode)
-              (<span class="kw">require</span> 'company-math)
-              (<span class="kw">require</span> 'company-auctex)
-              (company-auctex-init)
-              (setq-local company-backends (delete-dups
-                                            (<span class="kw">cons</span> '(company-math-symbols-latex
-                                                    company-auctex-macros
-                                                    company-auctex-environments)
-                                                  (<span class="kw">cons</span> 'company-files company-backends)))))
-            <span class="co">;; Use pdf-tools to open PDF files</span>
-            (<span class="kw">when</span> (<span class="kw">eq</span> system-type 'gnu/linux)
-              (pdf-tools-install)
-              (<span class="kw">setq</span> TeX-view-program-selection '((output-pdf <span class="st">&quot;PDF Tools&quot;</span>)))
-              TeX-source-correlate-start-server <span class="kw">t</span>
-              <span class="co">;; Update PDF buffers after successful LaTeX runs</span>
-              (add-hook 'TeX-after-TeX-LaTeX-command-finished-hook
-                        'TeX-revert-document-buffer))))
-
-  (with-eval-after-load <span class="st">&quot;bibtex&quot;</span>
-    (add-hook 'bibtex-mode-hook
-          (<span class="kw">lambda</span> ()
-            (define-key bibtex-mode-map <span class="st">&quot;\M-q&quot;</span> 'bibtex-fill-entry))))</code></pre></div>
-<div id="citations-ivy-bibtex" class="section level2">
-<h2>Citations (ivy-bibtex)</h2>
-<p>This allows you to search your BibTeX files for references to insert into the current document. For it to work you will need to set `bibtex-completion-bibliography` to the location of your BibTeX files.</p>
-<p>Initiate a citation search with <code>ivy-bibtex</code>, bound to <code>C-c r</code>.</p>
-<p>See <a href="https://github.com/tmalsburg/helm-bibtex" class="uri">https://github.com/tmalsburg/helm-bibtex</a> for information about reading attached .pdf files, searching online bibliography sources and more.</p>
-<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">(<span class="kw">setq</span> ivy-bibtex-default-action 'ivy-bibtex-insert-citation)
-(global-set-key (kbd <span class="st">&quot;C-c r&quot;</span>) 'ivy-bibtex)</code></pre></div>
+<div id="interacting-with-external-programs" class="section level2">
+<h2>Interacting with external programs</h2>
+<p>Many of the Emacs features configured here are designed to make it easier to interact with external programs. For example, <a href="http://ess.r-project.org">ESS</a> makes it easy to interact with <a href="http://r-project.org">R</a>, and <a href="https://www.gnu.org/software/auctex/">AUCTEX</a> makes it easy to interact with <a href="http://tug.org/texlive/">LaTeX</a>. If you need help installing these programs, <a href="http://izahn.github.io/dotemacs/UsefulPrograms.html">this short guide</a> may help.</p>
 </div>
 </div>
-<div id="note-taking-and-outlining" class="section level1">
-<h1>Note taking and outlining (Org-mode)</h1>
-<p>Org mode is a powerful markup-language native to Emacs. It can be compared to markdown, but it has many more features. I use it for note taking a preparing lecture materials, but people use it for all kinds of things, from TODO lists to project planning to authoring academic papers. The settings below try to make Org mode play nicely with other packages, and enable many of the literate programming features. More information about Org mode can be found at <a href="http://orgmode.org" class="uri">http://orgmode.org</a>.</p>
-<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">(with-eval-after-load <span class="st">&quot;org&quot;</span>
-  <span class="co">;; no compay mode in org buffers</span>
-  (add-hook 'org-mode-hook (<span class="kw">lambda</span>() (company-mode -<span class="dv">1</span>)))
-  (<span class="kw">setq</span> org-replace-disputed-keys <span class="kw">t</span>)
-  (<span class="kw">setq</span> org-support-shift-select <span class="kw">t</span>)
-  (<span class="kw">setq</span> org-export-babel-evaluate <span class="kw">nil</span>)
-  <span class="co">;; (setq org-startup-indented t)</span>
-  <span class="co">;; increase imenu depth to include third level headings</span>
-  (<span class="kw">setq</span> org-imenu-depth <span class="dv">3</span>)
-  <span class="co">;; Set sensible mode for editing dot files</span>
-  (add-to-list 'org-src-lang-modes '(<span class="st">&quot;dot&quot;</span> . graphviz-dot))
-  <span class="co">;; Update images from babel code blocks automatically</span>
-  (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
-  <span class="co">;; configure org-mode when opening first org-mode file</span>
-  <span class="co">;; Load additional export formats</span>
-  (<span class="kw">require</span> 'ox-ascii)
-  (<span class="kw">require</span> 'ox-md)
-  (<span class="kw">require</span> 'ox-html)
-  (<span class="kw">require</span> 'ox-latex)
-  (<span class="kw">require</span> 'ox-odt)
-
-  (<span class="kw">require</span> 'org-capture)
-  (<span class="kw">require</span> 'org-protocol)
-
-  <span class="co">;; Enable common programming language support in org-mode</span>
-  (<span class="kw">require</span> 'ob-shell)
-  (<span class="kw">require</span> 'ob-emacs-lisp)
-  (<span class="kw">require</span> 'ob-org)
-  (<span class="kw">when</span> (executable-find <span class="st">&quot;R&quot;</span>) 
-      (<span class="kw">require</span> 'ess-site)
-      (<span class="kw">require</span> 'ob-R))
-  (<span class="kw">when</span> (executable-find <span class="st">&quot;python&quot;</span>) (<span class="kw">require</span> 'ob-python))
-  (<span class="kw">when</span> (executable-find <span class="st">&quot;matlab&quot;</span>) (<span class="kw">require</span> 'ob-matlab))
-  (<span class="kw">when</span> (executable-find <span class="st">&quot;octave&quot;</span>) (<span class="kw">require</span> 'ob-octave))
-  (<span class="kw">when</span> (executable-find <span class="st">&quot;perl&quot;</span>) (<span class="kw">require</span> 'ob-perl))
-  (<span class="kw">when</span> (executable-find <span class="st">&quot;dot&quot;</span>) (<span class="kw">require</span> 'ob-dot))
-  (<span class="kw">when</span> (executable-find <span class="st">&quot;ditaa&quot;</span>) (<span class="kw">require</span> 'ob-ditaa))
-
-  <span class="co">;; Fontify code blocks in org-mode</span>
-  (<span class="kw">setq</span> org-src-fontify-natively <span class="kw">t</span>)
-  (<span class="kw">setq</span> org-src-tab-acts-natively <span class="kw">t</span>)
-  (<span class="kw">setq</span> org-confirm-babel-evaluate <span class="kw">nil</span>))
-</code></pre></div>
-</div>
-<div id="multiple-modes-in-one-buffer" class="section level1">
-<h1>Multiple modes in one “buffer” (polymode)</h1>
-<p>Emacs uses different <em>modes</em> for different kinds of files and buffers. This is what makes is possible to have one set of behaviors when editing LaTeX, and a different set of behaviors when writing R code. But what if we want to do both, in the same file? Then we need to have multiple modes, in the same buffer, and we can thanks to <a href="https://github.com/vspinu/polymode">polymode</a>.</p>
-<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;;; polymode</span>
-<span class="co">;; polymode requires emacs &gt;= 24.3, does not work on the RCE. </span>
-(<span class="kw">when</span> (<span class="op">&gt;=</span> (string-to-number 
-           (concat 
-            (number-to-string emacs-major-version) 
-            <span class="st">&quot;.&quot;</span> 
-            (number-to-string emacs-minor-version)))
-          <span class="fl">24.3</span>)
-  <span class="co">;; Activate polymode for files with the .md extension</span>
-  (add-to-list 'auto-mode-alist '(<span class="st">&quot;</span>\\<span class="st">.md&quot;</span> . poly-markdown-mode))
-  <span class="co">;; Activate polymode for R related modes</span>
-  (add-to-list 'auto-mode-alist '(<span class="st">&quot;</span>\\<span class="st">.Snw&quot;</span> . poly-noweb+r-mode))
-  (add-to-list 'auto-mode-alist '(<span class="st">&quot;</span>\\<span class="st">.Rnw&quot;</span> . poly-noweb+r-mode))
-  (add-to-list 'auto-mode-alist '(<span class="st">&quot;</span>\\<span class="st">.Rmd&quot;</span> . poly-markdown+r-mode))
-  (add-to-list 'auto-mode-alist '(<span class="st">&quot;</span>\\<span class="st">.rapport&quot;</span> . poly-rapport-mode))
-  (add-to-list 'auto-mode-alist '(<span class="st">&quot;</span>\\<span class="st">.Rhtml&quot;</span> . poly-html+r-mode))
-  (add-to-list 'auto-mode-alist '(<span class="st">&quot;</span>\\<span class="st">.Rbrew&quot;</span> . poly-brew+r-mode))
-  (add-to-list 'auto-mode-alist '(<span class="st">&quot;</span>\\<span class="st">.Rcpp&quot;</span> . poly-r+c++-mode))
-  (add-to-list 'auto-mode-alist '(<span class="st">&quot;</span>\\<span class="st">.cppR&quot;</span> . poly-c++r-mode))
-  <span class="co">;; polymode doesn't play nice with adaptive-wrap, turn it off</span>
-  (add-hook 'polymode-init-host-hook
-            '(<span class="kw">lambda</span>()
-               (adaptive-wrap-prefix-mode -<span class="dv">1</span>)
-               (electric-indent-mode -<span class="dv">1</span>)
-               (<span class="kw">unless</span> (featurep 'ess-site)
-                 (<span class="kw">require</span> 'ess-site)))))</code></pre></div>
-</div>
-<div id="email-mu4e" class="section level1">
-<h1>Email (mu4e)</h1>
-<p>Not everyone wants to read email in Emacs, but you can if you want. The settings below configure some basic things, but you will need additional configuration to set up your email accounts. See the <a href="http://www.djcbsoftware.nl/code/mu/mu4e/index.html#Top">mue4 manual</a> and <a href="http://www.djcbsoftware.nl/code/mu/mu4e/Example-configurations.html#Example-configurations">example configurations</a> for details.</p>
-<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">(<span class="kw">when</span> (executable-find <span class="st">&quot;mu&quot;</span>)
-  (autoload 'mu4e <span class="st">&quot;mu4e&quot;</span> <span class="st">&quot;Read your mail.&quot;</span> <span class="kw">t</span>)
-  (with-eval-after-load <span class="st">&quot;mu4e&quot;</span>
-    (<span class="kw">require</span> 'mu4e)
-    (<span class="kw">require</span> 'mu4e-headers)
-    (<span class="kw">setq</span> mu4e-headers-include-related <span class="kw">t</span>
-          mu4e-headers-skip-duplicates <span class="kw">t</span>
-          <span class="co">;; don't keep message buffers around</span>
-          message-kill-buffer-on-exit <span class="kw">t</span>
-          <span class="co">;; enable notifications</span>
-          mu4e-enable-mode-line <span class="kw">t</span>
-          mu4e-headers-fields '(
-                                (:human-date . <span class="dv">12</span>)
-                                (:flags . <span class="dv">6</span>)
-                                <span class="co">;; (:mailing-list . 10)</span>
-                                (:from-or-to . <span class="dv">22</span>)
-                                (:subject)))
-    <span class="co">;; ;; use org for composing rich text emails</span>
-    <span class="co">;; (require 'org-mu4e)</span>
-    <span class="co">;; (setq org-mu4e-convert-to-html t)</span>
-    <span class="co">;; (define-key mu4e-headers-mode-map (kbd &quot;C-c c&quot;) 'org-mu4e-store-and-capture)</span>
-    <span class="co">;; (define-key mu4e-view-mode-map    (kbd &quot;C-c c&quot;) 'org-mu4e-store-and-capture)</span>
-    <span class="co">;; </span>
-    <span class="co">;; rerender html</span>
-    (<span class="kw">require</span> 'mu4e-contrib)
-    (<span class="kw">setq</span> mu4e-html2text-command 'mu4e-shr2text)
-    (add-hook 'mu4e-view-mode-hook 'visual-line-mode)))</code></pre></div>
-</div>
-<div id="file-browsing" class="section level1">
-<h1>File browsing (Dired+)</h1>
-<p>Emacs makes a decent file browser, we just need to tweak a few things to make it nicer. In particular you can open files in an external program using the <code>E</code> key.</p>
-<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;;; Dired and Dired+ configuration</span>
-(add-hook 'dired-mode-hook 
-          (<span class="kw">lambda</span>()
-            (diff-hl-dired-mode)
-            (diff-hl-margin-mode)))
-
-<span class="co">;; show details by default</span>
-(<span class="kw">setq</span> diredp-hide-details-initially-flag <span class="kw">nil</span>)
-
-<span class="co">;; set dired listing options</span>
-(<span class="kw">if</span> (<span class="kw">eq</span> system-type 'gnu/linux)
-    (<span class="kw">setq</span> dired-listing-switches <span class="st">&quot;-alDhp&quot;</span>))
-
-<span class="co">;; make sure dired buffers end in a slash so we can identify them easily</span>
-(<span class="kw">defun</span><span class="fu"> ensure-buffer-name-ends-in-slash </span>()
-  <span class="st">&quot;change buffer name to end with slash&quot;</span>
-  (<span class="kw">let</span> ((name (buffer-name)))
-    (<span class="kw">if</span> (<span class="kw">not</span> (string-match <span class="st">&quot;/$&quot;</span> name))
-        (rename-buffer (concat name <span class="st">&quot;/&quot;</span>) <span class="kw">t</span>))))
-(add-hook 'dired-mode-hook 'ensure-buffer-name-ends-in-slash)
-(add-hook 'dired-mode-hook
-          (<span class="kw">lambda</span>()
-             (<span class="kw">setq</span> truncate-lines <span class="dv">1</span>)))
-
-<span class="co">;; open files in external programs</span>
-<span class="co">;; (from http://ergoemacs.org/emacs/emacs_dired_open_file_in_ext_apps.html</span>
-<span class="co">;; consider replacing with https://github.com/thamer/runner</span>
-(<span class="kw">defun</span><span class="fu"> xah-open-in-external-app </span>(&amp;optional file)
-  <span class="st">&quot;Open the current file or dired marked files in external app.</span>
-
-<span class="st">The app is chosen from your OS's preference.&quot;</span>
-  (interactive)
-  (<span class="kw">let</span> (doIt
-        (myFileList
-         (<span class="kw">cond</span>
-          ((<span class="kw">string-equal</span> major-mode <span class="st">&quot;dired-mode&quot;</span>)
-           (dired-get-marked-files))
-          ((<span class="kw">not</span> file) (<span class="kw">list</span> (buffer-file-name)))
-          (file (<span class="kw">list</span> file)))))
-    (<span class="kw">setq</span> doIt (<span class="kw">if</span> (<span class="op">&lt;=</span> (<span class="kw">length</span> myFileList) <span class="dv">5</span>)
-                   <span class="kw">t</span>
-                 (<span class="kw">y-or-n-p</span> <span class="st">&quot;Open more than 5 files? &quot;</span>))) 
-    (<span class="kw">when</span> doIt
-      (<span class="kw">cond</span>
-       ((<span class="kw">string-equal</span> system-type <span class="st">&quot;windows-nt&quot;</span>)
-        (<span class="kw">mapc</span>
-         (<span class="kw">lambda</span> (fPath)
-           (w32-shell-execute <span class="st">&quot;open&quot;</span> (replace-regexp-in-string <span class="st">&quot;/&quot;</span> <span class="st">&quot;</span>\\<span class="st">&quot;</span> fPath <span class="kw">t</span> <span class="kw">t</span>)))
-         myFileList))
-       ((<span class="kw">string-equal</span> system-type <span class="st">&quot;darwin&quot;</span>)
-        (<span class="kw">mapc</span>
-         (<span class="kw">lambda</span> (fPath)
-           (shell-command (<span class="kw">format</span> <span class="st">&quot;open </span>\&quot;<span class="st">%s</span>\&quot;<span class="st">&quot;</span> fPath)))
-         myFileList))
-       ((<span class="kw">string-equal</span> system-type <span class="st">&quot;gnu/linux&quot;</span>)
-        (<span class="kw">mapc</span>
-         (<span class="kw">lambda</span> (fPath)
-           (<span class="kw">let</span> ((process-connection-type <span class="kw">nil</span>))
-             (start-process <span class="st">&quot;&quot;</span> <span class="kw">nil</span> <span class="st">&quot;xdg-open&quot;</span> fPath))) myFileList))))))
-<span class="co">;; use zip/unzip to compress/uncompress zip archives</span>
-(with-eval-after-load <span class="st">&quot;dired-aux&quot;</span>
-  (add-to-list 'dired-compress-file-suffixes 
-               '(<span class="st">&quot;</span>\\<span class="st">.zip</span>\\<span class="st">'&quot;</span> <span class="st">&quot;&quot;</span> <span class="st">&quot;unzip&quot;</span>))
-  <span class="co">;; open files from dired with &quot;E&quot;</span>
-  (define-key dired-mode-map (kbd <span class="st">&quot;E&quot;</span>) 'xah-open-in-external-app))</code></pre></div>
-</div>
-<div id="shell-modes" class="section level1">
-<h1>Shell modes (term, shell and eshell)</h1>
-<p>There are several different shells available in Emacs by default. In addition <code>multi-term</code> is available to give you a nicer way of running your default shell in Emacs. Convenience functions are enabled to set your EDITOR variable so that Emacs will be used as your editor when running shell commands inside Emacs.</p>
-<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">
-<span class="co">;; term</span>
-(with-eval-after-load <span class="st">&quot;term&quot;</span>
-  (define-key term-mode-map (kbd <span class="st">&quot;C-j&quot;</span>) 'term-char-mode)
-  (define-key term-raw-map (kbd <span class="st">&quot;C-j&quot;</span>) 'term-line-mode)
-  (<span class="kw">require</span> 'with-editor)
-  (<span class="kw">require</span> 'git-commit)
-  (shell-command-with-editor-mode <span class="kw">t</span>))
-
-<span class="co">;; multi-term</span>
-(defalias 'terminal 'multi-term)
-(with-eval-after-load <span class="st">&quot;multi-term&quot;</span>
-  (define-key term-mode-map (kbd <span class="st">&quot;C-j&quot;</span>) 'term-char-mode)
-  (define-key term-raw-map (kbd <span class="st">&quot;C-j&quot;</span>) 'term-line-mode)
-  (<span class="kw">require</span> 'with-editor)
-  (<span class="kw">require</span> 'git-commit)
-  (shell-command-with-editor-mode <span class="kw">t</span>))
-
-<span class="co">;; shell</span>
-(with-eval-after-load <span class="st">&quot;sh-script&quot;</span>
-  (<span class="kw">require</span> 'essh) <span class="co">; if not done elsewhere; essh is in the local lisp folder</span>
-  (<span class="kw">require</span> 'eval-in-repl-shell)
-  (define-key sh-mode-map <span class="st">&quot;\C-c\C-c&quot;</span> 'eir-eval-in-shell)
-  (define-key sh-mode-map (kbd <span class="st">&quot;&lt;C-return&gt;&quot;</span>) 'eir-eval-in-shell)
-  (define-key sh-mode-map (kbd <span class="st">&quot;&lt;C-S-return&gt;&quot;</span>) 'executable-interpret))
-(with-eval-after-load <span class="st">&quot;shell&quot;</span>
-  (<span class="kw">require</span> 'with-editor)
-  (<span class="kw">require</span> 'git-commit)
-  (shell-command-with-editor-mode <span class="kw">t</span>))
-
-(with-eval-after-load <span class="st">&quot;eshell&quot;</span>
-  (<span class="kw">require</span> 'with-editor)
-  (<span class="kw">require</span> 'git-commit)
-  (shell-command-with-editor-mode <span class="kw">t</span>))
-
-<span class="co">;; Automatically adjust output width in commint buffers</span>
-<span class="co">;; from http://stackoverflow.com/questions/7987494/emacs-shell-mode-display-is-too-wide-after-splitting-window</span>
-(<span class="kw">defun</span><span class="fu"> comint-fix-window-size </span>()
-  <span class="st">&quot;Change process window size.&quot;</span>
-  (<span class="kw">when</span> (derived-mode-p 'comint-mode)
-    (<span class="kw">let</span> ((process (get-buffer-process (current-buffer))))
-      (<span class="kw">unless</span> (<span class="kw">eq</span> <span class="kw">nil</span> process)
-        (set-process-window-size process (window-height) (window-width))))))
-
-(<span class="kw">defun</span><span class="fu"> my-shell-mode-hook </span>()
-  <span class="co">;; add this hook as buffer local, so it runs once per window.</span>
-  (add-hook 'window-configuration-change-hook 'comint-fix-window-size <span class="kw">nil</span> <span class="kw">t</span>))
-
-(add-hook 'shell-mode-hook
-          (<span class="kw">lambda</span>()
-            <span class="co">;; add this hook as buffer local, so it runs once per window.</span>
-            (add-hook 'window-configuration-change-hook 'comint-fix-window-size <span class="kw">nil</span> <span class="kw">t</span>)))
-
-<span class="co">;; Use emacs as editor when running external processes or using shells in emacs</span>
-(<span class="kw">when</span> (<span class="kw">and</span> (string-match-p <span class="st">&quot;remacs&quot;</span> (<span class="kw">prin1-to-string</span> (frame-list)))
-           (executable-find <span class="st">&quot;remacsclient&quot;</span>))
-  (<span class="kw">setq</span> with-editor-emacsclient-executable (executable-find <span class="st">&quot;remacsclient&quot;</span>)))
-
-
-(add-hook 'shell-mode-hook
-          (<span class="kw">lambda</span>()
-            (with-editor-export-editor)
-            (with-editor-export-git-editor)
-            <span class="co">;;(sleep-for 0.5) ; this is bad, but thinking hurts and it works.</span>
-            (call-interactively 'comint-clear-buffer)))
-(add-hook 'term-exec-hook
-          (<span class="kw">lambda</span>()
-            (with-editor-export-editor)
-            (with-editor-export-git-editor)
-            <span class="co">;;(sleep-for 0.5) ; see comment above</span>
-            (call-interactively 'comint-clear-buffer)))
-(add-hook 'eshell-mode-hook
-          (<span class="kw">lambda</span>()
-            <span class="co">;; programs that don't work well in eshell and should be run in visual mode</span>
-            (add-to-list 'eshell-visual-commands <span class="st">&quot;ssh&quot;</span>)
-            (add-to-list 'eshell-visual-commands <span class="st">&quot;tail&quot;</span>)
-            (add-to-list 'eshell-visual-commands <span class="st">&quot;htop&quot;</span>)
-            <span class="co">;; git editor support</span>
-            (with-editor-export-editor)
-            (with-editor-export-git-editor)))</code></pre></div>
-</div>
-<div id="final-touches" class="section level1">
-<h1>Final touches</h1>
-<p>This Emacs configuration sets up lots of packages and configures a number of keybindings. To add our own customizations, place them in <code>~/.emacs.d/custom.el</code>. This file will be sourced last, so you always have the ability to override any settings provided here.</p>
-<div class="sourceCode"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span class="co">;; save settings made using the customize interface to a sparate file</span>
-(<span class="kw">setq</span> custom-file (concat user-emacs-directory <span class="st">&quot;custom.el&quot;</span>))
-(<span class="kw">unless</span> (file-exists-p custom-file)
-  (write-region <span class="st">&quot;;; Put user configuration here&quot;</span> <span class="kw">nil</span> custom-file))
-(<span class="kw">load</span> custom-file 'noerror)
-
-<span class="co">;; ;; clean up the mode line</span>
-<span class="co">; (require 'diminish)</span>
-(diminish 'visual-line-mode)
-(diminish 'which-key-mode)
-(diminish 'company-mode <span class="st">&quot;comp&quot;</span>)
-(diminish 'outline-minor-mode <span class="st">&quot;outln&quot;</span>)
-(diminish 'undo-tree-mode)
-
-
-<span class="co">;; No, we do not need the splash screen</span>
-(<span class="kw">setq</span> inhibit-startup-screen <span class="kw">t</span>)
-
-<span class="co">;; start with untitled new buffer</span>
-(add-hook 'after-init-hook
-          '(<span class="kw">lambda</span>()
-             (<span class="kw">setq</span> inhibit-startup-screen <span class="kw">t</span>) <span class="co">;; yes, we really want to do this!</span>
-             (untitled-new-buffer-with-select-major-mode 'text-mode)))
-
-(<span class="kw">setq</span> untitled-new-buffer-major-modes '(text-mode emacs-lisp-mode))
-<span class="co">;; Change default buffer name.</span>
-(<span class="kw">setq</span> untitled-new-buffer-default-name <span class="st">&quot;Untitled&quot;</span>)
-</code></pre></div>
-</div>
-<div id="concluding-remarks" class="section level1">
-<h1>Concluding remarks</h1>
-<p>That’s all folks, report any bugs or feature requests at <a href="https://github.com/izahn/dotemacs" class="uri">https://github.com/izahn/dotemacs</a>.</p>
+<div id="more-information" class="section level1">
+<h1>More information</h1>
+<p>For more information refer to the <a href="https://izahn.github.io/dotemacs/init.html">annotated configuration file</a>.</p>
 </div>
 
 
