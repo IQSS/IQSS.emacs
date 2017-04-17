@@ -42,20 +42,17 @@ Highlights of this Emacs configuration include:
 Installation
 =================
 
+If you previously had another version of Emacs installed it is a good
+idea to move your `~/.emacs.d` configuration folder to a backup
+location before installing this version of Emacs.
+
 Installers for configured versions of Emacs are available for 
-[Mac OS X](https://github.com/izahn/dotemacs/releases/download/v.0.2/Emacs-25.1-1-modified-5.dmg)
-and [Windows](https://github.com/izahn/dotemacs/releases/download/v.0.2/emacs-25.1-2-modified-5.exe).
+[Mac OS X](https://github.com/izahn/dotemacs/releases/download/v1.0.1/Emacs-25.1-1-configured-5.dmg)
+and [Windows](https://github.com/izahn/dotemacs/releases/download/v1.0.1/Emacs-25.1-2-configured-5.exe).
 
 Alternatively, you can install Emacs from another source and copy this
-configuration manually:
-
-1.  Back up any existing `~/.emacs.d` directory.
-2.  Clone this repository using `git` by opening a terminal and
-    running `git clone https://github.com/izahn/dotemacs.git ~/.emacs.d`.
-
-If you don't know how to use git, you can skip step 2 and
-[download the files as a zip archive](https://github.com/izahn/dotemacs/archive/master.zip),
-extract them, and move them into your .emacs.d directory instead.
+configuration manually. To do so, open a terminal and runn `git clone
+https://github.com/izahn/dotemacs.git ~/.emacs.d`.
 
 First run
 =============
