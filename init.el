@@ -54,7 +54,7 @@
         ace-window
         howdoi
         auctex-latexmk
-        multi-term
+        sane-term
         with-editor
         git-commit
         magit
@@ -784,10 +784,8 @@ The app is chosen from your OS's preference."
   (shell-command-with-editor-mode t))
 
 ;; multi-term
-(defalias 'terminal 'multi-term)
-(with-eval-after-load "multi-term"
-  (define-key term-mode-map (kbd "C-j") 'term-char-mode)
-  (define-key term-raw-map (kbd "C-j") 'term-line-mode)
+(defalias 'terminal 'sane-term)
+(with-eval-after-load "sane-term"
   (require 'with-editor)
   (require 'git-commit)
   (shell-command-with-editor-mode t))

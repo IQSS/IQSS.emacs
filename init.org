@@ -78,7 +78,7 @@ The main purpose of these emacs configuration files is to install and configure 
           ace-window
           howdoi
           auctex-latexmk
-          multi-term
+          sane-term
           with-editor
           git-commit
           magit
@@ -1014,7 +1014,7 @@ Emacs makes a decent file browser, we just need to tweak a few things to make it
   :PROPERTIES:
   :CUSTOM_ID: shell-modes
   :END:
-There are several different shells available in Emacs by default. In addition =multi-term= is available to give you a nicer way of running your default shell in Emacs. Convenience functions are enabled to set your EDITOR variable so that Emacs will be used as your editor when running shell commands inside Emacs. 
+There are several different shells available in Emacs by default. In addition =sane-term= is available to give you a nicer way of running your default shell in Emacs. Convenience functions are enabled to set your EDITOR variable so that Emacs will be used as your editor when running shell commands inside Emacs. 
 
 #+BEGIN_SRC emacs-lisp
 
@@ -1027,10 +1027,8 @@ There are several different shells available in Emacs by default. In addition =m
     (shell-command-with-editor-mode t))
 
   ;; multi-term
-  (defalias 'terminal 'multi-term)
-  (with-eval-after-load "multi-term"
-    (define-key term-mode-map (kbd "C-j") 'term-char-mode)
-    (define-key term-raw-map (kbd "C-j") 'term-line-mode)
+  (defalias 'terminal 'sane-term)
+  (with-eval-after-load "sane-term"
     (require 'with-editor)
     (require 'git-commit)
     (shell-command-with-editor-mode t))
