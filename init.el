@@ -89,9 +89,7 @@
         sbt-mode
         exec-path-from-shell
         htmlize
-        sdcv ;; stardictionary
-        osx-dictionary
-        define-word
+        dictionary
         ox-pandoc
         untitled-new-buffer))
 
@@ -283,24 +281,8 @@
 (add-to-list 'ispell-skip-region-alist '("^#\\+BEGIN_EXAMPLE " . "#\\+END_EXAMPLE$"))
 
 ;; Dictionaries
-
-;; default in case we don't find something local
-(global-set-key (kbd "C-c d") 'define-word-at-point)
-(global-set-key (kbd "C-c S-D") 'define-word)
-
-;; use dictionary app on os x
-(when (memq window-system '(mac ns))
-  (global-set-key (kbd "C-c d") 'osx-dictionary-search-word-at-point)
-  (global-set-key (kbd "C-c S-D") 'osx-dictionary-search-input))
-
-;; Use stardict if we find a usable interface
-(when (executable-find "sdcv")
-  (require 'sdcv)
-  (global-set-key (kbd "C-c d") 'sdcv-search-input)
-  (global-set-key (kbd "C-c S-D") 'sdcv-search-pointer+)
-  (add-hook 'sdcv-mode-hook
-            '(lambda()
-               (setq-local font-lock-string-face 'default))))
+(global-set-key (kbd "C-c d") 'dictionary-search)
+(global-set-key (kbd "C-c D") 'dictionary-match-words)
 
 (when (eq system-type 'gnu/linux)
   (setq hfyview-quick-print-in-files-menu t)
