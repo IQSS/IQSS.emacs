@@ -140,7 +140,7 @@ created and killed as needed. New Emacs uses sometimes try to get Emacs
 to stop messing with their window layout -- my approach is to just let
 Emacs do what it wants and the revert the layout using `C-c left`.
 
-Here are 
+
   Key                     |Description                  |Notes
   ------------------------|-----------------------------|--------------------------------------------------------------------------------
   `C-x 2`                 | Split horizontally          |
