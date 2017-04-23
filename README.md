@@ -158,7 +158,7 @@ Searching and Completion
 Utilities have been configured to make it easy to search by file name as
 well as to search the contents of files. Some of this functionality
 works much better if certain system utilities are found. See [this list
-of useful programs](UsefulPrograms.html), especially *everything*
+of useful programs](https://izahn.github.io/dotemacs/UsefulPrograms.html), especially *everything*
 (windows only) and *the silver searcher* or *ripgrep*.
 
 Basic search/replace should work as you expect, except that again on
