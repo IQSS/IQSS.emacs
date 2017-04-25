@@ -866,6 +866,7 @@ The app is chosen from your OS's preference."
 (diminish 'company-mode "comp")
 (diminish 'outline-minor-mode "outln")
 (diminish 'undo-tree-mode)
+(diminish 'pandoc-mode)
 
 
 ;; No, we do not need the splash screen
