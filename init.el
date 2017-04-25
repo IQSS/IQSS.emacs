@@ -53,7 +53,6 @@
         dired+
         ace-window
         howdoi
-        auctex-latexmk
         sane-term
         with-editor
         git-commit

@@ -77,7 +77,6 @@ The main purpose of these emacs configuration files is to install and configure 
           dired+
           ace-window
           howdoi
-          auctex-latexmk
           sane-term
           with-editor
           git-commit
