@@ -140,6 +140,7 @@
 ;; better defaults are well, better... but we don't always agree
 (menu-bar-mode 1)
 (scroll-bar-mode 1)
+(setq select-enable-primary nil)
 
 ;; scrolling behavior
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ; one line at a time
