@@ -77,7 +77,7 @@ The main purpose of these emacs configuration files is to install and configure 
           dired+
           ace-window
           howdoi
-          sane-term
+          multi-term
           with-editor
           git-commit
           magit
@@ -183,7 +183,6 @@ This section sets up various utilities and conveniences. Many of these are low p
   ;; better defaults are well, better... but we don't always agree
   (menu-bar-mode 1)
   (scroll-bar-mode 1)
-  (setq select-enable-primary nil)
 
   ;; scrolling behavior
   (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ; one line at a time
@@ -782,7 +781,8 @@ I don't write nearly as much in LaTeX as I used to, as Markdown and/or Org mode 
     (setq TeX-save-query nil)
     (setq-default TeX-master 'dwim)
     ;; Add beamer frames to outline list
-    (setq TeX-outline-extra '((".*\\\\begin{frame}\n\\|.*\\\\begin{frame}\\[.*\\]\\|.*\\\\begin{frame}.*{.*}\\|.*[       ]*\\\\frametitle\\b" 3)))
+    (setq TeX-outline-extra
+          '((".*\\\\begin{frame}\n\\|.*\\\\begin{frame}\\[.*\\]\\|.*\\\\begin{frame}.*{.*}\\|.*[       ]*\\\\frametitle\\b" 3)))
     ;; reftex settings
     (setq reftex-enable-partial-scans t)
     (setq reftex-save-parse-info t)
@@ -1033,7 +1033,7 @@ Emacs makes a decent file browser, we just need to tweak a few things to make it
   :PROPERTIES:
   :CUSTOM_ID: shell-modes
   :END:
-There are several different shells available in Emacs by default. In addition =sane-term= is available to give you a nicer way of running your default shell in Emacs. Convenience functions are enabled to set your EDITOR variable so that Emacs will be used as your editor when running shell commands inside Emacs. 
+There are several different shells available in Emacs by default. In addition =multi-term= is available to give you a nicer way of running your default shell in Emacs. Convenience functions are enabled to set your EDITOR variable so that Emacs will be used as your editor when running shell commands inside Emacs. 
 
 #+BEGIN_SRC emacs-lisp
 
@@ -1046,8 +1046,10 @@ There are several different shells available in Emacs by default. In addition =s
     (shell-command-with-editor-mode t))
 
   ;; multi-term
-  (defalias 'terminal 'sane-term)
-  (with-eval-after-load "sane-term"
+  (defalias 'terminal 'multi-term)
+  (with-eval-after-load "multi-term"
+    (define-key term-mode-map (kbd "C-j") 'term-char-mode)
+    (define-key term-raw-map (kbd "C-j") 'term-line-mode)
     (require 'with-editor)
     (require 'git-commit)
     (shell-command-with-editor-mode t))

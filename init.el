@@ -53,7 +53,7 @@
         dired+
         ace-window
         howdoi
-        sane-term
+        multi-term
         with-editor
         git-commit
         magit
@@ -141,7 +141,6 @@
 ;; better defaults are well, better... but we don't always agree
 (menu-bar-mode 1)
 (scroll-bar-mode 1)
-(setq select-enable-primary nil)
 
 ;; scrolling behavior
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ; one line at a time
@@ -583,7 +582,8 @@
   (setq TeX-save-query nil)
   (setq-default TeX-master 'dwim)
   ;; Add beamer frames to outline list
-  (setq TeX-outline-extra '((".*\\\\begin{frame}\n\\|.*\\\\begin{frame}\\[.*\\]\\|.*\\\\begin{frame}.*{.*}\\|.*[       ]*\\\\frametitle\\b" 3)))
+  (setq TeX-outline-extra
+        '((".*\\\\begin{frame}\n\\|.*\\\\begin{frame}\\[.*\\]\\|.*\\\\begin{frame}.*{.*}\\|.*[       ]*\\\\frametitle\\b" 3)))
   ;; reftex settings
   (setq reftex-enable-partial-scans t)
   (setq reftex-save-parse-info t)
@@ -797,8 +797,10 @@ The app is chosen from your OS's preference."
   (shell-command-with-editor-mode t))
 
 ;; multi-term
-(defalias 'terminal 'sane-term)
-(with-eval-after-load "sane-term"
+(defalias 'terminal 'multi-term)
+(with-eval-after-load "multi-term"
+  (define-key term-mode-map (kbd "C-j") 'term-char-mode)
+  (define-key term-raw-map (kbd "C-j") 'term-line-mode)
   (require 'with-editor)
   (require 'git-commit)
   (shell-command-with-editor-mode t))
