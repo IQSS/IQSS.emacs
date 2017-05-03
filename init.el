@@ -583,7 +583,7 @@
   (setq TeX-save-query nil)
   (setq-default TeX-master 'dwim)
   ;; Add beamer frames to outline list
-  (setq TeX-outline-extra          '((".*\\\\begin{frame}\n\\|.*\\\\begin{frame}\\[.*\\]\\|.*\\\\begin{frame}.*{.*}\\|.*[       ]*\\\\frametitle\\b" 3)))
+  (setq TeX-outline-extra '((".*\\\\begin{frame}\n\\|.*\\\\begin{frame}\\[.*\\]\\|.*\\\\begin{frame}.*{.*}\\|.*[       ]*\\\\frametitle\\b" 3)))
   ;; reftex settings
   (setq reftex-enable-partial-scans t)
   (setq reftex-save-parse-info t)
