@@ -98,6 +98,7 @@ The main purpose of these emacs configuration files is to install and configure 
           company-math
           company-auctex
           ess
+          web-mode
           markdown-mode
           pandoc-mode
           polymode
@@ -111,6 +112,7 @@ The main purpose of these emacs configuration files is to install and configure 
           ensime
           sbt-mode
           exec-path-from-shell
+          dumb-jump
           htmlize
           dictionary
           ox-pandoc
@@ -743,6 +745,14 @@ Markdown is a light-weight markup language that makes easy things easy and stays
   (add-hook 'markdown-mode-hook 'turn-on-orgtbl)
   (when (executable-find "pandoc")
     (add-hook 'markdown-mode-hook 'pandoc-mode))
+#+END_SRC
+
+* Web mode
+
+Editing HTML in Emacs is OK out of the box, but it doesn't support template systems well. We can fix that with web-mode.
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'auto-mode-alist `("\\.html?\\'" . web-mode))
 #+END_SRC
 
 * Typesetting markup (AucTeX)

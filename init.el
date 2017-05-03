@@ -74,6 +74,7 @@
         company-math
         company-auctex
         ess
+        web-mode
         markdown-mode
         pandoc-mode
         polymode
@@ -87,6 +88,7 @@
         ensime
         sbt-mode
         exec-path-from-shell
+        dumb-jump
         htmlize
         dictionary
         ox-pandoc
@@ -560,6 +562,8 @@
 (add-hook 'markdown-mode-hook 'turn-on-orgtbl)
 (when (executable-find "pandoc")
   (add-hook 'markdown-mode-hook 'pandoc-mode))
+
+(add-to-list 'auto-mode-alist `("\\.html?\\'" . web-mode))
 
 ;; AucTeX config
 (with-eval-after-load "Latex"
