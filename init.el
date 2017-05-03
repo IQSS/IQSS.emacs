@@ -199,6 +199,14 @@
 ;; save place -- move to the place I was last time I visited this file
 (save-place-mode t)
 
+;; regular cursor
+(setq cursor-type 'bar)
+(add-hook 'read-only-mode-hook (lambda() (setq-local cursor-type 'box)))
+
+;; show parentheses
+(show-paren-mode 1)
+(setq show-paren-delay 0)
+
 ;; easy navigation in read-only buffers
 (setq view-read-only t)
 (with-eval-after-load "view-mode"
@@ -567,10 +575,11 @@
   ;; Misc. latex settings
   (setq TeX-parse-self t
         TeX-auto-save t)
-  (setq-default TeX-master nil)
+  ;; (setq TeX-master 'dwim)
+  (setq TeX-save-query nil)
+  (setq-default TeX-master 'dwim)
   ;; Add beamer frames to outline list
-  (setq TeX-outline-extra
-        '((".*\\\\begin{frame}\n\\|.*\\\\begin{frame}\\[.*\\]\\|.*\\\\begin{frame}.*{.*}\\|.*[       ]*\\\\frametitle\\b" 3)))
+  (setq TeX-outline-extra          '((".*\\\\begin{frame}\n\\|.*\\\\begin{frame}\\[.*\\]\\|.*\\\\begin{frame}.*{.*}\\|.*[       ]*\\\\frametitle\\b" 3)))
   ;; reftex settings
   (setq reftex-enable-partial-scans t)
   (setq reftex-save-parse-info t)
