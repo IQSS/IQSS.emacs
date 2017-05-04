@@ -201,7 +201,7 @@
 (save-place-mode t)
 
 ;; regular cursor
-(setq cursor-type 'bar)
+(add-hook 'after-init-hook (lambda() (setq cursor-type 'bar)))
 (add-hook 'read-only-mode-hook (lambda() (setq-local cursor-type 'box)))
 
 ;; show parentheses
@@ -273,10 +273,11 @@
   (set-face-attribute 'aw-leading-char-face nil :height 2.5))
 
 ;; enable on-the-fly spell checking
+(setq flyspell-use-meta-tab nil)
 (add-hook 'text-mode-hook
           (lambda ()
             (flyspell-mode 1)))
-;; prevent flyspell from finding mistakes in the code
+;; prevent flyspell from finding misspellings in code
 (add-hook 'prog-mode-hook
           (lambda ()
             ;; `ispell-comments-and-strings'
@@ -417,13 +418,18 @@
    ((let ((old-point (point))
           (old-tick (buffer-chars-modified-tick))
           (tab-always-indent t))
-      (call-interactively #'indent-for-tab-command)
+      (if (equal major-mode 'org-mode)
+          (call-interactively #'org-cycle)
+        (call-interactively #'indent-for-tab-command))
       (when (and (eq old-point (point))
                  (eq old-tick (buffer-chars-modified-tick))
                  (not (looking-at "\\w\\|\\s_")))
         (company-complete-common))))))
 
 (define-key company-mode-map (kbd "<tab>") 'my-company-indent-or-complete-common)
+
+;; make company use pcomplete (via capf)
+(add-hook 'completion-at-point-functions 'pcomplete-completions-at-point)
 
 ;; not sure why this should be set in a hook, but that is how the manual says to do it.
 (add-hook 'after-init-hook 'global-company-mode)
@@ -629,11 +635,11 @@
 (global-set-key (kbd "C-c r") 'ivy-bibtex)
 
 (with-eval-after-load "org"
-  ;; no compay mode in org buffers
-  (add-hook 'org-mode-hook (lambda() (company-mode -1)))
-  (setq org-replace-disputed-keys t)
-  (setq org-support-shift-select t)
-  (setq org-export-babel-evaluate nil)
+  ;; ;; no compay mode in org buffers
+  ;; (add-hook 'org-mode-hook (lambda() (company-mode -1)))
+  (setq org-replace-disputed-keys t
+        org-support-shift-select t
+        org-export-babel-evaluate nil)
   ;; (setq org-startup-indented t)
   ;; increase imenu depth to include third level headings
   (setq org-imenu-depth 3)
