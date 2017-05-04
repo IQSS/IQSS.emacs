@@ -467,6 +467,16 @@ Note that completion for in-buffer text (e.g., methods in python-mode, or argume
   (setq recentf-max-menu-items 50)
   (recentf-mode 1)
 
+  ;; better occur mode
+  (add-hook 'occur-mode-hook
+            (lambda()
+              (hl-line-mode t)
+              (next-error-follow-minor-mode t)))
+
+  ;; Jump easy to definition
+  (setq dumb-jump-selector 'ivy
+        dumb-jump-aggressive nil
+        dumb-jump-default-project "./")
 #+END_SRC
 
 * Auto-complete configuration

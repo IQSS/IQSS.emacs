@@ -377,6 +377,17 @@
 (setq recentf-max-menu-items 50)
 (recentf-mode 1)
 
+;; better occur mode
+(add-hook 'occur-mode-hook
+          (lambda()
+            (hl-line-mode t)
+            (next-error-follow-minor-mode t)))
+
+;; Jump easy to definition
+(setq dumb-jump-selector 'ivy
+      dumb-jump-aggressive nil
+      dumb-jump-default-project "./")
+
 (require 'company)
 ;; cancel if input doesn't match, be patient, and don't complete automatically.
 (setq company-require-match nil
