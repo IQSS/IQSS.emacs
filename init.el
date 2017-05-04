@@ -179,7 +179,7 @@
 (add-hook 'prog-mode-hook
           (lambda()
             (toggle-truncate-lines t)
-              (outline-minor-mode t)))
+            (outline-minor-mode t)))
 
 ;; indicate visual-line-mode wrap
 (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
@@ -498,6 +498,7 @@
               ;; don't wrap long lines
               (toggle-truncate-lines t)
               ;; turn on outline mode
+              (setq-local outline-regexp "[#]+")
               (outline-minor-mode t)))
 
   ;; Set ESS options
@@ -523,6 +524,7 @@
           (ess-R-fl-keyword:%op% . t)))))
 
 (defalias 'python 'run-python)
+
 (with-eval-after-load "python"
   ;; try to get indent/completion working nicely
   (setq python-indent-trigger-commands '(my-company-indent-or-complete-common indent-for-tab-command yas-expand yas/expand))
@@ -534,6 +536,12 @@
   (define-key python-mode-map (kbd "<C-return>") 'eir-eval-in-python)
   (define-key python-mode-map (kbd "C-c C-b") 'python-shell-send-buffer)
   (define-key python-mode-map (kbd "<C-S-return>") 'python-shell-send-buffer))
+
+;; make outline work
+(add-hook 'python-mode-hook
+          (lambda()
+            ;;(setq-local outline-regexp "[#]+")
+            (outline-minor-mode t)))
 
 (with-eval-after-load "elisp-mode"
   (require 'company-elisp)
