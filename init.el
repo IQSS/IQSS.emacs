@@ -462,21 +462,14 @@
 
 ;;;  ESS (Emacs Speaks Statistics)
 
-;; Start R in the working directory by default
-(setq ess-ask-for-ess-directory nil)
-
 ;; Make sure ESS is loaded before we configure it
 (autoload 'julia "ess-julia" "Start a Julia REPL." t)
 (with-eval-after-load "ess-site"
   ;; see https://github.com/emacs-ess/ESS/pull/390 for ideas on how to integrate tab completion
-  ;; disable ehoing input
-  (setq ess-eval-visibly nil)
-  ;; Start R in the working directory by default
-  (setq ess-ask-for-ess-directory nil)
-  ;; Use tab completion
-  (setq ess-tab-complete-in-script t)
   ;; extra ESS stuff inspired by https://github.com/gaborcsardi/dot-emacs/blob/master/.emacs
-  (ess-toggle-underscore nil)
+  (ess-toggle-underscore nil)           ; Don't convert underscores to assignment
+
+  ;; function to set output width based on window size
   (defun my-ess-execute-screen-options (foo)
     "cycle through windows whose major mode is inferior-ess-mode and fix width"
     (interactive)
@@ -486,21 +479,34 @@
         (with-selected-window (car my-windows-list) (ess-execute-screen-options t)))
       (setq my-windows-list (cdr my-windows-list))))
   (add-to-list 'window-size-change-functions 'my-ess-execute-screen-options)
+
+  ;; standard control-enter evaluation
   (define-key ess-mode-map (kbd "<C-return>") 'ess-eval-region-or-function-or-paragraph-and-step)
   (define-key ess-mode-map (kbd "<C-S-return>") 'ess-eval-buffer)
-  ;; truncate long lines in R source files
+
+  ;; set up when entering ess-mode
   (add-hook 'ess-mode-hook
             (lambda()
+              ;; don't indent comments
+              (setq ess-indent-with-fancy-comments nil)
               ;; don't wrap long lines
               (toggle-truncate-lines t)
+              ;; turn on outline mode
               (outline-minor-mode t)))
-  ;; highlight function calls and operators
-  (setq ess-R-font-lock-keywords
+
+  ;; Set ESS options
+  (setq
+   ess-indent-with-fancy-comments nil   ; don't indent comments
+   ess-eval-visibly nil                 ; disable echoing input
+   ess-ask-for-ess-directory nil        ; start R in the working directory by default
+   ess-tab-complete-in-script t         ; use tab completion
+   ess-ask-for-ess-directory nil        ; start R in the working directory by default
+   ess-R-font-lock-keywords             ; font-lock, but not too much
         (quote
          ((ess-R-fl-keyword:modifiers)
           (ess-R-fl-keyword:fun-defs . t)
           (ess-R-fl-keyword:keywords . t)
-          (ess-R-fl-keyword:assign-ops . t)
+          (ess-R-fl-keyword:assign-ops  . t)
           (ess-R-fl-keyword:constants . 1)
           (ess-fl-keyword:fun-calls . t)
           (ess-fl-keyword:numbers)
