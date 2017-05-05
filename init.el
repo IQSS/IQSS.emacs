@@ -308,7 +308,9 @@
 
 ;; make sure we wrap in the minibuffer
 ;;  (add-hook 'minibuffer-setup-hook '(lambda() (setq truncate-lines nil)))
+(ido-mode nil)
 (ivy-mode 1)
+(counsel-mode 1)
 
 (setq counsel-find-file-ignore-regexp "\\`\\.")
 (setq ivy-use-virtual-buffers t)
