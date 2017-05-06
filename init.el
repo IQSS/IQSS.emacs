@@ -186,8 +186,8 @@
 (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
 ;; but be gentle
 (defface visual-line-wrap-face
-'((t (:foreground "gray")))
-"Face for visual line indicators.")
+  '((t (:foreground "gray")))
+  "Face for visual line indicators.")
 (set-fringe-bitmap-face 'left-curly-arrow 'visual-line-wrap-face)
 (set-fringe-bitmap-face 'right-curly-arrow 'visual-line-wrap-face)
 
@@ -201,17 +201,36 @@
 (save-place-mode t)
 
 ;; regular cursor
-(add-hook 'after-init-hook (lambda() (setq cursor-type 'bar)))
-(add-hook 'read-only-mode-hook (lambda() (setq-local cursor-type 'box)))
-
-;; show parentheses
-(show-paren-mode 1)
-(setq show-paren-delay 0)
+(setq-default cursor-type 'bar)
+(add-hook 'after-init-hook
+          (lambda() (setq cursor-type 'bar)))
 
 ;; easy navigation in read-only buffers
 (setq view-read-only t)
 (with-eval-after-load "view-mode"
   (define-key view-mode-map (kbd "s") 'swiper))
+
+
+;; set up read-only buffers
+(add-hook 'read-only-mode-hook 
+          (lambda()
+            (cond
+             ((and (not buffer-read-only)
+                   (not (eq (get major-mode 'mode-class) 'special)))
+              (hl-line-mode -1)
+              (setq-local blink-cursor-blinks 10)
+              (setq-local cursor-type 'bar)
+              (company-mode t))
+             ((and buffer-read-only
+                   (not (eq (get major-mode 'mode-class) 'special)))
+              (hl-line-mode t)
+              (setq-local blink-cursor-blinks 1)
+              (setq-local cursor-type 'box)
+              (company-mode -1)))))
+
+;; show parentheses
+(show-paren-mode 1)
+(setq show-paren-delay 0)
 
 ;; Use CUA mode to make life easier. We do _not__ use standard copy/paste etc. (see below).
 (cua-mode t)
@@ -382,6 +401,9 @@
 ;; better occur mode
 (add-hook 'occur-mode-hook
           (lambda()
+            (setq-local cursor-type 'box)
+            (setq-local blink-cursor-blinks 1)
+            (company-mode -1)
             (hl-line-mode t)
             (next-error-follow-minor-mode t)))
 
@@ -637,27 +659,37 @@
                                             (cons '(company-math-symbols-latex
                                                     company-auctex-macros
                                                     company-auctex-environments)
-                                                  (cons 'company-files company-backends)))))
-            ;; Use pdf-tools to open PDF files
-            (when (eq system-type 'gnu/linux)
-              (pdf-tools-install)
-              (setq TeX-view-program-selection '((output-pdf "PDF Tools")))
-              TeX-source-correlate-start-server t
-              ;; Update PDF buffers after successful LaTeX runs
-              (add-hook 'TeX-after-TeX-LaTeX-command-finished-hook
-                        'TeX-revert-document-buffer))))
+                                                  (cons 'company-files company-backends))))
+              ;; (reftex-toc)
+              ;; (reftex-toc-goto-line)
+              ;; (run-at-time 1 nil (lambda()
+              ;;                      (reftex-toc)
+              ;;                      (reftex-toc-goto-line)))
+              ))
+  ;; Use pdf-tools to open PDF files
+  (when (eq system-type 'gnu/linux)
+    (pdf-tools-install)
+    (setq TeX-view-program-selection '((output-pdf "PDF Tools")))
+    TeX-source-correlate-start-server t
+    ;; Update PDF buffers after successful LaTeX runs
+    (add-hook 'TeX-after-TeX-LaTeX-command-finished-hook
+              'TeX-revert-document-buffer)))
 
-  (with-eval-after-load "bibtex"
-    (add-hook 'bibtex-mode-hook
-          (lambda ()
-            (define-key bibtex-mode-map "\M-q" 'bibtex-fill-entry))))
+
+(with-eval-after-load "reftex"
+  (add-to-list 'reftex-section-levels '("frametitle" . 2))
+  (setq reftex-toc-split-windows-horizontally t)
+  (add-hook 'reftex-toc-mode-hook (lambda() (company-mode -1))))
+
+(with-eval-after-load "bibtex"
+  (add-hook 'bibtex-mode-hook
+            (lambda ()
+              (define-key bibtex-mode-map "\M-q" 'bibtex-fill-entry))))
 
 (setq ivy-bibtex-default-action 'ivy-bibtex-insert-citation)
 (global-set-key (kbd "C-c r") 'ivy-bibtex)
 
 (with-eval-after-load "org"
-  ;; ;; no compay mode in org buffers
-  ;; (add-hook 'org-mode-hook (lambda() (company-mode -1)))
   (setq org-replace-disputed-keys t
         org-support-shift-select t
         org-export-babel-evaluate nil)
