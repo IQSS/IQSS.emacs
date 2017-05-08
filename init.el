@@ -1,9 +1,9 @@
 (when (< (string-to-number 
-           (concat 
-            (number-to-string emacs-major-version) 
-            "." 
-            (number-to-string emacs-minor-version)))
-          25.1)
+          (concat 
+           (number-to-string emacs-major-version) 
+           "." 
+           (number-to-string emacs-minor-version)))
+         25.1)
   (error "Your version of emacs is very old and must be upgraded before you can use these packages!"))
 
 ;; set coding system so emacs doesn't choke on melpa file listings
@@ -67,6 +67,7 @@
         hydra
         ivy-hydra
         which-key
+        beacon
         outline-magic
         smooth-scroll
         unfill
@@ -116,7 +117,7 @@
 ;; make sure packages stay up to date
 (setq auto-package-update-delete-old-versions t)
 (add-hook 'auto-package-update-before-hook
-        (lambda () (message "New package versions located, updating now")))
+          (lambda () (message "New package versions located, updating now")))
 (auto-package-update-maybe)
 
 ;; add custom lisp directory to path
@@ -136,6 +137,21 @@
 
 ;; on OSX Emacs needs help setting up the system paths
 (when (memq window-system '(mac ns))
+  ;; From https://github.com/aculich/.emacs.d/blob/master/init.el
+  ;; Import additional environment variables beyond just $PATH
+  (dolist (var '("PYTHONPATH"         ; Python modules
+                 "INFOPATH"           ; Info directories
+                 "JAVA_OPTS"          ; Options for java processes
+                 "SBT_OPTS"           ; Options for SBT
+                 "RUST_SRC_PATH"      ; Rust sources, for racer
+                 "CARGO_HOME"         ; Cargo home, for racer
+                 "EMAIL"              ; My personal email
+                 "GPG_TTY"
+                 "GPG_AGENT_INFO"
+                 "SSH_AUTH_SOCK"
+                 "SSH_AGENT_PID"
+                 ))
+    (add-to-list 'exec-path-from-shell-variables var))
   (exec-path-from-shell-initialize))
 
 ;; better defaults are well, better... but we don't always agree
@@ -171,7 +187,7 @@
 ;; enable toggling paragraph un-fill
 (define-key global-map "\M-Q" 'unfill-paragraph)
 
-;;; line wrapping
+  ;;; line wrapping
 ;; neck beards be damned, we don't need to hard wrap. The editor can soft wrap for us.
 (remove-hook 'text-mode-hook 'turn-on-auto-fill)
 (add-hook 'visual-line-mode-hook 'adaptive-wrap-prefix-mode)
@@ -195,7 +211,8 @@
 (setq sentence-end-double-space nil)
 
 ;; The beeping can be annoying--turn it off
-(setq visible-bell t)
+(setq visible-bell t
+      ring-bell-function #'ignore)
 
 ;; save place -- move to the place I was last time I visited this file
 (save-place-mode t)
@@ -273,6 +290,9 @@
 (global-set-key (kbd "<C-prior>") 'beginning-of-buffer)
 (global-set-key (kbd "<C-next>") 'end-of-buffer)
 
+;; highlight cursor on buffer scroll
+(beacon-mode 1)
+
 ;; Work spaces
 (setq eyebrowse-keymap-prefix (kbd "C-c C-l"))
 (eyebrowse-mode t)
@@ -290,6 +310,58 @@
 (global-set-key (kbd "C-x O") 'ace-window)
 (with-eval-after-load "ace-window"
   (set-face-attribute 'aw-leading-char-face nil :height 2.5))
+
+;; modified from https://github.com/aculich/.emacs.d/blob/master/init.el
+(setq frame-title-format
+      '(:eval (if (buffer-file-name)
+                  (abbreviate-file-name (buffer-file-name)) "%b"))
+      ;; Size new windows proportionally wrt other windows
+      window-combination-resize t)
+(setq display-buffer-alist
+      `(
+        ;; Put occur buffers on the left
+        (,(rx
+           bos
+           "*"
+           (zero-or-more printing)
+           (or "occur" "Occur" "toc")
+           (zero-or-more printing)
+           "*"
+           eos)
+         (display-buffer-reuse-window
+          display-buffer-in-side-window)
+         (reusable-frames . visible)
+         (side            . left)
+         (window-width    . 0.33))
+        ;; Put REPLs and error lists into the bottom side window
+        (,(rx bos
+              (or "*Help"                 ; Help buffers
+                  "*Warnings*"            ; Emacs warnings
+                  "*Compile-Log*"         ; Emacs byte compiler log
+                  "*compilation"          ; Compilation buffers
+                  "*Flycheck errors*"     ; Flycheck error list
+                  "*R"                    ; R REPL
+                  "*Python"               ; Python REPL
+                  "*julia"                ; Julia Repl
+                  "*ansi"                 ; ansi-term
+                  "*term"                 ; terminal
+                  "*shell"                ; Shell window
+                  "*eshell"               ; eshell
+                  "*sbt"                  ; SBT REPL and compilation buffer
+                  "*ensime-update*"       ; Server update from Ensime
+                  "*SQL"                  ; SQL REPL
+                  "*Cargo"                ; Cargo process buffers
+                  (and (1+ nonl) " output*") ; AUCTeX command output
+                  ))
+         (display-buffer-reuse-window
+          display-buffer-in-side-window)
+         (side            . bottom)
+         (reusable-frames . visible)
+         (window-height   . 0.33))
+        ;; Let `display-buffer' reuse visible frames for all buffers.  This must
+        ;; be the last entry in `display-buffer-alist', because it overrides any
+        ;; later entry with more specific actions.
+        ("." nil (reusable-frames . visible))))
 
 ;; enable on-the-fly spell checking
 (setq flyspell-use-meta-tab nil)
@@ -371,7 +443,7 @@
 (when (executable-find "locate")
   (global-set-key (kbd "C-c l") 'counsel-locate)
   ;;(global-set-key (kbd "C-x C-S-F") 'counsel-locate) ;; FIXME -- need better key
-)
+  )
 (global-set-key (kbd "C-x C-r") 'counsel-recentf)
 (global-set-key (kbd "<C-tab>") 'counsel-company)
 (global-set-key (kbd "<f1> f") 'counsel-describe-function)
@@ -395,12 +467,16 @@
 (define-key ivy-minibuffer-map (kbd "C-f") 'ivy-immediate-done)
 
 ;; show recently opened files
-(setq recentf-max-menu-items 50)
+(with-eval-after-load "recentf"
+  (setq recentf-max-menu-items 50)
+  (add-to-list 'recentf-exclude "/\\.git/.*\\'")
+  (add-to-list 'recentf-exclude "/elpa/.*\\'"))
 (recentf-mode 1)
 
 ;; better occur mode
 (add-hook 'occur-mode-hook
           (lambda()
+            (toggle-truncate-lines t)
             (setq-local cursor-type 'box)
             (setq-local blink-cursor-blinks 1)
             (company-mode -1)
@@ -469,8 +545,69 @@
 ;; not sure why this should be set in a hook, but that is how the manual says to do it.
 (add-hook 'after-init-hook 'global-company-mode)
 
-;; (require 'which-key)
-(which-key-mode)
+;; which-key settings taken mostly from https://github.com/aculich/.emacs.d/blob/master/init.el
+(with-eval-after-load "which-key"
+  (setq which-key-sort-order 'which-key-prefix-then-key-order
+        ;; Let's go unicode :)
+        which-key-key-replacement-alist
+        '(("<\\([[:alnum:]-]+\\)>" . "\\1")
+          ("up"                    . "↑")
+          ("right"                 . "→")
+          ("down"                  . "↓")
+          ("left"                  . "←")
+          ("DEL"                   . "⌫")
+          ("deletechar"            . "⌦")
+          ("RET"                   . "⏎"))
+        which-key-description-replacement-alist
+        '(("Prefix Command" . "prefix")
+          ;; Lambdas
+          ("\\`\\?\\?\\'"   . "λ")
+          ;; Prettify hydra entry points
+          ("/body\\'"       . "|=")
+          ;; Drop/shorten package prefixes
+          ("eyebrowse-"     . "")
+          ("magit-"         . "ma-")))
+
+  (which-key-declare-prefixes
+   ;; Prefixes for global prefixes and minor modes
+   "C-c C-o" "outline"
+   "C-c C-l" "window/layouts"
+   "C-c !" "flycheck")
+
+  ;; Prefixes for major modes
+  (which-key-declare-prefixes-for-mode 'markdown-mode
+                                       "C-c TAB" "markdown/images"
+                                       "C-c C-a" "markdown/links"
+                                       "C-c C-c" "markdown/process"
+                                       "C-c C-s" "markdown/style"
+                                       "C-c C-t" "markdown/header"
+                                       "C-c C-x" "markdown/structure"
+                                       "C-c m" "markdown/personal")
+
+  (which-key-declare-prefixes-for-mode 'emacs-lisp-mode
+                                       "C-c m" "elisp"
+                                       "C-c m e" "eval")
+
+  (which-key-declare-prefixes-for-mode 'scala-mode
+                                       "C-c C-b" "ensime/build"
+                                       "C-c C-d" "ensime/debug"
+                                       "C-c C-r" "ensime/refactor"
+                                       "C-c C-v" "ensime/misc"
+                                       "C-c m" "scala/personal"
+                                       "C-c m b" "scala/build")
+
+  (which-key-declare-prefixes-for-mode 'haskell-mode
+                                       "C-c m" "haskell/personal"
+                                       "C-c m i" "haskell/imports")
+
+  (which-key-declare-prefixes-for-mode 'web-mode
+                                       "C-c C-a" "web/attributes"
+                                       "C-c C-b" "web/blocks"
+                                       "C-c C-d" "web/dom"
+                                       "C-c C-e" "web/element"
+                                       "C-c C-t" "web/tags"))
+
+(which-key-mode t)
 
 ;; (require 'flycheck)
 ;; (global-flycheck-mode)
@@ -538,6 +675,7 @@
 
   ;; Set ESS options
   (setq
+   inferior-ess-same-window nil
    ess-indent-with-fancy-comments nil   ; don't indent comments
    ess-eval-visibly nil                 ; disable echoing input
    ess-ask-for-ess-directory nil        ; start R in the working directory by default
