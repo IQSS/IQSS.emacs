@@ -627,7 +627,8 @@
 
 ;; require the main file containing common functions
 (require 'eval-in-repl)
-(setq comint-process-echoes t)
+(setq comint-process-echoes t
+      eir-repl-placement 'below)
 
 ;; truncate lines in comint buffers
 (add-hook 'comint-mode-hook
