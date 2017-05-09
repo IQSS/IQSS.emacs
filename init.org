@@ -338,6 +338,7 @@ Emacs will never to as simple as Notepad, but perhaps it can be made more consis
   (global-set-key (kbd "<C-next>") 'end-of-buffer)
 
   ;; highlight cursor on buffer scroll
+  (setq beacon-blink-when-focused t)
   (beacon-mode 1)
 #+END_SRC
 

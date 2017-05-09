@@ -291,6 +291,7 @@
 (global-set-key (kbd "<C-next>") 'end-of-buffer)
 
 ;; highlight cursor on buffer scroll
+(setq beacon-blink-when-focused t)
 (beacon-mode 1)
 
 ;; Work spaces
