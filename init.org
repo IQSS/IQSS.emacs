@@ -22,6 +22,12 @@ It is difficult to support multiple versions of emacs, so we will pick an arbitr
            25.1)
     (error "Your version of emacs is very old and must be upgraded before you can use these packages!"))
 
+  ;; start maximized 
+  (setq frame-resize-pixelwise t
+        x-frame-normalize-before-maximize t)
+  (add-to-list 'initial-frame-alist '(fullscreen . fullheight))
+  (add-to-list 'initial-frame-alist '(width . 144))
+
   ;; set coding system so emacs doesn't choke on melpa file listings
   (set-language-environment 'utf-8)
   (setq locale-coding-system 'utf-8)
@@ -229,7 +235,7 @@ This section sets up various utilities and conveniences. Many of these are low p
   ;; enable toggling paragraph un-fill
   (define-key global-map "\M-Q" 'unfill-paragraph)
 
-    ;;; line wrapping
+  ;;; line wrapping
   ;; neck beards be damned, we don't need to hard wrap. The editor can soft wrap for us.
   (remove-hook 'text-mode-hook 'turn-on-auto-fill)
   (add-hook 'visual-line-mode-hook 'adaptive-wrap-prefix-mode)
@@ -380,24 +386,8 @@ Emacs has [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Configurat
         window-combination-resize t)
   (setq display-buffer-alist
         `(
-          ;; Put occur buffers on the left
-          (,(rx
-             bos
-             "*"
-             (zero-or-more printing)
-             (or "occur" "Occur" "toc")
-             (zero-or-more printing)
-             "*"
-             eos)
-           (display-buffer-reuse-window
-            display-buffer-in-side-window)
-           (reusable-frames . visible)
-           (side            . left)
-           (window-width    . 0.33))
-          ;; Put REPLs and error lists into the bottom side window
           (,(rx bos
-                (or "*Help"                 ; Help buffers
-                    "*Warnings*"            ; Emacs warnings
+                (or "*Warnings*"            ; Emacs warnings
                     "*Compile-Log*"         ; Emacs byte compiler log
                     "*compilation"          ; Compilation buffers
                     "*Flycheck errors*"     ; Flycheck error list
@@ -414,15 +404,9 @@ Emacs has [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Configurat
                     "*Cargo"                ; Cargo process buffers
                     (and (1+ nonl) " output*") ; AUCTeX command output
                     ))
-           (display-buffer-reuse-window
-            display-buffer-in-side-window)
-           (side            . bottom)
-           (reusable-frames . visible)
-           (window-height   . 0.33))
-          ;; Let `display-buffer' reuse visible frames for all buffers.  This must
-          ;; be the last entry in `display-buffer-alist', because it overrides any
-          ;; later entry with more specific actions.
-          ("." nil (reusable-frames . visible))))
+           (display-buffer-pop-up-window)
+           (window-height . 0.33))))
+
 #+END_SRC
 
 * Spell checking and dictionaries
@@ -1240,7 +1224,6 @@ Emacs makes a decent file browser, we just need to tweak a few things to make it
 There are several different shells available in Emacs by default. In addition =multi-term= is available to give you a nicer way of running your default shell in Emacs. Convenience functions are enabled to set your EDITOR variable so that Emacs will be used as your editor when running shell commands inside Emacs. 
 
 #+BEGIN_SRC emacs-lisp
-
   ;; term
   (with-eval-after-load "term"
     (define-key term-mode-map (kbd "C-j") 'term-char-mode)
@@ -1250,7 +1233,21 @@ There are several different shells available in Emacs by default. In addition =m
     (shell-command-with-editor-mode t))
 
   ;; multi-term
-  (defalias 'terminal 'multi-term)
+  (defun terminal ()
+    "Create new term buffer.
+  Will prompt you shell name when you type `C-u' before this command."
+    (interactive)
+    (require 'multi-term)
+    (let (term-buffer)
+      ;; Set buffer.
+      (setq term-buffer (multi-term-get-buffer current-prefix-arg))
+      (setq multi-term-buffer-list (nconc multi-term-buffer-list (list term-buffer)))
+      (set-buffer term-buffer)
+      ;; Internal handle for `multi-term' buffer.
+      (multi-term-internal)
+      ;; Switch buffer
+      (display-buffer term-buffer t)))
+
   (with-eval-after-load "multi-term"
     (define-key term-mode-map (kbd "C-j") 'term-char-mode)
     (define-key term-raw-map (kbd "C-j") 'term-line-mode)
