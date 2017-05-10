@@ -1058,7 +1058,9 @@ Will prompt you shell name when you type `C-u' before this command."
           (lambda()
             (with-editor-export-editor)
             (with-editor-export-git-editor)
-            ;;(sleep-for 0.5) ; see comment above
+            (term-send-return)
+            (term-send-return)
+            (term-send-return)
             (call-interactively 'comint-clear-buffer)))
 (add-hook 'eshell-mode-hook
           (lambda()
