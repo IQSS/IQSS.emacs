@@ -224,9 +224,12 @@
 (save-place-mode t)
 
 ;; regular cursor
-(setq-default cursor-type 'bar)
+(setq-default cursor-type '(bar . 3))
+(setq-default blink-cursor-blinks 0)
 (add-hook 'after-init-hook
-          (lambda() (setq cursor-type 'bar)))
+          (lambda()
+            (setq cursor-type '(bar . 3)
+                  blink-cursor-blinks 0)))
 
 ;; easy navigation in read-only buffers
 (setq view-read-only t)
@@ -241,8 +244,8 @@
              ((and (not buffer-read-only)
                    (not (eq (get major-mode 'mode-class) 'special)))
               (hl-line-mode -1)
-              (setq-local blink-cursor-blinks 10)
-              (setq-local cursor-type 'bar)
+              (setq-local blink-cursor-blinks 0)
+              (setq-local cursor-type '(bar . 3))
               (company-mode t))
              ((and buffer-read-only
                    (not (eq (get major-mode 'mode-class) 'special)))
@@ -298,6 +301,7 @@
 (setq beacon-blink-when-focused t)
 (beacon-mode 1)
 
+;; NOTE: keep an eye on ivy-views -- currently it doesn't remember window size, but if it gains that ability it will serve this purpose without additional dependancies.
 ;; Work spaces
 (setq eyebrowse-keymap-prefix (kbd "C-c C-l"))
 (eyebrowse-mode t)
@@ -325,10 +329,10 @@
 (setq display-buffer-alist
       `(
         (,(rx bos
-              (or "*Warnings*"            ; Emacs warnings
-                  "*Compile-Log*"         ; Emacs byte compiler log
-                  "*compilation"          ; Compilation buffers
-                  "*Flycheck errors*"     ; Flycheck error list
+              (or ;"*Warnings*"            ; Emacs warnings
+                  ;"*Compile-Log*"         ; Emacs byte compiler log
+                  ;"*compilation"          ; Compilation buffers
+                  ;"*Flycheck errors*"     ; Flycheck error list
                   "*R"                    ; R REPL
                   "*Python"               ; Python REPL
                   "*julia"                ; Julia Repl
@@ -337,10 +341,10 @@
                   "*shell"                ; Shell window
                   "*eshell"               ; eshell
                   "*sbt"                  ; SBT REPL and compilation buffer
-                  "*ensime-update*"       ; Server update from Ensime
+                  ;"*ensime-update*"       ; Server update from Ensime
                   "*SQL"                  ; SQL REPL
-                  "*Cargo"                ; Cargo process buffers
-                  (and (1+ nonl) " output*") ; AUCTeX command output
+                  ;"*Cargo"                ; Cargo process buffers
+                  ;(and (1+ nonl) " output*") ; AUCTeX command output
                   ))
          (display-buffer-pop-up-window)
          (window-height . 0.33))))
