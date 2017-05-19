@@ -322,7 +322,8 @@
       '(:eval (if (buffer-file-name)
                   (abbreviate-file-name (buffer-file-name)) "%b"))
       ;; Size new windows proportionally wrt other windows
-      window-combination-resize t)
+      ;;window-combination-resize t
+      )
 (setq display-buffer-alist
       `(
         (,(rx bos
