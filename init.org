@@ -99,7 +99,6 @@ The main purpose of these emacs configuration files is to install and configure 
           hydra
           ivy-hydra
           which-key
-          beacon
           outline-magic
           smooth-scroll
           unfill
@@ -345,10 +344,6 @@ Emacs will never to as simple as Notepad, but perhaps it can be made more consis
   ;; page up/down
   (global-set-key (kbd "<C-prior>") 'beginning-of-buffer)
   (global-set-key (kbd "<C-next>") 'end-of-buffer)
-
-  ;; highlight cursor on buffer scroll
-  (setq beacon-blink-when-focused t)
-  (beacon-mode 1)
 #+END_SRC
 
 * Window Management

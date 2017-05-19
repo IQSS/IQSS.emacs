@@ -75,7 +75,6 @@
         hydra
         ivy-hydra
         which-key
-        beacon
         outline-magic
         smooth-scroll
         unfill
@@ -298,10 +297,6 @@
 ;; page up/down
 (global-set-key (kbd "<C-prior>") 'beginning-of-buffer)
 (global-set-key (kbd "<C-next>") 'end-of-buffer)
-
-;; highlight cursor on buffer scroll
-(setq beacon-blink-when-focused t)
-(beacon-mode 1)
 
 ;; NOTE: keep an eye on ivy-views -- currently it doesn't remember window size, but if it gains that ability it will serve this purpose without additional dependancies.
 ;; Work spaces
