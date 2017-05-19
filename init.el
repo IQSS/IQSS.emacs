@@ -31,6 +31,8 @@
           (lambda () (local-set-key "\C-c\C-o"
                                     outline-mode-prefix-map)))
 (setq save-abbrevs 'silently)
+(setq max-specpdl-size 10000
+      max-lisp-eval-depth 5000)
 
 ;; load the package manager
 (require 'package)
@@ -456,7 +458,9 @@
 (with-eval-after-load "recentf"
   (setq recentf-max-menu-items 50)
   (add-to-list 'recentf-exclude "/\\.git/.*\\'")
-  (add-to-list 'recentf-exclude "/elpa/.*\\'"))
+  (add-to-list 'recentf-exclude "/elpa/.*\\'")
+  (add-to-list 'recentf-exclude "/tramp.*\\'")
+  (add-to-list 'recentf-exclude "/sudo.*\\'"))
 (recentf-mode 1)
 
 ;; better occur mode
@@ -1007,6 +1011,7 @@ Will prompt you shell name when you type `C-u' before this command."
   (define-key term-raw-map (kbd "C-j") 'term-line-mode)
   (require 'with-editor)
   (require 'git-commit)
+  (setq multi-term-switch-after-close nil)
   (shell-command-with-editor-mode t))
 
 ;; shell
