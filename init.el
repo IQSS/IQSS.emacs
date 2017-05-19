@@ -1000,7 +1000,9 @@ Will prompt you shell name when you type `C-u' before this command."
     ;; Internal handle for `multi-term' buffer.
     (multi-term-internal)
     ;; Switch buffer
-    (display-buffer term-buffer t)))
+    ;;(display-buffer term-buffer t)
+    (pop-to-buffer term-buffer)
+    ))
 
 (with-eval-after-load "multi-term"
   (define-key term-mode-map (kbd "C-j") 'term-char-mode)
@@ -1057,10 +1059,12 @@ Will prompt you shell name when you type `C-u' before this command."
             (with-editor-export-git-editor)
             ;;(sleep-for 0.5) ; this is bad, but thinking hurts and it works.
             (call-interactively 'comint-clear-buffer)))
+
 (add-hook 'term-exec-hook
-          (lambda()
+          (lambda()            
             (with-editor-export-editor)
             (with-editor-export-git-editor)
+            (call-interactively 'comint-clear-buffer)
             (term-send-return)
             (term-send-return)
             (term-send-return)
