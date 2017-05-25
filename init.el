@@ -10,7 +10,6 @@
 (setq frame-resize-pixelwise t
       x-frame-normalize-before-maximize t)
 (add-to-list 'initial-frame-alist '(fullscreen . fullheight))
-(add-to-list 'initial-frame-alist '(width . 144))
 
 ;; set coding system so emacs doesn't choke on melpa file listings
 (set-language-environment 'utf-8)
@@ -865,6 +864,10 @@
             "." 
             (number-to-string emacs-minor-version)))
           24.3)
+  (with-eval-after-load "polymode"
+    ;; make it work for knitr with julia blocks
+    (add-to-list 'polymode-mode-name-override-alist '(julia . ess-julia)))
+
   ;; Activate polymode for files with the .md extension
   (add-to-list 'auto-mode-alist '("\\.md" . poly-markdown-mode))
   ;; Activate polymode for R related modes
