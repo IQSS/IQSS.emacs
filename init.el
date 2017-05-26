@@ -57,6 +57,7 @@
         undo-tree
         better-defaults
         diminish
+        auto-dim-other-buffers
         dired+
         ace-window
         howdoi
@@ -1103,9 +1104,12 @@ Will prompt you shell name when you type `C-u' before this command."
 
 ;; start with untitled new buffer
 (add-hook 'after-init-hook
-          '(lambda()
-             (setq inhibit-startup-screen t) ;; yes, we really want to do this!
-             (untitled-new-buffer-with-select-major-mode 'text-mode)))
+          (lambda()
+            (auto-dim-other-buffers-mode t)
+            (set-face-attribute 'auto-dim-other-buffers-face nil :background "gray93")
+            (setq inhibit-startup-screen t) ;; yes, we really want to do this!
+            (delete-other-windows)
+            (untitled-new-buffer-with-select-major-mode 'text-mode)))
 
 (setq untitled-new-buffer-major-modes '(text-mode python-mode r-mode markdown-mode LaTeX-mode emacs-lisp-mode))
 ;; Change default buffer name.
