@@ -175,6 +175,7 @@ We try to install most things using the package manager, but a few things need t
 
   ;; on OSX Emacs needs help setting up the system paths
   (when (memq window-system '(mac ns))
+    (require 'exec-path-from-shell)
     ;; From https://github.com/aculich/.emacs.d/blob/master/init.el
     ;; Import additional environment variables beyond just $PATH
     (dolist (var '("PYTHONPATH"         ; Python modules
