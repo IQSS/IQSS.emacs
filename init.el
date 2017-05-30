@@ -1093,6 +1093,7 @@ Will prompt you shell name when you type `C-u' before this command."
 ; (require 'diminish)
 (diminish 'visual-line-mode)
 (diminish 'which-key-mode)
+(diminish 'counsel-mode)
 (diminish 'company-mode "comp")
 (diminish 'outline-minor-mode "outln")
 (diminish 'undo-tree-mode)

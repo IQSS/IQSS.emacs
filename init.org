@@ -1346,6 +1346,7 @@ This Emacs configuration sets up lots of packages and configures a number of key
   ; (require 'diminish)
   (diminish 'visual-line-mode)
   (diminish 'which-key-mode)
+  (diminish 'counsel-mode)
   (diminish 'company-mode "comp")
   (diminish 'outline-minor-mode "outln")
   (diminish 'undo-tree-mode)
