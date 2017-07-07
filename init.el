@@ -162,6 +162,7 @@
     (add-to-list 'exec-path-from-shell-variables var))
   (exec-path-from-shell-initialize))
 
+(require 'better-defaults)
 ;; better defaults are well, better... but we don't always agree
 (menu-bar-mode 1)
 (scroll-bar-mode 1)

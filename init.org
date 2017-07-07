@@ -204,6 +204,7 @@ We try to install most things using the package manager, but a few things need t
 This section sets up various utilities and conveniences. Many of these are low priority, so we set them first in order to allow any conflicting settings to be overridden later.
 
 #+BEGIN_SRC emacs-lisp
+  (require 'better-defaults)
   ;; better defaults are well, better... but we don't always agree
   (menu-bar-mode 1)
   (scroll-bar-mode 1)
