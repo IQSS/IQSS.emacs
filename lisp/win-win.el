@@ -118,6 +118,8 @@
 (define-key global-map [?\s-Z] 'undo-tree-redo)
 (define-key global-map [?\s-|] 'shell-command-on-region)
 (define-key global-map [s-kp-bar] 'shell-command-on-region)
+(define-key global-map (kbd "<M-kp-backspace>") 'kill-word)
+
 
 (provide 'win-win)
 
