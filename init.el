@@ -452,6 +452,13 @@
 (define-key ivy-minibuffer-map (kbd "C-b") 'ivy-immediate-done)
 (define-key ivy-minibuffer-map (kbd "C-f") 'ivy-immediate-done)
 
+(defun my-toggle-truncate-lines ()
+  "Toggle truncate lines in quietly."
+  (interactive)
+  (let ((inhibit-message t))
+    (toggle-truncate-lines)))
+(define-key ivy-minibuffer-map (kbd "C-l") 'my-toggle-truncate-lines)
+
 ;; show recently opened files
 (with-eval-after-load "recentf"
   (setq recentf-max-menu-items 50)
