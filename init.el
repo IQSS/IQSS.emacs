@@ -383,11 +383,21 @@
   (setq hfyview-quick-print-in-files-menu t)
   (require 'hfyview))
 
-;; make sure we wrap in the minibuffer
-;;  (add-hook 'minibuffer-setup-hook '(lambda() (setq truncate-lines nil)))
+;; use ivy instead of ido
 (ido-mode nil)
 (ivy-mode 1)
 (counsel-mode 1)
+(require 'ivy-hydra)
+
+;; make sure we wrap in the minibuffer
+(setq ivy-truncate-lines nil)
+
+;; more obvious separator for yank-pop
+(setq counsel-yank-pop-separator "
+
+-%<-%<-%<-%<-%<-%<-%<-%<-%<-%<-%<-%<
+
+")
 
 (setq counsel-find-file-ignore-regexp "\\`\\.")
 (setq ivy-use-virtual-buffers t)

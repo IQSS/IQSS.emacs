@@ -468,16 +468,30 @@ If you're using [[http://vgoulet.act.ulaval.ca/en/emacs/windows/][Vincent Goulet
   :PROPERTIES:
   :CUSTOM_ID: minibuffer-hints-and-completion
   :END:
-There are several different systems for providing completion hints in emacs. The default pcomplete system shows completions on demand (usually bound to tab key) in an emacs buffer. Here we set up ivy, which instead shows these completions on-the-fly in the minibuffer. These completions are primarily used to show available files (e.g., with ~find-file~) and emacs functions (e.g., with ~execute-extended-command~). More information is available at http://oremacs.com/swiper/.
+There are several different systems for providing completion hints in emacs. The default pcomplete system shows completions on demand (usually bound to tab key) in an emacs buffer. Here we set up ivy, which instead shows these completions on-the-fly in the minibuffer. These completions are primarily used to show available files (e.g., with ~find-file~) and emacs functions (e.g., with ~execute-extended-command~). 
 
-Note that completion for in-buffer text (e.g., methods in python-mode, or arguments in R-mode) are handled separately by [[#auto-complete-configuration][company-mode]].
+When selecting candidates using the minibuffer you can execute the default action (e.g., open a file) by pressing ~return~. You can get a list of other actions by pressing ~M-o~. 
+
+Note that selecting long candidates can be a bit awkward. Candidates longer than the current Emacs frame are wrapped by default. You can turn wrapping off (so that each candidate occupies a single line) by pressing ~C-l~ in the minibuffer selection window.
+
+More information is available at http://oremacs.com/swiper/.
 
 #+BEGIN_SRC emacs-lisp
-  ;; make sure we wrap in the minibuffer
-  ;;  (add-hook 'minibuffer-setup-hook '(lambda() (setq truncate-lines nil)))
+  ;; use ivy instead of ido
   (ido-mode nil)
   (ivy-mode 1)
   (counsel-mode 1)
+  (require 'ivy-hydra)
+  
+  ;; make sure we wrap in the minibuffer
+  (setq ivy-truncate-lines nil)
+
+  ;; more obvious separator for yank-pop
+  (setq counsel-yank-pop-separator "
+
+  -%<-%<-%<-%<-%<-%<-%<-%<-%<-%<-%<-%<
+
+  ")
 
   (setq counsel-find-file-ignore-regexp "\\`\\.")
   (setq ivy-use-virtual-buffers t)
