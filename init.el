@@ -406,7 +406,7 @@
 
 ;; Ivy-based interface to standard commands
 (global-set-key (kbd "C-h b") 'counsel-descbinds)
-(global-set-key (kbd "C-s") 'swiper)
+(global-set-key (kbd "C-s") 'swiper-all)
 ;; visual query replace
 (global-set-key (kbd "C-r") 'vr/replace)
 (global-set-key (kbd "C-S-r") 'vr/query-replace)
