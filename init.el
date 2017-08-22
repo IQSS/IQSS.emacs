@@ -67,7 +67,7 @@
         magit
         eyebrowse
         mouse3
-        swiper
+        anzu
         counsel
         flx-ido
         smex
@@ -237,7 +237,7 @@
 ;; easy navigation in read-only buffers
 (setq view-read-only t)
 (with-eval-after-load "view-mode"
-  (define-key view-mode-map (kbd "s") 'swiper))
+  (define-key view-mode-map (kbd "s") 'isearch-forward-regexp))
 
 
 ;; set up read-only buffers
@@ -390,7 +390,7 @@
 (require 'ivy-hydra)
 
 ;; make sure we wrap in the minibuffer
-(setq ivy-truncate-lines nil)
+(setq ivy-truncate-lines t)
 
 ;; more obvious separator for yank-pop
 (setq counsel-yank-pop-separator "
@@ -404,9 +404,27 @@
 (setq ivy-count-format "(%d/%d) ")
 ;; (setq ivy-display-style nil)
 
-;; Ivy-based interface to standard commands
+;; Ivy-based interface to describe keybindings
 (global-set-key (kbd "C-h b") 'counsel-descbinds)
-(global-set-key (kbd "C-s") 'swiper-all)
+
+;; isearch
+(require 'hl-line)
+(require 'anzu)
+(global-anzu-mode +1)
+(global-set-key (kbd "C-s") 'isearch-forward-regexp)
+(defun my-turn-on-hl-line ()
+  (setq old-hl-line-mode-value hl-line-mode)
+  (hl-line-mode 1))
+(defun my-toggle-hl-line ()
+  (unless old-hl-line-mode-value (hl-line-mode -1)))
+(add-hook 'isearch-mode-hook 'my-turn-on-hl-line)
+(add-hook 'isearch-mode-end-hook 'my-toggle-hl-line)
+;; from https://emacs.stackexchange.com/questions/10307/how-to-center-the-current-line-vertically-during-isearch
+(defadvice isearch-update (before my-isearch-reposite activate)
+   (sit-for 0)
+   (recenter))
+(define-key isearch-mode-map (kbd "C-'") 'avy-isearch)
+
 ;; visual query replace
 (global-set-key (kbd "C-r") 'vr/replace)
 (global-set-key (kbd "C-S-r") 'vr/query-replace)
@@ -468,6 +486,7 @@
   (let ((inhibit-message t))
     (toggle-truncate-lines)))
 (define-key ivy-minibuffer-map (kbd "C-l") 'my-toggle-truncate-lines)
+(define-key swiper-map (kbd "C-l") 'my-toggle-truncate-lines)
 
 ;; show recently opened files
 (with-eval-after-load "recentf"
