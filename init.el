@@ -408,6 +408,8 @@
 (global-set-key (kbd "C-h b") 'counsel-descbinds)
 
 ;; isearch
+(setq enable-recursive-minibuffers t
+      isearch-allow-scroll t)
 (require 'hl-line)
 (require 'anzu)
 (global-anzu-mode +1)
@@ -424,6 +426,10 @@
    (sit-for 0)
    (recenter))
 (define-key isearch-mode-map (kbd "C-'") 'avy-isearch)
+(define-key isearch-mode-map (kbd "C-n") 'isearch-repeat-forward)
+(define-key isearch-mode-map (kbd "C-p") 'isearch-repeat-backward)
+(define-key isearch-mode-map (kbd "C-p") 'isearch-repeat-backward)
+(define-key isearch-mode-map (kbd "C-o") 'isearch-occur)
 
 ;; visual query replace
 (global-set-key (kbd "C-r") 'vr/replace)
