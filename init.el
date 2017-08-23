@@ -390,7 +390,7 @@
 (require 'ivy-hydra)
 
 ;; make sure we wrap in the minibuffer
-(setq ivy-truncate-lines t)
+(setq ivy-truncate-lines nil)
 
 ;; more obvious separator for yank-pop
 (setq counsel-yank-pop-separator "
