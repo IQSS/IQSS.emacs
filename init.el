@@ -432,8 +432,8 @@
 (define-key isearch-mode-map (kbd "C-o") 'isearch-occur)
 
 ;; visual query replace
-(global-set-key (kbd "C-r") 'vr/replace)
-(global-set-key (kbd "C-S-r") 'vr/query-replace)
+(global-set-key (kbd "C-r") 'vr/query-replace)
+(global-set-key (kbd "C-S-r") 'vr/replace)
 ;; default file searcher if we don't find something better
 (global-set-key (kbd "C-c f") 'find-grep-dired)
 (global-set-key (kbd "C-c f") 'find-grep-dired)
@@ -860,8 +860,9 @@
 
 (with-eval-after-load "org"
   (setq org-replace-disputed-keys t
-        org-support-shift-select t
-        org-export-babel-evaluate nil)
+        org-support-shift-select t)
+  (setf (alist-get ':eval org-babel-default-header-args) "never-export"
+        (alist-get ':exports org-babel-default-header-args) "both")
   ;; (setq org-startup-indented t)
   ;; increase imenu depth to include third level headings
   (setq org-imenu-depth 3)
