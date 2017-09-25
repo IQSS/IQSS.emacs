@@ -708,7 +708,8 @@
   (setq
    inferior-ess-same-window nil
    ess-indent-with-fancy-comments nil   ; don't indent comments
-   ess-eval-visibly nil                 ; disable echoing input
+   ess-eval-visibly t                   ; enable echoing input
+   ess-eval-empty t                     ; don't skip non-code lines.
    ess-ask-for-ess-directory nil        ; start R in the working directory by default
    ess-tab-complete-in-script t         ; use tab completion
    ess-ask-for-ess-directory nil        ; start R in the working directory by default
