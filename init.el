@@ -51,6 +51,8 @@
         ;; melpa packages
         ;; mode-icons ; slows things down, can be buggy
         pdf-tools
+        yasnippet
+        yasnippet-snippets
         auto-package-update
         visual-regexp
         command-log-mode
