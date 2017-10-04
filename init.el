@@ -1140,11 +1140,17 @@ Will prompt you shell name when you type `C-u' before this command."
 (diminish 'visual-line-mode)
 (diminish 'which-key-mode)
 (diminish 'counsel-mode)
-(diminish 'company-mode "comp")
-(diminish 'outline-minor-mode "outln")
+(diminish 'company-mode)
+(diminish 'outline-minor-mode)
 (diminish 'undo-tree-mode)
-(diminish 'pandoc-mode)
-
+(diminish 'flyspell-mode)
+(diminish 'anzu-mode)
+(diminish 'ivy-mode)
+(diminish 'counsel-mode)
+(diminish 'undo-tree-mode)
+(diminish 'visual-line-mode)
+(diminish 'auto-dim-other-buffers-mode)
+(diminish 'which-key-mode)
 
 ;; No, we do not need the splash screen
 (setq inhibit-startup-screen t)
