@@ -82,7 +82,6 @@
         unfill
         company
         company-math
-        company-auctex
         ess
         web-mode
         markdown-mode
@@ -538,9 +537,9 @@
 (require 'company-capf)
 ;; put company-capf and company-files at the beginning of the list
 (setq company-backends
-      '(company-files company-capf company-nxml company-css company-cmake company-semantic company-clang company-xcode company-eclim))
+      '(company-files company-capf))
 (setq-default company-backends
-              '(company-files company-capf company-nxml company-css company-cmake company-semantic company-clang company-xcode company-eclim))
+              '(company-files company-capf))
 
 ;;Use tab to complete.
 ;; See https://github.com/company-mode/company-mode/issues/94 for another approach.
@@ -825,12 +824,8 @@
               (imenu-add-to-menubar "Index")
               (outline-minor-mode)
               (require 'company-math)
-              (require 'company-auctex)
-              (company-auctex-init)
               (setq-local company-backends (delete-dups
-                                            (cons '(company-math-symbols-latex
-                                                    company-auctex-macros
-                                                    company-auctex-environments)
+                                            (cons '(company-capf company-math-symbols-latex)
                                                   (cons 'company-files company-backends))))
               ;; (reftex-toc)
               ;; (reftex-toc-goto-line)
