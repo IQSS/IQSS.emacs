@@ -782,6 +782,9 @@
 (add-hook 'haskell-interactive-mode-hook 'company-mode)
 
 ;; Use markdown-mode for files with .markdown or .md extensions
+(setq
+ markdown-enable-math t
+ markdown-fontify-code-blocks-natively t)
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 (add-hook 'markdown-mode-hook 'turn-on-orgtbl)
