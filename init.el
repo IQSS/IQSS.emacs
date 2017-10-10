@@ -792,6 +792,9 @@
 
 ;; AucTeX config
 (with-eval-after-load "Latex"
+  ;; Highlight beamer alert
+  (setq font-latex-user-keyword-classes
+    '(("beamer-alert"    (("alert" "{"))      font-latex-bold-face command)))
   ;; Easy compile key
   (define-key LaTeX-mode-map (kbd "<C-return>") 'TeX-command-run-all)
   ;; Allow paragraph filling in tables
