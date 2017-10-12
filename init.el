@@ -797,7 +797,13 @@
 (with-eval-after-load "Latex"
   ;; Highlight beamer alert
   (setq font-latex-user-keyword-classes
-    '(("beamer-alert"    (("alert" "{"))      font-latex-bold-face command)))
+        '(("beamer-alert" (("alert" "{")
+                           ("alerta" "{")
+                           ("alertb" "{")
+                           ("alertc" "{")
+                           ("alertd" "{")
+                           ("alerte" "{"))
+           font-latex-bold-face command)))
   ;; Easy compile key
   (define-key LaTeX-mode-map (kbd "<C-return>") 'TeX-command-run-all)
   ;; Allow paragraph filling in tables
@@ -1162,7 +1168,9 @@ Will prompt you shell name when you type `C-u' before this command."
 (add-hook 'after-init-hook
           (lambda()
             (auto-dim-other-buffers-mode t)
-            (set-face-attribute 'auto-dim-other-buffers-face nil :background "gray93")
+            (diminish 'auto-dim-other-buffers-mode)
+            (setq auto-dim-other-buffers-dim-on-switch-to-minibuffer nil)
+            (set-face-attribute 'auto-dim-other-buffers-face nil :background "gray90")
             (setq inhibit-startup-screen t) ;; yes, we really want to do this!
             (delete-other-windows)
             (untitled-new-buffer-with-select-major-mode 'text-mode)))
