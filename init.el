@@ -793,7 +793,25 @@
 
 (add-to-list 'auto-mode-alist `("\\.html?\\'" . web-mode))
 
-;; AucTeX config
+;;; AucTeX config
+
+;; Modified from https://emacs.stackexchange.com/questions/33198/how-to-get-auctex-to-automatically-generate-atex-engineluatex-file-variable-d/33204
+(add-hook
+ 'find-file-hook
+ (lambda ()
+   (when (eq major-mode 'latex-mode)
+     ;; Check if we are looking at a new or shared file that doesn't specify a TeX engine.
+     (when (or (not (file-exists-p (buffer-file-name)))
+               (eq TeX-master 'shared)
+               (not (member 'TeX-engine (mapcar 'car file-local-variables-alist))))
+       (save-excursion
+         (add-file-local-variable
+          'TeX-engine
+          (intern (completing-read "TeX engine not set, how should this document be typeset?: "
+                                   (mapcar 'car (TeX-engine-alist)) nil nil nil nil "default"))))
+       (normal-mode)
+       (TeX-update-style t)))))
+
 (with-eval-after-load "Latex"
   ;; Highlight beamer alert
   (setq font-latex-user-keyword-classes
