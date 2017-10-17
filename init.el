@@ -1124,10 +1124,11 @@ Will prompt you shell name when you type `C-u' before this command."
             (with-editor-export-editor)
             (with-editor-export-git-editor)
             (call-interactively 'comint-clear-buffer)
-            (term-send-return)
-            (term-send-return)
-            (term-send-return)
-            (call-interactively 'comint-clear-buffer)))
+            ;; (term-send-return)
+            ;; (term-send-return)
+            ;; (term-send-return)
+            ;; (call-interactively 'comint-clear-buffer)
+            ))
 (add-hook 'eshell-mode-hook
           (lambda()
             ;; programs that don't work well in eshell and should be run in visual mode
