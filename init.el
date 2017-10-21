@@ -249,14 +249,12 @@
                    (not (eq (get major-mode 'mode-class) 'special)))
               (hl-line-mode -1)
               (setq-local blink-cursor-blinks 0)
-              (setq-local cursor-type '(bar . 3))
-              (company-mode t))
+              (setq-local cursor-type '(bar . 3)))
              ((and buffer-read-only
                    (not (eq (get major-mode 'mode-class) 'special)))
               (hl-line-mode t)
               (setq-local blink-cursor-blinks 1)
-              (setq-local cursor-type 'box)
-              (company-mode -1)))))
+              (setq-local cursor-type 'box)))))
 
 ;; show parentheses
 (show-paren-mode 1)
@@ -467,6 +465,7 @@
   )
 (global-set-key (kbd "C-x C-r") 'counsel-recentf)
 (global-set-key (kbd "<C-tab>") 'counsel-company)
+(global-set-key (kbd "C-M-i") 'counsel-company)
 (global-set-key (kbd "<f1> f") 'counsel-describe-function)
 (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
 (global-set-key (kbd "<f1> l") 'counsel-load-library)
@@ -510,7 +509,6 @@
             (toggle-truncate-lines t)
             (setq-local cursor-type 'box)
             (setq-local blink-cursor-blinks 1)
-            (company-mode -1)
             (hl-line-mode t)
             (next-error-follow-minor-mode t)))
 
@@ -520,6 +518,8 @@
       dumb-jump-default-project "./")
 
 (require 'company)
+(require 'company-capf)
+
 ;; cancel if input doesn't match, be patient, and don't complete automatically.
 (setq company-require-match nil
       company-async-timeout 6
@@ -528,53 +528,16 @@
 ;; complete using C-tab
 (global-set-key (kbd "<C-tab>") 'counsel-company)
 ;; use C-n and C-p to cycle through completions
-;; (define-key company-mode-map (kbd "<tab>") 'company-complete)
 (define-key company-active-map (kbd "C-n") 'company-select-next)
 (define-key company-active-map (kbd "<tab>") 'company-complete-common)
 (define-key company-active-map (kbd "C-p") 'company-select-previous)
 (define-key company-active-map (kbd "<backtab>") 'company-select-previous)
 
-(require 'company-capf)
-;; put company-capf and company-files at the beginning of the list
-(setq company-backends
-      '(company-files company-capf))
-(setq-default company-backends
-              '(company-files company-capf))
-
 ;;Use tab to complete.
-;; See https://github.com/company-mode/company-mode/issues/94 for another approach.
-
-;; this is a copy-paste from the company-package with extra conditions to make
-;; sure we don't offer completions in the middle of a word.
-
-(defun my-company-indent-or-complete-common ()
-  "Indent the current line or region, or complete the common part."
-  (interactive)
-  (cond
-   ((use-region-p)
-    (indent-region (region-beginning) (region-end)))
-   ((and (not (looking-at "\\w\\|\\s_"))
-         (memq indent-line-function
-               '(indent-relative indent-relative-maybe)))
-    (company-complete-common))
-   ((let ((old-point (point))
-          (old-tick (buffer-chars-modified-tick))
-          (tab-always-indent t))
-      (if (equal major-mode 'org-mode)
-          (call-interactively #'org-cycle)
-        (call-interactively #'indent-for-tab-command))
-      (when (and (eq old-point (point))
-                 (eq old-tick (buffer-chars-modified-tick))
-                 (not (looking-at "\\w\\|\\s_")))
-        (company-complete-common))))))
-
-(define-key company-mode-map (kbd "<tab>") 'my-company-indent-or-complete-common)
+(setq tab-always-indent 'complete)
 
 ;; make company use pcomplete (via capf)
 (add-hook 'completion-at-point-functions 'pcomplete-completions-at-point)
-
-;; not sure why this should be set in a hook, but that is how the manual says to do it.
-(add-hook 'after-init-hook 'global-company-mode)
 
 ;; which-key settings taken mostly from https://github.com/aculich/.emacs.d/blob/master/init.el
 (with-eval-after-load "which-key"
@@ -733,7 +696,7 @@
 
 (with-eval-after-load "python"
   ;; try to get indent/completion working nicely
-  (setq python-indent-trigger-commands '(my-company-indent-or-complete-common indent-for-tab-command yas-expand yas/expand))
+  (setq python-indent-trigger-commands '(indent-for-tab-command yas-expand yas/expand))
   ;; readline support is wonky at the moment
   (setq python-shell-completion-native-enable nil)
   ;; simple evaluation with C-ret
@@ -764,22 +727,11 @@
   (define-key lisp-interaction-mode-map (kbd "C-c C-b") 'eval-buffer)
   (define-key lisp-interaction-mode-map (kbd "<C-S-return>") 'eval-buffer)
   ;; For M-x info
-  (define-key Info-mode-map (kbd "C-c C-c") 'eir-eval-in-ielm)
-  ;; Set up completions
-  (add-hook 'emacs-lisp-mode-hook
-            (lambda()
-              ;; make sure completion calls company-elisp first
-              (require 'company-elisp)
-              (setq-local company-backends
-                          (delete-dups (cons 'company-elisp (cons 'company-files company-backends)))))))
+  (define-key Info-mode-map (kbd "C-c C-c") 'eir-eval-in-ielm))
 
 (defalias 'haskell 'haskell-interactive-bring)
 
-(add-hook 'haskell-mode-hook (lambda ()
-                               (dante-mode)
-                               (setq-local company-backends
-                                           (delete-dups (cons 'company-ghci (cons 'company-files company-backends))))))
-(add-hook 'haskell-interactive-mode-hook 'company-mode)
+(add-hook 'haskell-mode-hook 'dante-mode)
 
 ;; Use markdown-mode for files with .markdown or .md extensions
 (setq
@@ -845,6 +797,7 @@
   (setq reftex-save-parse-info t)
   (setq reftex-use-multiple-selection-buffers t)
   (setq reftex-plug-into-AUCTeX t)
+  (require 'company-math)
   (add-hook 'TeX-mode-hook
             (lambda ()
               (turn-on-reftex)
@@ -852,17 +805,7 @@
               (LaTeX-math-mode)
               (TeX-source-correlate-mode t)
               (imenu-add-to-menubar "Index")
-              (outline-minor-mode)
-              (require 'company-math)
-              (setq-local company-backends (delete-dups
-                                            (cons '(company-capf company-math-symbols-latex)
-                                                  (cons 'company-files company-backends))))
-              ;; (reftex-toc)
-              ;; (reftex-toc-goto-line)
-              ;; (run-at-time 1 nil (lambda()
-              ;;                      (reftex-toc)
-              ;;                      (reftex-toc-goto-line)))
-              ))
+              (outline-minor-mode)))
   ;; Use pdf-tools to open PDF files
   (when (eq system-type 'gnu/linux)
     (pdf-tools-install)
@@ -875,8 +818,7 @@
 
 (with-eval-after-load "reftex"
   (add-to-list 'reftex-section-levels '("frametitle" . 2))
-  (setq reftex-toc-split-windows-horizontally t)
-  (add-hook 'reftex-toc-mode-hook (lambda() (company-mode -1))))
+  (setq reftex-toc-split-windows-horizontally t))
 
 (with-eval-after-load "bibtex"
   (add-hook 'bibtex-mode-hook
