@@ -801,9 +801,10 @@
  (lambda ()
    (when (eq major-mode 'latex-mode)
      ;; Check if we are looking at a new or shared file that doesn't specify a TeX engine.
-     (when (or (not (file-exists-p (buffer-file-name)))
-               (eq TeX-master 'shared)
-               (not (member 'TeX-engine (mapcar 'car file-local-variables-alist))))
+     (when (and (not buffer-read-only)
+                (or (not (file-exists-p (buffer-file-name)))
+                    (eq TeX-master 'shared)
+                    (not (member 'TeX-engine (mapcar 'car file-local-variables-alist)))))
        (save-excursion
          (add-file-local-variable
           'TeX-engine
