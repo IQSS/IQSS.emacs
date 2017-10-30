@@ -796,22 +796,22 @@
 ;;; AucTeX config
 
 ;; Modified from https://emacs.stackexchange.com/questions/33198/how-to-get-auctex-to-automatically-generate-atex-engineluatex-file-variable-d/33204
-(add-hook
- 'find-file-hook
- (lambda ()
+ (defun iqss-prompt-tex-engine ()
    (when (eq major-mode 'latex-mode)
      ;; Check if we are looking at a new or shared file that doesn't specify a TeX engine.
      (when (and (not buffer-read-only)
-                (or (not (file-exists-p (buffer-file-name)))
-                    (eq TeX-master 'shared)
-                    (not (member 'TeX-engine (mapcar 'car file-local-variables-alist)))))
+                (not (member 'TeX-engine (mapcar 'car file-local-variables-alist))))
        (save-excursion
          (add-file-local-variable
           'TeX-engine
           (intern (completing-read "TeX engine not set, how should this document be typeset?: "
                                    (mapcar 'car (TeX-engine-alist)) nil nil nil nil "default"))))
-       (normal-mode)
-       (TeX-update-style t)))))
+       (TeX-normal-mode t)
+       (blink-cursor-start))))
+
+(add-hook
+ 'find-file-hook
+ (lambda() (run-at-time "0.5 sec" nil 'iqss-prompt-tex-engine)))
 
 (with-eval-after-load "Latex"
   ;; Highlight beamer alert
