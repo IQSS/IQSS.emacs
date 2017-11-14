@@ -708,6 +708,9 @@
 
   ;; Set ESS options
   (setq
+   ess-use-auto-complete nil
+   ess-use-company nil
+   ess-r-package-auto-set-evaluation-env nil
    inferior-ess-same-window nil
    ess-indent-with-fancy-comments nil   ; don't indent comments
    ess-eval-visibly t                   ; enable echoing input
