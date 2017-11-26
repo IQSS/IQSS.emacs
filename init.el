@@ -1080,6 +1080,9 @@ Will prompt you shell name when you type `C-u' before this command."
     (set-buffer term-buffer)
     ;; Internal handle for `multi-term' buffer.
     (multi-term-internal)
+    (with-editor-export-editor)
+    (with-editor-export-git-editor)
+    (call-interactively 'comint-clear-buffer)
     ;; Switch buffer
     ;;(display-buffer term-buffer t)
     (pop-to-buffer term-buffer)
@@ -1141,16 +1144,17 @@ Will prompt you shell name when you type `C-u' before this command."
             ;;(sleep-for 0.5) ; this is bad, but thinking hurts and it works.
             (call-interactively 'comint-clear-buffer)))
 
-(add-hook 'term-exec-hook
-          (lambda()            
-            (with-editor-export-editor)
-            (with-editor-export-git-editor)
-            (call-interactively 'comint-clear-buffer)
-            ;; (term-send-return)
-            ;; (term-send-return)
-            ;; (term-send-return)
-            ;; (call-interactively 'comint-clear-buffer)
-            ))
+;; (add-hook 'term-exec-hook
+;;           (lambda()            
+;;             (with-editor-export-editor)
+;;             (with-editor-export-git-editor)
+;;             (call-interactively 'comint-clear-buffer)
+;;             ;; (term-send-return)
+;;             ;; (term-send-return)
+;;             ;; (term-send-return)
+;;             ;; (call-interactively 'comint-clear-buffer)
+;;             ))
+
 (add-hook 'eshell-mode-hook
           (lambda()
             ;; programs that don't work well in eshell and should be run in visual mode
@@ -1201,3 +1205,6 @@ Will prompt you shell name when you type `C-u' before this command."
 (setq untitled-new-buffer-major-modes '(text-mode python-mode r-mode markdown-mode LaTeX-mode emacs-lisp-mode))
 ;; Change default buffer name.
 (setq untitled-new-buffer-default-name "*Untitled*")
+
+;; Start the server if it is not already running
+(unless (server-running-p) (server-start))
