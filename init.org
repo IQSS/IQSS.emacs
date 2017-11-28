@@ -1207,7 +1207,8 @@ Not everyone wants to read email in Emacs, but you can if you want. The settings
     (with-eval-after-load "mu4e"
       (require 'mu4e)
       (require 'mu4e-headers)
-      (setq mu4e-headers-skip-duplicates t
+      (setq mu4e-headers-include-related t
+            mu4e-headers-skip-duplicates t
             ;; don't keep message buffers around
             message-kill-buffer-on-exit t
             ;; enable notifications
