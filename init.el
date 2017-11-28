@@ -972,6 +972,7 @@
     (require 'mu4e)
     (require 'mu4e-headers)
     (setq mu4e-headers-include-related t
+          mu4e-headers-show-threads nil
           mu4e-headers-skip-duplicates t
           ;; don't keep message buffers around
           message-kill-buffer-on-exit t
