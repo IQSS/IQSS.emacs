@@ -1219,4 +1219,5 @@ Will prompt you shell name when you type `C-u' before this command."
 (setq untitled-new-buffer-default-name "*Untitled*")
 
 ;; Start the server if it is not already running
+(require 'server)
 (unless (server-running-p) (server-start))
