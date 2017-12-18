@@ -1071,6 +1071,9 @@ The app is chosen from your OS's preference."
   ;; open files from dired with "E"
   (define-key dired-mode-map (kbd "E") 'xah-open-in-external-app))
 
+(with-eval-after-load "git-commit"
+  (require 'magit))
+
 ;; term
 (with-eval-after-load "term"
   (define-key term-mode-map (kbd "C-j") 'term-char-mode)

@@ -1316,6 +1316,14 @@ Emacs makes a decent file browser, we just need to tweak a few things to make it
     (define-key dired-mode-map (kbd "E") 'xah-open-in-external-app))
 #+END_SRC
 
+
+* Git
+
+#+BEGIN_SRC emacs-lisp
+  (with-eval-after-load "git-commit"
+    (require 'magit))
+#+END_SRC
+
 * Shell modes (term, shell and eshell)
   :PROPERTIES:
   :CUSTOM_ID: shell-modes
