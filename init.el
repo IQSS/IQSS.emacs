@@ -59,7 +59,6 @@
         undo-tree
         better-defaults
         diminish
-        auto-dim-other-buffers
         dired+
         ace-window
         howdoi
@@ -1200,7 +1199,6 @@ Will prompt you shell name when you type `C-u' before this command."
 (diminish 'counsel-mode)
 (diminish 'undo-tree-mode)
 (diminish 'visual-line-mode)
-(diminish 'auto-dim-other-buffers-mode)
 (diminish 'which-key-mode)
 
 ;; No, we do not need the splash screen
@@ -1209,10 +1207,6 @@ Will prompt you shell name when you type `C-u' before this command."
 ;; start with untitled new buffer
 (add-hook 'after-init-hook
           (lambda()
-            (auto-dim-other-buffers-mode t)
-            (diminish 'auto-dim-other-buffers-mode)
-            (setq auto-dim-other-buffers-dim-on-switch-to-minibuffer nil)
-            (set-face-attribute 'auto-dim-other-buffers-face nil :background "gray90")
             (setq inhibit-startup-screen t) ;; yes, we really want to do this!
             (delete-other-windows)
             (untitled-new-buffer-with-select-major-mode 'text-mode)))
