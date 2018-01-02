@@ -167,6 +167,8 @@
 (menu-bar-mode 1)
 (scroll-bar-mode 1)
 
+(setq select-active-regions 'only)
+
 ;; from https://github.com/bbatsov/prelude/
 ;; store all backup and autosave files in the tmp dir
 (setq backup-directory-alist
