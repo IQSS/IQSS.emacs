@@ -63,78 +63,80 @@ The main purpose of these emacs configuration files is to install and configure 
 
   ;; Add additional package sources
   (add-to-list 'package-archives 
-               '("melpa" . "http://melpa.milkbox.net/packages/") t)
+	       '("melpa" . "http://melpa.milkbox.net/packages/") t)
+  (add-to-list 'package-archives
+	       '("org" . "http://orgmode.org/elpa/") t)
 
   ;; Make a list of the packages you want
   (setq package-selected-packages
-        '(;; gnu packages
-          auctex
-          windresize
-          diff-hl
-          adaptive-wrap
-          ;; melpa packages
-          ;; mode-icons ; slows things down, can be buggy
-          pdf-tools
-          yasnippet
-          yasnippet-snippets
-          auto-package-update
-          visual-regexp
-          command-log-mode
-          undo-tree
-          better-defaults
-          diminish
-          dired+
-          ace-window
-          howdoi
-          multi-term
-          with-editor
-          git-commit
-          magit
-          eyebrowse
-          mouse3
-          anzu
-          counsel
-          flx-ido
-          smex
-          ivy-bibtex
-          hydra
-          ivy-hydra
-          which-key
-          outline-magic
-          smooth-scroll
-          unfill
-          company
-          company-math
-          ess
-          web-mode
-          markdown-mode
-          pandoc-mode
-          polymode
-          eval-in-repl
-          haskell-mode
-          ghc
-          company-ghci
-          dante
-          flycheck
-          scala-mode
-          ensime
-          sbt-mode
-          exec-path-from-shell
-          dumb-jump
-          htmlize
-          dictionary
-          ox-pandoc
-          untitled-new-buffer))
+	'(;; gnu packages
+	  auctex
+	  windresize
+	  diff-hl
+	  adaptive-wrap
+	  ;; melpa packages
+	  ;; mode-icons ; slows things down, can be buggy
+	  pdf-tools
+	  yasnippet
+	  yasnippet-snippets
+	  auto-package-update
+	  visual-regexp
+	  command-log-mode
+	  undo-tree
+	  better-defaults
+	  diminish
+	  dired+
+	  ace-window
+	  howdoi
+	  multi-term
+	  with-editor
+	  git-commit
+	  magit
+	  eyebrowse
+	  mouse3
+	  anzu
+	  counsel
+	  flx-ido
+	  smex
+	  ivy-bibtex
+	  hydra
+	  ivy-hydra
+	  which-key
+	  outline-magic
+	  smooth-scroll
+	  unfill
+	  company
+	  company-math
+	  ess
+	  web-mode
+	  markdown-mode
+	  pandoc-mode
+	  polymode
+	  eval-in-repl
+	  haskell-mode
+	  ghc
+	  company-ghci
+	  dante
+	  flycheck
+	  scala-mode
+	  ensime
+	  sbt-mode
+	  exec-path-from-shell
+	  dumb-jump
+	  htmlize
+	  dictionary
+	  ox-pandoc
+	  untitled-new-buffer))
 
   ;; hide compilation buffer when complete
   ;; from http://emacs.stackexchange.com/questions/62/hide-compilation-window
   (add-hook 'compilation-finish-functions
-            (lambda (buf str)
-              (if (null (string-match ".*exited abnormally.*" str))
-                  ;;no errors, make the compilation window go away in a few seconds
-                  (progn
-                    (let ((win  (get-buffer-window buf 'visible)))
-                      (when win (delete-window win)))))))
+	    (lambda (buf str)
+	      (if (null (string-match ".*exited abnormally.*" str))
+		  ;;no errors, make the compilation window go away in a few seconds
+		  (progn
+		    (let ((win  (get-buffer-window buf 'visible)))
+		      (when win (delete-window win)))))))
 
   ;; install packages if needed
   (unless (every 'package-installed-p package-selected-packages)
@@ -148,7 +150,7 @@ The main purpose of these emacs configuration files is to install and configure 
   ;; make sure packages stay up to date
   (setq auto-package-update-delete-old-versions t)
   (add-hook 'auto-package-update-before-hook
-            (lambda () (message "New package versions located, updating now")))
+	    (lambda () (message "New package versions located, updating now")))
   (auto-package-update-maybe)
 #+END_SRC
 
