@@ -894,8 +894,7 @@ Support for R in Emacs is good, thanks to http://ess.r-project.org/. As with oth
             (ess-fl-keyword:operators . t)
             (ess-fl-keyword:delimiters)
             (ess-fl-keyword:=)
-            (ess-R-fl-keyword:F&T)
-            (ess-R-fl-keyword:%op% . t)))))
+            (ess-R-fl-keyword:F&T)))))
 #+END_SRC
 
 * Run python in emacs (python-mode)

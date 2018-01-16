@@ -743,8 +743,7 @@
           (ess-fl-keyword:operators . t)
           (ess-fl-keyword:delimiters)
           (ess-fl-keyword:=)
-          (ess-R-fl-keyword:F&T)
-          (ess-R-fl-keyword:%op% . t)))))
+          (ess-R-fl-keyword:F&T)))))
 
 (defalias 'python 'run-python)
 
