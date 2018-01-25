@@ -85,7 +85,6 @@ The main purpose of these emacs configuration files is to install and configure 
 	  undo-tree
 	  better-defaults
 	  diminish
-	  dired+
 	  ace-window
 	  howdoi
 	  multi-term
@@ -93,7 +92,6 @@ The main purpose of these emacs configuration files is to install and configure 
 	  git-commit
 	  magit
 	  eyebrowse
-	  mouse3
 	  anzu
 	  counsel
 	  flx-ido
@@ -1244,14 +1242,14 @@ Not everyone wants to read email in Emacs, but you can if you want. The settings
       (add-hook 'mu4e-view-mode-hook 'visual-line-mode)))
 #+END_SRC
 
-* File browsing (Dired+)
+* File browsing (Dired)
   :PROPERTIES:
   :CUSTOM_ID: file-browsing
   :END:
 Emacs makes a decent file browser, we just need to tweak a few things to make it nicer. In particular you can open files in an external program using the =E= key.
 
 #+BEGIN_SRC emacs-lisp
-  ;;; Dired and Dired+ configuration
+  ;;; Dired configuration
   (add-hook 'dired-mode-hook 
             (lambda()
               (diff-hl-dired-mode)

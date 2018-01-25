@@ -61,7 +61,6 @@
 	undo-tree
 	better-defaults
 	diminish
-	dired+
 	ace-window
 	howdoi
 	multi-term
@@ -69,7 +68,6 @@
 	git-commit
 	magit
 	eyebrowse
-	mouse3
 	anzu
 	counsel
 	flx-ido
@@ -1007,7 +1005,7 @@
     (setq mu4e-html2text-command 'mu4e-shr2text)
     (add-hook 'mu4e-view-mode-hook 'visual-line-mode)))
 
-;;; Dired and Dired+ configuration
+;;; Dired configuration
 (add-hook 'dired-mode-hook 
           (lambda()
             (diff-hl-dired-mode)
