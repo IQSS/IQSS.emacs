@@ -1079,7 +1079,7 @@ The app is chosen from your OS's preference."
   (define-key term-mode-map (kbd "C-j") 'term-char-mode)
   (define-key term-raw-map (kbd "C-j") 'term-line-mode)
   (require 'with-editor)
-  (require 'git-commit)
+  (when (executable-find "git") (require 'git-commit))
   (shell-command-with-editor-mode t))
 
 ;; multi-term
@@ -1107,7 +1107,7 @@ Will prompt you shell name when you type `C-u' before this command."
   (define-key term-mode-map (kbd "C-j") 'term-char-mode)
   (define-key term-raw-map (kbd "C-j") 'term-line-mode)
   (require 'with-editor)
-  (require 'git-commit)
+  (when (executable-find "git") (require 'git-commit))
   (setq multi-term-switch-after-close nil)
   (shell-command-with-editor-mode t))
 
@@ -1120,12 +1120,12 @@ Will prompt you shell name when you type `C-u' before this command."
   (define-key sh-mode-map (kbd "<C-S-return>") 'executable-interpret))
 (with-eval-after-load "shell"
   (require 'with-editor)
-  (require 'git-commit)
+  (when (executable-find "git") (require 'git-commit))
   (shell-command-with-editor-mode t))
 
 (with-eval-after-load "eshell"
   (require 'with-editor)
-  (require 'git-commit)
+  (when (executable-find "git") (require 'git-commit))
   (shell-command-with-editor-mode t))
 
 ;; Automatically adjust output width in commint buffers
