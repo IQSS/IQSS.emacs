@@ -898,6 +898,14 @@
             (lambda ()
               (define-key bibtex-mode-map "\M-q" 'bibtex-fill-entry))))
 
+(defun my-tex-quit ()
+  "Kill any running tex jobs, and cancel other operations."
+  (tex-kill-job)
+  (keyboard-quit))
+
+(define-key LaTeX-mode-map (kbd "C-g")
+  'my-tex-quit)
+
 (setq ivy-bibtex-default-action 'ivy-bibtex-insert-citation)
 (global-set-key (kbd "C-c r") 'ivy-bibtex)
 
