@@ -1045,7 +1045,7 @@ I don't write nearly as much in LaTeX as I used to, as Markdown and/or Org mode 
       "Kill any running tex jobs, and cancel other operations."
       (tex-kill-job)
       (keyboard-quit))
-  
+
     (define-key LaTeX-mode-map (kbd "C-g")
       'my-tex-quit)
     ;; Allow paragraph filling in tables
@@ -1094,8 +1094,32 @@ I don't write nearly as much in LaTeX as I used to, as Markdown and/or Org mode 
       TeX-source-correlate-start-server t
       ;; Update PDF buffers after successful LaTeX runs
       (add-hook 'TeX-after-compilation-finished-functions
-                #'TeX-revert-document-buffer)))
+                #'TeX-revert-document-buffer))
 
+    ;; Count words in latex
+    ;; see http://app.uio.no/ifi/texcount/faq.html#emacs
+    ;; TeXcount setup for TeXcount version 2.3 and later
+    ;;
+    (when (executable-find "texcount")
+      (defun texcount ()
+        (interactive)
+        (let*
+            ((this-file (buffer-file-name))
+             (enc-str (symbol-name buffer-file-coding-system))
+             (enc-opt
+              (cond
+               ((string-match "utf-8" enc-str) "-utf8")
+               ((string-match "latin" enc-str) "-latin1")
+               ("-encoding=guess")))
+             (word-count
+              (with-output-to-string
+                (with-current-buffer standard-output
+                  (call-process "texcount" nil t nil "-0" enc-opt this-file)))))
+          (message word-count)))
+      (add-hook 'LaTeX-mode-hook (lambda () (define-key LaTeX-mode-map "\C-cw" 'texcount)))
+      (add-hook 'latex-mode-hook (lambda () (define-key latex-mode-map "\C-cw" 'texcount))))
+    (add-to-list 'TeX-command-list
+                 (list "TeXcount" "texcount %s.tex" 'TeX-run-command nil t)))
 
   (with-eval-after-load "reftex"
     (add-to-list 'reftex-section-levels '("frametitle" . 2))
