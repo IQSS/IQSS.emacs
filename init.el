@@ -914,10 +914,11 @@
               (with-current-buffer standard-output
                 (call-process "texcount" nil t nil "-0" enc-opt this-file)))))
         (message word-count)))
-    (add-hook 'LaTeX-mode-hook (lambda () (define-key LaTeX-mode-map "\C-cw" 'texcount)))
-    (add-hook 'latex-mode-hook (lambda () (define-key latex-mode-map "\C-cw" 'texcount))))
+    (defalias 'tex-count-words 'texcount "Count the number of words in the buffer."))
+  (define-key LaTeX-mode-map "\C-cw" 'tex-count-words)
+  (define-key latex-mode-map "\C-cw" 'tex-count-words)
   (add-to-list 'TeX-command-list
-               (list "TeXcount" "texcount %s.tex" 'TeX-run-command nil t)))
+               (list "TeX-count-words" "tex-count-words" 'TeX-run-function nil t)))
 
 (with-eval-after-load "reftex"
   (add-to-list 'reftex-section-levels '("frametitle" . 2))
