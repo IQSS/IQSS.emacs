@@ -916,7 +916,6 @@
         (message word-count)))
     (defalias 'tex-count-words 'texcount "Count the number of words in the buffer."))
   (define-key LaTeX-mode-map "\C-cw" 'tex-count-words)
-  (define-key latex-mode-map "\C-cw" 'tex-count-words)
   (add-to-list 'TeX-command-list
                (list "TeX-count-words" "tex-count-words" 'TeX-run-function nil t)))
 
