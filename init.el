@@ -294,6 +294,7 @@
 
 ;;
 ;; Make right-click do something close to what people expect
+(require 'mouse3)
 (global-set-key (kbd "<mouse-3>") 'mouse3-popup-menu)
 ;; (global-set-key (kbd "C-f") 'isearch-forward)
 ;; (global-set-key (kbd "C-s") 'save-buffer)
