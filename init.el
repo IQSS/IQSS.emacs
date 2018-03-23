@@ -841,6 +841,7 @@
   ;; Easy compile key
   (define-key LaTeX-mode-map (kbd "<C-return>") 'TeX-command-run-all)
   (defun my-tex-quit ()
+    (interactive)
     "Kill any running tex jobs, and cancel other operations."
     (tex-kill-job)
     (keyboard-quit))
