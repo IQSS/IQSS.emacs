@@ -82,6 +82,8 @@
 	company
 	company-math
 	ess
+        anaconda-mode
+        company-anaconda
 	web-mode
 	markdown-mode
 	pandoc-mode
@@ -339,28 +341,6 @@
       ;; Size new windows proportionally wrt other windows
       ;;window-combination-resize t
       )
-(setq display-buffer-alist
-      `(
-        (,(rx bos
-              (or ;"*Warnings*"            ; Emacs warnings
-                  ;"*Compile-Log*"         ; Emacs byte compiler log
-                  ;"*compilation"          ; Compilation buffers
-                  ;"*Flycheck errors*"     ; Flycheck error list
-                  "*R"                    ; R REPL
-                  "*Python"               ; Python REPL
-                  "*julia"                ; Julia Repl
-                  "*ansi"                 ; ansi-term
-                  "*term"                 ; terminal
-                  "*shell"                ; Shell window
-                  "*eshell"               ; eshell
-                  "*sbt"                  ; SBT REPL and compilation buffer
-                  ;"*ensime-update*"       ; Server update from Ensime
-                  "*SQL"                  ; SQL REPL
-                  ;"*Cargo"                ; Cargo process buffers
-                  ;(and (1+ nonl) " output*") ; AUCTeX command output
-                  ))
-         (display-buffer-pop-up-window)
-         (window-height . 0.33))))
 
 ;; enable on-the-fly spell checking
 (setq flyspell-use-meta-tab nil)
@@ -753,6 +733,9 @@
   (setq python-shell-completion-native-enable nil)
   ;; simple evaluation with C-ret
   (require 'eval-in-repl-python)
+  (add-hook 'python-mode-hook 'anaconda-mode)
+  (setq-local company-backends company-backends)
+  (delete-dups (push 'company-anaconda company-backends))
   (define-key python-mode-map (kbd "C-c C-c") 'eir-eval-in-python)
   (define-key python-mode-map (kbd "<C-return>") 'eir-eval-in-python)
   (define-key python-mode-map (kbd "C-c C-b") 'python-shell-send-buffer)
