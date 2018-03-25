@@ -19,8 +19,8 @@ It is difficult to support multiple versions of emacs, so we will pick an arbitr
              (number-to-string emacs-major-version) 
              "." 
              (number-to-string emacs-minor-version)))
-           25.1)
-    (error "Your version of emacs is very old and must be upgraded before you can use these packages!"))
+           25.3)
+    (error "Your version of emacs is old and must be upgraded before you can use these packages! Version >= 25.3 is required."))
 
   ;; start maximized 
   (setq frame-resize-pixelwise t
