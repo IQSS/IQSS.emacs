@@ -60,7 +60,7 @@
 	command-log-mode
 	undo-tree
 	better-defaults
-	diminish
+	minions
 	ace-window
 	howdoi
 	multi-term
@@ -163,6 +163,13 @@
                  ))
     (add-to-list 'exec-path-from-shell-variables var))
   (exec-path-from-shell-initialize))
+
+;; ;; clean up the mode line
+(setq minions-mode-line-lighter "☰")
+(minions-mode 1)
+
+;; No, we do not need the splash screen
+(setq inhibit-startup-screen t)
 
 (require 'better-defaults)
 ;; better defaults are well, better... but we don't always agree
@@ -1204,25 +1211,6 @@ Will prompt you shell name when you type `C-u' before this command."
 (unless (file-exists-p custom-file)
   (write-region ";; Put user configuration here" nil custom-file))
 (load custom-file 'noerror)
-
-;; ;; clean up the mode line
-; (require 'diminish)
-(diminish 'visual-line-mode)
-(diminish 'which-key-mode)
-(diminish 'counsel-mode)
-(diminish 'company-mode)
-(diminish 'outline-minor-mode)
-(diminish 'undo-tree-mode)
-(diminish 'flyspell-mode)
-(diminish 'anzu-mode)
-(diminish 'ivy-mode)
-(diminish 'counsel-mode)
-(diminish 'undo-tree-mode)
-(diminish 'visual-line-mode)
-(diminish 'which-key-mode)
-
-;; No, we do not need the splash screen
-(setq inhibit-startup-screen t)
 
 ;; start with untitled new buffer
 (add-hook 'after-init-hook
