@@ -209,4 +209,4 @@ may help.
 More information
 =============
 
-For more information refer to the [annotated configuration file](https://iqss.github.io/dotemacs/init.html).
+For more information refer to the [annotated configuration file](https://iqss.github.io/IQSS.emacs/init.html).
