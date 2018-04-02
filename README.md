@@ -44,15 +44,17 @@ Installation
 
 If you previously had another version of Emacs installed it is a good
 idea to move your `~/.emacs.d` configuration folder to a backup
-location before installing this version of Emacs.
+location before installing this Emacs configuration. If you do not yet
+have Emacs, installers available for [Mac OSX](https://emacsformacosx.com/) 
+and [Windows](https://vigou3.github.io/emacs-modified-windows/).
 
-Installers for configured versions of Emacs are available for 
-[Mac OS X](https://github.com/izahn/dotemacs/releases/download/v1.0.2/Emacs-25.1-1-configured-5.dmg)
-and [Windows](https://github.com/izahn/dotemacs/releases/download/v1.0.2/Emacs-25.1-2-configured-5.exe).
-
-Alternatively, you can install Emacs from another source and copy this
-configuration manually. To do so, open a terminal and runn `git clone
-https://github.com/izahn/dotemacs.git ~/.emacs.d`.
+Once Emacs is installed, install this configuration by copying the
+files from https://github.com/iqss/IQSS.emacs to a folder named
+`.emacs.d` in your home directory. For example, you can run `git clone
+https://github.com/IQSS/IQSS.emacs.git ~/.emacs.d`, or you can download
+the .zip archive from
+https://github.com/IQSS/IQSS.emacs/archive/master.zip, extract it, and
+move the files to `~/.emacs.d`.
 
 First run
 =============
@@ -84,7 +86,7 @@ If you are an Emacs user, most things will mostly work as you expect,
 though you may wish to familiarize yourself with the alternative key
 bindings configured here. If you are an Emacs user and you find key
 bindings that don't work as they should please open an issue in
-the [[https://github.com/izahn/dotemacs][github repo]].
+the [[https://github.com/IQSS/IQSS.emacs][github repo]].
 
 
 Keyboard shortcuts
@@ -158,7 +160,7 @@ Searching and Completion
 Utilities have been configured to make it easy to search by file name as
 well as to search the contents of files. Some of this functionality
 works much better if certain system utilities are found. See [this list
-of useful programs](https://izahn.github.io/dotemacs/UsefulPrograms.html), especially *everything*
+of useful programs](https://IQSS.github.io/IQSS.emacs/UsefulPrograms.html), especially *everything*
 (windows only) and *the silver searcher* or *ripgrep*.
 
 Basic search/replace should work as you expect, except that again on
