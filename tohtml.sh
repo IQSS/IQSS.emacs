@@ -3,7 +3,7 @@
 pandoc +RTS -K512m -RTS init.org \
        --to html \
        --output init.html \
-       --smart \
+       --from markdown+smart \
        --email-obfuscation none \
        --self-contained \
        --standalone \
@@ -23,7 +23,7 @@ pandoc +RTS -K512m -RTS init.org \
 pandoc +RTS -K512m -RTS UsefulPrograms.org \
        --to html \
        --output UsefulPrograms.html \
-       --smart \
+       --from markdown+smart \
        --email-obfuscation none \
        --self-contained \
        --standalone \
@@ -43,7 +43,7 @@ pandoc +RTS -K512m -RTS UsefulPrograms.org \
 pandoc +RTS -K512m -RTS README.md \
        --to html \
        --output index.html \
-       --smart \
+       --from markdown+smart \
        --email-obfuscation none \
        --self-contained \
        --standalone \
