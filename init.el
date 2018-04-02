@@ -836,7 +836,7 @@
   (defun my-tex-quit ()
     (interactive)
     "Kill any running tex jobs, and cancel other operations."
-    (tex-kill-job)
+    (TeX-kill-job)
     (keyboard-quit))
 
   (define-key LaTeX-mode-map (kbd "C-g")
