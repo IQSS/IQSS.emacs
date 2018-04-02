@@ -203,7 +203,7 @@ easier to interact with external programs. For example,
 [R](http://r-project.org), and
 [AUCTEX](https://www.gnu.org/software/auctex/) makes it easy to interact
 with [LaTeX](http://tug.org/texlive/). If you need help installing these
-programs, [this short guide](http://izahn.github.io/dotemacs/UsefulPrograms.html) 
+programs, [this short guide](http://iqss.github.io/IQSS.emacs/UsefulPrograms.html) 
 may help.
 
 More information
