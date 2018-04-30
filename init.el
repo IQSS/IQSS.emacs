@@ -741,6 +741,12 @@
                (setq-local company-backends company-backends)
                (setq-local company-backends
                            (delete-dups (push '(company-anaconda :with company-capf) company-backends)))))
+  (add-hook 'inferior-python-mode-hook
+            '(lambda()
+               (anaconda-mode)
+               (setq-local company-backends company-backends)
+               (setq-local company-backends
+                           (delete-dups (push '(company-anaconda :with company-capf) company-backends)))))
   (define-key python-mode-map (kbd "C-c C-c") 'eir-eval-in-python)
   (define-key python-mode-map (kbd "<C-return>") 'eir-eval-in-python)
   (define-key python-mode-map (kbd "C-c C-b") 'python-shell-send-buffer)
