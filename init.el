@@ -36,7 +36,7 @@
 ;; load the package manager
 (require 'package)
 (when (< emacs-major-version 27)
-  (package-initialize))
+  (package-initialize t))
 
 ;; Add additional package sources
 (add-to-list 'package-archives 
@@ -117,8 +117,12 @@
 ;; install packages if needed
 (unless (every 'package-installed-p package-selected-packages)
   (message "Missing packages detected, please wait...")
+  ;; org needs to be installed first
   (package-refresh-contents)
+  (package-install (cadr (assq 'org package-archive-contents)))
   (package-install-selected-packages))
+(when (< emacs-major-version 27)
+  (package-initialize))
 
 ;; add custom lisp directory to path
 (unless
@@ -736,7 +740,7 @@
                (anaconda-mode)
                (setq-local company-backends company-backends)
                (setq-local company-backends
-                           (delete-dups (push 'company-anaconda company-backends)))))
+                           (delete-dups (push '(company-anaconda :with company-capf) company-backends)))))
   (define-key python-mode-map (kbd "C-c C-c") 'eir-eval-in-python)
   (define-key python-mode-map (kbd "<C-return>") 'eir-eval-in-python)
   (define-key python-mode-map (kbd "C-c C-b") 'python-shell-send-buffer)
@@ -955,6 +959,7 @@
   (when (executable-find "octave") (require 'ob-octave))
   (when (executable-find "perl") (require 'ob-perl))
   (when (executable-find "dot") (require 'ob-dot))
+  (when (executable-find "ghci") (require 'ob-haskell))
   (when (executable-find "ditaa") (require 'ob-ditaa))
 
   ;; Fontify code blocks in org-mode
