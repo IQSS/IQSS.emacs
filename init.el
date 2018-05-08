@@ -746,7 +746,7 @@
                (anaconda-mode)
                (setq-local company-backends company-backends)
                (setq-local company-backends
-                           (delete-dups (push '(company-anaconda :with company-capf) company-backends)))))
+                           (delete-dups (push '(company-anaconda company-capf) company-backends)))))
   (setq eir-use-python-shell-send-string nil)
   (define-key python-mode-map (kbd "C-c C-c") 'eir-eval-in-python)
   (define-key python-mode-map (kbd "<C-return>") 'eir-eval-in-python)
