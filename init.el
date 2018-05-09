@@ -701,7 +701,7 @@
   ;; Set ESS options
   (setq
    ess-use-auto-complete nil
-   ess-use-company 'script-only
+   ess-use-company 't
    ;; ess-r-package-auto-set-evaluation-env nil
    inferior-ess-same-window nil
    ess-indent-with-fancy-comments nil   ; don't indent comments
