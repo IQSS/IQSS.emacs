@@ -82,8 +82,6 @@
         company
         company-math
         ess
-        anaconda-mode
-        company-anaconda
         web-mode
         markdown-mode
         pandoc-mode
@@ -737,16 +735,14 @@
   (require 'eval-in-repl-python)
   (add-hook 'python-mode-hook
             '(lambda()
-               (anaconda-mode)
                (setq-local company-backends company-backends)
                (setq-local company-backends
-                           (delete-dups (push '(company-anaconda :with company-capf) company-backends)))))
+                           (delete-dups (push 'company-capf company-backends)))))
   (add-hook 'inferior-python-mode-hook
             '(lambda()
-               (anaconda-mode)
                (setq-local company-backends company-backends)
                (setq-local company-backends
-                           (delete-dups (push '(company-anaconda company-capf) company-backends)))))
+                           (delete-dups (push 'company-capf company-backends)))))
   ;;(setq eir-use-python-shell-send-string nil)
   (define-key python-mode-map (kbd "C-c C-c") 'eir-eval-in-python)
   (define-key python-mode-map (kbd "<C-return>") 'eir-eval-in-python)
