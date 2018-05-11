@@ -88,9 +88,7 @@
         polymode
         eval-in-repl
         haskell-mode
-        ghc
         company-ghci
-        dante
         flycheck
         scala-mode
         ensime
@@ -779,13 +777,14 @@
               (setq-local company-backends
                           (delete-dups (cons 'company-elisp (cons 'company-files company-backends)))))))
 
-(defalias 'haskell 'haskell-interactive-bring)
-
-(add-hook 'haskell-mode-hook (lambda ()
-                               (dante-mode)
-                               (setq-local company-backends
-                                           (delete-dups (cons 'company-ghci (cons 'company-files company-backends))))))
-(add-hook 'haskell-interactive-mode-hook 'company-mode)
+(with-eval-after-load "haskell-mode"
+  (defalias 'haskell 'haskell-interactive-bring)
+  (add-hook 'haskell-mode-hook
+            '(lambda ()
+               (push 'company-capf company-backends)
+               (setq-local company-backends
+                           (delete-dups (push 'company-ghci company-backends)))))
+  (add-hook 'haskell-interactive-mode-hook 'company-mode))
 
 ;; Use markdown-mode for files with .markdown or .md extensions
 (setq
