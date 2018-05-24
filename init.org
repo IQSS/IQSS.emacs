@@ -550,7 +550,6 @@ More information is available at http://oremacs.com/swiper/.
     ;;(global-set-key (kbd "C-x C-S-F") 'counsel-locate) ;; FIXME -- need better key
     )
   (global-set-key (kbd "C-x C-r") 'counsel-recentf)
-  (global-set-key (kbd "<C-tab>") 'counsel-company)
   (global-set-key (kbd "<f1> f") 'counsel-describe-function)
   (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
   (global-set-key (kbd "<f1> l") 'counsel-load-library)
@@ -608,7 +607,7 @@ More information is available at http://oremacs.com/swiper/.
   :PROPERTIES:
   :CUSTOM_ID: auto-complete-configuration
   :END:
-Here we configure in-buffer text completion using the company-mode package. These completions are available on-demand using =tab= for in-buffer popup or =C-tab= for search-able minibuffer list. More information is available at https://company-mode.github.io/.
+Here we configure in-buffer text completion using the company-mode package. These completions are available on-demand using =C-M-i= for in-buffer popup or =C-M-S-i= for search-able minibuffer list. More information is available at https://company-mode.github.io/.
 
 #+BEGIN_SRC emacs-lisp
   (require 'company)
@@ -617,10 +616,7 @@ Here we configure in-buffer text completion using the company-mode package. Thes
         company-async-timeout 6
         company-idle-delay nil
         company-global-modes '(not term-mode))
-  ;; complete using C-tab
-  (global-set-key (kbd "<C-tab>") 'counsel-company)
   ;; use C-n and C-p to cycle through completions
-  ;; (define-key company-mode-map (kbd "<tab>") 'company-complete)
   (define-key company-active-map (kbd "C-n") 'company-select-next)
   (define-key company-active-map (kbd "<tab>") 'company-complete-common)
   (define-key company-active-map (kbd "C-p") 'company-select-previous)
@@ -633,40 +629,16 @@ Here we configure in-buffer text completion using the company-mode package. Thes
   (push 'company-files company-backends)
   (setq-default company-backends company-backends)
 
-   ;;Use tab to complete.
-   ;; See https://github.com/company-mode/company-mode/issues/94 for another approach.
-
-   ;; this is a copy-paste from the company-package with extra conditions to make
-   ;; sure we don't offer completions in the middle of a word.
-
-   (defun my-company-indent-or-complete-common ()
-     "Indent the current line or region, or complete the common part."
-     (interactive)
-     (cond
-      ((use-region-p)
-       (indent-region (region-beginning) (region-end)))
-      ((and (not (looking-at "\\w\\|\\s_"))
-            (memq indent-line-function
-                  '(indent-relative indent-relative-maybe)))
-       (company-complete-common))
-      ((let ((old-point (point))
-             (old-tick (buffer-chars-modified-tick))
-             (tab-always-indent t))
-         (if (equal major-mode 'org-mode)
-             (call-interactively #'org-cycle)
-           (call-interactively #'indent-for-tab-command))
-         (when (and (eq old-point (point))
-                    (eq old-tick (buffer-chars-modified-tick))
-                    (not (looking-at "\\w\\|\\s_")))
-           (company-complete-common))))))
-
-   (define-key company-mode-map (kbd "<tab>") 'my-company-indent-or-complete-common)
+  ;; completion key bindings
+  (define-key company-mode-map (kbd "C-M-i") 'company-complete)
+  (define-key company-mode-map (kbd "C-M-S-i") 'counsel-company)
 
    ;; make company use pcomplete (via capf)
    (add-hook 'completion-at-point-functions 'pcomplete-completions-at-point)
 
    ;; not sure why this should be set in a hook, but that is how the manual says to do it.
    (add-hook 'after-init-hook 'global-company-mode)
+
 #+END_SRC
 
 * Which-key
@@ -808,7 +780,7 @@ Load eval-in-repl for bash, elisp, and python interaction.
   :CUSTOM_ID: run-r-in-emacs
   :END:
 
-Support for R in Emacs is good, thanks to http://ess.r-project.org/. As with other programming languages this configuration enables completion via the =tab= key and code evaluation with =C-ret=. Many more features are provided by ESS, refer to http://ess.r-project.org/ for details.
+Support for R in Emacs is good, thanks to http://ess.r-project.org/. As with other programming languages this configuration enables completion via the =C-M-i= key and code evaluation with =C-ret=. Many more features are provided by ESS, refer to http://ess.r-project.org/ for details.
 
 #+BEGIN_SRC emacs-lisp
   ;;;  ESS (Emacs Speaks Statistics)
@@ -816,10 +788,7 @@ Support for R in Emacs is good, thanks to http://ess.r-project.org/. As with oth
   ;; Make sure ESS is loaded before we configure it
   (autoload 'julia "ess-julia" "Start a Julia REPL." t)
   (with-eval-after-load "ess-site"
-    ;; see https://github.com/emacs-ess/ESS/pull/390 for ideas on how to integrate tab completion
-    ;; extra ESS stuff inspired by https://github.com/gaborcsardi/dot-emacs/blob/master/.emacs
-    (ess-toggle-underscore nil)           ; Don't convert underscores to assignment
-
+    (ess-toggle-underscore nil) ; Don't convert underscores to assignment
     ;; function to set output width based on window size
     (defun my-ess-execute-screen-options (foo)
       "cycle through windows whose major mode is inferior-ess-mode and fix width"
@@ -843,7 +812,6 @@ Support for R in Emacs is good, thanks to http://ess.r-project.org/. As with oth
                 ;; don't wrap long lines
                 (toggle-truncate-lines t)
                 ;; turn on outline mode
-                (setq-local outline-regexp "[#]+")
                 (outline-minor-mode t)))
 
     ;; Set ESS options
@@ -856,7 +824,6 @@ Support for R in Emacs is good, thanks to http://ess.r-project.org/. As with oth
      ess-eval-visibly t                   ; enable echoing input
      ess-eval-empty t                     ; don't skip non-code lines.
      ess-ask-for-ess-directory nil        ; start R in the working directory by default
-     ess-tab-complete-in-script t         ; use tab completion
      ess-ask-for-ess-directory nil        ; start R in the working directory by default
      ess-R-font-lock-keywords             ; font-lock, but not too much
      (quote
@@ -878,14 +845,13 @@ Support for R in Emacs is good, thanks to http://ess.r-project.org/. As with oth
   :CUSTOM_ID: run-python-in-emacs
   :END:
 
-Emacs has decent python support out of the box. As with other programming languages you can get completion suggestions with the =tab= key, and evaluate code with =C-ret=. Many more features are provided and are accessible via the menu.
+Emacs has decent python support out of the box. As with other programming languages you can get completion suggestions with the =C-M-i= key, and evaluate code with =C-ret=. Many more features are provided and are accessible via the menu.
 
 #+BEGIN_SRC emacs-lisp
   (defalias 'python 'run-python)
 
   (with-eval-after-load "python"
     ;; try to get indent/completion working nicely
-    (setq python-indent-trigger-commands '(my-company-indent-or-complete-common indent-for-tab-command yas-expand yas/expand))
     ;; readline support is wonky at the moment
     (setq python-shell-completion-native-enable nil)
     ;; simple evaluation with C-ret
@@ -918,7 +884,7 @@ Emacs has decent python support out of the box. As with other programming langua
   :CUSTOM_ID: emacs-lisp-repl
   :END:
 
-If you want to get the most out of Emacs, you'll eventually need to learn a little Emacs-lisp. This configuration helps by providing a standard =C-ret= evaluation key binding, and by providing completion with the =tab= key.
+If you want to get the most out of Emacs, you'll eventually need to learn a little Emacs-lisp. This configuration helps by providing a standard =C-ret= evaluation key binding, and by providing completion with the =C-M-i= key.
 
 #+BEGIN_SRC emacs-lisp
   (with-eval-after-load "elisp-mode"
@@ -950,7 +916,7 @@ If you want to get the most out of Emacs, you'll eventually need to learn a litt
   :PROPERTIES:
   :CUSTOM_ID: light-weight-markup-language
   :END:
-I just recently started learning Haskell. There's not much to the configuration at this point, but you should get completion with =tab=. To cycle indentation press =Shift+tab=.
+I just recently started learning Haskell. There's not much to the configuration at this point, but you should get completion with =C-M-i=. To cycle indentation press =Shift+tab=.
 
 #+BEGIN_SRC emacs-lisp
   (with-eval-after-load "haskell-mode"
@@ -994,7 +960,7 @@ Editing HTML in Emacs is OK out of the box, but it doesn't support template syst
   :PROPERTIES:
   :CUSTOM_ID: typesetting-markup
   :END:
-I don't write nearly as much in LaTeX as I used to, as Markdown and/or Org mode are simpler and good enough for my needs. But LaTeX is still the tool of choice for much academic writing, so we use AUCTEX and turn on lots of features. Completion of math and latex commands is available with =tab=, and auto-compile is available with =C-ret=.
+I don't write nearly as much in LaTeX as I used to, as Markdown and/or Org mode are simpler and good enough for my needs. But LaTeX is still the tool of choice for much academic writing, so we use AUCTEX and turn on lots of features. Completion of math and latex commands is available with =C-M-i=, and auto-compile is available with =C-ret=.
 
   See https://www.gnu.org/software/auctex/ for more details about AUCTEX. 
 

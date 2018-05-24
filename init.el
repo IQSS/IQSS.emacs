@@ -457,7 +457,6 @@
   ;;(global-set-key (kbd "C-x C-S-F") 'counsel-locate) ;; FIXME -- need better key
   )
 (global-set-key (kbd "C-x C-r") 'counsel-recentf)
-(global-set-key (kbd "<C-tab>") 'counsel-company)
 (global-set-key (kbd "<f1> f") 'counsel-describe-function)
 (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
 (global-set-key (kbd "<f1> l") 'counsel-load-library)
@@ -516,10 +515,7 @@
       company-async-timeout 6
       company-idle-delay nil
       company-global-modes '(not term-mode))
-;; complete using C-tab
-(global-set-key (kbd "<C-tab>") 'counsel-company)
 ;; use C-n and C-p to cycle through completions
-;; (define-key company-mode-map (kbd "<tab>") 'company-complete)
 (define-key company-active-map (kbd "C-n") 'company-select-next)
 (define-key company-active-map (kbd "<tab>") 'company-complete-common)
 (define-key company-active-map (kbd "C-p") 'company-select-previous)
@@ -532,34 +528,9 @@
 (push 'company-files company-backends)
 (setq-default company-backends company-backends)
 
- ;;Use tab to complete.
- ;; See https://github.com/company-mode/company-mode/issues/94 for another approach.
-
- ;; this is a copy-paste from the company-package with extra conditions to make
- ;; sure we don't offer completions in the middle of a word.
-
- (defun my-company-indent-or-complete-common ()
-   "Indent the current line or region, or complete the common part."
-   (interactive)
-   (cond
-    ((use-region-p)
-     (indent-region (region-beginning) (region-end)))
-    ((and (not (looking-at "\\w\\|\\s_"))
-          (memq indent-line-function
-                '(indent-relative indent-relative-maybe)))
-     (company-complete-common))
-    ((let ((old-point (point))
-           (old-tick (buffer-chars-modified-tick))
-           (tab-always-indent t))
-       (if (equal major-mode 'org-mode)
-           (call-interactively #'org-cycle)
-         (call-interactively #'indent-for-tab-command))
-       (when (and (eq old-point (point))
-                  (eq old-tick (buffer-chars-modified-tick))
-                  (not (looking-at "\\w\\|\\s_")))
-         (company-complete-common))))))
-
- (define-key company-mode-map (kbd "<tab>") 'my-company-indent-or-complete-common)
+;; completion key bindings
+(define-key company-mode-map (kbd "C-M-i") 'company-complete)
+(define-key company-mode-map (kbd "C-M-S-i") 'counsel-company)
 
  ;; make company use pcomplete (via capf)
  (add-hook 'completion-at-point-functions 'pcomplete-completions-at-point)
@@ -666,10 +637,7 @@
 ;; Make sure ESS is loaded before we configure it
 (autoload 'julia "ess-julia" "Start a Julia REPL." t)
 (with-eval-after-load "ess-site"
-  ;; see https://github.com/emacs-ess/ESS/pull/390 for ideas on how to integrate tab completion
-  ;; extra ESS stuff inspired by https://github.com/gaborcsardi/dot-emacs/blob/master/.emacs
-  (ess-toggle-underscore nil)           ; Don't convert underscores to assignment
-
+  (ess-toggle-underscore nil) ; Don't convert underscores to assignment
   ;; function to set output width based on window size
   (defun my-ess-execute-screen-options (foo)
     "cycle through windows whose major mode is inferior-ess-mode and fix width"
@@ -693,7 +661,6 @@
               ;; don't wrap long lines
               (toggle-truncate-lines t)
               ;; turn on outline mode
-              (setq-local outline-regexp "[#]+")
               (outline-minor-mode t)))
 
   ;; Set ESS options
@@ -706,7 +673,6 @@
    ess-eval-visibly t                   ; enable echoing input
    ess-eval-empty t                     ; don't skip non-code lines.
    ess-ask-for-ess-directory nil        ; start R in the working directory by default
-   ess-tab-complete-in-script t         ; use tab completion
    ess-ask-for-ess-directory nil        ; start R in the working directory by default
    ess-R-font-lock-keywords             ; font-lock, but not too much
    (quote
@@ -726,7 +692,6 @@
 
 (with-eval-after-load "python"
   ;; try to get indent/completion working nicely
-  (setq python-indent-trigger-commands '(my-company-indent-or-complete-common indent-for-tab-command yas-expand yas/expand))
   ;; readline support is wonky at the moment
   (setq python-shell-completion-native-enable nil)
   ;; simple evaluation with C-ret
