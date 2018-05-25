@@ -26,18 +26,18 @@ Emacs productively.
 Feature highlights
 ==========================
 
-Highlights of this Emacs configuration include:
-- Literate programming configuration for running R, python, or other
-  programming languages inside markdown or org-mode files.
-- Consistent and familiar code evaluation using `C-ret` (that's `Control + Return`).
-- Consistent indentation and folding using the `tab` key.
-- Consistent completion using `C-M-i` (that's `Control + Meta/Alt + i`)
-- Support for LaTeX and other markup languages.
-- Powerful and simple search-based tools for finding commands, files
-  and buffers, inserting citations etc.
-- More standard select/copy/paste keys and right-click behavior makes
-  it more familiar to those new to Emacs.
-- Convenient window management.
+Highlights of this Emacs configuration:
+-   Literate programming configuration for running R, python, or other
+    programming languages inside markdown or org-mode files.
+-   Consistent and familiar code evaluation using `C-ret` (that's `Control + Return`).
+-   Consistent indentation and folding using the `tab` key.
+-   Consistent completion using `C-M-i` (that's `Control + Meta/Alt + i`)
+-   Support for LaTeX and other markup languages.
+-   Powerful and simple search-based tools for finding commands, files
+    and buffers, inserting citations etc.
+-   More standard select/copy/paste keys and right-click behavior makes
+    it more familiar to those new to Emacs.
+-   Convenient window management.
 
 Installation
 =================
