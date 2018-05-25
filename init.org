@@ -101,6 +101,7 @@ The main purpose of these emacs configuration files is to install and configure 
           ivy-hydra
           which-key
           outline-magic
+          outshine
           smooth-scroll
           unfill
           company
@@ -614,7 +615,8 @@ Here we configure in-buffer text completion using the company-mode package. Thes
   ;; cancel if input doesn't match, be patient, and don't complete automatically.
   (setq company-require-match nil
         company-async-timeout 6
-        company-idle-delay nil
+        company-idle-delay 5
+        company-minimum-prefix-length 1
         company-global-modes '(not term-mode))
   ;; use C-n and C-p to cycle through completions
   (define-key company-active-map (kbd "C-n") 'company-select-next)
@@ -736,9 +738,22 @@ I encourage you to use [[*Note taking and outlining (Org-mode)][org-mode]] for n
   (setq outline-minor-mode-prefix "\C-c\C-o")
   ;; load outline-magic along with outline-minor-mode
   (add-hook 'outline-minor-mode-hook 
-            (lambda () 
+            (lambda ()
               (require 'outline-magic)
+               (when (derived-mode-p 'prog-mode)
+                 (outshine-hook-function))
+               ;; outshine messes with keybindings :-(
+               (define-key
+                 outline-minor-mode-map (kbd "C-M-i") 'company-complete)
+               (define-key
+                 outline-minor-mode-map (kbd "M-TAB") 'company-complete)
               (define-key outline-minor-mode-map "\C-c\C-o\t" 'outline-cycle)))
+
+  (with-eval-after-load "outshine"
+    (define-key
+      outline-minor-mode-map
+      (kbd "<backtab>")
+      'outshine-cycle-buffer))
 #+END_SRC
 
 * Demonstration tools (command-log-mode)

@@ -77,6 +77,7 @@
         ivy-hydra
         which-key
         outline-magic
+        outshine
         smooth-scroll
         unfill
         company
@@ -513,7 +514,8 @@
 ;; cancel if input doesn't match, be patient, and don't complete automatically.
 (setq company-require-match nil
       company-async-timeout 6
-      company-idle-delay nil
+      company-idle-delay 5
+      company-minimum-prefix-length 1
       company-global-modes '(not term-mode))
 ;; use C-n and C-p to cycle through completions
 (define-key company-active-map (kbd "C-n") 'company-select-next)
@@ -610,9 +612,22 @@
 (setq outline-minor-mode-prefix "\C-c\C-o")
 ;; load outline-magic along with outline-minor-mode
 (add-hook 'outline-minor-mode-hook 
-          (lambda () 
+          (lambda ()
             (require 'outline-magic)
+             (when (derived-mode-p 'prog-mode)
+               (outshine-hook-function))
+             ;; outshine messes with keybindings :-(
+             (define-key
+               outline-minor-mode-map (kbd "C-M-i") 'company-complete)
+             (define-key
+               outline-minor-mode-map (kbd "M-TAB") 'company-complete)
             (define-key outline-minor-mode-map "\C-c\C-o\t" 'outline-cycle)))
+
+(with-eval-after-load "outshine"
+  (define-key
+    outline-minor-mode-map
+    (kbd "<backtab>")
+    'outshine-cycle-buffer))
 
 (setq command-log-mode-auto-show t)
 (global-set-key (kbd "C-x cl") 'global-command-log-mode)
