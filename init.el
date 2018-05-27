@@ -89,6 +89,7 @@
         polymode
         eval-in-repl
         haskell-mode
+        intero
         company-ghci
         flycheck
         scala-mode
@@ -614,14 +615,15 @@
 (add-hook 'outline-minor-mode-hook 
           (lambda ()
             (require 'outline-magic)
-             (when (derived-mode-p 'prog-mode)
-               (outshine-hook-function))
-             ;; outshine messes with keybindings :-(
-             (define-key
-               outline-minor-mode-map (kbd "C-M-i") 'company-complete)
-             (define-key
-               outline-minor-mode-map (kbd "M-TAB") 'company-complete)
-            (define-key outline-minor-mode-map "\C-c\C-o\t" 'outline-cycle)))
+             ;; (when (derived-mode-p 'prog-mode)
+             ;;   (outshine-hook-function))
+             ;; ;; outshine messes with keybindings :-(
+             ;; (define-key
+             ;;   outline-minor-mode-map (kbd "C-M-i") 'company-complete)
+             ;; (define-key
+             ;;   outline-minor-mode-map (kbd "M-TAB") 'company-complete)
+             ;; (define-key outline-minor-mode-map "\C-c\C-o\t" 'outline-cycle)
+             ))
 
 (with-eval-after-load "outshine"
   (define-key
@@ -764,7 +766,9 @@
                (push 'company-capf company-backends)
                (setq-local company-backends
                            (delete-dups (push 'company-ghci company-backends)))))
-  (add-hook 'haskell-interactive-mode-hook 'company-mode))
+  (add-hook 'haskell-interactive-mode-hook 'company-mode)
+  (when (executable-find "stack")
+    (intero-global-mode 1)))
 
 ;; Use markdown-mode for files with .markdown or .md extensions
 (setq

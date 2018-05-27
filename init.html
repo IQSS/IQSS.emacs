@@ -364,48 +364,50 @@ div.tocify {
 <a class="sourceLine" id="cb2-42" data-line-number="42">        ivy-hydra</a>
 <a class="sourceLine" id="cb2-43" data-line-number="43">        which-key</a>
 <a class="sourceLine" id="cb2-44" data-line-number="44">        outline-magic</a>
-<a class="sourceLine" id="cb2-45" data-line-number="45">        smooth-scroll</a>
-<a class="sourceLine" id="cb2-46" data-line-number="46">        unfill</a>
-<a class="sourceLine" id="cb2-47" data-line-number="47">        company</a>
-<a class="sourceLine" id="cb2-48" data-line-number="48">        company-math</a>
-<a class="sourceLine" id="cb2-49" data-line-number="49">        ess</a>
-<a class="sourceLine" id="cb2-50" data-line-number="50">        web-mode</a>
-<a class="sourceLine" id="cb2-51" data-line-number="51">        markdown-mode</a>
-<a class="sourceLine" id="cb2-52" data-line-number="52">        pandoc-mode</a>
-<a class="sourceLine" id="cb2-53" data-line-number="53">        polymode</a>
-<a class="sourceLine" id="cb2-54" data-line-number="54">        eval-in-repl</a>
-<a class="sourceLine" id="cb2-55" data-line-number="55">        haskell-mode</a>
-<a class="sourceLine" id="cb2-56" data-line-number="56">        company-ghci</a>
-<a class="sourceLine" id="cb2-57" data-line-number="57">        flycheck</a>
-<a class="sourceLine" id="cb2-58" data-line-number="58">        scala-mode</a>
-<a class="sourceLine" id="cb2-59" data-line-number="59">        ensime</a>
-<a class="sourceLine" id="cb2-60" data-line-number="60">        sbt-mode</a>
-<a class="sourceLine" id="cb2-61" data-line-number="61">        exec-path-from-shell</a>
-<a class="sourceLine" id="cb2-62" data-line-number="62">        dumb-jump</a>
-<a class="sourceLine" id="cb2-63" data-line-number="63">        htmlize</a>
-<a class="sourceLine" id="cb2-64" data-line-number="64">        dictionary</a>
-<a class="sourceLine" id="cb2-65" data-line-number="65">        ox-pandoc</a>
-<a class="sourceLine" id="cb2-66" data-line-number="66">        untitled-new-buffer))</a>
-<a class="sourceLine" id="cb2-67" data-line-number="67"></a>
-<a class="sourceLine" id="cb2-68" data-line-number="68"><span class="co">;; hide compilation buffer when complete</span></a>
-<a class="sourceLine" id="cb2-69" data-line-number="69"><span class="co">;; from http://emacs.stackexchange.com/questions/62/hide-compilation-window</span></a>
-<a class="sourceLine" id="cb2-70" data-line-number="70">(add-hook 'compilation-finish-functions</a>
-<a class="sourceLine" id="cb2-71" data-line-number="71">          (<span class="kw">lambda</span> (buf str)</a>
-<a class="sourceLine" id="cb2-72" data-line-number="72">            (<span class="kw">if</span> (<span class="kw">null</span> (string-match <span class="st">&quot;.*exited abnormally.*&quot;</span> str))</a>
-<a class="sourceLine" id="cb2-73" data-line-number="73">                <span class="co">;;no errors, make the compilation window go away in a few seconds</span></a>
-<a class="sourceLine" id="cb2-74" data-line-number="74">                (<span class="kw">progn</span></a>
-<a class="sourceLine" id="cb2-75" data-line-number="75">                  (<span class="kw">let</span> ((win  (get-buffer-window buf 'visible)))</a>
-<a class="sourceLine" id="cb2-76" data-line-number="76">                    (<span class="kw">when</span> win (delete-window win)))))))</a>
-<a class="sourceLine" id="cb2-77" data-line-number="77"></a>
-<a class="sourceLine" id="cb2-78" data-line-number="78"><span class="co">;; install packages if needed</span></a>
-<a class="sourceLine" id="cb2-79" data-line-number="79">(<span class="kw">unless</span> (<span class="kw">every</span> 'package-installed-p package-selected-packages)</a>
-<a class="sourceLine" id="cb2-80" data-line-number="80">  (message <span class="st">&quot;Missing packages detected, please wait...&quot;</span>)</a>
-<a class="sourceLine" id="cb2-81" data-line-number="81">  <span class="co">;; org needs to be installed first</span></a>
-<a class="sourceLine" id="cb2-82" data-line-number="82">  (package-refresh-contents)</a>
-<a class="sourceLine" id="cb2-83" data-line-number="83">  (package-install (<span class="kw">cadr</span> (assq 'org package-archive-contents)))</a>
-<a class="sourceLine" id="cb2-84" data-line-number="84">  (package-install-selected-packages))</a>
-<a class="sourceLine" id="cb2-85" data-line-number="85">(<span class="kw">when</span> (<span class="op">&lt;</span> emacs-major-version <span class="dv">27</span>)</a>
-<a class="sourceLine" id="cb2-86" data-line-number="86">  (package-initialize))</a></code></pre></div>
+<a class="sourceLine" id="cb2-45" data-line-number="45">        outshine</a>
+<a class="sourceLine" id="cb2-46" data-line-number="46">        smooth-scroll</a>
+<a class="sourceLine" id="cb2-47" data-line-number="47">        unfill</a>
+<a class="sourceLine" id="cb2-48" data-line-number="48">        company</a>
+<a class="sourceLine" id="cb2-49" data-line-number="49">        company-math</a>
+<a class="sourceLine" id="cb2-50" data-line-number="50">        ess</a>
+<a class="sourceLine" id="cb2-51" data-line-number="51">        web-mode</a>
+<a class="sourceLine" id="cb2-52" data-line-number="52">        markdown-mode</a>
+<a class="sourceLine" id="cb2-53" data-line-number="53">        pandoc-mode</a>
+<a class="sourceLine" id="cb2-54" data-line-number="54">        polymode</a>
+<a class="sourceLine" id="cb2-55" data-line-number="55">        eval-in-repl</a>
+<a class="sourceLine" id="cb2-56" data-line-number="56">        haskell-mode</a>
+<a class="sourceLine" id="cb2-57" data-line-number="57">        intero</a>
+<a class="sourceLine" id="cb2-58" data-line-number="58">        company-ghci</a>
+<a class="sourceLine" id="cb2-59" data-line-number="59">        flycheck</a>
+<a class="sourceLine" id="cb2-60" data-line-number="60">        scala-mode</a>
+<a class="sourceLine" id="cb2-61" data-line-number="61">        ensime</a>
+<a class="sourceLine" id="cb2-62" data-line-number="62">        sbt-mode</a>
+<a class="sourceLine" id="cb2-63" data-line-number="63">        exec-path-from-shell</a>
+<a class="sourceLine" id="cb2-64" data-line-number="64">        dumb-jump</a>
+<a class="sourceLine" id="cb2-65" data-line-number="65">        htmlize</a>
+<a class="sourceLine" id="cb2-66" data-line-number="66">        dictionary</a>
+<a class="sourceLine" id="cb2-67" data-line-number="67">        ox-pandoc</a>
+<a class="sourceLine" id="cb2-68" data-line-number="68">        untitled-new-buffer))</a>
+<a class="sourceLine" id="cb2-69" data-line-number="69"></a>
+<a class="sourceLine" id="cb2-70" data-line-number="70"><span class="co">;; hide compilation buffer when complete</span></a>
+<a class="sourceLine" id="cb2-71" data-line-number="71"><span class="co">;; from http://emacs.stackexchange.com/questions/62/hide-compilation-window</span></a>
+<a class="sourceLine" id="cb2-72" data-line-number="72">(add-hook 'compilation-finish-functions</a>
+<a class="sourceLine" id="cb2-73" data-line-number="73">          (<span class="kw">lambda</span> (buf str)</a>
+<a class="sourceLine" id="cb2-74" data-line-number="74">            (<span class="kw">if</span> (<span class="kw">null</span> (string-match <span class="st">&quot;.*exited abnormally.*&quot;</span> str))</a>
+<a class="sourceLine" id="cb2-75" data-line-number="75">                <span class="co">;;no errors, make the compilation window go away in a few seconds</span></a>
+<a class="sourceLine" id="cb2-76" data-line-number="76">                (<span class="kw">progn</span></a>
+<a class="sourceLine" id="cb2-77" data-line-number="77">                  (<span class="kw">let</span> ((win  (get-buffer-window buf 'visible)))</a>
+<a class="sourceLine" id="cb2-78" data-line-number="78">                    (<span class="kw">when</span> win (delete-window win)))))))</a>
+<a class="sourceLine" id="cb2-79" data-line-number="79"></a>
+<a class="sourceLine" id="cb2-80" data-line-number="80"><span class="co">;; install packages if needed</span></a>
+<a class="sourceLine" id="cb2-81" data-line-number="81">(<span class="kw">unless</span> (<span class="kw">every</span> 'package-installed-p package-selected-packages)</a>
+<a class="sourceLine" id="cb2-82" data-line-number="82">  (message <span class="st">&quot;Missing packages detected, please wait...&quot;</span>)</a>
+<a class="sourceLine" id="cb2-83" data-line-number="83">  <span class="co">;; org needs to be installed first</span></a>
+<a class="sourceLine" id="cb2-84" data-line-number="84">  (package-refresh-contents)</a>
+<a class="sourceLine" id="cb2-85" data-line-number="85">  (package-install (<span class="kw">cadr</span> (assq 'org package-archive-contents)))</a>
+<a class="sourceLine" id="cb2-86" data-line-number="86">  (package-install-selected-packages))</a>
+<a class="sourceLine" id="cb2-87" data-line-number="87">(<span class="kw">when</span> (<span class="op">&lt;</span> emacs-major-version <span class="dv">27</span>)</a>
+<a class="sourceLine" id="cb2-88" data-line-number="88">  (package-initialize))</a></code></pre></div>
 </section>
 <section id="add-custom-lisp-directory-to-load-path" class="level1">
 <h1>Add custom lisp directory to load path</h1>
@@ -831,31 +833,32 @@ div.tocify {
 <a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co">;; cancel if input doesn't match, be patient, and don't complete automatically.</span></a>
 <a class="sourceLine" id="cb10-3" data-line-number="3">(<span class="kw">setq</span> company-require-match <span class="kw">nil</span></a>
 <a class="sourceLine" id="cb10-4" data-line-number="4">      company-async-timeout <span class="dv">6</span></a>
-<a class="sourceLine" id="cb10-5" data-line-number="5">      company-idle-delay <span class="kw">nil</span></a>
-<a class="sourceLine" id="cb10-6" data-line-number="6">      company-global-modes '(<span class="kw">not</span> term-mode))</a>
-<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="co">;; use C-n and C-p to cycle through completions</span></a>
-<a class="sourceLine" id="cb10-8" data-line-number="8">(define-key company-active-map (kbd <span class="st">&quot;C-n&quot;</span>) 'company-select-next)</a>
-<a class="sourceLine" id="cb10-9" data-line-number="9">(define-key company-active-map (kbd <span class="st">&quot;&lt;tab&gt;&quot;</span>) 'company-complete-common)</a>
-<a class="sourceLine" id="cb10-10" data-line-number="10">(define-key company-active-map (kbd <span class="st">&quot;C-p&quot;</span>) 'company-select-previous)</a>
-<a class="sourceLine" id="cb10-11" data-line-number="11">(define-key company-active-map (kbd <span class="st">&quot;&lt;backtab&gt;&quot;</span>) 'company-select-previous)</a>
-<a class="sourceLine" id="cb10-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb10-13" data-line-number="13">(<span class="kw">require</span> 'company-capf)</a>
-<a class="sourceLine" id="cb10-14" data-line-number="14"><span class="co">;; put company-capf and company-files at the beginning of the list</span></a>
-<a class="sourceLine" id="cb10-15" data-line-number="15">(<span class="kw">push</span> 'company-keywords company-backends)</a>
-<a class="sourceLine" id="cb10-16" data-line-number="16">(<span class="kw">push</span> 'company-capf company-backends)</a>
-<a class="sourceLine" id="cb10-17" data-line-number="17">(<span class="kw">push</span> 'company-files company-backends)</a>
-<a class="sourceLine" id="cb10-18" data-line-number="18">(setq-default company-backends company-backends)</a>
-<a class="sourceLine" id="cb10-19" data-line-number="19"></a>
-<a class="sourceLine" id="cb10-20" data-line-number="20"><span class="co">;; completion key bindings</span></a>
-<a class="sourceLine" id="cb10-21" data-line-number="21">(define-key company-mode-map (kbd <span class="st">&quot;C-M-i&quot;</span>) 'company-complete)</a>
-<a class="sourceLine" id="cb10-22" data-line-number="22">(define-key company-mode-map (kbd <span class="st">&quot;C-M-S-i&quot;</span>) 'counsel-company)</a>
-<a class="sourceLine" id="cb10-23" data-line-number="23"></a>
-<a class="sourceLine" id="cb10-24" data-line-number="24"> <span class="co">;; make company use pcomplete (via capf)</span></a>
-<a class="sourceLine" id="cb10-25" data-line-number="25"> (add-hook 'completion-at-point-functions 'pcomplete-completions-at-point)</a>
-<a class="sourceLine" id="cb10-26" data-line-number="26"></a>
-<a class="sourceLine" id="cb10-27" data-line-number="27"> <span class="co">;; not sure why this should be set in a hook, but that is how the manual says to do it.</span></a>
-<a class="sourceLine" id="cb10-28" data-line-number="28"> (add-hook 'after-init-hook 'global-company-mode)</a>
-<a class="sourceLine" id="cb10-29" data-line-number="29"></a></code></pre></div>
+<a class="sourceLine" id="cb10-5" data-line-number="5">      company-idle-delay <span class="dv">5</span></a>
+<a class="sourceLine" id="cb10-6" data-line-number="6">      company-minimum-prefix-length <span class="dv">1</span></a>
+<a class="sourceLine" id="cb10-7" data-line-number="7">      company-global-modes '(<span class="kw">not</span> term-mode))</a>
+<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co">;; use C-n and C-p to cycle through completions</span></a>
+<a class="sourceLine" id="cb10-9" data-line-number="9">(define-key company-active-map (kbd <span class="st">&quot;C-n&quot;</span>) 'company-select-next)</a>
+<a class="sourceLine" id="cb10-10" data-line-number="10">(define-key company-active-map (kbd <span class="st">&quot;&lt;tab&gt;&quot;</span>) 'company-complete-common)</a>
+<a class="sourceLine" id="cb10-11" data-line-number="11">(define-key company-active-map (kbd <span class="st">&quot;C-p&quot;</span>) 'company-select-previous)</a>
+<a class="sourceLine" id="cb10-12" data-line-number="12">(define-key company-active-map (kbd <span class="st">&quot;&lt;backtab&gt;&quot;</span>) 'company-select-previous)</a>
+<a class="sourceLine" id="cb10-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb10-14" data-line-number="14">(<span class="kw">require</span> 'company-capf)</a>
+<a class="sourceLine" id="cb10-15" data-line-number="15"><span class="co">;; put company-capf and company-files at the beginning of the list</span></a>
+<a class="sourceLine" id="cb10-16" data-line-number="16">(<span class="kw">push</span> 'company-keywords company-backends)</a>
+<a class="sourceLine" id="cb10-17" data-line-number="17">(<span class="kw">push</span> 'company-capf company-backends)</a>
+<a class="sourceLine" id="cb10-18" data-line-number="18">(<span class="kw">push</span> 'company-files company-backends)</a>
+<a class="sourceLine" id="cb10-19" data-line-number="19">(setq-default company-backends company-backends)</a>
+<a class="sourceLine" id="cb10-20" data-line-number="20"></a>
+<a class="sourceLine" id="cb10-21" data-line-number="21"><span class="co">;; completion key bindings</span></a>
+<a class="sourceLine" id="cb10-22" data-line-number="22">(define-key company-mode-map (kbd <span class="st">&quot;C-M-i&quot;</span>) 'company-complete)</a>
+<a class="sourceLine" id="cb10-23" data-line-number="23">(define-key company-mode-map (kbd <span class="st">&quot;C-M-S-i&quot;</span>) 'counsel-company)</a>
+<a class="sourceLine" id="cb10-24" data-line-number="24"></a>
+<a class="sourceLine" id="cb10-25" data-line-number="25"> <span class="co">;; make company use pcomplete (via capf)</span></a>
+<a class="sourceLine" id="cb10-26" data-line-number="26"> (add-hook 'completion-at-point-functions 'pcomplete-completions-at-point)</a>
+<a class="sourceLine" id="cb10-27" data-line-number="27"></a>
+<a class="sourceLine" id="cb10-28" data-line-number="28"> <span class="co">;; not sure why this should be set in a hook, but that is how the manual says to do it.</span></a>
+<a class="sourceLine" id="cb10-29" data-line-number="29"> (add-hook 'after-init-hook 'global-company-mode)</a>
+<a class="sourceLine" id="cb10-30" data-line-number="30"></a></code></pre></div>
 </section>
 <section id="which-key" class="level1">
 <h1>Which-key</h1>
@@ -939,9 +942,23 @@ div.tocify {
 <a class="sourceLine" id="cb13-3" data-line-number="3">(<span class="kw">setq</span> outline-minor-mode-prefix <span class="st">&quot;\C-c\C-o&quot;</span>)</a>
 <a class="sourceLine" id="cb13-4" data-line-number="4"><span class="co">;; load outline-magic along with outline-minor-mode</span></a>
 <a class="sourceLine" id="cb13-5" data-line-number="5">(add-hook 'outline-minor-mode-hook </a>
-<a class="sourceLine" id="cb13-6" data-line-number="6">          (<span class="kw">lambda</span> () </a>
+<a class="sourceLine" id="cb13-6" data-line-number="6">          (<span class="kw">lambda</span> ()</a>
 <a class="sourceLine" id="cb13-7" data-line-number="7">            (<span class="kw">require</span> 'outline-magic)</a>
-<a class="sourceLine" id="cb13-8" data-line-number="8">            (define-key outline-minor-mode-map <span class="st">&quot;\C-c\C-o</span><span class="sc">\t</span><span class="st">&quot;</span> 'outline-cycle)))</a></code></pre></div>
+<a class="sourceLine" id="cb13-8" data-line-number="8">             <span class="co">;; (when (derived-mode-p 'prog-mode)</span></a>
+<a class="sourceLine" id="cb13-9" data-line-number="9">             <span class="co">;;   (outshine-hook-function))</span></a>
+<a class="sourceLine" id="cb13-10" data-line-number="10">             <span class="co">;; ;; outshine messes with keybindings :-(</span></a>
+<a class="sourceLine" id="cb13-11" data-line-number="11">             <span class="co">;; (define-key</span></a>
+<a class="sourceLine" id="cb13-12" data-line-number="12">             <span class="co">;;   outline-minor-mode-map (kbd &quot;C-M-i&quot;) 'company-complete)</span></a>
+<a class="sourceLine" id="cb13-13" data-line-number="13">             <span class="co">;; (define-key</span></a>
+<a class="sourceLine" id="cb13-14" data-line-number="14">             <span class="co">;;   outline-minor-mode-map (kbd &quot;M-TAB&quot;) 'company-complete)</span></a>
+<a class="sourceLine" id="cb13-15" data-line-number="15">             <span class="co">;; (define-key outline-minor-mode-map &quot;\C-c\C-o\t&quot; 'outline-cycle)</span></a>
+<a class="sourceLine" id="cb13-16" data-line-number="16">             ))</a>
+<a class="sourceLine" id="cb13-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb13-18" data-line-number="18">(with-eval-after-load <span class="st">&quot;outshine&quot;</span></a>
+<a class="sourceLine" id="cb13-19" data-line-number="19">  (define-key</a>
+<a class="sourceLine" id="cb13-20" data-line-number="20">    outline-minor-mode-map</a>
+<a class="sourceLine" id="cb13-21" data-line-number="21">    (kbd <span class="st">&quot;&lt;backtab&gt;&quot;</span>)</a>
+<a class="sourceLine" id="cb13-22" data-line-number="22">    'outshine-cycle-buffer))</a></code></pre></div>
 </section>
 <section id="demonstration-tools-command-log-mode" class="level1">
 <h1>Demonstration tools (command-log-mode)</h1>
@@ -1097,7 +1114,9 @@ div.tocify {
 <a class="sourceLine" id="cb19-5" data-line-number="5">               (<span class="kw">push</span> 'company-capf company-backends)</a>
 <a class="sourceLine" id="cb19-6" data-line-number="6">               (setq-local company-backends</a>
 <a class="sourceLine" id="cb19-7" data-line-number="7">                           (delete-dups (<span class="kw">push</span> 'company-ghci company-backends)))))</a>
-<a class="sourceLine" id="cb19-8" data-line-number="8">  (add-hook 'haskell-interactive-mode-hook 'company-mode))</a></code></pre></div>
+<a class="sourceLine" id="cb19-8" data-line-number="8">  (add-hook 'haskell-interactive-mode-hook 'company-mode)</a>
+<a class="sourceLine" id="cb19-9" data-line-number="9">  (<span class="kw">when</span> (executable-find <span class="st">&quot;stack&quot;</span>)</a>
+<a class="sourceLine" id="cb19-10" data-line-number="10">    (intero-global-mode <span class="dv">1</span>)))</a></code></pre></div>
 </section>
 <section id="light-weight-markup-language" class="level1">
 <h1>Light-weight markup language (Markdown mode)</h1>
