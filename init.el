@@ -622,8 +622,7 @@
              ;;   outline-minor-mode-map (kbd "C-M-i") 'company-complete)
              ;; (define-key
              ;;   outline-minor-mode-map (kbd "M-TAB") 'company-complete)
-             ;; (define-key outline-minor-mode-map "\C-c\C-o\t" 'outline-cycle)
-             ))
+             (define-key outline-minor-mode-map "\C-c\C-o\t" 'outline-cycle)))
 
 (with-eval-after-load "outshine"
   (define-key
