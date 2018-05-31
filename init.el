@@ -53,6 +53,7 @@
         adaptive-wrap
         ;; melpa packages
         ;; mode-icons ; slows things down, can be buggy
+        ein
         pdf-tools
         yasnippet
         yasnippet-snippets
