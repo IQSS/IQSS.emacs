@@ -112,6 +112,10 @@ The main purpose of these emacs configuration files is to install and configure 
           markdown-mode
           pandoc-mode
           polymode
+          poly-R
+          poly-markdown
+          poly-org
+          poly-noweb
           eval-in-repl
           haskell-mode
           intero
@@ -1187,35 +1191,19 @@ Emacs uses different /modes/ for different kinds of files and buffers. This is w
 
 #+BEGIN_SRC emacs-lisp
   ;;; polymode
-  ;; polymode requires emacs >= 24.3, does not work on the RCE. 
-  (when (>= (string-to-number 
-             (concat 
-              (number-to-string emacs-major-version) 
-              "." 
-              (number-to-string emacs-minor-version)))
-            24.3)
-    (with-eval-after-load "polymode"
-      ;; make it work for knitr with julia blocks
-      (add-to-list 'polymode-mode-name-override-alist '(julia . ess-julia)))
-  
-    ;; Activate polymode for files with the .md extension
-    (add-to-list 'auto-mode-alist '("\\.md" . poly-markdown-mode))
-    ;; Activate polymode for R related modes
-    (add-to-list 'auto-mode-alist '("\\.Snw" . poly-noweb+r-mode))
-    (add-to-list 'auto-mode-alist '("\\.Rnw" . poly-noweb+r-mode))
-    (add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode))
-    (add-to-list 'auto-mode-alist '("\\.rapport" . poly-rapport-mode))
-    (add-to-list 'auto-mode-alist '("\\.Rhtml" . poly-html+r-mode))
-    (add-to-list 'auto-mode-alist '("\\.Rbrew" . poly-brew+r-mode))
-    (add-to-list 'auto-mode-alist '("\\.Rcpp" . poly-r+c++-mode))
-    (add-to-list 'auto-mode-alist '("\\.cppR" . poly-c++r-mode))
-    ;; polymode doesn't play nice with adaptive-wrap, turn it off
-    (add-hook 'polymode-init-host-hook
-              '(lambda()
-                 (adaptive-wrap-prefix-mode -1)
-                 (electric-indent-local-mode -1)
-                 (unless (featurep 'ess-site)
-                   (require 'ess-site)))))
+  (with-eval-after-load "polymode"
+    ;; make it work for knitr with julia blocks
+    (add-to-list 'polymode-mode-name-override-alist '(julia . ess-julia)))
+
+  (with-eval-after-load "markdown"
+    (require 'ess-site))
+  (with-eval-after-load "Latex"
+    (require 'ess-site))
+  (require 'polymode)
+  (require 'poly-markdown)
+  (require 'poly-R)
+  (require 'poly-org)
+  (require 'poly-noweb)
 #+END_SRC
 
 * Email (mu4e)
