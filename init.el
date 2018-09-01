@@ -619,16 +619,17 @@
 (setq outline-minor-mode-prefix "\C-c\C-o")
 ;; load outline-magic along with outline-minor-mode
 (add-hook 'outline-minor-mode-hook 
-          (lambda ()
-            (require 'outline-magic)
-             ;; (when (derived-mode-p 'prog-mode)
-             ;;   (outshine-hook-function))
-             ;; ;; outshine messes with keybindings :-(
-             ;; (define-key
-             ;;   outline-minor-mode-map (kbd "C-M-i") 'company-complete)
-             ;; (define-key
-             ;;   outline-minor-mode-map (kbd "M-TAB") 'company-complete)
-             (define-key outline-minor-mode-map "\C-c\C-o\t" 'outline-cycle)))
+	  (lambda ()
+	    (require 'outline-magic)
+	     ;; (when (derived-mode-p 'prog-mode)
+	     ;;   (outshine-hook-function))
+	     ;; ;; outshine messes with keybindings :-(
+	     ;; (define-key
+	     ;;   outline-minor-mode-map (kbd "C-M-i") 'company-complete)
+	     ;; (define-key
+	     ;;   outline-minor-mode-map (kbd "M-TAB") 'company-complete)
+	    (define-key outline-minor-mode-map "\C-c\C-o\t" 'outline-cycle)
+	    (define-key outline-minor-mode-map (kbd "<backtab>") 'outline-cycle)))
 
 (with-eval-after-load "outshine"
   (define-key
@@ -968,7 +969,7 @@
 (with-eval-after-load "Latex"
   (require 'ess-site))
 (require 'polymode)
-;(require 'poly-markdown)
+(require 'poly-markdown)
 (require 'poly-R)
 (require 'poly-org)
 (require 'poly-noweb)
