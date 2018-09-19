@@ -68,7 +68,6 @@
         with-editor
         git-commit
         magit
-        eyebrowse
         anzu
         counsel
         flx-ido
@@ -84,6 +83,8 @@
         company
         company-math
         ess
+        julia-mode
+        julia-repl
         web-mode
         markdown-mode
         pandoc-mode
@@ -320,11 +321,6 @@
 (global-set-key (kbd "<C-prior>") 'beginning-of-buffer)
 (global-set-key (kbd "<C-next>") 'end-of-buffer)
 
-;; NOTE: keep an eye on ivy-views -- currently it doesn't remember window size, but if it gains that ability it will serve this purpose without additional dependancies.
-;; Work spaces
-(setq eyebrowse-keymap-prefix (kbd "C-c C-l"))
-(eyebrowse-mode t)
-
 ;; Undo/redo window changes
 (winner-mode 1)
 
@@ -333,6 +329,10 @@
 (global-set-key (kbd "C-x <S-right>") 'windmove-right)
 (global-set-key (kbd "C-x <S-up>") 'windmove-up)
 (global-set-key (kbd "C-x <S-down>") 'windmove-down)
+
+;; Store and recall window layouts (views!)
+(global-set-key (kbd "C-c v") 'ivy-push-view)
+(global-set-key (kbd "C-c V") 'ivy-switch-view)
 
 ;; use ace-window for navigating windows
 (global-set-key (kbd "C-x O") 'ace-window)
@@ -567,7 +567,6 @@
           ;; Prettify hydra entry points
           ("/body\\'"       . "|=")
           ;; Drop/shorten package prefixes
-          ("eyebrowse-"     . "")
           ("magit-"         . "ma-")))
 
   (which-key-declare-prefixes
@@ -656,9 +655,6 @@
 (setq comint-move-point-for-output t)
 
 ;;;  ESS (Emacs Speaks Statistics)
-
-;; Make sure ESS is loaded before we configure it
-(autoload 'julia "ess-julia" "Start a Julia REPL." t)
 (with-eval-after-load "ess-site"
   (ess-toggle-underscore nil) ; Don't convert underscores to assignment
   ;; function to set output width based on window size
@@ -740,6 +736,10 @@
           (lambda()
             ;;(setq-local outline-regexp "[#]+")
             (outline-minor-mode t)))
+
+(require 'julia-mode)
+(require 'julia-repl)
+(add-hook 'julia-mode-hook 'julia-repl-mode)
 
 (with-eval-after-load "elisp-mode"
   (require 'company-elisp)
@@ -823,7 +823,9 @@
   (defun my-tex-quit ()
     (interactive)
     "Kill any running tex jobs, and cancel other operations."
-    (TeX-kill-job)
+    (ignore-errors
+      (let ((inhibit-message t))
+        (TeX-kill-job)))
     (keyboard-quit))
 
   (define-key LaTeX-mode-map (kbd "C-g")
@@ -960,9 +962,6 @@
   (setq org-confirm-babel-evaluate nil))
 
 ;;; polymode
-(with-eval-after-load "polymode"
-  ;; make it work for knitr with julia blocks
-  (add-to-list 'polymode-mode-name-override-alist '(julia . ess-julia)))
 
 (with-eval-after-load "markdown"
   (require 'ess-site))

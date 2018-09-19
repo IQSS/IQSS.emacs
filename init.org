@@ -92,7 +92,6 @@ The main purpose of these emacs configuration files is to install and configure 
           with-editor
           git-commit
           magit
-          eyebrowse
           anzu
           counsel
           flx-ido
@@ -108,6 +107,8 @@ The main purpose of these emacs configuration files is to install and configure 
           company
           company-math
           ess
+          julia-mode
+          julia-repl
           web-mode
           markdown-mode
           pandoc-mode
@@ -377,13 +378,9 @@ Emacs will never to as simple as Notepad, but perhaps it can be made more consis
 
 =winner-mode= allows you to undo/redo window configuration changes. Use =C-c <left>= to undo and =C-c <right>= to redo.
 
-Emacs has [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Configuration-Registers.html#Configuration-Registers][window layout management]], built-in but it's not convenient to use. [[https://github.com/wasamasa/eyebrowse][Eyebrowse]] makes it easier, so we use that. Create a new layout with =C-c C-l C-n=, switch with =C-c C-l #= .
+Emacs has [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Configuration-Registers.html#Configuration-Registers][window layout management]], built-in but it's not convenient to use. We use [[https://oremacs.com/2016/06/27/ivy-push-view/][ivy]] to make it easier. Store the current view with =C-c v=, switch with =C-c V= .
 
 #+BEGIN_SRC emacs-lisp
-  ;; NOTE: keep an eye on ivy-views -- currently it doesn't remember window size, but if it gains that ability it will serve this purpose without additional dependancies.
-  ;; Work spaces
-  (setq eyebrowse-keymap-prefix (kbd "C-c C-l"))
-  (eyebrowse-mode t)
 
   ;; Undo/redo window changes
   (winner-mode 1)
@@ -393,6 +390,10 @@ Emacs has [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Configurat
   (global-set-key (kbd "C-x <S-right>") 'windmove-right)
   (global-set-key (kbd "C-x <S-up>") 'windmove-up)
   (global-set-key (kbd "C-x <S-down>") 'windmove-down)
+
+  ;; Store and recall window layouts (views!)
+  (global-set-key (kbd "C-c v") 'ivy-push-view)
+  (global-set-key (kbd "C-c V") 'ivy-switch-view)
 
   ;; use ace-window for navigating windows
   (global-set-key (kbd "C-x O") 'ace-window)
@@ -678,7 +679,6 @@ This mode shows a keymap when an incomplete command is entered. It is especially
             ;; Prettify hydra entry points
             ("/body\\'"       . "|=")
             ;; Drop/shorten package prefixes
-            ("eyebrowse-"     . "")
             ("magit-"         . "ma-")))
 
     (which-key-declare-prefixes
@@ -807,9 +807,6 @@ Support for R in Emacs is good, thanks to http://ess.r-project.org/. As with oth
 
 #+BEGIN_SRC emacs-lisp
   ;;;  ESS (Emacs Speaks Statistics)
-
-  ;; Make sure ESS is loaded before we configure it
-  (autoload 'julia "ess-julia" "Start a Julia REPL." t)
   (with-eval-after-load "ess-site"
     (ess-toggle-underscore nil) ; Don't convert underscores to assignment
     ;; function to set output width based on window size
@@ -902,12 +899,21 @@ Emacs has decent python support out of the box. As with other programming langua
               (outline-minor-mode t)))
 #+END_SRC
 
+* julia
+
+#+BEGIN_SRC emacs-lisp
+  (require 'julia-mode)
+  (require 'julia-repl)
+  (add-hook 'julia-mode-hook 'julia-repl-mode)
+#+END_SRC
+
 * emacs lisp REPL (ielm)
   :PROPERTIES:
   :CUSTOM_ID: emacs-lisp-repl
   :END:
 
-If you want to get the most out of Emacs, you'll eventually need to learn a little Emacs-lisp. This configuration helps by providing a standard =C-ret= evaluation key binding, and by providing completion with the =C-M-i= key.
+If you want to get the most out of Emacs, you'll eventually need to learn a little Emacs-lisp. This
+ configuration helps by providing a standard =C-ret= evaluation key binding, and by providing completion with the =C-M-i= key.
 
 #+BEGIN_SRC emacs-lisp
   (with-eval-after-load "elisp-mode"
@@ -1025,7 +1031,9 @@ I don't write nearly as much in LaTeX as I used to, as Markdown and/or Org mode 
     (defun my-tex-quit ()
       (interactive)
       "Kill any running tex jobs, and cancel other operations."
-      (TeX-kill-job)
+      (ignore-errors
+        (let ((inhibit-message t))
+          (TeX-kill-job)))
       (keyboard-quit))
 
     (define-key LaTeX-mode-map (kbd "C-g")
@@ -1192,9 +1200,6 @@ Emacs uses different /modes/ for different kinds of files and buffers. This is w
 
 #+BEGIN_SRC emacs-lisp
   ;;; polymode
-  (with-eval-after-load "polymode"
-    ;; make it work for knitr with julia blocks
-    (add-to-list 'polymode-mode-name-override-alist '(julia . ess-julia)))
 
   (with-eval-after-load "markdown"
     (require 'ess-site))
