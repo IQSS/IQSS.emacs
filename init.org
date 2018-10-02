@@ -68,19 +68,16 @@ The main purpose of these emacs configuration files is to install and configure 
   (add-to-list 'package-archives
                '("org" . "http://orgmode.org/elpa/") t)
 
-  ;; Make a list of the packages you want
+  ;; A list of the packages we always want
   (setq package-selected-packages
         '(;; gnu packages
-          auctex
           windresize
           diff-hl
           adaptive-wrap
-          ;; melpa packages
-          ;; mode-icons ; slows things down, can be buggy
-          ein
           pdf-tools
           yasnippet
           yasnippet-snippets
+          eglot
           visual-regexp
           command-log-mode
           undo-tree
@@ -90,13 +87,10 @@ The main purpose of these emacs configuration files is to install and configure 
           howdoi
           multi-term
           with-editor
-          git-commit
-          magit
           anzu
           counsel
           flx-ido
           smex
-          ivy-bibtex
           hydra
           ivy-hydra
           which-key
@@ -106,30 +100,17 @@ The main purpose of these emacs configuration files is to install and configure 
           unfill
           company
           company-math
-          ess
-          julia-mode
-          julia-repl
           web-mode
           markdown-mode
-          pandoc-mode
           polymode
-          poly-R
           poly-markdown
           poly-org
           poly-noweb
           eval-in-repl
-          haskell-mode
-          intero
-          company-ghci
-          flycheck
-          scala-mode
-          ensime
-          sbt-mode
           exec-path-from-shell
           dumb-jump
           htmlize
           dictionary
-          ox-pandoc
           untitled-new-buffer))
 
   ;; hide compilation buffer when complete
@@ -193,9 +174,56 @@ We try to install most things using the package manager, but a few things need t
                    ))
       (add-to-list 'exec-path-from-shell-variables var))
     (exec-path-from-shell-initialize))
+
+  (add-hook 'after-init-hook 'package-autoremove)
 #+END_SRC
 
 #+RESULTS:
+
+
+* Install system-dependent packages
+
+#+BEGIN_SRC emacs-lisp
+  ;; Add to the list of the packages we want
+
+  (when (executable-find "pdflatex")
+    (add-to-list 'package-selected-packages 'auctex)
+    (add-to-list 'package-selected-packages 'ivy-bibtex))
+  (when (executable-find "R")
+    (add-to-list 'package-selected-packages 'ess)
+    (add-to-list 'package-selected-packages 'poly-R))
+  (when (executable-find "git")
+    (add-to-list 'package-selected-packages 'git-commit)
+    (add-to-list 'package-selected-packages 'magit))
+  (when (executable-find "julia")
+    (add-to-list 'package-selected-packages 'julia-mode)
+    (add-to-list 'package-selected-packages 'julia-repl))
+  (when (or (executable-find "ghc")
+            (executable-find "stack"))
+    (add-to-list 'package-selected-packages 'haskell-mode)
+    (add-to-list 'package-selected-packages 'intero)
+    (add-to-list 'package-selected-packages 'company-ghci))
+  (when (executable-find "jupyter")
+    (add-to-list 'package-selected-packages 'ein))
+  (when (executable-find "pandoc")
+    (add-to-list 'package-selected-packages 'ox-pandoc))
+  (when (executable-find "scala")
+    (add-to-list 'package-selected-packages 'scala-mode)
+    (add-to-list 'package-selected-packages 'ensime)
+    (add-to-list 'package-selected-packages 'sbt-mode))
+                         
+
+  ;; install packages if needed
+  (unless (every 'package-installed-p package-selected-packages)
+    (message "Missing packages detected, please wait...")
+    ;; org needs to be installed first
+    (package-refresh-contents)
+    (package-install (cadr (assq 'org package-archive-contents)))
+    (package-install-selected-packages))
+  (when (< emacs-major-version 27)
+    (package-initialize))
+#+END_SRC
+
 
 * Tweak default Emacs settings
   :PROPERTIES:
@@ -684,8 +712,7 @@ This mode shows a keymap when an incomplete command is entered. It is especially
     (which-key-declare-prefixes
      ;; Prefixes for global prefixes and minor modes
      "C-c C-o" "outline"
-     "C-c C-l" "window/layouts"
-     "C-c !" "flycheck")
+     "C-c C-l" "window/layouts")
 
     ;; Prefixes for major modes
     (which-key-declare-prefixes-for-mode 'markdown-mode
@@ -721,16 +748,6 @@ This mode shows a keymap when an incomplete command is entered. It is especially
                                          "C-c C-t" "web/tags"))
 
   (which-key-mode t)
-#+END_SRC
-
-* Flycheck
-Provides on-the-fly syntax checking. Depends on external tools, e.g, [[https://cran.rstudio.com/web/packages/lintr/index.html][lintr]] for R code, [[https://flake8.readthedocs.io/en/latest/][flake8]] for python. See http://www.flycheck.org/en/latest/languages.html#flycheck-languages for supported languages and tools.
-
-Note that active on-the-fly syntax checking is _disabled_ by default since I find it too annoying. You can still use =flycheck= to check your syntax on demand using =flycheck-compile=, and you can enable on-the-fly checking with =M-x flycheck-mode=.
-
-#+BEGIN_SRC emacs-lisp
-  ;; (require 'flycheck)
-  ;; (global-flycheck-mode)
 #+END_SRC
 
 * Outline-magic
@@ -902,9 +919,10 @@ Emacs has decent python support out of the box. As with other programming langua
 * julia
 
 #+BEGIN_SRC emacs-lisp
-  (require 'julia-mode)
-  (require 'julia-repl)
-  (add-hook 'julia-mode-hook 'julia-repl-mode)
+  (when (executable-find "julia")
+    (require 'julia-mode)
+    (require 'julia-repl)
+    (add-hook 'julia-mode-hook 'julia-repl-mode))
 #+END_SRC
 
 * emacs lisp REPL (ielm)
@@ -999,128 +1017,129 @@ I don't write nearly as much in LaTeX as I used to, as Markdown and/or Org mode 
   ;;; AucTeX config
 
   ;; Modified from https://emacs.stackexchange.com/questions/33198/how-to-get-auctex-to-automatically-generate-atex-engineluatex-file-variable-d/33204
-   (defun iqss-prompt-tex-engine ()
-     (when (eq major-mode 'latex-mode)
-       ;; Check if we are looking at a new or shared file that doesn't specify a TeX engine.
-       (when (and (not buffer-read-only)
-                  (not (member 'TeX-engine (mapcar 'car file-local-variables-alist))))
-         (save-excursion
-           (add-file-local-variable
-            'TeX-engine
-            (intern (completing-read "TeX engine not set, how should this document be typeset?: "
-                                     (mapcar 'car (TeX-engine-alist)) nil nil nil nil "default"))))
-         (TeX-normal-mode t)
-         (blink-cursor-start))))
-
-  (add-hook
-   'find-file-hook
-   (lambda() (run-at-time "0.5 sec" nil 'iqss-prompt-tex-engine)))
-
-  (with-eval-after-load "Latex"
-    ;; Highlight beamer alert
-    (setq font-latex-user-keyword-classes
-          '(("beamer-alert" (("alert" "{")
-                             ("alerta" "{")
-                             ("alertb" "{")
-                             ("alertc" "{")
-                             ("alertd" "{")
-                             ("alerte" "{"))
-             font-latex-bold-face command)))
-    ;; Easy compile key
-    (define-key LaTeX-mode-map (kbd "<C-return>") 'TeX-command-run-all)
-    (defun my-tex-quit ()
-      (interactive)
-      "Kill any running tex jobs, and cancel other operations."
-      (ignore-errors
-        (let ((inhibit-message t))
-          (TeX-kill-job)))
-      (keyboard-quit))
-
-    (define-key LaTeX-mode-map (kbd "C-g")
-      'my-tex-quit)
-    ;; Allow paragraph filling in tables
-    (setq LaTeX-indent-environment-list
-          (delq (assoc "table" LaTeX-indent-environment-list)
-                LaTeX-indent-environment-list))
-    (setq LaTeX-indent-environment-list
-          (delq (assoc "table*" LaTeX-indent-environment-list)
-                LaTeX-indent-environment-list))
-    ;; Misc. latex settings
-    (setq TeX-parse-self t
-          TeX-auto-save t)
-    ;; (setq TeX-master 'dwim)
-    (setq TeX-save-query nil)
-    (setq-default TeX-master 'dwim)
-    ;; Add beamer frames to outline list
-    (setq TeX-outline-extra
-          '((".*\\\\begin{frame}\n\\|.*\\\\begin{frame}\\[.*\\]\\|.*\\\\begin{frame}.*{.*}\\|.*[       ]*\\\\frametitle\\b" 3)))
-    ;; reftex settings
-    (setq reftex-enable-partial-scans t)
-    (setq reftex-save-parse-info t)
-    (setq reftex-use-multiple-selection-buffers t)
-    (setq reftex-plug-into-AUCTeX t)
-    (add-hook 'TeX-mode-hook
-              (lambda ()
-                (turn-on-reftex)
-                (TeX-PDF-mode t)
-                (LaTeX-math-mode)
-                (TeX-source-correlate-mode t)
-                (imenu-add-to-menubar "Index")
-                (outline-minor-mode)
-                (require 'company-math)
-                (setq-local company-backends (delete-dups
-                                              (cons '(company-capf company-math-symbols-latex)
-                                                    (cons 'company-files company-backends))))
-                ;; (reftex-toc)
-                ;; (reftex-toc-goto-line)
-                ;; (run-at-time 1 nil (lambda()
-                ;;                      (reftex-toc)
-                ;;                      (reftex-toc-goto-line)))
-                ))
-    ;; Use pdf-tools to open PDF files
-    (when (eq system-type 'gnu/linux)
-      (pdf-tools-install)
-      (setq TeX-view-program-selection '((output-pdf "PDF Tools")))
-      TeX-source-correlate-start-server t
-      ;; Update PDF buffers after successful LaTeX runs
-      (add-hook 'TeX-after-compilation-finished-functions
-                #'TeX-revert-document-buffer))
-
-    ;; Count words in latex
-    ;; see http://app.uio.no/ifi/texcount/faq.html#emacs
-    ;; TeXcount setup for TeXcount version 2.3 and later
-    ;;
-    (when (executable-find "texcount")
-      (defun texcount ()
+  (when (executable-find "pdflatex")
+    (defun iqss-prompt-tex-engine ()
+      (when (eq major-mode 'latex-mode)
+        ;; Check if we are looking at a new or shared file that doesn't specify a TeX engine.
+        (when (and (not buffer-read-only)
+                   (not (member 'TeX-engine (mapcar 'car file-local-variables-alist))))
+          (save-excursion
+            (add-file-local-variable
+             'TeX-engine
+             (intern (completing-read "TeX engine not set, how should this document be typeset?: "
+                                      (mapcar 'car (TeX-engine-alist)) nil nil nil nil "default"))))
+          (TeX-normal-mode t)
+          (blink-cursor-start))))
+    
+    (add-hook
+     'find-file-hook
+     (lambda() (run-at-time "0.5 sec" nil 'iqss-prompt-tex-engine)))
+    
+    (with-eval-after-load "Latex"
+      ;; Highlight beamer alert
+      (setq font-latex-user-keyword-classes
+            '(("beamer-alert" (("alert" "{")
+                               ("alerta" "{")
+                               ("alertb" "{")
+                               ("alertc" "{")
+                               ("alertd" "{")
+                               ("alerte" "{"))
+               font-latex-bold-face command)))
+      ;; Easy compile key
+      (define-key LaTeX-mode-map (kbd "<C-return>") 'TeX-command-run-all)
+      (defun my-tex-quit ()
         (interactive)
-        (let*
-            ((this-file (buffer-file-name))
-             (enc-str (symbol-name buffer-file-coding-system))
-             (enc-opt
-              (cond
-               ((string-match "utf-8" enc-str) "-utf8")
-               ((string-match "latin" enc-str) "-latin1")
-               ("-encoding=guess")))
-             (word-count
-              (with-output-to-string
-                (with-current-buffer standard-output
-                  (call-process "texcount" nil t nil "-0" enc-opt this-file)))))
-          (message word-count)))
-      (defalias 'tex-count-words 'texcount "Count the number of words in the buffer."))
-    (define-key LaTeX-mode-map "\C-cw" 'tex-count-words)
-    (add-to-list 'TeX-command-list
-                 (list "TeX-count-words" "tex-count-words" 'TeX-run-function nil t)))
-
-  (with-eval-after-load "reftex"
-    (add-to-list 'reftex-section-levels '("frametitle" . 2))
-    (setq reftex-toc-split-windows-horizontally t)
-    (add-hook 'reftex-toc-mode-hook (lambda() (company-mode -1))))
-
-  (with-eval-after-load "bibtex"
-    (add-hook 'bibtex-mode-hook
-              (lambda ()
-                (define-key bibtex-mode-map "\M-q" 'bibtex-fill-entry))))
-
+        "Kill any running tex jobs, and cancel other operations."
+        (ignore-errors
+          (let ((inhibit-message t))
+            (TeX-kill-job)))
+        (keyboard-quit))
+      
+      (define-key LaTeX-mode-map (kbd "C-g")
+        'my-tex-quit)
+      ;; Allow paragraph filling in tables
+      (setq LaTeX-indent-environment-list
+            (delq (assoc "table" LaTeX-indent-environment-list)
+                  LaTeX-indent-environment-list))
+      (setq LaTeX-indent-environment-list
+            (delq (assoc "table*" LaTeX-indent-environment-list)
+                  LaTeX-indent-environment-list))
+      ;; Misc. latex settings
+      (setq TeX-parse-self t
+            TeX-auto-save t)
+      ;; (setq TeX-master 'dwim)
+      (setq TeX-save-query nil)
+      (setq-default TeX-master 'dwim)
+      ;; Add beamer frames to outline list
+      (setq TeX-outline-extra
+            '((".*\\\\begin{frame}\n\\|.*\\\\begin{frame}\\[.*\\]\\|.*\\\\begin{frame}.*{.*}\\|.*[       ]*\\\\frametitle\\b" 3)))
+      ;; reftex settings
+      (setq reftex-enable-partial-scans t)
+      (setq reftex-save-parse-info t)
+      (setq reftex-use-multiple-selection-buffers t)
+      (setq reftex-plug-into-AUCTeX t)
+      (add-hook 'TeX-mode-hook
+                (lambda ()
+                  (turn-on-reftex)
+                  (TeX-PDF-mode t)
+                  (LaTeX-math-mode)
+                  (TeX-source-correlate-mode t)
+                  (imenu-add-to-menubar "Index")
+                  (outline-minor-mode)
+                  (require 'company-math)
+                  (setq-local company-backends (delete-dups
+                                                (cons '(company-capf company-math-symbols-latex)
+                                                      (cons 'company-files company-backends))))
+                  ;; (reftex-toc)
+                  ;; (reftex-toc-goto-line)
+                  ;; (run-at-time 1 nil (lambda()
+                  ;;                      (reftex-toc)
+                  ;;                      (reftex-toc-goto-line)))
+                  ))
+      ;; Use pdf-tools to open PDF files
+      (when (eq system-type 'gnu/linux)
+        (pdf-tools-install)
+        (setq TeX-view-program-selection '((output-pdf "PDF Tools")))
+        TeX-source-correlate-start-server t
+        ;; Update PDF buffers after successful LaTeX runs
+        (add-hook 'TeX-after-compilation-finished-functions
+                  #'TeX-revert-document-buffer))
+      
+      ;; Count words in latex
+      ;; see http://app.uio.no/ifi/texcount/faq.html#emacs
+      ;; TeXcount setup for TeXcount version 2.3 and later
+      ;;
+      (when (executable-find "texcount")
+        (defun texcount ()
+          (interactive)
+          (let*
+              ((this-file (buffer-file-name))
+               (enc-str (symbol-name buffer-file-coding-system))
+               (enc-opt
+                (cond
+                 ((string-match "utf-8" enc-str) "-utf8")
+                 ((string-match "latin" enc-str) "-latin1")
+                 ("-encoding=guess")))
+               (word-count
+                (with-output-to-string
+                  (with-current-buffer standard-output
+                    (call-process "texcount" nil t nil "-0" enc-opt this-file)))))
+            (message word-count)))
+        (defalias 'tex-count-words 'texcount "Count the number of words in the buffer."))
+      (define-key LaTeX-mode-map "\C-cw" 'tex-count-words)
+      (add-to-list 'TeX-command-list
+                   (list "TeX-count-words" "tex-count-words" 'TeX-run-function nil t)))
+    
+    (with-eval-after-load "reftex"
+      (add-to-list 'reftex-section-levels '("frametitle" . 2))
+      (setq reftex-toc-split-windows-horizontally t)
+      (add-hook 'reftex-toc-mode-hook (lambda() (company-mode -1))))
+    
+    (with-eval-after-load "bibtex"
+      (add-hook 'bibtex-mode-hook
+                (lambda ()
+                  (define-key bibtex-mode-map "\M-q" 'bibtex-fill-entry)))))
+    
 #+END_SRC
 
 
@@ -1207,7 +1226,7 @@ Emacs uses different /modes/ for different kinds of files and buffers. This is w
     (require 'ess-site))
   (require 'polymode)
   (require 'poly-markdown)
-  (require 'poly-R)
+  (when (executable-find "R") (require 'poly-R))
   (require 'poly-org)
   (require 'poly-noweb)
 #+END_SRC
