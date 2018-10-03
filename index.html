@@ -245,58 +245,56 @@ div.tocify {
 <h2>Window management</h2>
 <p>One of the things that makes Emacs different that most other applications is the way that it handles windows. Unlike most Integrated Development Environments, there is no fixed layout. Instead, windows are created and killed as needed. New Emacs uses sometimes try to get Emacs to stop messing with their window layout – my approach is to just let Emacs do what it wants and the revert the layout using <code>C-c left</code>.</p>
 <table>
-<colgroup>
-<col style="width: 18%"></col>
-<col style="width: 21%"></col>
-<col style="width: 60%"></col>
-</colgroup>
 <thead>
 <tr class="header">
 <th>Key</th>
 <th>Description</th>
-<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td><code>C-x 2</code></td>
 <td>Split horizontally</td>
-<td></td>
 </tr>
 <tr class="even">
 <td><code>C-x 3</code></td>
 <td>Split vertically</td>
-<td></td>
 </tr>
 <tr class="odd">
 <td><code>C-x 1</code></td>
 <td>Remove splits</td>
-<td></td>
 </tr>
 <tr class="even">
 <td><code>C-x S-&lt;arrow&gt;</code></td>
 <td>Move to other window</td>
-<td></td>
 </tr>
 <tr class="odd">
 <td><code>C-x S-0</code></td>
 <td>Move to a window by number</td>
-<td></td>
 </tr>
 <tr class="even">
 <td><code>C-c left</code></td>
 <td>Undo a window layout change</td>
-<td></td>
 </tr>
 <tr class="odd">
 <td><code>C-c right</code></td>
 <td>Redo a window layout change</td>
-<td></td>
 </tr>
 <tr class="even">
-<td><code>C-c C-l &lt;number&gt;</code></td>
-<td>Save/restore window layouts</td>
-<td>This a somewhat advanced feature that lets you save and restore window layouts</td>
+<td><code>C-c v</code></td>
+<td>Save window layout</td>
+</tr>
+<tr class="odd">
+<td><code>C-c V</code></td>
+<td>Restore a saved window layout</td>
+</tr>
+<tr class="even">
+<td><code>C-c a</code></td>
+<td>Rotate window arrangements</td>
+</tr>
+<tr class="odd">
+<td><code>C-c b</code></td>
+<td>Rotate buffers</td>
 </tr>
 </tbody>
 </table>
@@ -356,6 +354,7 @@ div.tocify {
 <section id="repl-interaction" class="level2">
 <h2>REPL interaction</h2>
 <p>This should be easy, and hopefully it is!</p>
+<p>Note that we use a heuristic to decide whether to install language support (e.g., for <em>R</em> or <em>Scala</em> etc.). If the corresponding program is in your <code>PATH</code> Emacs support will be installed. For example, if <code>R</code> is in your <code>PATH</code> the <em>ESS</em> package will be installed.</p>
 <p>Aliases have been created for starting R, python, haskell, and terminals. For example, to start python just type <code>M-x python &lt;ret&gt;</code>.</p>
 <p>To execute a line, region, or buffer from a script (R, python, bash) etc.) use the keybindings below.</p>
 <table>
@@ -389,6 +388,10 @@ div.tocify {
 <h2>Interacting with external programs</h2>
 <p>Many of the Emacs features configured here are designed to make it easier to interact with external programs. For example, <a href="http://ess.r-project.org">ESS</a> makes it easy to interact with <a href="http://r-project.org">R</a>, and <a href="https://www.gnu.org/software/auctex/">AUCTEX</a> makes it easy to interact with <a href="http://tug.org/texlive/">LaTeX</a>. If you need help installing these programs, <a href="http://iqss.github.io/IQSS.emacs/UsefulPrograms.html">this short guide</a> may help.</p>
 </section>
+</section>
+<section id="customization" class="level1">
+<h1>Customization</h1>
+<p>You can put any additional Emacs configuration in <code>~/.emacs.d/custom.el</code>. This file is loaded last, so you always have the chance to override any settings you don’t like. You can require additional packages by adding the to <code>package-selected-packages</code>. For example, putting <code>(add-to-list &#39;package-slected-packages &#39;matlab-mode)</code> in your <code>custom.el</code> file will ensure that the <em>matlab-mode</em> package is installed.</p>
 </section>
 <section id="more-information" class="level1">
 <h1>More information</h1>

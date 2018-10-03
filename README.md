@@ -143,16 +143,19 @@ to stop messing with their window layout -- my approach is to just let
 Emacs do what it wants and the revert the layout using `C-c left`.
 
 
-  Key                     |Description                  |Notes
-  ------------------------|-----------------------------|--------------------------------------------------------------------------------
-  `C-x 2`                 | Split horizontally          |
-  `C-x 3`                 | Split vertically            |
-  `C-x 1`                 | Remove splits               |
-  `C-x S-<arrow>`         | Move to other window        |
-  `C-x S-0`               | Move to a window by number  | 
-  `C-c left`              | Undo a window layout change | 
-  `C-c right`             | Redo a window layout change | 
-  `C-c C-l <number>`      | Save/restore window layouts | This a somewhat advanced feature that lets you save and restore window layouts
+  Key                     |Description                  
+  ------------------------|-----------------------------
+  `C-x 2`                 | Split horizontally          
+  `C-x 3`                 | Split vertically            
+  `C-x 1`                 | Remove splits               
+  `C-x S-<arrow>`         | Move to other window        
+  `C-x S-0`               | Move to a window by number  
+  `C-c left`              | Undo a window layout change 
+  `C-c right`             | Redo a window layout change 
+  `C-c v`                 | Save window layout          
+  `C-c V`                 | Restore a saved window layout
+  `C-c a`                 | Rotate window arrangements
+  `C-c b`                 | Rotate buffers
   
 Searching and Completion
 ------------------------------
@@ -184,6 +187,11 @@ REPL interaction
 
 This should be easy, and hopefully it is!
 
+Note that we use a heuristic to decide whether to install language
+support (e.g., for *R* or *Scala* etc.). If the corresponding program
+is in your `PATH` Emacs support will be installed. For example, if `R`
+is in your `PATH` the *ESS* package will be installed.
+
 Aliases have been created for starting R, python, haskell, and
 terminals. For example, to start python just type `M-x python <ret>`.
 
@@ -207,6 +215,19 @@ easier to interact with external programs. For example,
 with [LaTeX](http://tug.org/texlive/). If you need help installing these
 programs, [this short guide](http://iqss.github.io/IQSS.emacs/UsefulPrograms.html) 
 may help.
+
+
+Customization
+=============
+
+You can put any additional Emacs configuration in
+`~/.emacs.d/custom.el`. This file is loaded last, so you always have
+the chance to override any settings you don't like. You can require
+additional packages by adding the to `package-selected-packages`. For
+example, putting `(add-to-list 'package-slected-packages
+'matlab-mode)` in your `custom.el` file will ensure that the
+*matlab-mode* package is installed.
+
 
 More information
 =============
