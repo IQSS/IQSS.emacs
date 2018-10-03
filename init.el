@@ -53,6 +53,7 @@
         pdf-tools
         yasnippet
         yasnippet-snippets
+        smart-tab
         eglot
         visual-regexp
         command-log-mode
@@ -570,6 +571,10 @@
 ;; completion key bindings
 (define-key company-mode-map (kbd "C-M-i") 'company-complete)
 (define-key company-mode-map (kbd "C-M-S-i") 'counsel-company)
+(require 'smart-tab)
+(setq smart-tab-expand-eolp t
+      smart-tab-user-provided-completion-function 'company-complete)
+(add-hook 'prog-mode-hook 'smart-tab-mode-on)
 
  ;; make company use pcomplete (via capf)
  (add-hook 'completion-at-point-functions 'pcomplete-completions-at-point)

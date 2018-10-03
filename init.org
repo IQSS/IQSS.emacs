@@ -82,6 +82,7 @@ If a program is not in your =PATH= but you wish to install an Emacs package anyw
           pdf-tools
           yasnippet
           yasnippet-snippets
+          smart-tab
           eglot
           visual-regexp
           command-log-mode
@@ -658,7 +659,7 @@ More information is available at http://oremacs.com/swiper/.
   :PROPERTIES:
   :CUSTOM_ID: auto-complete-configuration
   :END:
-Here we configure in-buffer text completion using the company-mode package. These completions are available on-demand using =C-M-i= for in-buffer popup or =C-M-S-i= for search-able minibuffer list. More information is available at https://company-mode.github.io/.
+Here we configure in-buffer text completion using the company-mode package. These completions are available on-demand using =TAB= for in-buffer popup or =C-M-S-i= for search-able minibuffer list. More information is available at https://company-mode.github.io/.
 
 #+BEGIN_SRC emacs-lisp
   (require 'company)
@@ -684,6 +685,10 @@ Here we configure in-buffer text completion using the company-mode package. Thes
   ;; completion key bindings
   (define-key company-mode-map (kbd "C-M-i") 'company-complete)
   (define-key company-mode-map (kbd "C-M-S-i") 'counsel-company)
+  (require 'smart-tab)
+  (setq smart-tab-expand-eolp t
+        smart-tab-user-provided-completion-function 'company-complete)
+  (add-hook 'prog-mode-hook 'smart-tab-mode-on)
 
    ;; make company use pcomplete (via capf)
    (add-hook 'completion-at-point-functions 'pcomplete-completions-at-point)
