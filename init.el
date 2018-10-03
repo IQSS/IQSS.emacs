@@ -148,7 +148,12 @@
     (add-to-list 'exec-path-from-shell-variables var))
   (exec-path-from-shell-initialize))
 
-(add-hook 'after-init-hook 'package-autoremove)
+(add-hook 'after-init-hook
+          'package-autoremove)
+(add-hook 'after-init-hook
+          '(lambda()
+             (unless (every 'package-installed-p package-selected-packages)
+               (package-install-selected-packages))))
 
 ;; Add to the list of the packages we want
 
@@ -1213,16 +1218,13 @@ Will prompt you shell name when you type `C-u' before this command."
 ;; save settings made using the customize interface to a sparate file
   (setq custom-file (concat user-emacs-directory "custom.el"))
   (unless (file-exists-p custom-file)
-    (write-region ";; Put user configuration here
+    (write-region ";; Put your personal user configuration in this file.
 
 ;; To require addional packages add them to 'package-selected-packages, e.g.
 ;; (add-to-list 'package-slected-packages 'ess)
-;; will ensure that the ess package is installed
+;; will ensure that the ess package is installed the next time Emacs starts.
 
 
-
-(unless (every 'package-installed-p package-selected-packages)
-  (package-install-selected-packages))
 " nil custom-file))
   (load custom-file 'noerror)
 
