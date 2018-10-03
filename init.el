@@ -577,6 +577,7 @@
 (define-key company-mode-map (kbd "C-M-i") 'company-complete)
 (define-key company-mode-map (kbd "C-M-S-i") 'counsel-company)
 (require 'smart-tab)
+(require 'eglot)
 (setq smart-tab-expand-eolp t
       smart-tab-user-provided-completion-function 'company-complete)
 (add-hook 'prog-mode-hook 'smart-tab-mode-on)
@@ -692,6 +693,11 @@
 
 ;;;  ESS (Emacs Speaks Statistics)
 (with-eval-after-load "ess-site"
+  (setq ess-use-company nil)
+  (add-to-list 'eglot-server-programs
+               `(ess-mode . ("R"
+                             "--slave"
+                             "-e" "if(!require(\"languageserver\", quietly=TRUE))install.packages(\"languageserver\");languageserver::run()")))
   (ess-toggle-underscore nil) ; Don't convert underscores to assignment
   ;; function to set output width based on window size
   (defun my-ess-execute-screen-options (foo)
@@ -711,6 +717,7 @@
   ;; set up when entering ess-mode
   (add-hook 'ess-mode-hook
             (lambda()
+              (eglot-ensure)
               ;; don't indent comments
               (setq ess-indent-with-fancy-comments nil)
               ;; don't wrap long lines
@@ -828,7 +835,7 @@
 ;;; AucTeX config
 
 ;; Modified from https://emacs.stackexchange.com/questions/33198/how-to-get-auctex-to-automatically-generate-atex-engineluatex-file-variable-d/33204
-(when (executable-find "pdflatex")
+(with-eval-after-load "tex-site"
   (defun iqss-prompt-tex-engine ()
     (when (eq major-mode 'latex-mode)
       ;; Check if we are looking at a new or shared file that doesn't specify a TeX engine.
