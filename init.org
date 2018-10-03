@@ -56,6 +56,11 @@ It is difficult to support multiple versions of emacs, so we will pick an arbitr
   :END:
 The main purpose of these emacs configuration files is to install and configure useful emacs packages. Here we carry out the installation.
 
+Note that we use a heuristic to decide whether to install language support (e.g., for =R= or =Scala= etc.). If the corresponding program is in your =PATH= Emacs support will be installed. For example, if =R= is in your =PATH= the ESS package will be installed. 
+
+If a program is not in your =PATH= but you wish to install an Emacs package anyway you can add it to the list of required packages following the instructions in the =custom.el= file. For example, putting =(add-to-list 'package-slected-packages 'ess)= in your =custom.el= file will ensure that the ESS package is installed even if the =R= program is not in your =PATH=.
+
+
 #+BEGIN_SRC emacs-lisp
   ;; load the package manager
   (require 'package)
@@ -434,8 +439,8 @@ Finally, [[https://github.com/daichirata/emacs-rotate][emacs-rotate]] makes arra
     (set-face-attribute 'aw-leading-char-face nil :height 2.5))
 
   ;; rotate buffers and window arrangements
-  (global-set-key (kbd "C-x b") 'rotate-window)
-  (global-set-key (kbd "C-x a") 'rotate-layout)
+  (global-set-key (kbd "C-c b") 'rotate-window)
+  (global-set-key (kbd "C-c a") 'rotate-layout)
 
   ;; modified from https://github.com/aculich/.emacs.d/blob/master/init.el
   (setq frame-title-format
@@ -1477,7 +1482,17 @@ This Emacs configuration sets up lots of packages and configures a number of key
   ;; save settings made using the customize interface to a sparate file
   (setq custom-file (concat user-emacs-directory "custom.el"))
   (unless (file-exists-p custom-file)
-    (write-region ";; Put user configuration here" nil custom-file))
+    (write-region ";; Put user configuration here
+
+;; To require addional packages add them to 'package-selected-packages, e.g.
+;; (add-to-list 'package-slected-packages 'ess)
+;; will ensure that the ess package is installed
+
+
+
+(unless (every 'package-installed-p package-selected-packages)
+  (package-install-selected-packages))
+" nil custom-file))
   (load custom-file 'noerror)
 
   ;; start with untitled new buffer

@@ -366,8 +366,8 @@
   (set-face-attribute 'aw-leading-char-face nil :height 2.5))
 
 ;; rotate buffers and window arrangements
-(global-set-key (kbd "C-x b") 'rotate-window)
-(global-set-key (kbd "C-x a") 'rotate-layout)
+(global-set-key (kbd "C-c b") 'rotate-window)
+(global-set-key (kbd "C-c a") 'rotate-layout)
 
 ;; modified from https://github.com/aculich/.emacs.d/blob/master/init.el
 (setq frame-title-format
@@ -1206,22 +1206,32 @@ Will prompt you shell name when you type `C-u' before this command."
             (with-editor-export-git-editor)))
 
 ;; save settings made using the customize interface to a sparate file
-(setq custom-file (concat user-emacs-directory "custom.el"))
-(unless (file-exists-p custom-file)
-  (write-region ";; Put user configuration here" nil custom-file))
-(load custom-file 'noerror)
+  (setq custom-file (concat user-emacs-directory "custom.el"))
+  (unless (file-exists-p custom-file)
+    (write-region ";; Put user configuration here
 
-;; start with untitled new buffer
-(add-hook 'after-init-hook
-          (lambda()
-            (setq inhibit-startup-screen t) ;; yes, we really want to do this!
-            (delete-other-windows)
-            (untitled-new-buffer-with-select-major-mode 'text-mode)))
+;; To require addional packages add them to 'package-selected-packages, e.g.
+;; (add-to-list 'package-slected-packages 'ess)
+;; will ensure that the ess package is installed
 
-(setq untitled-new-buffer-major-modes '(text-mode python-mode r-mode markdown-mode LaTeX-mode emacs-lisp-mode))
-;; Change default buffer name.
-(setq untitled-new-buffer-default-name "*Untitled*")
 
-;; Start the server if it is not already running
-(require 'server)
-(unless (server-running-p) (server-start))
+
+(unless (every 'package-installed-p package-selected-packages)
+  (package-install-selected-packages))
+" nil custom-file))
+  (load custom-file 'noerror)
+
+  ;; start with untitled new buffer
+  (add-hook 'after-init-hook
+            (lambda()
+              (setq inhibit-startup-screen t) ;; yes, we really want to do this!
+              (delete-other-windows)
+              (untitled-new-buffer-with-select-major-mode 'text-mode)))
+
+  (setq untitled-new-buffer-major-modes '(text-mode python-mode r-mode markdown-mode LaTeX-mode emacs-lisp-mode))
+  ;; Change default buffer name.
+  (setq untitled-new-buffer-default-name "*Untitled*")
+
+  ;; Start the server if it is not already running
+  (require 'server)
+  (unless (server-running-p) (server-start))
