@@ -695,7 +695,7 @@
 (with-eval-after-load "ess-site"
   (setq ess-use-company nil)
   (add-to-list 'eglot-server-programs
-               `(ess-mode . (,inferior-ess-r-program
+               `(ess-mode . (inferior-ess-r-program
                              "--slave"
                              "-e" "if(!require(\"languageserver\", quietly=TRUE))install.packages(\"languageserver\");languageserver::run()")))
   (ess-toggle-underscore nil) ; Don't convert underscores to assignment
