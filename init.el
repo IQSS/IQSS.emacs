@@ -982,7 +982,7 @@
   (require 'ob-shell)
   (require 'ob-emacs-lisp)
   (require 'ob-org)
-  (when (executable-find "R") 
+  (when (package-installed-p 'ess) 
       (require 'ess-site)
       (require 'ob-R))
   (when (executable-find "python") (require 'ob-python))
@@ -999,16 +999,17 @@
   (setq org-confirm-babel-evaluate nil))
 
 ;;; polymode
-
-(with-eval-after-load "markdown"
-  (require 'ess-site))
-(with-eval-after-load "Latex"
-  (require 'ess-site))
 (require 'polymode)
-(require 'poly-markdown)
-(when (executable-find "R") (require 'poly-R))
-(require 'poly-org)
-(require 'poly-noweb)
+(when (package-installed-p 'ess)
+  (with-eval-after-load "markdown"
+    (require 'ess-site))
+  (with-eval-after-load "Latex"
+    (require 'ess-site))
+  (require 'poly-R))
+(with-eval-after-load "markdown"
+    (require 'poly-markdown))
+(with-eval-after-load "org"
+  (require 'poly-org))
 
 (when (executable-find "mu")
   (autoload 'mu4e "mu4e" "Read your mail." t)
