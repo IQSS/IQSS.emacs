@@ -695,7 +695,7 @@
 (with-eval-after-load "ess-site"
   (setq ess-use-company nil)
   (add-to-list 'eglot-server-programs
-               `(ess-mode . ("R"
+               `(ess-mode . (,inferior-ess-r-program
                              "--slave"
                              "-e" "if(!require(\"languageserver\", quietly=TRUE))install.packages(\"languageserver\");languageserver::run()")))
   (ess-toggle-underscore nil) ; Don't convert underscores to assignment
@@ -758,16 +758,9 @@
   (setq python-shell-completion-native-enable nil)
   ;; simple evaluation with C-ret
   (require 'eval-in-repl-python)
-  (add-hook 'python-mode-hook
-            '(lambda()
-               (setq-local company-backends company-backends)
-               (setq-local company-backends
-                           (delete-dups (push 'company-capf company-backends)))))
-  (add-hook 'inferior-python-mode-hook
-            '(lambda()
-               (setq-local company-backends company-backends)
-               (setq-local company-backends
-                           (delete-dups (push 'company-capf company-backends)))))
+  (when (executable-find "pyls")
+    (add-hook 'python-mode-hook 'eglot-ensure)
+    (add-hook 'inferior-python-mode-hook 'eglot-ensure))
   ;;(setq eir-use-python-shell-send-string nil)
   (define-key python-mode-map (kbd "C-c C-c") 'eir-eval-in-python)
   (define-key python-mode-map (kbd "<C-return>") 'eir-eval-in-python)
