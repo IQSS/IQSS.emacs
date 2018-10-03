@@ -96,8 +96,10 @@
             (if (null (string-match ".*exited abnormally.*" str))
                 ;;no errors, make the compilation window go away in a few seconds
                 (progn
-                  (let ((win  (get-buffer-window buf 'visible)))
-                    (when win (delete-window win)))))))
+                  (run-at-time
+                   "2 sec" nil 'delete-windows-on
+                   (get-buffer-create "*compilation*"))
+                  (message "No Compilation Errors!")))))
 
 ;; install packages if needed
 (unless (every 'package-installed-p package-selected-packages)
@@ -359,6 +361,7 @@
 ;; use ace-window for navigating windows
 (global-set-key (kbd "C-x O") 'ace-window)
 (with-eval-after-load "ace-window"
+  (setq aw-dispatch-always t)
   (set-face-attribute 'aw-leading-char-face nil :height 2.5))
 
 ;; modified from https://github.com/aculich/.emacs.d/blob/master/init.el
