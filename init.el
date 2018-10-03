@@ -804,12 +804,11 @@
 
 (with-eval-after-load "haskell-mode"
   (defalias 'haskell 'haskell-interactive-bring)
-  (add-hook 'haskell-mode-hook
-            '(lambda ()
-               (push 'company-capf company-backends)
-               (setq-local company-backends
-                           (delete-dups (push 'company-ghci company-backends)))))
-  (add-hook 'haskell-interactive-mode-hook 'company-mode)
+  (when (or (executable-find "hie")
+            (executable-find "hie-wrapper")
+            (executable-find "stack"))
+  (add-hook 'haskell-mode-hook 'eglot-ensure)
+  (add-hook 'haskell-interactive-mode-hook 'eglot-ensure))
   (when (executable-find "stack")
     (intero-global-mode 1)))
 
