@@ -60,6 +60,7 @@
         better-defaults
         minions
         ace-window
+        rotate
         howdoi
         multi-term
         with-editor
@@ -363,6 +364,10 @@
 (with-eval-after-load "ace-window"
   (setq aw-dispatch-always t)
   (set-face-attribute 'aw-leading-char-face nil :height 2.5))
+
+;; rotate buffers and window arrangements
+(global-set-key (kbd "C-x b") 'rotate-window)
+(global-set-key (kbd "C-x a") 'rotate-layout)
 
 ;; modified from https://github.com/aculich/.emacs.d/blob/master/init.el
 (setq frame-title-format

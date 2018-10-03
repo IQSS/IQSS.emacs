@@ -84,6 +84,7 @@ The main purpose of these emacs configuration files is to install and configure 
           better-defaults
           minions
           ace-window
+          rotate
           howdoi
           multi-term
           with-editor
@@ -404,12 +405,13 @@ Emacs will never to as simple as Notepad, but perhaps it can be made more consis
   :CUSTOM_ID: window-management
   :END:
 
-=windmove= allows you to move point to adjacent windows; these functions are bound to =C-x S-<arrow>=. For example, to move to the window below, press "Control-x shift-down", and to move to the window to the right press "Control-x shift-right". Finally, you can use =C-x O= to quickly navigate to an window arbitrary window (e.g., diagonal from the current window).
+=windmove= allows you to move point to adjacent windows; these functions are bound to =C-x S-<arrow>=. For example, to move to the window below, press "Control-x shift-down", and to move to the window to the right press "Control-x shift-right". If you have more than one split you can use =C-x O= to quickly navigate to an window arbitrary window (e.g., diagonal from the current window; see https://github.com/abo-abo/ace-window/ for details).
 
 =winner-mode= allows you to undo/redo window configuration changes. Use =C-c <left>= to undo and =C-c <right>= to redo.
 
 Emacs has [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Configuration-Registers.html#Configuration-Registers][window layout management]], built-in but it's not convenient to use. We use [[https://oremacs.com/2016/06/27/ivy-push-view/][ivy]] to make it easier. Store the current view with =C-c v=, switch with =C-c V= .
 
+Finally, [[https://github.com/daichirata/emacs-rotate][emacs-rotate]] makes arranging your windows much easier. Use =C-c b= to rotate buffers and =C-c a= to rotate the window arrangement.
 #+BEGIN_SRC emacs-lisp
 
   ;; Undo/redo window changes
@@ -430,6 +432,10 @@ Emacs has [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Configurat
   (with-eval-after-load "ace-window"
     (setq aw-dispatch-always t)
     (set-face-attribute 'aw-leading-char-face nil :height 2.5))
+
+  ;; rotate buffers and window arrangements
+  (global-set-key (kbd "C-x b") 'rotate-window)
+  (global-set-key (kbd "C-x a") 'rotate-layout)
 
   ;; modified from https://github.com/aculich/.emacs.d/blob/master/init.el
   (setq frame-title-format
