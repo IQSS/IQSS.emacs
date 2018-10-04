@@ -694,10 +694,6 @@
 ;;;  ESS (Emacs Speaks Statistics)
 (with-eval-after-load "ess-site"
   (setq ess-use-company nil)
-  (add-to-list 'eglot-server-programs
-               `(ess-mode . (inferior-ess-r-program
-                             "--slave"
-                             "-e" "if(!require(\"languageserver\", quietly=TRUE))install.packages(\"languageserver\");languageserver::run()")))
   (ess-toggle-underscore nil) ; Don't convert underscores to assignment
   ;; function to set output width based on window size
   (defun my-ess-execute-screen-options (foo)
@@ -717,7 +713,6 @@
   ;; set up when entering ess-mode
   (add-hook 'ess-mode-hook
             (lambda()
-              (eglot-ensure)
               ;; don't indent comments
               (setq ess-indent-with-fancy-comments nil)
               ;; don't wrap long lines
@@ -749,6 +744,21 @@
      (ess-fl-keyword:delimiters)
      (ess-fl-keyword:=)
      (ess-R-fl-keyword:F&T)))))
+
+(with-eval-after-load "ess-r-mode"
+  (when (boundp 'inferior-ess-r-program)
+    (setq ess-use-company nil)
+    (add-hook 'ess-mode-hook '(lambda() (setq ess-use-company nil)))
+    (add-to-list 'eglot-server-programs
+                 `(ess-mode . (,inferior-ess-r-program
+                               "--slave"
+                               "-e"
+                               "languageserver::run()")))
+    (add-hook 'R-mode-hook 'eglot-ensure)
+    (add-hook 'R-mode-hook
+              '(lambda()
+                 (setq-local ess-use-company nil)
+                 (push 'company-capf company-backends)))))
 
 (defalias 'python 'run-python)
 
