@@ -847,7 +847,7 @@ Load eval-in-repl for bash, elisp, and python interaction.
   :CUSTOM_ID: run-r-in-emacs
   :END:
 
-Support for R in Emacs is good, thanks to http://ess.r-project.org/. As with other programming languages this configuration enables completion via the =C-M-i= key and code evaluation with =C-ret=. Many more features are provided by ESS, refer to http://ess.r-project.org/ for details.
+Support for R in Emacs is good, thanks to http://ess.r-project.org/. As with other programming languages this configuration enables completion via the =<tab>= key and code evaluation with =C-ret=. Many more features are provided by ESS, refer to http://ess.r-project.org/ for details.
 
 #+BEGIN_SRC emacs-lisp
   ;;;  ESS (Emacs Speaks Statistics)
@@ -947,7 +947,7 @@ Support for R in Emacs is good, thanks to http://ess.r-project.org/. As with oth
   :CUSTOM_ID: run-python-in-emacs
   :END:
 
-Emacs has decent python support out of the box. As with other programming languages you can get completion suggestions with the =C-M-i= key, and evaluate code with =C-ret=. Many more features are provided and are accessible via the menu.
+Emacs has decent python support out of the box. As with other programming languages you can get completion suggestions with the =<tab>= key, and evaluate code with =C-ret=. Many more features are provided and are accessible via the menu.
 
 #+BEGIN_SRC emacs-lisp
   (defalias 'python 'run-python)
@@ -992,7 +992,7 @@ Emacs has decent python support out of the box. As with other programming langua
   :END:
 
 If you want to get the most out of Emacs, you'll eventually need to learn a little Emacs-lisp. This
- configuration helps by providing a standard =C-ret= evaluation key binding, and by providing completion with the =C-M-i= key.
+ configuration helps by providing a standard =C-ret= evaluation key binding, and by providing completion with the =<tab>= key.
 
 #+BEGIN_SRC emacs-lisp
   (with-eval-after-load "elisp-mode"
@@ -1024,7 +1024,7 @@ If you want to get the most out of Emacs, you'll eventually need to learn a litt
   :PROPERTIES:
   :CUSTOM_ID: light-weight-markup-language
   :END:
-I just recently started learning Haskell. There's not much to the configuration at this point, but you should get completion with =C-M-i=. To cycle indentation press =Shift+tab=.
+I just recently started learning Haskell. There's not much to the configuration at this point, but you should get completion with =<tab>=. To cycle indentation press =Shift+tab=.
 
 #+BEGIN_SRC emacs-lisp
   (with-eval-after-load "haskell-mode"
@@ -1069,7 +1069,7 @@ Editing HTML in Emacs is OK out of the box, but it doesn't support template syst
   :PROPERTIES:
   :CUSTOM_ID: typesetting-markup
   :END:
-I don't write nearly as much in LaTeX as I used to, as Markdown and/or Org mode are simpler and good enough for my needs. But LaTeX is still the tool of choice for much academic writing, so we use AUCTEX and turn on lots of features. Completion of math and latex commands is available with =C-M-i=, and auto-compile is available with =C-ret=.
+I don't write nearly as much in LaTeX as I used to, as Markdown and/or Org mode are simpler and good enough for my needs. But LaTeX is still the tool of choice for much academic writing, so we use AUCTEX and turn on lots of features. Completion of math and latex commands is available with =<tab>=, and auto-compile is available with =C-ret=.
 
   See https://www.gnu.org/software/auctex/ for more details about AUCTEX. 
 

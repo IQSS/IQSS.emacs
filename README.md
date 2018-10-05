@@ -31,7 +31,7 @@ Highlights of this Emacs configuration:
     programming languages inside markdown or org-mode files.
 -   Consistent and familiar code evaluation using `C-ret` (that's `Control + Return`).
 -   Consistent indentation and folding using the `tab` key.
--   Consistent completion using `C-M-i` (that's `Control + Meta/Alt + i`)
+-   Consistent completion using `<tab>`.
 -   Support for LaTeX and other markup languages.
 -   Powerful and simple search-based tools for finding commands, files
     and buffers, inserting citations etc.
@@ -178,7 +178,7 @@ contents using the keys described in the table below.
   `win-f`    |Find in file                                |
   `C-c l`    |Searches for files by name                  |(think "locates")
   `C-c f`    |(or `C-c s`) Searches file contents         |requires `mlocate` on linux, `everything` (<http://www.voidtools.com/>) on windows
-  `C-M-i`    |Completion suggestions                      |
+  `<tab>`    |Completion suggestions                      |
   `win-S-v`  |Paste from the clipboard history            |`M-S-y` also works for this
   `C-c r`    |Search for a reference to insert            |You must set `bibtex-completion-bibliography` to your BibTeX files for this to work
   
