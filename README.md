@@ -46,7 +46,7 @@ If you previously had another version of Emacs installed it is a good
 idea to move your `~/.emacs.d` configuration folder to a backup
 location before installing this Emacs configuration. If you do not yet
 have Emacs, installers available for [Mac OSX](https://emacsformacosx.com/) 
-and [Windows](https://vigou3.github.io/emacs-modified-windows/).
+and [Windows](https://github.com/m-parashar/emax64/releases/latest). 
 
 Once Emacs is installed, install this configuration by copying the
 files from https://github.com/iqss/IQSS.emacs to a folder named
