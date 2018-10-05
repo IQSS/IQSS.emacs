@@ -77,6 +77,7 @@
         smooth-scroll
         unfill
         company
+        company-quickhelp
         company-math
         web-mode
         markdown-mode
@@ -555,6 +556,7 @@
       dumb-jump-default-project "./")
 
 (require 'company)
+(company-quickhelp-mode)
 ;; cancel if input doesn't match, be patient, and don't complete automatically.
 (setq company-require-match nil
       company-async-timeout 6
