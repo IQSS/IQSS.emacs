@@ -112,6 +112,7 @@
   (package-refresh-contents)
   (package-install (cadr (assq 'org package-archive-contents)))
   (package-install-selected-packages))
+(add-to-list 'package-selected-packages 'org)
 (when (< emacs-major-version 27)
   (package-initialize))
 
@@ -151,11 +152,10 @@
   (exec-path-from-shell-initialize))
 
 (add-hook 'after-init-hook
-          'package-autoremove)
-(add-hook 'after-init-hook
-          '(lambda()
-             (unless (every 'package-installed-p package-selected-packages)
-               (package-install-selected-packages))))
+          (lambda()
+            (unless (every 'package-installed-p package-selected-packages)
+              (package-install-selected-packages))
+            (package-autoremove)))
 
 ;; Add to the list of the packages we want
 

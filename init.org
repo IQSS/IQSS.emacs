@@ -141,6 +141,7 @@ If a program is not in your =PATH= but you wish to install an Emacs package anyw
     (package-refresh-contents)
     (package-install (cadr (assq 'org package-archive-contents)))
     (package-install-selected-packages))
+  (add-to-list 'package-selected-packages 'org)
   (when (< emacs-major-version 27)
     (package-initialize))
 #+END_SRC
@@ -187,11 +188,10 @@ We try to install most things using the package manager, but a few things need t
     (exec-path-from-shell-initialize))
 
   (add-hook 'after-init-hook
-            'package-autoremove)
-  (add-hook 'after-init-hook
-            '(lambda()
-               (unless (every 'package-installed-p package-selected-packages)
-                 (package-install-selected-packages))))
+            (lambda()
+              (unless (every 'package-installed-p package-selected-packages)
+                (package-install-selected-packages))
+              (package-autoremove)))
 
 #+END_SRC
 
