@@ -151,12 +151,6 @@
     (add-to-list 'exec-path-from-shell-variables var))
   (exec-path-from-shell-initialize))
 
-(add-hook 'after-init-hook
-          (lambda()
-            (unless (every 'package-installed-p package-selected-packages)
-              (package-install-selected-packages))
-            (package-autoremove)))
-
 ;; Add to the list of the packages we want
 
 (when (executable-find "pdflatex")
@@ -1280,6 +1274,10 @@ Will prompt you shell name when you type `C-u' before this command."
   ;; make sure emacs doesn't mess with our package list.
   (defun
       package--save-selected-packages (&rest opt) nil)
+
+  (unless (every 'package-installed-p package-selected-packages)
+    (package-install-selected-packages))
+  (package-autoremove)
 
   ;; Start the server if it is not already running
   (require 'server)
