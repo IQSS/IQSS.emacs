@@ -80,7 +80,9 @@
         web-mode
         markdown-mode
         pandoc-mode
+        ess
         polymode
+        poly-R
         poly-markdown
         poly-org
         poly-noweb
@@ -151,9 +153,6 @@
 (when (executable-find "pdflatex")
   (add-to-list 'package-selected-packages 'auctex)
   (add-to-list 'package-selected-packages 'ivy-bibtex))
-(when (executable-find "R")
-  (add-to-list 'package-selected-packages 'ess)
-  (add-to-list 'package-selected-packages 'poly-R))
 (when (executable-find "git")
   (add-to-list 'package-selected-packages 'git-commit)
   (add-to-list 'package-selected-packages 'magit))
@@ -679,58 +678,58 @@
 (setq comint-move-point-for-output t)
 
 ;;;  ESS (Emacs Speaks Statistics)
-(with-eval-after-load "ess-site"
-  (setq ess-use-company nil)
-  (ess-toggle-underscore nil) ; Don't convert underscores to assignment
-  ;; function to set output width based on window size
-  (defun my-ess-execute-screen-options (foo)
-    "cycle through windows whose major mode is inferior-ess-mode and fix width"
-    (interactive)
-    (setq my-windows-list (window-list))
-    (while my-windows-list
-      (when (with-selected-window (car my-windows-list) (string= "inferior-ess-mode" major-mode))
-        (with-selected-window (car my-windows-list) (ess-execute-screen-options t)))
-      (setq my-windows-list (cdr my-windows-list))))
-  (add-to-list 'window-size-change-functions 'my-ess-execute-screen-options)
+(require 'ess-site)
+(setq ess-use-company nil)
+(ess-toggle-underscore nil) ; Don't convert underscores to assignment
+;; function to set output width based on window size
+(defun my-ess-execute-screen-options (foo)
+  "cycle through windows whose major mode is inferior-ess-mode and fix width"
+  (interactive)
+  (setq my-windows-list (window-list))
+  (while my-windows-list
+    (when (with-selected-window (car my-windows-list) (string= "inferior-ess-mode" major-mode))
+      (with-selected-window (car my-windows-list) (ess-execute-screen-options t)))
+    (setq my-windows-list (cdr my-windows-list))))
+(add-to-list 'window-size-change-functions 'my-ess-execute-screen-options)
 
-  ;; standard control-enter evaluation
-  (define-key ess-mode-map (kbd "<C-return>") 'ess-eval-region-or-function-or-paragraph-and-step)
-  (define-key ess-mode-map (kbd "<C-S-return>") 'ess-eval-buffer)
+;; standard control-enter evaluation
+(define-key ess-mode-map (kbd "<C-return>") 'ess-eval-region-or-function-or-paragraph-and-step)
+(define-key ess-mode-map (kbd "<C-S-return>") 'ess-eval-buffer)
 
-  ;; set up when entering ess-mode
-  (add-hook 'ess-mode-hook
-            (lambda()
-              ;; don't indent comments
-              (setq ess-indent-with-fancy-comments nil)
-              ;; don't wrap long lines
-              (toggle-truncate-lines t)
-              ;; turn on outline mode
-              (outline-minor-mode t)))
+;; set up when entering ess-mode
+(add-hook 'ess-mode-hook
+          (lambda()
+            ;; don't indent comments
+            (setq ess-indent-with-fancy-comments nil)
+            ;; don't wrap long lines
+            (toggle-truncate-lines t)
+            ;; turn on outline mode
+            (outline-minor-mode t)))
 
-  ;; Set ESS options
-  (setq
-   ess-use-auto-complete nil
-   ess-use-company 't
-   ;; ess-r-package-auto-set-evaluation-env nil
-   inferior-ess-same-window nil
-   ess-indent-with-fancy-comments nil   ; don't indent comments
-   ess-eval-visibly t                   ; enable echoing input
-   ess-eval-empty t                     ; don't skip non-code lines.
-   ess-ask-for-ess-directory nil        ; start R in the working directory by default
-   ess-ask-for-ess-directory nil        ; start R in the working directory by default
-   ess-R-font-lock-keywords             ; font-lock, but not too much
-   (quote
-    ((ess-R-fl-keyword:modifiers)
-     (ess-R-fl-keyword:fun-defs . t)
-     (ess-R-fl-keyword:keywords . t)
-     (ess-R-fl-keyword:assign-ops  . t)
-     (ess-R-fl-keyword:constants . 1)
-     (ess-fl-keyword:fun-calls . t)
-     (ess-fl-keyword:numbers)
-     (ess-fl-keyword:operators . t)
-     (ess-fl-keyword:delimiters)
-     (ess-fl-keyword:=)
-     (ess-R-fl-keyword:F&T)))))
+;; Set ESS options
+(setq
+ ess-use-auto-complete nil
+ ess-use-company 't
+ ;; ess-r-package-auto-set-evaluation-env nil
+ inferior-ess-same-window nil
+ ess-indent-with-fancy-comments nil   ; don't indent comments
+ ess-eval-visibly t                   ; enable echoing input
+ ess-eval-empty t                     ; don't skip non-code lines.
+ ess-ask-for-ess-directory nil        ; start R in the working directory by default
+ ess-ask-for-ess-directory nil        ; start R in the working directory by default
+ ess-R-font-lock-keywords             ; font-lock, but not too much
+ (quote
+  ((ess-R-fl-keyword:modifiers)
+   (ess-R-fl-keyword:fun-defs . t)
+   (ess-R-fl-keyword:keywords . t)
+   (ess-R-fl-keyword:assign-ops  . t)
+   (ess-R-fl-keyword:constants . 1)
+   (ess-fl-keyword:fun-calls . t)
+   (ess-fl-keyword:numbers)
+   (ess-fl-keyword:operators . t)
+   (ess-fl-keyword:delimiters)
+   (ess-fl-keyword:=)
+   (ess-R-fl-keyword:F&T))))
 
 (with-eval-after-load "ess-r-mode"
   (when (boundp 'inferior-ess-r-program)
@@ -762,12 +761,12 @@
                              "')\"")))
           (shell-command scriptstring)
           ;;(set-file-modes rlspspath #o755)
-    (add-to-list 'eglot-server-programs
-                 `(ess-mode . (,rlspspath)))
-    (add-hook 'R-mode-hook 'eglot-ensure)
-    (add-hook 'R-mode-hook
-              '(lambda()
-                 (push 'company-capf company-backends))))))))
+          (add-to-list 'eglot-server-programs
+                       `(ess-mode . (,rlspspath)))
+          (add-hook 'R-mode-hook 'eglot-ensure)
+          (add-hook 'R-mode-hook
+                    '(lambda()
+                       (push 'company-capf company-backends))))))))
 
 (defalias 'python 'run-python)
 
@@ -1004,9 +1003,7 @@
   (require 'ob-shell)
   (require 'ob-emacs-lisp)
   (require 'ob-org)
-  (when (package-installed-p 'ess) 
-      (require 'ess-site)
-      (require 'ob-R))
+  (require 'ob-R)
   (when (executable-find "python") (require 'ob-python))
   (when (executable-find "matlab") (require 'ob-matlab))
   (when (executable-find "octave") (require 'ob-octave))
@@ -1022,12 +1019,7 @@
 
 ;;; polymode
 (require 'polymode)
-(when (package-installed-p 'ess)
-  (with-eval-after-load "markdown"
-    (require 'ess-site))
-  (with-eval-after-load "Latex"
-    (require 'ess-site))
-  (require 'poly-R))
+(require 'poly-R)
 (with-eval-after-load "markdown"
     (require 'poly-markdown))
 (with-eval-after-load "org"
