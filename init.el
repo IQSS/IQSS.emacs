@@ -108,6 +108,7 @@
 ;; install packages if needed
 (unless (every 'package-installed-p package-selected-packages)
   (message "Missing packages detected, please wait...")
+  (package-refresh-contents)
   (package-install-selected-packages))
 
 (when (< emacs-major-version 27)
@@ -177,6 +178,7 @@
 ;; install packages if needed
 (unless (every 'package-installed-p package-selected-packages)
   (message "Missing packages detected, please wait...")
+  (package-refresh-contents)
   (package-install-selected-packages))
 
 ;; ;; clean up the mode line
@@ -1258,6 +1260,7 @@ Will prompt you shell name when you type `C-u' before this command."
       package--save-selected-packages (&rest opt) nil)
 
   (unless (every 'package-installed-p package-selected-packages)
+    (package-refresh-contents)
     (package-install-selected-packages))
   (package-autoremove)
 

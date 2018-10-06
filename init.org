@@ -137,6 +137,7 @@ If a program is not in your =PATH= but you wish to install an Emacs package anyw
   ;; install packages if needed
   (unless (every 'package-installed-p package-selected-packages)
     (message "Missing packages detected, please wait...")
+    (package-refresh-contents)
     (package-install-selected-packages))
   
   (when (< emacs-major-version 27)
@@ -221,6 +222,7 @@ We try to install most things using the package manager, but a few things need t
   ;; install packages if needed
   (unless (every 'package-installed-p package-selected-packages)
     (message "Missing packages detected, please wait...")
+    (package-refresh-contents)
     (package-install-selected-packages))
 #+END_SRC
 
@@ -1533,6 +1535,7 @@ This Emacs configuration sets up lots of packages and configures a number of key
       package--save-selected-packages (&rest opt) nil)
 
   (unless (every 'package-installed-p package-selected-packages)
+    (package-refresh-contents)
     (package-install-selected-packages))
   (package-autoremove)
 
