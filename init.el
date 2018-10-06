@@ -41,8 +41,6 @@
 ;; Add additional package sources
 (add-to-list 'package-archives 
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(add-to-list 'package-archives
-             '("org" . "http://orgmode.org/elpa/") t)
 
 ;; A list of the packages we always want
 (setq package-selected-packages
@@ -108,11 +106,8 @@
 ;; install packages if needed
 (unless (every 'package-installed-p package-selected-packages)
   (message "Missing packages detected, please wait...")
-  ;; org needs to be installed first
-  (package-refresh-contents)
-  (package-install (cadr (assq 'org package-archive-contents)))
   (package-install-selected-packages))
-(add-to-list 'package-selected-packages 'org)
+
 (when (< emacs-major-version 27)
   (package-initialize))
 
@@ -183,12 +178,7 @@
 ;; install packages if needed
 (unless (every 'package-installed-p package-selected-packages)
   (message "Missing packages detected, please wait...")
-  ;; org needs to be installed first
-  (package-refresh-contents)
-  (package-install (cadr (assq 'org package-archive-contents)))
   (package-install-selected-packages))
-(when (< emacs-major-version 27)
-  (package-initialize))
 
 ;; ;; clean up the mode line
 (setq minions-mode-line-lighter "☰")
