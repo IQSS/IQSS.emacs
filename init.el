@@ -733,37 +733,26 @@
    (ess-fl-keyword:=)
    (ess-R-fl-keyword:F&T))))
 
-(with-eval-after-load "ess-r-mode"
-  (unless (eq system-type 'windows-nt) ;; just too painful on windows
-    (when (boundp 'inferior-ess-r-program)
-      (let ((rprogdir (file-name-directory inferior-ess-r-program)))
-        (let ((rscript (if rprogdir
-                           (expand-file-name "Rscript" rprogdir)
-                         "Rscript"))
-              (rlspspath (expand-file-name "Rlsps.sh" (temporary-file-directory)))
-              (hashbang "#!/usr/bin/env sh\\n"))
-          (let ((scriptstring (concat
-                               "Rscript -e"
-                               " \"if(require('languageserver')) {"
-                               " cat('"
-                               hashbang
-                               rscript
-                               " -e \\'languageserver::run()\\'',"
-                               " file = '"
-                               rlspspath
-                               "'); Sys.chmod('"
-                               rlspspath
-                               "')}"
-                               " else file.remove('"
-                               rlspspath
-                               "')\"")))
-            (shell-command scriptstring)
-            (add-to-list 'eglot-server-programs
-                         `(ess-mode . (,rlspspath)))
-            (add-hook 'R-mode-hook 'eglot-ensure)
-            (add-hook 'R-mode-hook
-                      (lambda()
-                        (push 'company-capf company-backends)))))))))
+(when (executable-find "Rscript")
+  (let ((rlsp-flag-path (expand-file-name
+                         "Rlsps.ok"
+                         (temporary-file-directory))))
+    (let ((scriptstring (concat
+                         "Rscript -e"
+                         " \"if(require(languageserver)) file.create('"
+                         rlsp-flag-path
+                         "', showWarnings = FALSE)"
+                         " else file.remove('"
+                         rlsp-flag-path
+                         "')\"")))
+      (shell-command scriptstring)
+      (when (file-exists-p rlsp-flag-path)
+        (add-to-list 'eglot-server-programs
+                     '(ess-mode . ("Rscript" "--slave" "-e" "languageserver::run()")))
+        (add-hook 'R-mode-hook 'eglot-ensure)
+        (add-hook 'R-mode-hook
+                  (lambda()
+                    (push 'company-capf company-backends)))))))
 
 (defalias 'python 'run-python)
 
