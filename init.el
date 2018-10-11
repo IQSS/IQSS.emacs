@@ -566,6 +566,8 @@
 (define-key company-mode-map (kbd "C-M-S-i") 'counsel-company)
 (require 'smart-tab)
 (require 'eglot)
+(setq eglot-ignored-server-capabilites
+      '(:documentHighlightProvider :hoverProvider))
 (setq smart-tab-expand-eolp t
       smart-tab-user-provided-completion-function 'company-complete)
 (add-hook 'prog-mode-hook 'smart-tab-mode-on)
@@ -747,6 +749,7 @@
                          "')\"")))
       (shell-command scriptstring)
       (when (file-exists-p rlsp-flag-path)
+        (setq ess-use-company nil)
         (add-to-list 'eglot-server-programs
                      '(ess-mode . ("Rscript" "--slave" "-e" "languageserver::run()")))
         (add-hook 'R-mode-hook 'eglot-ensure)
