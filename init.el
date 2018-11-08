@@ -3,7 +3,7 @@
            (number-to-string emacs-major-version) 
            "." 
            (number-to-string emacs-minor-version)))
-         25.3)
+         26.0)
   (error "Your version of emacs is old and must be upgraded before you can use these packages! Version >= 25.3 is required."))
 
 ;; start maximized 
@@ -35,8 +35,7 @@
 
 ;; load the package manager
 (require 'package)
-(when (< emacs-major-version 27)
-  (package-initialize t))
+(package-initialize t)
 
 ;; Add additional package sources
 (add-to-list 'package-archives 
@@ -51,6 +50,7 @@
         pdf-tools
         yasnippet
         yasnippet-snippets
+        multiple-cursors
         smart-tab
         eglot
         visual-regexp
@@ -111,8 +111,7 @@
   (package-refresh-contents)
   (package-install-selected-packages))
 
-(when (< emacs-major-version 27)
-  (package-initialize))
+(package-initialize)
 
 ;; add custom lisp directory to path
 (unless
@@ -265,12 +264,11 @@
   (save-place-mode t)
 
   ;; regular cursor
-  (setq-default cursor-type '(bar . 3))
+  ;(setq-default cursor-type '(bar . 5))
   (setq-default blink-cursor-blinks 0)
   (add-hook 'after-init-hook
             (lambda()
-              (setq cursor-type '(bar . 3)
-                    blink-cursor-blinks 0)))
+              (setq blink-cursor-blinks 0)))
 
   ;; easy navigation in read-only buffers
   (setq view-read-only t)
@@ -292,7 +290,7 @@
                      (not (eq (get major-mode 'mode-class) 'special)))
                 (hl-line-mode t)
                 (setq-local blink-cursor-blinks 1)
-                (setq-local cursor-type 'box)
+                (setq-local cursor-type 'hollow)
                 (company-mode -1)))))
 
   ;; show parentheses
@@ -338,6 +336,30 @@
 ;; page up/down
 (global-set-key (kbd "<C-prior>") 'beginning-of-buffer)
 (global-set-key (kbd "<C-next>") 'end-of-buffer)
+
+;; allow multiple cursors, as in Sublime and VScode
+(require 'multiple-cursors)
+(defhydra multiple-cursors-hydra (:hint nil)
+"
+   ^Up^            ^Down^        ^Other^
+----------------------------------------------
+[_p_]   Next    [_n_]   Next    [_l_] Edit lines
+[_P_]   Skip    [_N_]   Skip    [_a_] Mark all
+[_M-p_] Unmark  [_M-n_] Unmark  [_r_] Mark by regexp
+^ ^             ^ ^             [_q_] Quit
+"
+  ("l" mc/edit-lines :exit t)
+  ("a" mc/mark-all-like-this :exit t)
+  ("n" mc/mark-next-like-this)
+  ("N" mc/skip-to-next-like-this)
+  ("M-n" mc/unmark-next-like-this)
+  ("p" mc/mark-previous-like-this)
+  ("P" mc/skip-to-previous-like-this)
+  ("M-p" mc/unmark-previous-like-this)
+  ("r" mc/mark-all-in-region-regexp :exit t)
+  ("q" nil))
+
+(global-set-key (kbd "C-c C-m") #'multiple-cursors-hydra/body)
 
 ;; Undo/redo window changes
 (winner-mode 1)
@@ -555,8 +577,8 @@
 (define-key company-active-map (kbd "<backtab>") 'company-select-previous)
 
 (require 'company-capf)
+(require 'company-files)
 ;; put company-capf and company-files at the beginning of the list
-(push 'company-keywords company-backends)
 (push 'company-capf company-backends)
 (push 'company-files company-backends)
 (setq-default company-backends company-backends)
@@ -570,10 +592,11 @@
       '(:documentHighlightProvider :hoverProvider))
 (setq smart-tab-expand-eolp t
       smart-tab-user-provided-completion-function 'company-complete)
-(add-hook 'prog-mode-hook 'smart-tab-mode-on)
+;; (add-hook 'prog-mode-hook 'smart-tab-mode-on)
+(global-smart-tab-mode)
 
  ;; make company use pcomplete (via capf)
- (add-hook 'completion-at-point-functions 'pcomplete-completions-at-point)
+ ;; (add-hook 'completion-at-point-functions 'pcomplete-completions-at-point)
 
  ;; not sure why this should be set in a hook, but that is how the manual says to do it.
  (add-hook 'after-init-hook 'global-company-mode)
@@ -682,80 +705,80 @@
 (setq comint-move-point-for-output t)
 
 ;;;  ESS (Emacs Speaks Statistics)
-(require 'ess-site)
-(setq ess-use-company nil)
-(ess-toggle-underscore nil) ; Don't convert underscores to assignment
-;; function to set output width based on window size
-(defun my-ess-execute-screen-options (foo)
-  "cycle through windows whose major mode is inferior-ess-mode and fix width"
-  (interactive)
-  (setq my-windows-list (window-list))
-  (while my-windows-list
-    (when (with-selected-window (car my-windows-list) (string= "inferior-ess-mode" major-mode))
-      (with-selected-window (car my-windows-list) (ess-execute-screen-options t)))
-    (setq my-windows-list (cdr my-windows-list))))
-(add-to-list 'window-size-change-functions 'my-ess-execute-screen-options)
+(with-eval-after-load "ess-r-mode"
+  (setq ess-use-company nil)
+  (ess-toggle-underscore nil) ; Don't convert underscores to assignment
+  ;; function to set output width based on window size
+  (defun my-ess-execute-screen-options (foo)
+    "cycle through windows whose major mode is inferior-ess-mode and fix width"
+    (interactive)
+    (setq my-windows-list (window-list))
+    (while my-windows-list
+      (when (with-selected-window (car my-windows-list) (string= "inferior-ess-mode" major-mode))
+        (with-selected-window (car my-windows-list) (ess-execute-screen-options t)))
+      (setq my-windows-list (cdr my-windows-list))))
+  (add-to-list 'window-size-change-functions 'my-ess-execute-screen-options)
 
-;; standard control-enter evaluation
-(define-key ess-mode-map (kbd "<C-return>") 'ess-eval-region-or-function-or-paragraph-and-step)
-(define-key ess-mode-map (kbd "<C-S-return>") 'ess-eval-buffer)
+  ;; standard control-enter evaluation
+  (define-key ess-mode-map (kbd "<C-return>") 'ess-eval-region-or-function-or-paragraph-and-step)
+  (define-key ess-mode-map (kbd "<C-S-return>") 'ess-eval-buffer)
 
-;; set up when entering ess-mode
-(add-hook 'ess-mode-hook
-          (lambda()
-            ;; don't indent comments
-            (setq ess-indent-with-fancy-comments nil)
-            ;; don't wrap long lines
-            (toggle-truncate-lines t)
-            ;; turn on outline mode
-            (outline-minor-mode t)))
+  ;; set up when entering ess-mode
+  (add-hook 'ess-mode-hook
+            (lambda()
+              ;; don't indent comments
+              (setq ess-indent-with-fancy-comments nil)
+              ;; don't wrap long lines
+              (toggle-truncate-lines t)
+              ;; turn on outline mode
+              (outline-minor-mode t)))
 
-;; Set ESS options
-(setq
- ess-use-auto-complete nil
- ess-use-company 't
- ;; ess-r-package-auto-set-evaluation-env nil
- inferior-ess-same-window nil
- ess-indent-with-fancy-comments nil   ; don't indent comments
- ess-eval-visibly t                   ; enable echoing input
- ess-eval-empty t                     ; don't skip non-code lines.
- ess-ask-for-ess-directory nil        ; start R in the working directory by default
- ess-ask-for-ess-directory nil        ; start R in the working directory by default
- ess-R-font-lock-keywords             ; font-lock, but not too much
- (quote
-  ((ess-R-fl-keyword:modifiers)
-   (ess-R-fl-keyword:fun-defs . t)
-   (ess-R-fl-keyword:keywords . t)
-   (ess-R-fl-keyword:assign-ops  . t)
-   (ess-R-fl-keyword:constants . 1)
-   (ess-fl-keyword:fun-calls . t)
-   (ess-fl-keyword:numbers)
-   (ess-fl-keyword:operators . t)
-   (ess-fl-keyword:delimiters)
-   (ess-fl-keyword:=)
-   (ess-R-fl-keyword:F&T))))
+  ;; Set ESS options
+  (setq
+   ess-use-auto-complete nil
+   ess-use-company 't
+   ;; ess-r-package-auto-set-evaluation-env nil
+   inferior-ess-same-window nil
+   ess-indent-with-fancy-comments nil   ; don't indent comments
+   ess-eval-visibly t                   ; enable echoing input
+   ess-eval-empty t                     ; don't skip non-code lines.
+   ess-ask-for-ess-directory nil        ; start R in the working directory by default
+   ess-ask-for-ess-directory nil        ; start R in the working directory by default
+   ess-R-font-lock-keywords             ; font-lock, but not too much
+   (quote
+    ((ess-R-fl-keyword:modifiers)
+     (ess-R-fl-keyword:fun-defs . t)
+     (ess-R-fl-keyword:keywords . t)
+     (ess-R-fl-keyword:assign-ops  . t)
+     (ess-R-fl-keyword:constants . 1)
+     (ess-fl-keyword:fun-calls . t)
+     (ess-fl-keyword:numbers)
+     (ess-fl-keyword:operators . t)
+     (ess-fl-keyword:delimiters)
+     (ess-fl-keyword:=)
+     (ess-R-fl-keyword:F&T))))
 
-(when (executable-find "Rscript")
-  (let ((rlsp-flag-path (expand-file-name
-                         "Rlsps.ok"
-                         (temporary-file-directory))))
-    (let ((scriptstring (concat
-                         "Rscript -e"
-                         " \"if(require(languageserver)) file.create('"
-                         rlsp-flag-path
-                         "', showWarnings = FALSE)"
-                         " else file.remove('"
-                         rlsp-flag-path
-                         "')\"")))
-      (shell-command scriptstring)
-      (when (file-exists-p rlsp-flag-path)
-        (setq ess-use-company nil)
-        (add-to-list 'eglot-server-programs
-                     '(ess-mode . ("Rscript" "--slave" "-e" "languageserver::run()")))
-        (add-hook 'R-mode-hook 'eglot-ensure)
-        (add-hook 'R-mode-hook
-                  (lambda()
-                    (push 'company-capf company-backends)))))))
+  (when (executable-find "Rscript")
+    (let ((rlsp-flag-path (expand-file-name
+                           "Rlsps.ok"
+                           (temporary-file-directory))))
+      (let ((scriptstring (concat
+                           "Rscript -e"
+                           " \"if(require(languageserver)) file.create('"
+                           rlsp-flag-path
+                           "', showWarnings = FALSE)"
+                           " else file.remove('"
+                           rlsp-flag-path
+                           "')\"")))
+        (shell-command scriptstring)
+        (when (file-exists-p rlsp-flag-path)
+          (setq ess-use-company nil)
+          (add-to-list 'eglot-server-programs
+                       '(ess-mode . ("Rscript" "--slave" "-e" "languageserver::run()")))
+          (add-hook 'R-mode-hook 'eglot-ensure)
+          (add-hook 'R-mode-hook
+                    (lambda()
+                      (push 'company-capf company-backends))))))))
 
 (defalias 'python 'run-python)
 
@@ -1226,6 +1249,14 @@ Will prompt you shell name when you type `C-u' before this command."
 ;; To require addional packages add them to 'package-selected-packages, e.g.
 ;; (add-to-list 'package-slected-packages 'ess)
 ;; will ensure that the ess package is installed the next time Emacs starts.
+
+
+
+;; Don't remove this:
+(unless (every 'package-installed-p package-selected-packages)
+  (package-refresh-contents)
+  (package-install-selected-packages))
+
 
 
 " nil custom-file))

@@ -37,6 +37,7 @@ Highlights of this Emacs configuration:
     and buffers, inserting citations etc.
 -   More standard select/copy/paste keys and right-click behavior makes
     it more familiar to those new to Emacs.
+-   Multiple cursors, as in Sublime and VScode
 -   Convenient window management.
 
 Installation
@@ -131,6 +132,13 @@ Emacs behavior (`C-a` has the Emacs meaning of "go to the beginnign of
 the line). The disadvantage is that you'll have to get used to
 pressing different keys (`win-a` instead of `c-a` to select all).
 
+
+Multiple cursors
+-----------------
+
+You can add multiple cursors by pressing `C-c C-m` and following the
+on-screen prompts. This feature is experimental; comments or
+suggestions welcome at <https://github.com/IQSS/IQSS.emacs/issues>.
 
 Window management
 ----------------------
