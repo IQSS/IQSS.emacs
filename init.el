@@ -578,10 +578,8 @@
 
 (require 'company-capf)
 (require 'company-files)
-;; put company-capf and company-files at the beginning of the list
-(push 'company-capf company-backends)
-(push 'company-files company-backends)
-(setq-default company-backends company-backends)
+(setq company-backends '((company-files company-capf)))
+(setq-default company-backends '((company-files company-capf)))
 
 ;; completion key bindings
 (define-key company-mode-map (kbd "C-M-i") 'company-complete)
@@ -772,13 +770,15 @@
                            "')\"")))
         (shell-command scriptstring)
         (when (file-exists-p rlsp-flag-path)
-          (setq ess-use-company nil)
+          (setq ess-r-company-backends
+                '((company-capf
+                   company-files
+                   company-R-library
+                   company-R-args
+                   company-R-objects :separate)))
           (add-to-list 'eglot-server-programs
                        '(ess-mode . ("Rscript" "--slave" "-e" "languageserver::run()")))
-          (add-hook 'R-mode-hook 'eglot-ensure)
-          (add-hook 'R-mode-hook
-                    (lambda()
-                      (push 'company-capf company-backends))))))))
+          (add-hook 'R-mode-hook 'eglot-ensure))))))
 
 (defalias 'python 'run-python)
 
@@ -832,8 +832,7 @@
             (lambda()
               ;; make sure completion calls company-elisp first
               (require 'company-elisp)
-              (setq-local company-backends
-                          (delete-dups (cons 'company-elisp (cons 'company-files company-backends)))))))
+              (setq-local company-backends '((company-files company-capf company-elisp))))))
 
 (with-eval-after-load "haskell-mode"
   (defalias 'haskell 'haskell-interactive-bring)
@@ -930,15 +929,8 @@
                 (imenu-add-to-menubar "Index")
                 (outline-minor-mode)
                 (require 'company-math)
-                (setq-local company-backends (delete-dups
-                                              (cons '(company-capf company-math-symbols-latex)
-                                                    (cons 'company-files company-backends))))
-                ;; (reftex-toc)
-                ;; (reftex-toc-goto-line)
-                ;; (run-at-time 1 nil (lambda()
-                ;;                      (reftex-toc)
-                ;;                      (reftex-toc-goto-line)))
-                ))
+                (setq-local company-backends '((company-files
+                                                company-capf company-math-symbols-latex)))))
     ;; Use pdf-tools to open PDF files
     (when (eq system-type 'gnu/linux)
       (pdf-tools-install)
