@@ -578,8 +578,9 @@
 
 (require 'company-capf)
 (require 'company-files)
-(setq company-backends '((company-files company-capf)))
-(setq-default company-backends '((company-files company-capf)))
+(require 'company-math)
+(setq company-backends '((company-files company-math-symbols-unicode company-capf)))
+(setq-default company-backends '((company-files company-math-symbols-unicode company-capf)))
 
 ;; completion key bindings
 (define-key company-mode-map (kbd "C-M-i") 'company-complete)
@@ -771,11 +772,12 @@
         (shell-command scriptstring)
         (when (file-exists-p rlsp-flag-path)
           (setq ess-r-company-backends
-                '((company-capf
-                   company-files
+                '((company-files
+                   company-math-symbols-unicode
                    company-R-library
                    company-R-args
-                   company-R-objects :separate)))
+                   company-R-objects
+                   company-capf)))
           (add-to-list 'eglot-server-programs
                        '(ess-mode . ("Rscript" "--slave" "-e" "languageserver::run()")))
           (add-hook 'R-mode-hook 'eglot-ensure))))))
@@ -832,7 +834,7 @@
             (lambda()
               ;; make sure completion calls company-elisp first
               (require 'company-elisp)
-              (setq-local company-backends '((company-files company-capf company-elisp))))))
+              (setq-local company-backends '((company-elisp company-files company-capf))))))
 
 (with-eval-after-load "haskell-mode"
   (defalias 'haskell 'haskell-interactive-bring)
@@ -929,8 +931,10 @@
                 (imenu-add-to-menubar "Index")
                 (outline-minor-mode)
                 (require 'company-math)
-                (setq-local company-backends '((company-files
-                                                company-capf company-math-symbols-latex)))))
+                (setq-local company-backends
+                            '((company-files
+                               company-math-symbols-latex
+                               company-capf)))))
     ;; Use pdf-tools to open PDF files
     (when (eq system-type 'gnu/linux)
       (pdf-tools-install)
