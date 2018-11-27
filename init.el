@@ -359,7 +359,7 @@
   ("r" mc/mark-all-in-region-regexp :exit t)
   ("q" nil))
 
-(global-set-key (kbd "C-c C-m") #'multiple-cursors-hydra/body)
+(global-set-key (kbd "C-c m") #'multiple-cursors-hydra/body)
 
 ;; Undo/redo window changes
 (winner-mode 1)

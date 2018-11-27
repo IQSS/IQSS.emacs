@@ -658,7 +658,7 @@ div.tocify {
 <a class="sourceLine" id="cb6-60" title="60">  (<span class="st">&quot;r&quot;</span> mc/mark-all-in-region-regexp :exit <span class="kw">t</span>)</a>
 <a class="sourceLine" id="cb6-61" title="61">  (<span class="st">&quot;q&quot;</span> <span class="kw">nil</span>))</a>
 <a class="sourceLine" id="cb6-62" title="62"></a>
-<a class="sourceLine" id="cb6-63" title="63">(global-set-key (kbd <span class="st">&quot;C-c C-m&quot;</span>) #&#39;multiple-cursors-hydra/body)</a></code></pre></div>
+<a class="sourceLine" id="cb6-63" title="63">(global-set-key (kbd <span class="st">&quot;C-c m&quot;</span>) #&#39;multiple-cursors-hydra/body)</a></code></pre></div>
 </section>
 <section id="window-management" class="level1">
 <h1>Window Management</h1>
@@ -901,29 +901,28 @@ div.tocify {
 <a class="sourceLine" id="cb11-14" title="14"></a>
 <a class="sourceLine" id="cb11-15" title="15">(<span class="kw">require</span> &#39;company-capf)</a>
 <a class="sourceLine" id="cb11-16" title="16">(<span class="kw">require</span> &#39;company-files)</a>
-<a class="sourceLine" id="cb11-17" title="17"><span class="co">;; put company-capf and company-files at the beginning of the list</span></a>
-<a class="sourceLine" id="cb11-18" title="18">(<span class="kw">push</span> &#39;company-capf company-backends)</a>
-<a class="sourceLine" id="cb11-19" title="19">(<span class="kw">push</span> &#39;company-files company-backends)</a>
-<a class="sourceLine" id="cb11-20" title="20">(setq-default company-backends company-backends)</a>
-<a class="sourceLine" id="cb11-21" title="21"></a>
-<a class="sourceLine" id="cb11-22" title="22"><span class="co">;; completion key bindings</span></a>
-<a class="sourceLine" id="cb11-23" title="23">(define-key company-mode-map (kbd <span class="st">&quot;C-M-i&quot;</span>) &#39;company-complete)</a>
-<a class="sourceLine" id="cb11-24" title="24">(define-key company-mode-map (kbd <span class="st">&quot;C-M-S-i&quot;</span>) &#39;counsel-company)</a>
-<a class="sourceLine" id="cb11-25" title="25">(<span class="kw">require</span> &#39;smart-tab)</a>
-<a class="sourceLine" id="cb11-26" title="26">(<span class="kw">require</span> &#39;eglot)</a>
-<a class="sourceLine" id="cb11-27" title="27">(<span class="kw">setq</span> eglot-ignored-server-capabilites</a>
-<a class="sourceLine" id="cb11-28" title="28">      &#39;(:documentHighlightProvider :hoverProvider))</a>
-<a class="sourceLine" id="cb11-29" title="29">(<span class="kw">setq</span> smart-tab-expand-eolp <span class="kw">t</span></a>
-<a class="sourceLine" id="cb11-30" title="30">      smart-tab-user-provided-completion-function &#39;company-complete)</a>
-<a class="sourceLine" id="cb11-31" title="31"><span class="co">;; (add-hook &#39;prog-mode-hook &#39;smart-tab-mode-on)</span></a>
-<a class="sourceLine" id="cb11-32" title="32">(global-smart-tab-mode)</a>
-<a class="sourceLine" id="cb11-33" title="33"></a>
-<a class="sourceLine" id="cb11-34" title="34"> <span class="co">;; make company use pcomplete (via capf)</span></a>
-<a class="sourceLine" id="cb11-35" title="35"> <span class="co">;; (add-hook &#39;completion-at-point-functions &#39;pcomplete-completions-at-point)</span></a>
-<a class="sourceLine" id="cb11-36" title="36"></a>
-<a class="sourceLine" id="cb11-37" title="37"> <span class="co">;; not sure why this should be set in a hook, but that is how the manual says to do it.</span></a>
-<a class="sourceLine" id="cb11-38" title="38"> (add-hook &#39;after-init-hook &#39;global-company-mode)</a>
-<a class="sourceLine" id="cb11-39" title="39"></a></code></pre></div>
+<a class="sourceLine" id="cb11-17" title="17">(<span class="kw">require</span> &#39;company-math)</a>
+<a class="sourceLine" id="cb11-18" title="18">(<span class="kw">setq</span> company-backends &#39;((company-files company-math-symbols-unicode company-capf)))</a>
+<a class="sourceLine" id="cb11-19" title="19">(setq-default company-backends &#39;((company-files company-math-symbols-unicode company-capf)))</a>
+<a class="sourceLine" id="cb11-20" title="20"></a>
+<a class="sourceLine" id="cb11-21" title="21"><span class="co">;; completion key bindings</span></a>
+<a class="sourceLine" id="cb11-22" title="22">(define-key company-mode-map (kbd <span class="st">&quot;C-M-i&quot;</span>) &#39;company-complete)</a>
+<a class="sourceLine" id="cb11-23" title="23">(define-key company-mode-map (kbd <span class="st">&quot;C-M-S-i&quot;</span>) &#39;counsel-company)</a>
+<a class="sourceLine" id="cb11-24" title="24">(<span class="kw">require</span> &#39;smart-tab)</a>
+<a class="sourceLine" id="cb11-25" title="25">(<span class="kw">require</span> &#39;eglot)</a>
+<a class="sourceLine" id="cb11-26" title="26">(<span class="kw">setq</span> eglot-ignored-server-capabilites</a>
+<a class="sourceLine" id="cb11-27" title="27">      &#39;(:documentHighlightProvider :hoverProvider))</a>
+<a class="sourceLine" id="cb11-28" title="28">(<span class="kw">setq</span> smart-tab-expand-eolp <span class="kw">t</span></a>
+<a class="sourceLine" id="cb11-29" title="29">      smart-tab-user-provided-completion-function &#39;company-complete)</a>
+<a class="sourceLine" id="cb11-30" title="30"><span class="co">;; (add-hook &#39;prog-mode-hook &#39;smart-tab-mode-on)</span></a>
+<a class="sourceLine" id="cb11-31" title="31">(global-smart-tab-mode)</a>
+<a class="sourceLine" id="cb11-32" title="32"></a>
+<a class="sourceLine" id="cb11-33" title="33"> <span class="co">;; make company use pcomplete (via capf)</span></a>
+<a class="sourceLine" id="cb11-34" title="34"> <span class="co">;; (add-hook &#39;completion-at-point-functions &#39;pcomplete-completions-at-point)</span></a>
+<a class="sourceLine" id="cb11-35" title="35"></a>
+<a class="sourceLine" id="cb11-36" title="36"> <span class="co">;; not sure why this should be set in a hook, but that is how the manual says to do it.</span></a>
+<a class="sourceLine" id="cb11-37" title="37"> (add-hook &#39;after-init-hook &#39;global-company-mode)</a>
+<a class="sourceLine" id="cb11-38" title="38"></a></code></pre></div>
 </section>
 <section id="which-key" class="level1">
 <h1>Which-key</h1>
@@ -1112,13 +1111,16 @@ div.tocify {
 <a class="sourceLine" id="cb16-66" title="66">                           <span class="st">&quot;&#39;)</span><span class="sc">\&quot;</span><span class="st">&quot;</span>)))</a>
 <a class="sourceLine" id="cb16-67" title="67">        (shell-command scriptstring)</a>
 <a class="sourceLine" id="cb16-68" title="68">        (<span class="kw">when</span> (file-exists-p rlsp-flag-path)</a>
-<a class="sourceLine" id="cb16-69" title="69">          (<span class="kw">setq</span> ess-use-company <span class="kw">nil</span>)</a>
-<a class="sourceLine" id="cb16-70" title="70">          (add-to-list &#39;eglot-server-programs</a>
-<a class="sourceLine" id="cb16-71" title="71">                       &#39;(ess-mode . (<span class="st">&quot;Rscript&quot;</span> <span class="st">&quot;--slave&quot;</span> <span class="st">&quot;-e&quot;</span> <span class="st">&quot;languageserver::run()&quot;</span>)))</a>
-<a class="sourceLine" id="cb16-72" title="72">          (add-hook &#39;R-mode-hook &#39;eglot-ensure)</a>
-<a class="sourceLine" id="cb16-73" title="73">          (add-hook &#39;R-mode-hook</a>
-<a class="sourceLine" id="cb16-74" title="74">                    (<span class="kw">lambda</span>()</a>
-<a class="sourceLine" id="cb16-75" title="75">                      (<span class="kw">push</span> &#39;company-capf company-backends))))))))</a></code></pre></div>
+<a class="sourceLine" id="cb16-69" title="69">          (<span class="kw">setq</span> ess-r-company-backends</a>
+<a class="sourceLine" id="cb16-70" title="70">                &#39;((company-files</a>
+<a class="sourceLine" id="cb16-71" title="71">                   company-math-symbols-unicode</a>
+<a class="sourceLine" id="cb16-72" title="72">                   company-R-library</a>
+<a class="sourceLine" id="cb16-73" title="73">                   company-R-args</a>
+<a class="sourceLine" id="cb16-74" title="74">                   company-R-objects</a>
+<a class="sourceLine" id="cb16-75" title="75">                   company-capf)))</a>
+<a class="sourceLine" id="cb16-76" title="76">          (add-to-list &#39;eglot-server-programs</a>
+<a class="sourceLine" id="cb16-77" title="77">                       &#39;(ess-mode . (<span class="st">&quot;Rscript&quot;</span> <span class="st">&quot;--slave&quot;</span> <span class="st">&quot;-e&quot;</span> <span class="st">&quot;languageserver::run()&quot;</span>)))</a>
+<a class="sourceLine" id="cb16-78" title="78">          (add-hook &#39;R-mode-hook &#39;eglot-ensure))))))</a></code></pre></div>
 </section>
 <section id="run-python-in-emacs" class="level1">
 <h1>Run python in emacs (python-mode)</h1>
@@ -1180,8 +1182,7 @@ div.tocify {
 <a class="sourceLine" id="cb19-19" title="19">            (<span class="kw">lambda</span>()</a>
 <a class="sourceLine" id="cb19-20" title="20">              <span class="co">;; make sure completion calls company-elisp first</span></a>
 <a class="sourceLine" id="cb19-21" title="21">              (<span class="kw">require</span> &#39;company-elisp)</a>
-<a class="sourceLine" id="cb19-22" title="22">              (setq-local company-backends</a>
-<a class="sourceLine" id="cb19-23" title="23">                          (delete-dups (<span class="kw">cons</span> &#39;company-elisp (<span class="kw">cons</span> &#39;company-files company-backends)))))))</a></code></pre></div>
+<a class="sourceLine" id="cb19-22" title="22">              (setq-local company-backends &#39;((company-elisp company-files company-capf))))))</a></code></pre></div>
 </section>
 <section id="light-weight-markup-language" class="level1">
 <h1>Haskell mode</h1>
@@ -1291,59 +1292,54 @@ div.tocify {
 <a class="sourceLine" id="cb23-71" title="71">                (imenu-add-to-menubar <span class="st">&quot;Index&quot;</span>)</a>
 <a class="sourceLine" id="cb23-72" title="72">                (outline-minor-mode)</a>
 <a class="sourceLine" id="cb23-73" title="73">                (<span class="kw">require</span> &#39;company-math)</a>
-<a class="sourceLine" id="cb23-74" title="74">                (setq-local company-backends (delete-dups</a>
-<a class="sourceLine" id="cb23-75" title="75">                                              (<span class="kw">cons</span> &#39;(company-capf company-math-symbols-latex)</a>
-<a class="sourceLine" id="cb23-76" title="76">                                                    (<span class="kw">cons</span> &#39;company-files company-backends))))</a>
-<a class="sourceLine" id="cb23-77" title="77">                <span class="co">;; (reftex-toc)</span></a>
-<a class="sourceLine" id="cb23-78" title="78">                <span class="co">;; (reftex-toc-goto-line)</span></a>
-<a class="sourceLine" id="cb23-79" title="79">                <span class="co">;; (run-at-time 1 nil (lambda()</span></a>
-<a class="sourceLine" id="cb23-80" title="80">                <span class="co">;;                      (reftex-toc)</span></a>
-<a class="sourceLine" id="cb23-81" title="81">                <span class="co">;;                      (reftex-toc-goto-line)))</span></a>
-<a class="sourceLine" id="cb23-82" title="82">                ))</a>
-<a class="sourceLine" id="cb23-83" title="83">    <span class="co">;; Use pdf-tools to open PDF files</span></a>
-<a class="sourceLine" id="cb23-84" title="84">    (<span class="kw">when</span> (<span class="kw">eq</span> system-type &#39;gnu/linux)</a>
-<a class="sourceLine" id="cb23-85" title="85">      (pdf-tools-install)</a>
-<a class="sourceLine" id="cb23-86" title="86">      (<span class="kw">setq</span> TeX-view-program-selection &#39;((output-pdf <span class="st">&quot;PDF Tools&quot;</span>)))</a>
-<a class="sourceLine" id="cb23-87" title="87">      TeX-source-correlate-start-server <span class="kw">t</span></a>
-<a class="sourceLine" id="cb23-88" title="88">      <span class="co">;; Update PDF buffers after successful LaTeX runs</span></a>
-<a class="sourceLine" id="cb23-89" title="89">      (add-hook &#39;TeX-after-compilation-finished-functions</a>
-<a class="sourceLine" id="cb23-90" title="90">                #&#39;TeX-revert-document-buffer))</a>
-<a class="sourceLine" id="cb23-91" title="91"></a>
-<a class="sourceLine" id="cb23-92" title="92">    <span class="co">;; Count words in latex</span></a>
-<a class="sourceLine" id="cb23-93" title="93">    <span class="co">;; see http://app.uio.no/ifi/texcount/faq.html#emacs</span></a>
-<a class="sourceLine" id="cb23-94" title="94">    <span class="co">;; TeXcount setup for TeXcount version 2.3 and later</span></a>
-<a class="sourceLine" id="cb23-95" title="95">    <span class="co">;;</span></a>
-<a class="sourceLine" id="cb23-96" title="96">    (<span class="kw">when</span> (executable-find <span class="st">&quot;texcount&quot;</span>)</a>
-<a class="sourceLine" id="cb23-97" title="97">      (<span class="kw">defun</span><span class="fu"> texcount </span>()</a>
-<a class="sourceLine" id="cb23-98" title="98">        (interactive)</a>
-<a class="sourceLine" id="cb23-99" title="99">        (<span class="kw">let*</span></a>
-<a class="sourceLine" id="cb23-100" title="100">            ((this-file (buffer-file-name))</a>
-<a class="sourceLine" id="cb23-101" title="101">             (enc-str (<span class="kw">symbol-name</span> buffer-file-coding-system))</a>
-<a class="sourceLine" id="cb23-102" title="102">             (enc-opt</a>
-<a class="sourceLine" id="cb23-103" title="103">              (<span class="kw">cond</span></a>
-<a class="sourceLine" id="cb23-104" title="104">               ((string-match <span class="st">&quot;utf-8&quot;</span> enc-str) <span class="st">&quot;-utf8&quot;</span>)</a>
-<a class="sourceLine" id="cb23-105" title="105">               ((string-match <span class="st">&quot;latin&quot;</span> enc-str) <span class="st">&quot;-latin1&quot;</span>)</a>
-<a class="sourceLine" id="cb23-106" title="106">               (<span class="st">&quot;-encoding=guess&quot;</span>)))</a>
-<a class="sourceLine" id="cb23-107" title="107">             (word-count</a>
-<a class="sourceLine" id="cb23-108" title="108">              (<span class="kw">with-output-to-string</span></a>
-<a class="sourceLine" id="cb23-109" title="109">                (with-current-buffer standard-output</a>
-<a class="sourceLine" id="cb23-110" title="110">                  (call-process <span class="st">&quot;texcount&quot;</span> <span class="kw">nil</span> <span class="kw">t</span> <span class="kw">nil</span> <span class="st">&quot;-0&quot;</span> enc-opt this-file)))))</a>
-<a class="sourceLine" id="cb23-111" title="111">          (message word-count)))</a>
-<a class="sourceLine" id="cb23-112" title="112">      (defalias &#39;tex-count-words &#39;texcount <span class="st">&quot;Count the number of words in the buffer.&quot;</span>))</a>
-<a class="sourceLine" id="cb23-113" title="113">    (define-key LaTeX-mode-map <span class="st">&quot;\C-cw&quot;</span> &#39;tex-count-words)</a>
-<a class="sourceLine" id="cb23-114" title="114">    (add-to-list &#39;TeX-command-list</a>
-<a class="sourceLine" id="cb23-115" title="115">                 (<span class="kw">list</span> <span class="st">&quot;TeX-count-words&quot;</span> <span class="st">&quot;tex-count-words&quot;</span> &#39;TeX-run-function <span class="kw">nil</span> <span class="kw">t</span>)))</a>
+<a class="sourceLine" id="cb23-74" title="74">                (setq-local company-backends</a>
+<a class="sourceLine" id="cb23-75" title="75">                            &#39;((company-files</a>
+<a class="sourceLine" id="cb23-76" title="76">                               company-math-symbols-latex</a>
+<a class="sourceLine" id="cb23-77" title="77">                               company-capf)))))</a>
+<a class="sourceLine" id="cb23-78" title="78">    <span class="co">;; Use pdf-tools to open PDF files</span></a>
+<a class="sourceLine" id="cb23-79" title="79">    (<span class="kw">when</span> (<span class="kw">eq</span> system-type &#39;gnu/linux)</a>
+<a class="sourceLine" id="cb23-80" title="80">      (pdf-tools-install)</a>
+<a class="sourceLine" id="cb23-81" title="81">      (<span class="kw">setq</span> TeX-view-program-selection &#39;((output-pdf <span class="st">&quot;PDF Tools&quot;</span>)))</a>
+<a class="sourceLine" id="cb23-82" title="82">      TeX-source-correlate-start-server <span class="kw">t</span></a>
+<a class="sourceLine" id="cb23-83" title="83">      <span class="co">;; Update PDF buffers after successful LaTeX runs</span></a>
+<a class="sourceLine" id="cb23-84" title="84">      (add-hook &#39;TeX-after-compilation-finished-functions</a>
+<a class="sourceLine" id="cb23-85" title="85">                #&#39;TeX-revert-document-buffer))</a>
+<a class="sourceLine" id="cb23-86" title="86"></a>
+<a class="sourceLine" id="cb23-87" title="87">    <span class="co">;; Count words in latex</span></a>
+<a class="sourceLine" id="cb23-88" title="88">    <span class="co">;; see http://app.uio.no/ifi/texcount/faq.html#emacs</span></a>
+<a class="sourceLine" id="cb23-89" title="89">    <span class="co">;; TeXcount setup for TeXcount version 2.3 and later</span></a>
+<a class="sourceLine" id="cb23-90" title="90">    <span class="co">;;</span></a>
+<a class="sourceLine" id="cb23-91" title="91">    (<span class="kw">when</span> (executable-find <span class="st">&quot;texcount&quot;</span>)</a>
+<a class="sourceLine" id="cb23-92" title="92">      (<span class="kw">defun</span><span class="fu"> texcount </span>()</a>
+<a class="sourceLine" id="cb23-93" title="93">        (interactive)</a>
+<a class="sourceLine" id="cb23-94" title="94">        (<span class="kw">let*</span></a>
+<a class="sourceLine" id="cb23-95" title="95">            ((this-file (buffer-file-name))</a>
+<a class="sourceLine" id="cb23-96" title="96">             (enc-str (<span class="kw">symbol-name</span> buffer-file-coding-system))</a>
+<a class="sourceLine" id="cb23-97" title="97">             (enc-opt</a>
+<a class="sourceLine" id="cb23-98" title="98">              (<span class="kw">cond</span></a>
+<a class="sourceLine" id="cb23-99" title="99">               ((string-match <span class="st">&quot;utf-8&quot;</span> enc-str) <span class="st">&quot;-utf8&quot;</span>)</a>
+<a class="sourceLine" id="cb23-100" title="100">               ((string-match <span class="st">&quot;latin&quot;</span> enc-str) <span class="st">&quot;-latin1&quot;</span>)</a>
+<a class="sourceLine" id="cb23-101" title="101">               (<span class="st">&quot;-encoding=guess&quot;</span>)))</a>
+<a class="sourceLine" id="cb23-102" title="102">             (word-count</a>
+<a class="sourceLine" id="cb23-103" title="103">              (<span class="kw">with-output-to-string</span></a>
+<a class="sourceLine" id="cb23-104" title="104">                (with-current-buffer standard-output</a>
+<a class="sourceLine" id="cb23-105" title="105">                  (call-process <span class="st">&quot;texcount&quot;</span> <span class="kw">nil</span> <span class="kw">t</span> <span class="kw">nil</span> <span class="st">&quot;-0&quot;</span> enc-opt this-file)))))</a>
+<a class="sourceLine" id="cb23-106" title="106">          (message word-count)))</a>
+<a class="sourceLine" id="cb23-107" title="107">      (defalias &#39;tex-count-words &#39;texcount <span class="st">&quot;Count the number of words in the buffer.&quot;</span>))</a>
+<a class="sourceLine" id="cb23-108" title="108">    (define-key LaTeX-mode-map <span class="st">&quot;\C-cw&quot;</span> &#39;tex-count-words)</a>
+<a class="sourceLine" id="cb23-109" title="109">    (add-to-list &#39;TeX-command-list</a>
+<a class="sourceLine" id="cb23-110" title="110">                 (<span class="kw">list</span> <span class="st">&quot;TeX-count-words&quot;</span> <span class="st">&quot;tex-count-words&quot;</span> &#39;TeX-run-function <span class="kw">nil</span> <span class="kw">t</span>)))</a>
+<a class="sourceLine" id="cb23-111" title="111"></a>
+<a class="sourceLine" id="cb23-112" title="112">  (with-eval-after-load <span class="st">&quot;reftex&quot;</span></a>
+<a class="sourceLine" id="cb23-113" title="113">    (add-to-list &#39;reftex-section-levels &#39;(<span class="st">&quot;frametitle&quot;</span> . <span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb23-114" title="114">    (<span class="kw">setq</span> reftex-toc-split-windows-horizontally <span class="kw">t</span>)</a>
+<a class="sourceLine" id="cb23-115" title="115">    (add-hook &#39;reftex-toc-mode-hook (<span class="kw">lambda</span>() (company-mode <span class="dv">-1</span>))))</a>
 <a class="sourceLine" id="cb23-116" title="116"></a>
-<a class="sourceLine" id="cb23-117" title="117">  (with-eval-after-load <span class="st">&quot;reftex&quot;</span></a>
-<a class="sourceLine" id="cb23-118" title="118">    (add-to-list &#39;reftex-section-levels &#39;(<span class="st">&quot;frametitle&quot;</span> . <span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb23-119" title="119">    (<span class="kw">setq</span> reftex-toc-split-windows-horizontally <span class="kw">t</span>)</a>
-<a class="sourceLine" id="cb23-120" title="120">    (add-hook &#39;reftex-toc-mode-hook (<span class="kw">lambda</span>() (company-mode <span class="dv">-1</span>))))</a>
-<a class="sourceLine" id="cb23-121" title="121"></a>
-<a class="sourceLine" id="cb23-122" title="122">  (with-eval-after-load <span class="st">&quot;bibtex&quot;</span></a>
-<a class="sourceLine" id="cb23-123" title="123">    (add-hook &#39;bibtex-mode-hook</a>
-<a class="sourceLine" id="cb23-124" title="124">              (<span class="kw">lambda</span> ()</a>
-<a class="sourceLine" id="cb23-125" title="125">                (define-key bibtex-mode-map <span class="st">&quot;\M-q&quot;</span> &#39;bibtex-fill-entry)))))</a>
-<a class="sourceLine" id="cb23-126" title="126"></a></code></pre></div>
+<a class="sourceLine" id="cb23-117" title="117">  (with-eval-after-load <span class="st">&quot;bibtex&quot;</span></a>
+<a class="sourceLine" id="cb23-118" title="118">    (add-hook &#39;bibtex-mode-hook</a>
+<a class="sourceLine" id="cb23-119" title="119">              (<span class="kw">lambda</span> ()</a>
+<a class="sourceLine" id="cb23-120" title="120">                (define-key bibtex-mode-map <span class="st">&quot;\M-q&quot;</span> &#39;bibtex-fill-entry)))))</a>
+<a class="sourceLine" id="cb23-121" title="121"></a></code></pre></div>
 </section>
 <section id="citations-ivy-bibtex" class="level1">
 <h1>Citations (ivy-bibtex)</h1>

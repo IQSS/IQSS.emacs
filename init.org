@@ -418,7 +418,7 @@ Emacs will never to as simple as Notepad, but perhaps it can be made more consis
     ("r" mc/mark-all-in-region-regexp :exit t)
     ("q" nil))
 
-  (global-set-key (kbd "C-c C-m") #'multiple-cursors-hydra/body)
+  (global-set-key (kbd "C-c m") #'multiple-cursors-hydra/body)
 #+END_SRC
 
 * Window Management

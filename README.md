@@ -136,7 +136,7 @@ pressing different keys (`win-a` instead of `c-a` to select all).
 Multiple cursors
 -----------------
 
-You can add multiple cursors by pressing `C-c C-m` and following the
+You can add multiple cursors by pressing `C-c m` and following the
 on-screen prompts. This feature is experimental; comments or
 suggestions welcome at <https://github.com/IQSS/IQSS.emacs/issues>.
 
