@@ -139,6 +139,8 @@ Multiple cursors
 You can add multiple cursors by pressing `C-c m` and following the
 on-screen prompts. This feature is experimental; comments or
 suggestions welcome at <https://github.com/IQSS/IQSS.emacs/issues>.
+For more information about the Emacs multiple cursors implementation
+refer to <https://github.com/magnars/multiple-cursors.el>.
 
 Window management
 ----------------------
