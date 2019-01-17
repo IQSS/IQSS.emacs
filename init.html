@@ -605,60 +605,79 @@ div.tocify {
 <a class="sourceLine" id="cb6-7" title="7">(<span class="kw">require</span> &#39;win-win)</a>
 <a class="sourceLine" id="cb6-8" title="8"></a>
 <a class="sourceLine" id="cb6-9" title="9"><span class="co">;; ;; Make control-z undo</span></a>
-<a class="sourceLine" id="cb6-10" title="10">(global-undo-tree-mode <span class="kw">t</span>)</a>
-<a class="sourceLine" id="cb6-11" title="11">(global-set-key (kbd <span class="st">&quot;C-z&quot;</span>) &#39;undo)</a>
-<a class="sourceLine" id="cb6-12" title="12">(define-key undo-tree-map (kbd <span class="st">&quot;C-S-z&quot;</span>) &#39;undo-tree-redo)</a>
-<a class="sourceLine" id="cb6-13" title="13">(define-key undo-tree-map (kbd <span class="st">&quot;C-x u&quot;</span>) &#39;undo)</a>
-<a class="sourceLine" id="cb6-14" title="14">(define-key undo-tree-map (kbd <span class="st">&quot;C-x U&quot;</span>) &#39;undo-tree-visualize)</a>
-<a class="sourceLine" id="cb6-15" title="15">(define-key undo-tree-map (kbd <span class="st">&quot;M-z&quot;</span>) &#39;undo-tree-visualize)</a>
-<a class="sourceLine" id="cb6-16" title="16"><span class="co">;; Make C-g quit undo tree</span></a>
-<a class="sourceLine" id="cb6-17" title="17">(define-key undo-tree-visualizer-mode-map (kbd <span class="st">&quot;C-g&quot;</span>) &#39;undo-tree-visualizer-quit)</a>
-<a class="sourceLine" id="cb6-18" title="18">(define-key undo-tree-visualizer-mode-map (kbd <span class="st">&quot;&lt;escape&gt; &lt;escape&gt; &lt;escape&gt;&quot;</span>) &#39;undo-tree-visualizer-quit)</a>
-<a class="sourceLine" id="cb6-19" title="19"></a>
-<a class="sourceLine" id="cb6-20" title="20"><span class="co">;;</span></a>
-<a class="sourceLine" id="cb6-21" title="21"><span class="co">;; Make right-click do something close to what people expect</span></a>
-<a class="sourceLine" id="cb6-22" title="22">(<span class="kw">require</span> &#39;mouse3)</a>
-<a class="sourceLine" id="cb6-23" title="23">(global-set-key (kbd <span class="st">&quot;&lt;mouse-3&gt;&quot;</span>) &#39;mouse3-popup-menu)</a>
-<a class="sourceLine" id="cb6-24" title="24"><span class="co">;; (global-set-key (kbd &quot;C-f&quot;) &#39;isearch-forward)</span></a>
-<a class="sourceLine" id="cb6-25" title="25"><span class="co">;; (global-set-key (kbd &quot;C-s&quot;) &#39;save-buffer)</span></a>
-<a class="sourceLine" id="cb6-26" title="26"><span class="co">;; (global-set-key (kbd &quot;C-o&quot;) &#39;counsel-find-file)</span></a>
-<a class="sourceLine" id="cb6-27" title="27">(define-key cua-global-keymap (kbd <span class="st">&quot;&lt;C-S-SPC&gt;&quot;</span>) <span class="kw">nil</span>)</a>
-<a class="sourceLine" id="cb6-28" title="28">(define-key cua-global-keymap (kbd <span class="st">&quot;&lt;C-return&gt;&quot;</span>) <span class="kw">nil</span>)</a>
-<a class="sourceLine" id="cb6-29" title="29">(<span class="kw">setq</span> cua-rectangle-mark-key (kbd <span class="st">&quot;&lt;C-S-SPC&gt;&quot;</span>))</a>
-<a class="sourceLine" id="cb6-30" title="30">(define-key cua-global-keymap (kbd <span class="st">&quot;&lt;C-S-SPC&gt;&quot;</span>) &#39;cua-rectangle-mark-mode)</a>
-<a class="sourceLine" id="cb6-31" title="31"></a>
-<a class="sourceLine" id="cb6-32" title="32"><span class="co">;; zoom in/out like we do everywhere else.</span></a>
-<a class="sourceLine" id="cb6-33" title="33">(global-set-key (kbd <span class="st">&quot;C-+&quot;</span>) &#39;text-scale-increase)</a>
-<a class="sourceLine" id="cb6-34" title="34">(global-set-key (kbd <span class="st">&quot;C--&quot;</span>) &#39;text-scale-decrease)</a>
-<a class="sourceLine" id="cb6-35" title="35">(global-set-key (kbd <span class="st">&quot;&lt;C-mouse-5&gt;&quot;</span>) &#39;text-scale-decrease)</a>
-<a class="sourceLine" id="cb6-36" title="36">(global-set-key (kbd <span class="st">&quot;&lt;C-mouse-4&gt;&quot;</span>) &#39;text-scale-increase)</a>
-<a class="sourceLine" id="cb6-37" title="37"><span class="co">;; page up/down</span></a>
-<a class="sourceLine" id="cb6-38" title="38">(global-set-key (kbd <span class="st">&quot;&lt;C-prior&gt;&quot;</span>) &#39;beginning-of-buffer)</a>
-<a class="sourceLine" id="cb6-39" title="39">(global-set-key (kbd <span class="st">&quot;&lt;C-next&gt;&quot;</span>) &#39;end-of-buffer)</a>
-<a class="sourceLine" id="cb6-40" title="40"></a>
-<a class="sourceLine" id="cb6-41" title="41"><span class="co">;; allow multiple cursors, as in Sublime and VScode</span></a>
-<a class="sourceLine" id="cb6-42" title="42">(<span class="kw">require</span> &#39;multiple-cursors)</a>
-<a class="sourceLine" id="cb6-43" title="43">(defhydra multiple-cursors-hydra (:hint <span class="kw">nil</span>)</a>
-<a class="sourceLine" id="cb6-44" title="44"><span class="st">&quot;</span></a>
-<a class="sourceLine" id="cb6-45" title="45"><span class="st">   ^Up^            ^Down^        ^Other^</span></a>
-<a class="sourceLine" id="cb6-46" title="46"><span class="st">----------------------------------------------</span></a>
-<a class="sourceLine" id="cb6-47" title="47"><span class="st">[_p_]   Next    [_n_]   Next    [_l_] Edit lines</span></a>
-<a class="sourceLine" id="cb6-48" title="48"><span class="st">[_P_]   Skip    [_N_]   Skip    [_a_] Mark all</span></a>
-<a class="sourceLine" id="cb6-49" title="49"><span class="st">[_M-p_] Unmark  [_M-n_] Unmark  [_r_] Mark by regexp</span></a>
-<a class="sourceLine" id="cb6-50" title="50"><span class="st">^ ^             ^ ^             [_q_] Quit</span></a>
-<a class="sourceLine" id="cb6-51" title="51"><span class="st">&quot;</span></a>
-<a class="sourceLine" id="cb6-52" title="52">  (<span class="st">&quot;l&quot;</span> mc/edit-lines :exit <span class="kw">t</span>)</a>
-<a class="sourceLine" id="cb6-53" title="53">  (<span class="st">&quot;a&quot;</span> mc/mark-all-like-this :exit <span class="kw">t</span>)</a>
-<a class="sourceLine" id="cb6-54" title="54">  (<span class="st">&quot;n&quot;</span> mc/mark-next-like-this)</a>
-<a class="sourceLine" id="cb6-55" title="55">  (<span class="st">&quot;N&quot;</span> mc/skip-to-next-like-this)</a>
-<a class="sourceLine" id="cb6-56" title="56">  (<span class="st">&quot;M-n&quot;</span> mc/unmark-next-like-this)</a>
-<a class="sourceLine" id="cb6-57" title="57">  (<span class="st">&quot;p&quot;</span> mc/mark-previous-like-this)</a>
-<a class="sourceLine" id="cb6-58" title="58">  (<span class="st">&quot;P&quot;</span> mc/skip-to-previous-like-this)</a>
-<a class="sourceLine" id="cb6-59" title="59">  (<span class="st">&quot;M-p&quot;</span> mc/unmark-previous-like-this)</a>
-<a class="sourceLine" id="cb6-60" title="60">  (<span class="st">&quot;r&quot;</span> mc/mark-all-in-region-regexp :exit <span class="kw">t</span>)</a>
-<a class="sourceLine" id="cb6-61" title="61">  (<span class="st">&quot;q&quot;</span> <span class="kw">nil</span>))</a>
-<a class="sourceLine" id="cb6-62" title="62"></a>
-<a class="sourceLine" id="cb6-63" title="63">(global-set-key (kbd <span class="st">&quot;C-c m&quot;</span>) #&#39;multiple-cursors-hydra/body)</a></code></pre></div>
+<a class="sourceLine" id="cb6-10" title="10">(<span class="kw">let</span> ((<span class="kw">map</span> (make-sparse-keymap)))</a>
+<a class="sourceLine" id="cb6-11" title="11">  <span class="co">;; remap `undo&#39; and `undo-only&#39; to `undo-tree-undo&#39;</span></a>
+<a class="sourceLine" id="cb6-12" title="12">  <span class="co">;; (define-key map [remap undo] &#39;undo-tree-undo)</span></a>
+<a class="sourceLine" id="cb6-13" title="13">  <span class="co">;; (define-key map [remap undo-only] &#39;undo-tree-undo)</span></a>
+<a class="sourceLine" id="cb6-14" title="14">  <span class="co">;; bind standard undo bindings (since these match redo counterparts)</span></a>
+<a class="sourceLine" id="cb6-15" title="15">  <span class="co">;; (define-key map (kbd &quot;C-/&quot;) &#39;undo-tree-undo)</span></a>
+<a class="sourceLine" id="cb6-16" title="16">  <span class="co">;; (define-key map &quot;\C-_&quot; &#39;undo-tree-undo)</span></a>
+<a class="sourceLine" id="cb6-17" title="17">  <span class="co">;; redo doesn&#39;t exist normally, so define our own keybindings</span></a>
+<a class="sourceLine" id="cb6-18" title="18">  (define-key <span class="kw">map</span> (kbd <span class="st">&quot;C-?&quot;</span>) &#39;undo-tree-redo)</a>
+<a class="sourceLine" id="cb6-19" title="19">  (define-key <span class="kw">map</span> (kbd <span class="st">&quot;M-_&quot;</span>) &#39;undo-tree-redo)</a>
+<a class="sourceLine" id="cb6-20" title="20">  (define-key <span class="kw">map</span> (kbd <span class="st">&quot;C-S-z&quot;</span>) &#39;undo-tree-redo)</a>
+<a class="sourceLine" id="cb6-21" title="21">  <span class="co">;; just in case something has defined `redo&#39;...</span></a>
+<a class="sourceLine" id="cb6-22" title="22">  (define-key <span class="kw">map</span> [remap redo] &#39;undo-tree-redo)</a>
+<a class="sourceLine" id="cb6-23" title="23">  <span class="co">;; we use &quot;C-x U&quot; for the undo-tree visualizer</span></a>
+<a class="sourceLine" id="cb6-24" title="24">  (define-key <span class="kw">map</span> (kbd <span class="st">&quot;\C-x U&quot;</span>) &#39;undo-tree-visualize)</a>
+<a class="sourceLine" id="cb6-25" title="25">  <span class="co">;; bind register commands</span></a>
+<a class="sourceLine" id="cb6-26" title="26">  (define-key <span class="kw">map</span> (kbd <span class="st">&quot;C-x r u&quot;</span>) &#39;undo-tree-save-state-to-register)</a>
+<a class="sourceLine" id="cb6-27" title="27">  (define-key <span class="kw">map</span> (kbd <span class="st">&quot;C-x r U&quot;</span>) &#39;undo-tree-restore-state-from-register)</a>
+<a class="sourceLine" id="cb6-28" title="28">  <span class="co">;; set keymap</span></a>
+<a class="sourceLine" id="cb6-29" title="29">  (<span class="kw">setq</span> undo-tree-map <span class="kw">map</span>))</a>
+<a class="sourceLine" id="cb6-30" title="30"></a>
+<a class="sourceLine" id="cb6-31" title="31">(global-undo-tree-mode <span class="kw">t</span>)</a>
+<a class="sourceLine" id="cb6-32" title="32"></a>
+<a class="sourceLine" id="cb6-33" title="33"><span class="co">;; Make C-g quit undo tree</span></a>
+<a class="sourceLine" id="cb6-34" title="34">(define-key undo-tree-visualizer-mode-map (kbd <span class="st">&quot;C-g&quot;</span>) &#39;undo-tree-visualizer-quit)</a>
+<a class="sourceLine" id="cb6-35" title="35">(define-key undo-tree-visualizer-mode-map (kbd <span class="st">&quot;&lt;escape&gt; &lt;escape&gt; &lt;escape&gt;&quot;</span>) &#39;undo-tree-visualizer-quit)</a>
+<a class="sourceLine" id="cb6-36" title="36"></a>
+<a class="sourceLine" id="cb6-37" title="37"></a>
+<a class="sourceLine" id="cb6-38" title="38"></a>
+<a class="sourceLine" id="cb6-39" title="39"><span class="co">;;</span></a>
+<a class="sourceLine" id="cb6-40" title="40"><span class="co">;; Make right-click do something close to what people expect</span></a>
+<a class="sourceLine" id="cb6-41" title="41">(<span class="kw">require</span> &#39;mouse3)</a>
+<a class="sourceLine" id="cb6-42" title="42">(global-set-key (kbd <span class="st">&quot;&lt;mouse-3&gt;&quot;</span>) &#39;mouse3-popup-menu)</a>
+<a class="sourceLine" id="cb6-43" title="43"><span class="co">;; (global-set-key (kbd &quot;C-f&quot;) &#39;isearch-forward)</span></a>
+<a class="sourceLine" id="cb6-44" title="44"><span class="co">;; (global-set-key (kbd &quot;C-s&quot;) &#39;save-buffer)</span></a>
+<a class="sourceLine" id="cb6-45" title="45"><span class="co">;; (global-set-key (kbd &quot;C-o&quot;) &#39;counsel-find-file)</span></a>
+<a class="sourceLine" id="cb6-46" title="46">(define-key cua-global-keymap (kbd <span class="st">&quot;&lt;C-S-SPC&gt;&quot;</span>) <span class="kw">nil</span>)</a>
+<a class="sourceLine" id="cb6-47" title="47">(define-key cua-global-keymap (kbd <span class="st">&quot;&lt;C-return&gt;&quot;</span>) <span class="kw">nil</span>)</a>
+<a class="sourceLine" id="cb6-48" title="48">(<span class="kw">setq</span> cua-rectangle-mark-key (kbd <span class="st">&quot;&lt;C-S-SPC&gt;&quot;</span>))</a>
+<a class="sourceLine" id="cb6-49" title="49">(define-key cua-global-keymap (kbd <span class="st">&quot;&lt;C-S-SPC&gt;&quot;</span>) &#39;cua-rectangle-mark-mode)</a>
+<a class="sourceLine" id="cb6-50" title="50"></a>
+<a class="sourceLine" id="cb6-51" title="51"><span class="co">;; zoom in/out like we do everywhere else.</span></a>
+<a class="sourceLine" id="cb6-52" title="52">(global-set-key (kbd <span class="st">&quot;C-+&quot;</span>) &#39;text-scale-increase)</a>
+<a class="sourceLine" id="cb6-53" title="53">(global-set-key (kbd <span class="st">&quot;C--&quot;</span>) &#39;text-scale-decrease)</a>
+<a class="sourceLine" id="cb6-54" title="54">(global-set-key (kbd <span class="st">&quot;&lt;C-mouse-5&gt;&quot;</span>) &#39;text-scale-decrease)</a>
+<a class="sourceLine" id="cb6-55" title="55">(global-set-key (kbd <span class="st">&quot;&lt;C-mouse-4&gt;&quot;</span>) &#39;text-scale-increase)</a>
+<a class="sourceLine" id="cb6-56" title="56"><span class="co">;; page up/down</span></a>
+<a class="sourceLine" id="cb6-57" title="57">(global-set-key (kbd <span class="st">&quot;&lt;C-prior&gt;&quot;</span>) &#39;beginning-of-buffer)</a>
+<a class="sourceLine" id="cb6-58" title="58">(global-set-key (kbd <span class="st">&quot;&lt;C-next&gt;&quot;</span>) &#39;end-of-buffer)</a>
+<a class="sourceLine" id="cb6-59" title="59"></a>
+<a class="sourceLine" id="cb6-60" title="60"><span class="co">;; allow multiple cursors, as in Sublime and VScode</span></a>
+<a class="sourceLine" id="cb6-61" title="61">(<span class="kw">require</span> &#39;multiple-cursors)</a>
+<a class="sourceLine" id="cb6-62" title="62">(defhydra multiple-cursors-hydra (:hint <span class="kw">nil</span>)</a>
+<a class="sourceLine" id="cb6-63" title="63"><span class="st">&quot;</span></a>
+<a class="sourceLine" id="cb6-64" title="64"><span class="st">   ^Up^            ^Down^        ^Other^</span></a>
+<a class="sourceLine" id="cb6-65" title="65"><span class="st">----------------------------------------------</span></a>
+<a class="sourceLine" id="cb6-66" title="66"><span class="st">[_p_]   Next    [_n_]   Next    [_l_] Edit lines</span></a>
+<a class="sourceLine" id="cb6-67" title="67"><span class="st">[_P_]   Skip    [_N_]   Skip    [_a_] Mark all</span></a>
+<a class="sourceLine" id="cb6-68" title="68"><span class="st">[_M-p_] Unmark  [_M-n_] Unmark  [_r_] Mark by regexp</span></a>
+<a class="sourceLine" id="cb6-69" title="69"><span class="st">^ ^             ^ ^             [_q_] Quit</span></a>
+<a class="sourceLine" id="cb6-70" title="70"><span class="st">&quot;</span></a>
+<a class="sourceLine" id="cb6-71" title="71">  (<span class="st">&quot;l&quot;</span> mc/edit-lines :exit <span class="kw">t</span>)</a>
+<a class="sourceLine" id="cb6-72" title="72">  (<span class="st">&quot;a&quot;</span> mc/mark-all-like-this :exit <span class="kw">t</span>)</a>
+<a class="sourceLine" id="cb6-73" title="73">  (<span class="st">&quot;n&quot;</span> mc/mark-next-like-this)</a>
+<a class="sourceLine" id="cb6-74" title="74">  (<span class="st">&quot;N&quot;</span> mc/skip-to-next-like-this)</a>
+<a class="sourceLine" id="cb6-75" title="75">  (<span class="st">&quot;M-n&quot;</span> mc/unmark-next-like-this)</a>
+<a class="sourceLine" id="cb6-76" title="76">  (<span class="st">&quot;p&quot;</span> mc/mark-previous-like-this)</a>
+<a class="sourceLine" id="cb6-77" title="77">  (<span class="st">&quot;P&quot;</span> mc/skip-to-previous-like-this)</a>
+<a class="sourceLine" id="cb6-78" title="78">  (<span class="st">&quot;M-p&quot;</span> mc/unmark-previous-like-this)</a>
+<a class="sourceLine" id="cb6-79" title="79">  (<span class="st">&quot;r&quot;</span> mc/mark-all-in-region-regexp :exit <span class="kw">t</span>)</a>
+<a class="sourceLine" id="cb6-80" title="80">  (<span class="st">&quot;q&quot;</span> <span class="kw">nil</span>))</a>
+<a class="sourceLine" id="cb6-81" title="81"></a>
+<a class="sourceLine" id="cb6-82" title="82">(global-set-key (kbd <span class="st">&quot;C-c m&quot;</span>) #&#39;multiple-cursors-hydra/body)</a></code></pre></div>
 </section>
 <section id="window-management" class="level1">
 <h1>Window Management</h1>
@@ -1044,83 +1063,72 @@ div.tocify {
 <h1>Run R in emacs (ESS)</h1>
 <p>Support for R in Emacs is good, thanks to <a href="http://ess.r-project.org/">http://ess.r-project.org/</a>. As with other programming languages this configuration enables completion via the <code>&lt;tab&gt;</code> key and code evaluation with <code>C-ret</code>. Many more features are provided by ESS, refer to <a href="http://ess.r-project.org/">http://ess.r-project.org/</a> for details.</p>
 <div class="sourceCode" id="cb16" data-org-language="emacs-lisp"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><a class="sourceLine" id="cb16-1" title="1"><span class="co">;;;  ESS (Emacs Speaks Statistics)</span></a>
-<a class="sourceLine" id="cb16-2" title="2">(with-eval-after-load <span class="st">&quot;ess-r-mode&quot;</span></a>
-<a class="sourceLine" id="cb16-3" title="3">  (<span class="kw">setq</span> ess-use-company <span class="kw">nil</span>)</a>
-<a class="sourceLine" id="cb16-4" title="4">  (ess-toggle-underscore <span class="kw">nil</span>) <span class="co">; Don&#39;t convert underscores to assignment</span></a>
-<a class="sourceLine" id="cb16-5" title="5">  <span class="co">;; function to set output width based on window size</span></a>
-<a class="sourceLine" id="cb16-6" title="6">  (<span class="kw">defun</span><span class="fu"> my-ess-execute-screen-options </span>(foo)</a>
-<a class="sourceLine" id="cb16-7" title="7">    <span class="st">&quot;cycle through windows whose major mode is inferior-ess-mode and fix width&quot;</span></a>
-<a class="sourceLine" id="cb16-8" title="8">    (interactive)</a>
-<a class="sourceLine" id="cb16-9" title="9">    (<span class="kw">setq</span> my-windows-list (window-list))</a>
-<a class="sourceLine" id="cb16-10" title="10">    (while my-windows-list</a>
-<a class="sourceLine" id="cb16-11" title="11">      (<span class="kw">when</span> (with-selected-window (<span class="kw">car</span> my-windows-list) (<span class="kw">string=</span> <span class="st">&quot;inferior-ess-mode&quot;</span> major-mode))</a>
-<a class="sourceLine" id="cb16-12" title="12">        (with-selected-window (<span class="kw">car</span> my-windows-list) (ess-execute-screen-options <span class="kw">t</span>)))</a>
-<a class="sourceLine" id="cb16-13" title="13">      (<span class="kw">setq</span> my-windows-list (<span class="kw">cdr</span> my-windows-list))))</a>
-<a class="sourceLine" id="cb16-14" title="14">  (add-to-list &#39;window-size-change-functions &#39;my-ess-execute-screen-options)</a>
-<a class="sourceLine" id="cb16-15" title="15"></a>
-<a class="sourceLine" id="cb16-16" title="16">  <span class="co">;; standard control-enter evaluation</span></a>
-<a class="sourceLine" id="cb16-17" title="17">  (define-key ess-mode-map (kbd <span class="st">&quot;&lt;C-return&gt;&quot;</span>) &#39;ess-eval-region-or-function-or-paragraph-and-step)</a>
-<a class="sourceLine" id="cb16-18" title="18">  (define-key ess-mode-map (kbd <span class="st">&quot;&lt;C-S-return&gt;&quot;</span>) &#39;ess-eval-buffer)</a>
-<a class="sourceLine" id="cb16-19" title="19"></a>
-<a class="sourceLine" id="cb16-20" title="20">  <span class="co">;; set up when entering ess-mode</span></a>
-<a class="sourceLine" id="cb16-21" title="21">  (add-hook &#39;ess-mode-hook</a>
-<a class="sourceLine" id="cb16-22" title="22">            (<span class="kw">lambda</span>()</a>
-<a class="sourceLine" id="cb16-23" title="23">              <span class="co">;; don&#39;t indent comments</span></a>
-<a class="sourceLine" id="cb16-24" title="24">              (<span class="kw">setq</span> ess-indent-with-fancy-comments <span class="kw">nil</span>)</a>
-<a class="sourceLine" id="cb16-25" title="25">              <span class="co">;; don&#39;t wrap long lines</span></a>
-<a class="sourceLine" id="cb16-26" title="26">              (toggle-truncate-lines <span class="kw">t</span>)</a>
-<a class="sourceLine" id="cb16-27" title="27">              <span class="co">;; turn on outline mode</span></a>
-<a class="sourceLine" id="cb16-28" title="28">              (outline-minor-mode <span class="kw">t</span>)))</a>
-<a class="sourceLine" id="cb16-29" title="29"></a>
-<a class="sourceLine" id="cb16-30" title="30">  <span class="co">;; Set ESS options</span></a>
-<a class="sourceLine" id="cb16-31" title="31">  (<span class="kw">setq</span></a>
-<a class="sourceLine" id="cb16-32" title="32">   ess-use-auto-complete <span class="kw">nil</span></a>
-<a class="sourceLine" id="cb16-33" title="33">   ess-use-company &#39;t</a>
-<a class="sourceLine" id="cb16-34" title="34">   <span class="co">;; ess-r-package-auto-set-evaluation-env nil</span></a>
-<a class="sourceLine" id="cb16-35" title="35">   inferior-ess-same-window <span class="kw">nil</span></a>
-<a class="sourceLine" id="cb16-36" title="36">   ess-indent-with-fancy-comments <span class="kw">nil</span>   <span class="co">; don&#39;t indent comments</span></a>
-<a class="sourceLine" id="cb16-37" title="37">   ess-eval-visibly <span class="kw">t</span>                   <span class="co">; enable echoing input</span></a>
-<a class="sourceLine" id="cb16-38" title="38">   ess-eval-empty <span class="kw">t</span>                     <span class="co">; don&#39;t skip non-code lines.</span></a>
-<a class="sourceLine" id="cb16-39" title="39">   ess-ask-for-ess-directory <span class="kw">nil</span>        <span class="co">; start R in the working directory by default</span></a>
-<a class="sourceLine" id="cb16-40" title="40">   ess-ask-for-ess-directory <span class="kw">nil</span>        <span class="co">; start R in the working directory by default</span></a>
-<a class="sourceLine" id="cb16-41" title="41">   ess-R-font-lock-keywords             <span class="co">; font-lock, but not too much</span></a>
-<a class="sourceLine" id="cb16-42" title="42">   (<span class="kw">quote</span></a>
-<a class="sourceLine" id="cb16-43" title="43">    ((ess-R-fl-keyword:modifiers)</a>
-<a class="sourceLine" id="cb16-44" title="44">     (ess-R-fl-keyword:fun-defs . <span class="kw">t</span>)</a>
-<a class="sourceLine" id="cb16-45" title="45">     (ess-R-fl-keyword:keywords . <span class="kw">t</span>)</a>
-<a class="sourceLine" id="cb16-46" title="46">     (ess-R-fl-keyword:assign-ops  . <span class="kw">t</span>)</a>
-<a class="sourceLine" id="cb16-47" title="47">     (ess-R-fl-keyword:constants . <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb16-48" title="48">     (ess-fl-keyword:fun-calls . <span class="kw">t</span>)</a>
-<a class="sourceLine" id="cb16-49" title="49">     (ess-fl-keyword:numbers)</a>
-<a class="sourceLine" id="cb16-50" title="50">     (ess-fl-keyword:operators . <span class="kw">t</span>)</a>
-<a class="sourceLine" id="cb16-51" title="51">     (ess-fl-keyword:delimiters)</a>
-<a class="sourceLine" id="cb16-52" title="52">     (ess-fl-keyword:=)</a>
-<a class="sourceLine" id="cb16-53" title="53">     (ess-R-fl-keyword:F&amp;T))))</a>
-<a class="sourceLine" id="cb16-54" title="54"></a>
-<a class="sourceLine" id="cb16-55" title="55">  (<span class="kw">when</span> (executable-find <span class="st">&quot;Rscript&quot;</span>)</a>
-<a class="sourceLine" id="cb16-56" title="56">    (<span class="kw">let</span> ((rlsp-flag-path (expand-file-name</a>
-<a class="sourceLine" id="cb16-57" title="57">                           <span class="st">&quot;Rlsps.ok&quot;</span></a>
-<a class="sourceLine" id="cb16-58" title="58">                           (temporary-file-directory))))</a>
-<a class="sourceLine" id="cb16-59" title="59">      (<span class="kw">let</span> ((scriptstring (concat</a>
-<a class="sourceLine" id="cb16-60" title="60">                           <span class="st">&quot;Rscript -e&quot;</span></a>
-<a class="sourceLine" id="cb16-61" title="61">                           <span class="st">&quot; </span><span class="sc">\&quot;</span><span class="st">if(require(languageserver)) file.create(&#39;&quot;</span></a>
-<a class="sourceLine" id="cb16-62" title="62">                           rlsp-flag-path</a>
-<a class="sourceLine" id="cb16-63" title="63">                           <span class="st">&quot;&#39;, showWarnings = FALSE)&quot;</span></a>
-<a class="sourceLine" id="cb16-64" title="64">                           <span class="st">&quot; else file.remove(&#39;&quot;</span></a>
-<a class="sourceLine" id="cb16-65" title="65">                           rlsp-flag-path</a>
-<a class="sourceLine" id="cb16-66" title="66">                           <span class="st">&quot;&#39;)</span><span class="sc">\&quot;</span><span class="st">&quot;</span>)))</a>
-<a class="sourceLine" id="cb16-67" title="67">        (shell-command scriptstring)</a>
-<a class="sourceLine" id="cb16-68" title="68">        (<span class="kw">when</span> (file-exists-p rlsp-flag-path)</a>
-<a class="sourceLine" id="cb16-69" title="69">          (<span class="kw">setq</span> ess-r-company-backends</a>
-<a class="sourceLine" id="cb16-70" title="70">                &#39;((company-files</a>
-<a class="sourceLine" id="cb16-71" title="71">                   company-math-symbols-unicode</a>
-<a class="sourceLine" id="cb16-72" title="72">                   company-R-library</a>
-<a class="sourceLine" id="cb16-73" title="73">                   company-R-args</a>
-<a class="sourceLine" id="cb16-74" title="74">                   company-R-objects</a>
-<a class="sourceLine" id="cb16-75" title="75">                   company-capf)))</a>
-<a class="sourceLine" id="cb16-76" title="76">          (add-to-list &#39;eglot-server-programs</a>
-<a class="sourceLine" id="cb16-77" title="77">                       &#39;(ess-mode . (<span class="st">&quot;Rscript&quot;</span> <span class="st">&quot;--slave&quot;</span> <span class="st">&quot;-e&quot;</span> <span class="st">&quot;languageserver::run()&quot;</span>)))</a>
-<a class="sourceLine" id="cb16-78" title="78">          (add-hook &#39;R-mode-hook &#39;eglot-ensure))))))</a></code></pre></div>
+<a class="sourceLine" id="cb16-2" title="2">(with-eval-after-load <span class="st">&quot;ess&quot;</span></a>
+<a class="sourceLine" id="cb16-3" title="3">  (<span class="kw">require</span> &#39;ess-mode)</a>
+<a class="sourceLine" id="cb16-4" title="4">    <span class="co">;; standard control-enter evaluation</span></a>
+<a class="sourceLine" id="cb16-5" title="5">    (define-key ess-mode-map (kbd <span class="st">&quot;&lt;C-return&gt;&quot;</span>) &#39;ess-eval-region-or-function-or-paragraph-and-step)</a>
+<a class="sourceLine" id="cb16-6" title="6">    (define-key ess-mode-map (kbd <span class="st">&quot;&lt;C-S-return&gt;&quot;</span>) &#39;ess-eval-buffer)</a>
+<a class="sourceLine" id="cb16-7" title="7"></a>
+<a class="sourceLine" id="cb16-8" title="8">    <span class="co">;; set up when entering ess-mode</span></a>
+<a class="sourceLine" id="cb16-9" title="9">    (add-hook &#39;ess-mode-hook</a>
+<a class="sourceLine" id="cb16-10" title="10">              (<span class="kw">lambda</span>()</a>
+<a class="sourceLine" id="cb16-11" title="11">                <span class="co">;; don&#39;t indent comments</span></a>
+<a class="sourceLine" id="cb16-12" title="12">                (<span class="kw">setq</span> ess-indent-with-fancy-comments <span class="kw">nil</span>)</a>
+<a class="sourceLine" id="cb16-13" title="13">                <span class="co">;; don&#39;t wrap long lines</span></a>
+<a class="sourceLine" id="cb16-14" title="14">                (toggle-truncate-lines <span class="kw">t</span>)</a>
+<a class="sourceLine" id="cb16-15" title="15">                <span class="co">;; turn on outline mode</span></a>
+<a class="sourceLine" id="cb16-16" title="16">                (outline-minor-mode <span class="kw">t</span>)))</a>
+<a class="sourceLine" id="cb16-17" title="17"></a>
+<a class="sourceLine" id="cb16-18" title="18">    <span class="co">;; Set ESS options</span></a>
+<a class="sourceLine" id="cb16-19" title="19">    (<span class="kw">setq</span></a>
+<a class="sourceLine" id="cb16-20" title="20">     ess-auto-width &#39;window</a>
+<a class="sourceLine" id="cb16-21" title="21">     ess-use-auto-complete <span class="kw">nil</span></a>
+<a class="sourceLine" id="cb16-22" title="22">     ess-use-company &#39;t</a>
+<a class="sourceLine" id="cb16-23" title="23">     <span class="co">;; ess-r-package-auto-set-evaluation-env nil</span></a>
+<a class="sourceLine" id="cb16-24" title="24">     inferior-ess-same-window <span class="kw">nil</span></a>
+<a class="sourceLine" id="cb16-25" title="25">     ess-indent-with-fancy-comments <span class="kw">nil</span>   <span class="co">; don&#39;t indent comments</span></a>
+<a class="sourceLine" id="cb16-26" title="26">     ess-eval-visibly <span class="kw">t</span>                   <span class="co">; enable echoing input</span></a>
+<a class="sourceLine" id="cb16-27" title="27">     ess-eval-empty <span class="kw">t</span>                     <span class="co">; don&#39;t skip non-code lines.</span></a>
+<a class="sourceLine" id="cb16-28" title="28">     ess-ask-for-ess-directory <span class="kw">nil</span>        <span class="co">; start R in the working directory by default</span></a>
+<a class="sourceLine" id="cb16-29" title="29">     ess-ask-for-ess-directory <span class="kw">nil</span>        <span class="co">; start R in the working directory by default</span></a>
+<a class="sourceLine" id="cb16-30" title="30">     ess-R-font-lock-keywords             <span class="co">; font-lock, but not too much</span></a>
+<a class="sourceLine" id="cb16-31" title="31">     (<span class="kw">quote</span></a>
+<a class="sourceLine" id="cb16-32" title="32">      ((ess-R-fl-keyword:modifiers)</a>
+<a class="sourceLine" id="cb16-33" title="33">       (ess-R-fl-keyword:fun-defs . <span class="kw">t</span>)</a>
+<a class="sourceLine" id="cb16-34" title="34">       (ess-R-fl-keyword:keywords . <span class="kw">t</span>)</a>
+<a class="sourceLine" id="cb16-35" title="35">       (ess-R-fl-keyword:assign-ops  . <span class="kw">t</span>)</a>
+<a class="sourceLine" id="cb16-36" title="36">       (ess-R-fl-keyword:constants . <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb16-37" title="37">       (ess-fl-keyword:fun-calls . <span class="kw">t</span>)</a>
+<a class="sourceLine" id="cb16-38" title="38">       (ess-fl-keyword:numbers)</a>
+<a class="sourceLine" id="cb16-39" title="39">       (ess-fl-keyword:operators . <span class="kw">t</span>)</a>
+<a class="sourceLine" id="cb16-40" title="40">       (ess-fl-keyword:delimiters)</a>
+<a class="sourceLine" id="cb16-41" title="41">       (ess-fl-keyword:=)</a>
+<a class="sourceLine" id="cb16-42" title="42">       (ess-R-fl-keyword:F&amp;T))))</a>
+<a class="sourceLine" id="cb16-43" title="43"></a>
+<a class="sourceLine" id="cb16-44" title="44">    (<span class="kw">when</span> (executable-find <span class="st">&quot;Rscript&quot;</span>)</a>
+<a class="sourceLine" id="cb16-45" title="45">      (<span class="kw">let</span> ((rlsp-flag-path (expand-file-name</a>
+<a class="sourceLine" id="cb16-46" title="46">                             <span class="st">&quot;Rlsps.ok&quot;</span></a>
+<a class="sourceLine" id="cb16-47" title="47">                             (temporary-file-directory))))</a>
+<a class="sourceLine" id="cb16-48" title="48">        (<span class="kw">let</span> ((scriptstring (concat</a>
+<a class="sourceLine" id="cb16-49" title="49">                             <span class="st">&quot;Rscript -e&quot;</span></a>
+<a class="sourceLine" id="cb16-50" title="50">                             <span class="st">&quot; </span><span class="sc">\&quot;</span><span class="st">if(require(languageserver)) file.create(&#39;&quot;</span></a>
+<a class="sourceLine" id="cb16-51" title="51">                             rlsp-flag-path</a>
+<a class="sourceLine" id="cb16-52" title="52">                             <span class="st">&quot;&#39;, showWarnings = FALSE)&quot;</span></a>
+<a class="sourceLine" id="cb16-53" title="53">                             <span class="st">&quot; else file.remove(&#39;&quot;</span></a>
+<a class="sourceLine" id="cb16-54" title="54">                             rlsp-flag-path</a>
+<a class="sourceLine" id="cb16-55" title="55">                             <span class="st">&quot;&#39;)</span><span class="sc">\&quot;</span><span class="st">&quot;</span>)))</a>
+<a class="sourceLine" id="cb16-56" title="56">          (shell-command scriptstring)</a>
+<a class="sourceLine" id="cb16-57" title="57">          (<span class="kw">when</span> (file-exists-p rlsp-flag-path)</a>
+<a class="sourceLine" id="cb16-58" title="58">            (<span class="kw">setq</span> ess-r-company-backends</a>
+<a class="sourceLine" id="cb16-59" title="59">                  &#39;((company-files</a>
+<a class="sourceLine" id="cb16-60" title="60">                     company-math-symbols-unicode</a>
+<a class="sourceLine" id="cb16-61" title="61">                     company-R-library</a>
+<a class="sourceLine" id="cb16-62" title="62">                     company-R-args</a>
+<a class="sourceLine" id="cb16-63" title="63">                     company-R-objects</a>
+<a class="sourceLine" id="cb16-64" title="64">                     company-capf)))</a>
+<a class="sourceLine" id="cb16-65" title="65">            (add-to-list &#39;eglot-server-programs</a>
+<a class="sourceLine" id="cb16-66" title="66">                         &#39;(ess-mode . (<span class="st">&quot;Rscript&quot;</span> <span class="st">&quot;--slave&quot;</span> <span class="st">&quot;-e&quot;</span> <span class="st">&quot;languageserver::run()&quot;</span>)))</a>
+<a class="sourceLine" id="cb16-67" title="67">            (add-hook &#39;R-mode-hook &#39;eglot-ensure))))))</a></code></pre></div>
 </section>
 <section id="run-python-in-emacs" class="level1">
 <h1>Run python in emacs (python-mode)</h1>

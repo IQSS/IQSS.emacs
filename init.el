@@ -726,7 +726,7 @@
 (with-eval-after-load "ess"
   (require 'ess-mode)
     ;; standard control-enter evaluation
-    (define-key ess-mode-map (kbd "<C-return>") 'ess-e-eval-region-or-function-or-paragraph-and-step)
+    (define-key ess-mode-map (kbd "<C-return>") 'ess-eval-region-or-function-or-paragraph-and-step)
     (define-key ess-mode-map (kbd "<C-S-return>") 'ess-eval-buffer)
     
     ;; set up when entering ess-mode
