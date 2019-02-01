@@ -234,7 +234,7 @@ You can put any additional Emacs configuration in
 `~/.emacs.d/custom.el`. This file is loaded last, so you always have
 the chance to override any settings you don't like. You can require
 additional packages by adding the to `package-selected-packages`. For
-example, putting `(add-to-list 'package-slected-packages
+example, putting `(add-to-list 'package-selected-packages
 'matlab-mode)` in your `custom.el` file will ensure that the
 *matlab-mode* package is installed.
 
