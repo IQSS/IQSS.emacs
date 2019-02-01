@@ -1251,7 +1251,7 @@ Will prompt you shell name when you type `C-u' before this command."
     (write-region ";; Put your personal user configuration in this file.
 
 ;; To require addional packages add them to 'package-selected-packages, e.g.
-;; (add-to-list 'package-slected-packages 'ess)
+;; (add-to-list 'package-selected-packages 'ess)
 ;; will ensure that the ess package is installed the next time Emacs starts.
 
 
