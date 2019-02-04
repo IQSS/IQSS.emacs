@@ -80,7 +80,6 @@ If a program is not in your =PATH= but you wish to install an Emacs package anyw
           yasnippet
           yasnippet-snippets
           multiple-cursors
-          smart-tab
           eglot
           visual-regexp
           command-log-mode
@@ -715,25 +714,27 @@ Here we configure in-buffer text completion using the company-mode package. Thes
   (require 'company-math)
   (setq company-backends '((company-files company-math-symbols-unicode company-capf)))
   (setq-default company-backends '((company-files company-math-symbols-unicode company-capf)))
+  (setq tab-always-indent 'complete)
 
   ;; completion key bindings
   (define-key company-mode-map (kbd "C-M-i") 'company-complete)
   (define-key company-mode-map (kbd "C-M-S-i") 'counsel-company)
-  (require 'smart-tab)
-  (require 'eglot)
-  (setq eglot-ignored-server-capabilites
-        '(:documentHighlightProvider :hoverProvider))
-  (setq smart-tab-expand-eolp t
-        smart-tab-user-provided-completion-function 'company-complete)
-  ;; (add-hook 'prog-mode-hook 'smart-tab-mode-on)
-  (global-smart-tab-mode)
+  (defun complete-or-indent ()
+    (interactive)
+    (if (and (looking-at "\\_>") (company-manual-begin))
+        (company-complete-common)
+      (indent-for-tab-command)))
+  (define-key company-mode-map (kbd "<tab>") 'complete-or-indent)
 
-   ;; make company use pcomplete (via capf)
+;; make company use pcomplete (via capf)
    ;; (add-hook 'completion-at-point-functions 'pcomplete-completions-at-point)
 
    ;; not sure why this should be set in a hook, but that is how the manual says to do it.
-   (add-hook 'after-init-hook 'global-company-mode)
+  (add-hook 'after-init-hook 'global-company-mode)
 
+  (require 'eglot)
+  (setq eglot-ignored-server-capabilites
+        '(:documentHighlightProvider :hoverProvider))
 #+END_SRC
 
 * Which-key
