@@ -729,7 +729,7 @@
     ;; standard control-enter evaluation
     (define-key ess-mode-map (kbd "<C-return>") 'ess-eval-region-or-function-or-paragraph-and-step)
     (define-key ess-mode-map (kbd "<C-S-return>") 'ess-eval-buffer)
-    
+
     ;; set up when entering ess-mode
     (add-hook 'ess-mode-hook
               (lambda()
@@ -739,7 +739,7 @@
                 (toggle-truncate-lines t)
                 ;; turn on outline mode
                 (outline-minor-mode t)))
-    
+
     ;; Set ESS options
     (setq
      ess-auto-width 'window
@@ -765,31 +765,32 @@
        (ess-fl-keyword:delimiters)
        (ess-fl-keyword:=)
        (ess-R-fl-keyword:F&T))))
-    
-    (when (executable-find "Rscript")
-      (let ((rlsp-flag-path (expand-file-name
-                             "Rlsps.ok"
-                             (temporary-file-directory))))
-        (let ((scriptstring (concat
-                             "Rscript -e"
-                             " \"if(require(languageserver)) file.create('"
-                             rlsp-flag-path
-                             "', showWarnings = FALSE)"
-                             " else file.remove('"
-                             rlsp-flag-path
-                             "')\"")))
-          (shell-command scriptstring)
-          (when (file-exists-p rlsp-flag-path)
-            (setq ess-r-company-backends
-                  '((company-files
-                     company-math-symbols-unicode
-                     company-R-library
-                     company-R-args
-                     company-R-objects
-                     company-capf)))
-            (add-to-list 'eglot-server-programs
-                         '(ess-mode . ("Rscript" "--slave" "-e" "languageserver::run()")))
-            (add-hook 'R-mode-hook 'eglot-ensure))))))
+
+    ;; (when (executable-find "Rscript")
+    ;;   (let ((rlsp-flag-path (expand-file-name
+    ;;                          "Rlsps.ok"
+    ;;                          (temporary-file-directory))))
+    ;;     (let ((scriptstring (concat
+    ;;                          "Rscript -e"
+    ;;                          " \"if(require(languageserver)) file.create('"
+    ;;                          rlsp-flag-path
+    ;;                          "', showWarnings = FALSE)"
+    ;;                          " else file.remove('"
+    ;;                          rlsp-flag-path
+    ;;                          "')\"")))
+    ;;       (shell-command scriptstring)
+    ;;       (when (file-exists-p rlsp-flag-path)
+    ;;         (setq ess-r-company-backends
+    ;;               '((company-files
+    ;;                  company-math-symbols-unicode
+    ;;                  company-R-library
+    ;;                  company-R-args
+    ;;                  company-R-objects
+    ;;                  company-capf)))
+    ;;         (add-to-list 'eglot-server-programs
+    ;;                      '(ess-mode . ("Rscript" "--slave" "-e" "languageserver::run()")))
+
+    (add-hook 'R-mode-hook 'eglot-ensure))
 
 (defalias 'python 'run-python)
 
@@ -1161,8 +1162,8 @@ Will prompt you shell name when you type `C-u' before this command."
     (set-buffer term-buffer)
     ;; Internal handle for `multi-term' buffer.
     (multi-term-internal)
-    (with-editor-export-editor)
-    (with-editor-export-git-editor)
+    ;;(with-editor-export-editor)
+    ;;(with-editor-export-git-editor)
     (call-interactively 'comint-clear-buffer)
     ;; Switch buffer
     ;;(display-buffer term-buffer t)
@@ -1218,12 +1219,12 @@ Will prompt you shell name when you type `C-u' before this command."
   (setq with-editor-emacsclient-executable (executable-find "remacsclient")))
 
 
-(add-hook 'shell-mode-hook
-          (lambda()
-            (with-editor-export-editor)
-            (with-editor-export-git-editor)
-            ;;(sleep-for 0.5) ; this is bad, but thinking hurts and it works.
-            (call-interactively 'comint-clear-buffer)))
+;; (add-hook 'shell-mode-hook
+;;           (lambda()
+;;             (with-editor-export-editor)
+;;             (with-editor-export-git-editor)
+;;             ;;(sleep-for 0.5) ; this is bad, but thinking hurts and it works.
+;;             (call-interactively 'comint-clear-buffer)))
 
 ;; (add-hook 'term-exec-hook
 ;;           (lambda()            
@@ -1243,8 +1244,9 @@ Will prompt you shell name when you type `C-u' before this command."
             (add-to-list 'eshell-visual-commands "tail")
             (add-to-list 'eshell-visual-commands "htop")
             ;; git editor support
-            (with-editor-export-editor)
-            (with-editor-export-git-editor)))
+            ;; (with-editor-export-editor)
+            ;;(with-editor-export-git-editor)
+            ))
 
 ;; save settings made using the customize interface to a sparate file
   (setq custom-file (concat user-emacs-directory "custom.el"))
@@ -1252,7 +1254,7 @@ Will prompt you shell name when you type `C-u' before this command."
     (write-region ";; Put your personal user configuration in this file.
 
 ;; To require addional packages add them to 'package-selected-packages, e.g.
-;; (add-to-list 'package-selected-packages 'ess)
+;; (add-to-list 'package-slected-packages 'ess)
 ;; will ensure that the ess package is installed the next time Emacs starts.
 
 
