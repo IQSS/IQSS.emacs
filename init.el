@@ -4,7 +4,7 @@
            "." 
            (number-to-string emacs-minor-version)))
          26.0)
-  (error "Your version of emacs is old and must be upgraded before you can use these packages! Version >= 25.3 is required."))
+  (error "Your version of emacs is old and must be upgraded before you can use these packages! Version >= 26.0 is required."))
 
 ;; start maximized 
 (setq frame-resize-pixelwise t
@@ -235,7 +235,7 @@
   ;;; line wrapping
   ;; neck beards be damned, we don't need to hard wrap. The editor can soft wrap for us.
   (remove-hook 'text-mode-hook 'turn-on-auto-fill)
-  (add-hook 'visual-line-mode-hook 'adaptive-wrap-prefix-mode)
+  ;; (add-hook 'visual-line-mode-hook 'adaptive-wrap-prefix-mode)
   (add-hook 'text-mode-hook 'visual-line-mode 1)
   (add-hook 'prog-mode-hook
             (lambda()
@@ -725,6 +725,7 @@
 
 ;;;  ESS (Emacs Speaks Statistics)
 (with-eval-after-load "ess"
+  (add-hook 'ess-r-mode-hook 'eglot-ensure)
   (require 'ess-mode)
     ;; standard control-enter evaluation
     (define-key ess-mode-map (kbd "<C-return>") 'ess-eval-region-or-function-or-paragraph-and-step)
@@ -733,8 +734,6 @@
     ;; set up when entering ess-mode
     (add-hook 'ess-mode-hook
               (lambda()
-                ;; don't indent comments
-                (setq ess-indent-with-fancy-comments nil)
                 ;; don't wrap long lines
                 (toggle-truncate-lines t)
                 ;; turn on outline mode
@@ -790,7 +789,7 @@
     ;;         (add-to-list 'eglot-server-programs
     ;;                      '(ess-mode . ("Rscript" "--slave" "-e" "languageserver::run()")))
 
-    (add-hook 'R-mode-hook 'eglot-ensure))
+    )
 
 (defalias 'python 'run-python)
 
