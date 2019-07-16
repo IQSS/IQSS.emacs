@@ -41,6 +41,18 @@
 (add-to-list 'package-archives 
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
+;; Fix gnu package archive verification in Emacs 26.2 by disabling broken TLS 1.3 support
+;;  per https://www.reddit.com/r/emacs/comments/cdei4p/failed_to_download_gnu_archive_bad_request/
+(if (and (= emacs-major-version 26) (= emacs-minor-version 2))
+    (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"))
+
+;; Assume yes to the package installation prompts if EMACS_AUTOINSTALL_PACKAGES=yes
+(if (string-equal (getenv "EMACS_AUTOINSTALL_PACKAGES") "yes")
+    (defadvice package-install-selected-packages (around auto-confirm compile activate)
+        (cl-letf (((symbol-function 'yes-or-no-p) (lambda (&rest args) t))
+                  ((symbol-function 'y-or-n-p) (lambda (&rest args) t)))
+         ad-do-it)))
+
 ;; A list of the packages we always want
 (setq package-selected-packages
       '(;; gnu packages
@@ -102,6 +114,9 @@
                   (run-at-time
                    "2 sec" nil 'delete-windows-on
                    (get-buffer-create "*compilation*"))
+                  (run-at-time
+                   "2 sec" nil 'delete-windows-on
+                   (get-buffer-create "*Compile-Log*"))
                   (message "No Compilation Errors!")))))
 
 ;; install packages if needed
@@ -946,7 +961,9 @@
                                company-capf)))))
     ;; Use pdf-tools to open PDF files
     (when (eq system-type 'gnu/linux)
-      (pdf-tools-install)
+      (if (string-equal (getenv "EMACS_AUTOINSTALL_PACKAGES") "yes")
+          (pdf-tools-install t)
+          (pdf-tools-install))
       (setq TeX-view-program-selection '((output-pdf "PDF Tools")))
       TeX-source-correlate-start-server t
       ;; Update PDF buffers after successful LaTeX runs
