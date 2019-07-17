@@ -308,8 +308,10 @@ This section sets up various utilities and conveniences. Many of these are low p
     (add-hook 'text-mode-hook 'visual-line-mode 1)
     (add-hook 'prog-mode-hook
               (lambda()
-                (toggle-truncate-lines t)
-                (outline-minor-mode t)))
+                (when (not truncate-lines)
+                  (setq truncate-lines t))
+                (when (not outline-minor-mode)
+                  (outline-minor-mode t))))
 
     ;; indicate visual-line-mode wrap
     (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
@@ -902,15 +904,7 @@ Support for R in Emacs is good, thanks to http://ess.r-project.org/. As with oth
       ;; standard control-enter evaluation
       (define-key ess-mode-map (kbd "<C-return>") 'ess-eval-region-or-function-or-paragraph-and-step)
       (define-key ess-mode-map (kbd "<C-S-return>") 'ess-eval-buffer)
-
-      ;; set up when entering ess-mode
-      (add-hook 'ess-mode-hook
-                (lambda()
-                  ;; don't wrap long lines
-                  (toggle-truncate-lines t)
-                  ;; turn on outline mode
-                  (outline-minor-mode t)))
-
+      
       ;; Set ESS options
       (setq
        ess-auto-width 'window
