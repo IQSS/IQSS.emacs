@@ -250,11 +250,12 @@
   ;;; line wrapping
   ;; neck beards be damned, we don't need to hard wrap. The editor can soft wrap for us.
   (remove-hook 'text-mode-hook 'turn-on-auto-fill)
-  ;; (add-hook 'visual-line-mode-hook 'adaptive-wrap-prefix-mode)
+;; (add-hook 'visual-line-mode-hook 'adaptive-wrap-prefix-mode)
+  (setq-default truncate-lines t)
   (add-hook 'text-mode-hook 'visual-line-mode 1)
   (add-hook 'prog-mode-hook
             (lambda()
-              (toggle-truncate-lines t)
+              (setq truncate-lines t)
               (outline-minor-mode t)))
 
   ;; indicate visual-line-mode wrap
@@ -745,14 +746,6 @@
     ;; standard control-enter evaluation
     (define-key ess-mode-map (kbd "<C-return>") 'ess-eval-region-or-function-or-paragraph-and-step)
     (define-key ess-mode-map (kbd "<C-S-return>") 'ess-eval-buffer)
-
-    ;; set up when entering ess-mode
-    (add-hook 'ess-mode-hook
-              (lambda()
-                ;; don't wrap long lines
-                (toggle-truncate-lines t)
-                ;; turn on outline mode
-                (outline-minor-mode t)))
 
     ;; Set ESS options
     (setq
