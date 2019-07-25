@@ -63,7 +63,8 @@
         yasnippet
         yasnippet-snippets
         multiple-cursors
-        eglot
+        lsp
+        company-lsp
         visual-regexp
         command-log-mode
         undo-tree
@@ -612,8 +613,15 @@
 (require 'company-capf)
 (require 'company-files)
 (require 'company-math)
-(setq company-backends '((company-files company-math-symbols-unicode company-capf)))
-(setq-default company-backends '((company-files company-math-symbols-unicode company-capf)))
+
+(require 'lsp-mode)
+(add-hook 'python-mode-hook #'lsp)
+(add-hook 'ess-mode-hook #'lsp)
+(require 'company-lsp)
+(push 'company-lsp company-backends)
+
+(setq company-backends '((company-lsp company-files company-math-symbols-unicode company-capf)))
+(setq-default company-backends '((company-lsp company-files company-math-symbols-unicode company-capf)))
 (setq tab-always-indent 'complete)
 
 ;; completion key bindings
@@ -631,10 +639,6 @@
       smart-tab-user-provided-completion-function 'company-complete)
 ;; (add-hook 'prog-mode-hook 'smart-tab-mode-on)
 (global-smart-tab-mode)
-
-(require 'eglot)
-(setq eglot-ignored-server-capabilites
-      '(:documentHighlightProvider :hoverProvider))
 
 ;; which-key settings taken mostly from https://github.com/aculich/.emacs.d/blob/master/init.el
 (with-eval-after-load "which-key"
@@ -741,7 +745,12 @@
 
 ;;;  ESS (Emacs Speaks Statistics)
 (with-eval-after-load "ess"
-  (add-hook 'ess-r-mode-hook 'eglot-ensure)
+  (lsp-register-client
+  (make-lsp-client :new-connection
+      (lsp-stdio-connection '("R" "--slave" "-e" "languageserver::run()"))
+      :major-modes '(ess-r-mode inferior-ess-r-mode)
+      :server-id 'lsp-R))
+  (add-hook 'ess-r-mode-hook '#lsp)
   (require 'ess-mode)
     ;; standard control-enter evaluation
     (define-key ess-mode-map (kbd "<C-return>") 'ess-eval-region-or-function-or-paragraph-and-step)
@@ -771,33 +780,7 @@
        (ess-fl-keyword:operators . t)
        (ess-fl-keyword:delimiters)
        (ess-fl-keyword:=)
-       (ess-R-fl-keyword:F&T))))
-
-    ;; (when (executable-find "Rscript")
-    ;;   (let ((rlsp-flag-path (expand-file-name
-    ;;                          "Rlsps.ok"
-    ;;                          (temporary-file-directory))))
-    ;;     (let ((scriptstring (concat
-    ;;                          "Rscript -e"
-    ;;                          " \"if(require(languageserver)) file.create('"
-    ;;                          rlsp-flag-path
-    ;;                          "', showWarnings = FALSE)"
-    ;;                          " else file.remove('"
-    ;;                          rlsp-flag-path
-    ;;                          "')\"")))
-    ;;       (shell-command scriptstring)
-    ;;       (when (file-exists-p rlsp-flag-path)
-    ;;         (setq ess-r-company-backends
-    ;;               '((company-files
-    ;;                  company-math-symbols-unicode
-    ;;                  company-R-library
-    ;;                  company-R-args
-    ;;                  company-R-objects
-    ;;                  company-capf)))
-    ;;         (add-to-list 'eglot-server-programs
-    ;;                      '(ess-mode . ("Rscript" "--slave" "-e" "languageserver::run()")))
-
-    )
+       (ess-R-fl-keyword:F&T)))))
 
 (defalias 'python 'run-python)
 
@@ -808,8 +791,8 @@
   ;; simple evaluation with C-ret
   (require 'eval-in-repl-python)
   (when (executable-find "pyls")
-    (add-hook 'python-mode-hook 'eglot-ensure)
-    (add-hook 'inferior-python-mode-hook 'eglot-ensure))
+    (add-hook 'python-mode-hook #'lsp)
+    (add-hook 'inferior-python-mode-hook #'lsp))
   ;;(setq eir-use-python-shell-send-string nil)
   (define-key python-mode-map (kbd "C-c C-c") 'eir-eval-in-python)
   (define-key python-mode-map (kbd "<C-return>") 'eir-eval-in-python)
@@ -858,8 +841,8 @@
   (when (or (executable-find "hie")
             (executable-find "hie-wrapper")
             (executable-find "stack"))
-  (add-hook 'haskell-mode-hook 'eglot-ensure)
-  (add-hook 'haskell-interactive-mode-hook 'eglot-ensure))
+  (add-hook 'haskell-mode-hook #'lsp)
+  (add-hook 'haskell-interactive-mode-hook #'lsp))
   (when (executable-find "stack")
     (intero-global-mode 1)))
 
