@@ -730,7 +730,8 @@ Here we configure in-buffer text completion using the company-mode package. Thes
   (setq-default company-backends '(company-files company-math-symbols-unicode company-capf))
 
   ;; completion key bindings
-  (define-key company-mode-map (kbd "<tab>") #'company-indent-or-complete-common)
+  (setq tab-always-indent 'complete)
+  (define-key company-mode-map [remap indent-for-tab-command] #'company-indent-or-complete-common)
   (define-key company-mode-map (kbd "C-M-i") 'company-complete)
   (define-key company-mode-map (kbd "C-M-S-i") 'counsel-company)
 
@@ -894,6 +895,7 @@ Support for R in Emacs is good, thanks to http://ess.r-project.org/. As with oth
     (add-hook 'ess-r-mode-hook
               (lambda()
                 'eglot-ensure
+                (make-local-variable 'company-backends)
                 (delete-dups (push 'company-capf company-backends))                
                 (delete-dups (push 'company-files company-backends))))
     (require 'ess-mode)
@@ -1001,6 +1003,7 @@ If you want to get the most out of Emacs, you'll eventually need to learn a litt
     (add-hook 'emacs-lisp-mode-hook
               (lambda()
                 ;; make sure completion calls company-elisp first
+                (make-local-variable 'company-backends)
                 (require 'company-elisp)
                 (delete-dups (push 'company-elisp company-backends)))))
 #+END_SRC
@@ -1131,6 +1134,7 @@ I don't write nearly as much in LaTeX as I used to, as Markdown and/or Org mode 
                   (TeX-source-correlate-mode t)
                   (imenu-add-to-menubar "Index")
                   (outline-minor-mode)
+                  (make-local-variable 'company-backends)
                   (require 'company-math)
                   (delete-dups (push 'company-math-symbols-latex company-backends))))
       ;; Use pdf-tools to open PDF files

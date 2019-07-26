@@ -615,7 +615,8 @@
 (setq-default company-backends '(company-files company-math-symbols-unicode company-capf))
 
 ;; completion key bindings
-(define-key company-mode-map (kbd "<tab>") #'company-indent-or-complete-common)
+(setq tab-always-indent 'complete)
+(define-key company-mode-map [remap indent-for-tab-command] #'company-indent-or-complete-common)
 (define-key company-mode-map (kbd "C-M-i") 'company-complete)
 (define-key company-mode-map (kbd "C-M-S-i") 'counsel-company)
 
@@ -737,6 +738,7 @@
   (add-hook 'ess-r-mode-hook
             (lambda()
               'eglot-ensure
+              (make-local-variable 'company-backends)
               (delete-dups (push 'company-capf company-backends))                
               (delete-dups (push 'company-files company-backends))))
   (require 'ess-mode)
@@ -821,6 +823,7 @@
   (add-hook 'emacs-lisp-mode-hook
             (lambda()
               ;; make sure completion calls company-elisp first
+              (make-local-variable 'company-backends)
               (require 'company-elisp)
               (delete-dups (push 'company-elisp company-backends)))))
 
@@ -918,6 +921,7 @@
                 (TeX-source-correlate-mode t)
                 (imenu-add-to-menubar "Index")
                 (outline-minor-mode)
+                (make-local-variable 'company-backends)
                 (require 'company-math)
                 (delete-dups (push 'company-math-symbols-latex company-backends))))
     ;; Use pdf-tools to open PDF files
