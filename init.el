@@ -86,7 +86,6 @@
         smooth-scroll
         unfill
         company
-        smart-tab
         company-math
         web-mode
         markdown-mode
@@ -612,25 +611,19 @@
 (require 'company-capf)
 (require 'company-files)
 (require 'company-math)
-(setq company-backends '((company-files company-math-symbols-unicode company-capf)))
-(setq-default company-backends '((company-files company-math-symbols-unicode company-capf)))
-(setq tab-always-indent 'complete)
+(setq company-backends '(company-files company-math-symbols-unicode company-capf))
+(setq-default company-backends '(company-files company-math-symbols-unicode company-capf))
 
 ;; completion key bindings
+(define-key company-mode-map (kbd "<tab>") #'company-indent-or-complete-common)
 (define-key company-mode-map (kbd "C-M-i") 'company-complete)
 (define-key company-mode-map (kbd "C-M-S-i") 'counsel-company)
-(require 'smart-tab)
 
 ;; make company use pcomplete (via capf)
 ;; (add-hook 'completion-at-point-functions 'pcomplete-completions-at-point)
 
 ;; not sure why this should be set in a hook, but that is how the manual says to do it.
 (add-hook 'after-init-hook 'global-company-mode)
-
-(setq smart-tab-expand-eolp t
-      smart-tab-user-provided-completion-function 'company-complete)
-;; (add-hook 'prog-mode-hook 'smart-tab-mode-on)
-(global-smart-tab-mode)
 
 (require 'eglot)
 (setq eglot-ignored-server-capabilites
@@ -741,7 +734,11 @@
 
 ;;;  ESS (Emacs Speaks Statistics)
 (with-eval-after-load "ess"
-  (add-hook 'ess-r-mode-hook 'eglot-ensure)
+  (add-hook 'ess-r-mode-hook
+            (lambda()
+              'eglot-ensure
+              (delete-dups (push 'company-capf company-backends))                
+              (delete-dups (push 'company-files company-backends))))
   (require 'ess-mode)
     ;; standard control-enter evaluation
     (define-key ess-mode-map (kbd "<C-return>") 'ess-eval-region-or-function-or-paragraph-and-step)
@@ -771,33 +768,7 @@
        (ess-fl-keyword:operators . t)
        (ess-fl-keyword:delimiters)
        (ess-fl-keyword:=)
-       (ess-R-fl-keyword:F&T))))
-
-    ;; (when (executable-find "Rscript")
-    ;;   (let ((rlsp-flag-path (expand-file-name
-    ;;                          "Rlsps.ok"
-    ;;                          (temporary-file-directory))))
-    ;;     (let ((scriptstring (concat
-    ;;                          "Rscript -e"
-    ;;                          " \"if(require(languageserver)) file.create('"
-    ;;                          rlsp-flag-path
-    ;;                          "', showWarnings = FALSE)"
-    ;;                          " else file.remove('"
-    ;;                          rlsp-flag-path
-    ;;                          "')\"")))
-    ;;       (shell-command scriptstring)
-    ;;       (when (file-exists-p rlsp-flag-path)
-    ;;         (setq ess-r-company-backends
-    ;;               '((company-files
-    ;;                  company-math-symbols-unicode
-    ;;                  company-R-library
-    ;;                  company-R-args
-    ;;                  company-R-objects
-    ;;                  company-capf)))
-    ;;         (add-to-list 'eglot-server-programs
-    ;;                      '(ess-mode . ("Rscript" "--slave" "-e" "languageserver::run()")))
-
-    )
+       (ess-R-fl-keyword:F&T)))))
 
 (defalias 'python 'run-python)
 
@@ -851,7 +822,7 @@
             (lambda()
               ;; make sure completion calls company-elisp first
               (require 'company-elisp)
-              (setq-local company-backends '((company-elisp company-files company-capf))))))
+              (delete-dups (push 'company-elisp company-backends)))))
 
 (with-eval-after-load "haskell-mode"
   (defalias 'haskell 'haskell-interactive-bring)
@@ -948,10 +919,7 @@
                 (imenu-add-to-menubar "Index")
                 (outline-minor-mode)
                 (require 'company-math)
-                (setq-local company-backends
-                            '((company-files
-                               company-math-symbols-latex
-                               company-capf)))))
+                (delete-dups (push 'company-math-symbols-latex company-backends))))
     ;; Use pdf-tools to open PDF files
     (when (eq system-type 'gnu/linux)
       (if (string-equal (getenv "EMACS_AUTOINSTALL_PACKAGES") "yes")
