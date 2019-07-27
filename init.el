@@ -735,9 +735,9 @@
 
 ;;;  ESS (Emacs Speaks Statistics)
 (with-eval-after-load "ess"
+  (add-hook 'ess-r-mode-hook 'eglot-ensure)
   (add-hook 'ess-r-mode-hook
             (lambda()
-              'eglot-ensure
               (make-local-variable 'company-backends)
               (delete-dups (push 'company-capf company-backends))                
               (delete-dups (push 'company-files company-backends))))
@@ -745,7 +745,8 @@
     ;; standard control-enter evaluation
     (define-key ess-mode-map (kbd "<C-return>") 'ess-eval-region-or-function-or-paragraph-and-step)
     (define-key ess-mode-map (kbd "<C-S-return>") 'ess-eval-buffer)
-
+    (define-key ess-mode-map (kbd "<tab>") 'company-complete-common)
+    (define-key inferior-ess-mode-map (kbd "<tab>") 'company-complete-common)
     ;; Set ESS options
     (setq
      ess-auto-width 'window
