@@ -899,36 +899,35 @@ Support for R in Emacs is good, thanks to http://ess.r-project.org/. As with oth
                 (delete-dups (push 'company-capf company-backends))                
                 (delete-dups (push 'company-files company-backends))))
     (require 'ess-mode)
-      ;; standard control-enter evaluation
-      (define-key ess-mode-map (kbd "<C-return>") 'ess-eval-region-or-function-or-paragraph-and-step)
-      (define-key ess-mode-map (kbd "<C-S-return>") 'ess-eval-buffer)
-      (define-key ess-mode-map (kbd "<tab>") 'company-complete-common)
-      (define-key inferior-ess-mode-map (kbd "<tab>") 'company-complete-common)
-      ;; Set ESS options
-      (setq
-       ess-auto-width 'window
-       ess-use-auto-complete nil
-       ess-use-company 't
-       ;; ess-r-package-auto-set-evaluation-env nil
-       inferior-ess-same-window nil
-       ess-indent-with-fancy-comments nil   ; don't indent comments
-       ess-eval-visibly t                   ; enable echoing input
-       ess-eval-empty t                     ; don't skip non-code lines.
-       ess-ask-for-ess-directory nil        ; start R in the working directory by default
-       ess-ask-for-ess-directory nil        ; start R in the working directory by default
-       ess-R-font-lock-keywords             ; font-lock, but not too much
-       (quote
-        ((ess-R-fl-keyword:modifiers)
-         (ess-R-fl-keyword:fun-defs . t)
-         (ess-R-fl-keyword:keywords . t)
-         (ess-R-fl-keyword:assign-ops  . t)
-         (ess-R-fl-keyword:constants . 1)
-         (ess-fl-keyword:fun-calls . t)
-         (ess-fl-keyword:numbers)
-         (ess-fl-keyword:operators . t)
-         (ess-fl-keyword:delimiters)
-         (ess-fl-keyword:=)
-         (ess-R-fl-keyword:F&T)))))
+    ;; standard control-enter evaluation
+    (define-key ess-mode-map (kbd "<C-return>") 'ess-eval-region-or-function-or-paragraph-and-step)
+    (define-key ess-mode-map (kbd "<C-S-return>") 'ess-eval-buffer)
+    (define-key ess-mode-map [remap ess-indent-or-complete] #'company-indent-or-complete-common)
+    ;; Set ESS options
+    (setq
+     ess-auto-width 'window
+     ess-use-auto-complete nil
+     ess-use-company 't
+     ;; ess-r-package-auto-set-evaluation-env nil
+     inferior-ess-same-window nil
+     ess-indent-with-fancy-comments nil   ; don't indent comments
+     ess-eval-visibly t                   ; enable echoing input
+     ess-eval-empty t                     ; don't skip non-code lines.
+     ess-ask-for-ess-directory nil        ; start R in the working directory by default
+     ess-ask-for-ess-directory nil        ; start R in the working directory by default
+     ess-R-font-lock-keywords             ; font-lock, but not too much
+     (quote
+      ((ess-R-fl-keyword:modifiers)
+       (ess-R-fl-keyword:fun-defs . t)
+       (ess-R-fl-keyword:keywords . t)
+       (ess-R-fl-keyword:assign-ops  . t)
+       (ess-R-fl-keyword:constants . 1)
+       (ess-fl-keyword:fun-calls . t)
+       (ess-fl-keyword:numbers)
+       (ess-fl-keyword:operators . t)
+       (ess-fl-keyword:delimiters)
+       (ess-fl-keyword:=)
+       (ess-R-fl-keyword:F&T)))))
 #+END_SRC
 
 * Run python in emacs (python-mode)
