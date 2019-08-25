@@ -882,6 +882,17 @@ Load eval-in-repl for bash, elisp, and python interaction.
   (setq comint-move-point-for-output t)
 #+END_SRC
 
+* Jupyter notebooks
+
+#+BEGIN_SRC emacs-lisp
+  (when (executable-find "jupyter")
+    (require 'ein)
+    (require 'ein-notebook)
+    (require 'ein-subpackages))
+
+#+END_SRC
+
+
 * Run R in emacs (ESS)
   :PROPERTIES:
   :CUSTOM_ID: run-r-in-emacs
