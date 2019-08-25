@@ -249,9 +249,10 @@
   ;;; line wrapping
   ;; neck beards be damned, we don't need to hard wrap. The editor can soft wrap for us.
   (remove-hook 'text-mode-hook 'turn-on-auto-fill)
-;; (add-hook 'visual-line-mode-hook 'adaptive-wrap-prefix-mode)
+  ;; (add-hook 'visual-line-mode-hook 'adaptive-wrap-prefix-mode)
+  ;; 
   (setq-default truncate-lines t)
-  (add-hook 'text-mode-hook 'visual-line-mode 1)
+  (global-visual-line-mode 1)
   (add-hook 'prog-mode-hook
             (lambda()
               (setq truncate-lines t)
