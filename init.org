@@ -92,7 +92,6 @@ If a program is not in your =PATH= but you wish to install an Emacs package anyw
           yasnippet
           yasnippet-snippets
           multiple-cursors
-          eglot
           visual-regexp
           command-log-mode
           undo-tree
@@ -741,10 +740,6 @@ Here we configure in-buffer text completion using the company-mode package. Thes
 
   ;; not sure why this should be set in a hook, but that is how the manual says to do it.
   (add-hook 'after-init-hook 'global-company-mode)
-
-  (require 'eglot)
-  (setq eglot-ignored-server-capabilites
-        '(:documentHighlightProvider :hoverProvider))
 #+END_SRC
 
 * Which-key
@@ -904,7 +899,7 @@ Support for R in Emacs is good, thanks to http://ess.r-project.org/. As with oth
 #+BEGIN_SRC emacs-lisp
   ;;;  ESS (Emacs Speaks Statistics)
   (with-eval-after-load "ess"
-    (add-hook 'ess-r-mode-hook 'eglot-ensure)
+    (require 'ess-site)
     (add-hook 'ess-r-mode-hook
               (lambda()
                 (make-local-variable 'company-backends)
@@ -919,6 +914,7 @@ Support for R in Emacs is good, thanks to http://ess.r-project.org/. As with oth
     (setq
      ess-auto-width 'window
      ess-use-auto-complete nil
+     ess-use-flymake nil
      ess-use-company 't
      ;; ess-r-package-auto-set-evaluation-env nil
      inferior-ess-same-window nil
@@ -958,9 +954,6 @@ Emacs has decent python support out of the box. As with other programming langua
     (setq python-shell-completion-native-enable nil)
     ;; simple evaluation with C-ret
     (require 'eval-in-repl-python)
-    (when (executable-find "pyls")
-      (add-hook 'python-mode-hook 'eglot-ensure)
-      (add-hook 'inferior-python-mode-hook 'eglot-ensure))
     ;;(setq eir-use-python-shell-send-string nil)
     (define-key python-mode-map (kbd "C-c C-c") 'eir-eval-in-python)
     (define-key python-mode-map (kbd "<C-return>") 'eir-eval-in-python)
@@ -1031,9 +1024,7 @@ I just recently started learning Haskell. There's not much to the configuration 
     (defalias 'haskell 'haskell-interactive-bring)
     (when (or (executable-find "hie")
               (executable-find "hie-wrapper")
-              (executable-find "stack"))
-    (add-hook 'haskell-mode-hook 'eglot-ensure)
-    (add-hook 'haskell-interactive-mode-hook 'eglot-ensure))
+              (executable-find "stack")))
     (when (executable-find "stack")
       (intero-global-mode 1)))
 #+END_SRC
