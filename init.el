@@ -729,11 +729,6 @@
 (setq comint-scroll-to-bottom-on-output t)
 (setq comint-move-point-for-output t)
 
-(when (executable-find "jupyter")
-  (require 'ein)
-  (require 'ein-notebook)
-  (require 'ein-subpackages))
-
 ;;;  ESS (Emacs Speaks Statistics)
 (with-eval-after-load "ess"
   (require 'ess-site)
