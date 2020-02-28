@@ -185,7 +185,6 @@
   (add-to-list 'package-selected-packages 'ensime)
   (add-to-list 'package-selected-packages 'sbt-mode))
 
-
 ;; install packages if needed
 (unless (every 'package-installed-p package-selected-packages)
   (message "Missing packages detected, please wait...")
@@ -1220,6 +1219,10 @@ Will prompt you shell name when you type `C-u' before this command."
             ;; (with-editor-export-editor)
             ;;(with-editor-export-git-editor)
             ))
+
+;; from https://unix.stackexchange.com/questions/233518/mariadb-client-has-no-prompt-in-emacs-sql-mode
+(with-eval-after-load "sql"
+  (sql-set-product-feature 'mysql :prompt-regexp "^\\(MariaDB\\|MySQL\\) \\[[_a-zA-Z()]*\\]> "))
 
 ;; save settings made using the customize interface to a sparate file
   (setq custom-file (concat user-emacs-directory "custom.el"))
