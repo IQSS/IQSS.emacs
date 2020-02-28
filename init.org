@@ -228,7 +228,6 @@ We try to install most things using the package manager, but a few things need t
     (add-to-list 'package-selected-packages 'scala-mode)
     (add-to-list 'package-selected-packages 'ensime)
     (add-to-list 'package-selected-packages 'sbt-mode))
-                         
 
   ;; install packages if needed
   (unless (every 'package-installed-p package-selected-packages)
@@ -1500,6 +1499,16 @@ There are several different shells available in Emacs by default. In addition =m
               ;; (with-editor-export-editor)
               ;;(with-editor-export-git-editor)
               ))
+#+END_SRC
+
+* SQL
+
+Emacs built-in sql mode is good, just needs a little tweak to work with MariaDB
+
+#+BEGIN_SRC emacs-lisp
+  ;; from https://unix.stackexchange.com/questions/233518/mariadb-client-has-no-prompt-in-emacs-sql-mode
+  (with-eval-after-load "sql"
+    (sql-set-product-feature 'mysql :prompt-regexp "^\\(MariaDB\\|MySQL\\) \\[[_a-zA-Z()]*\\]> "))
 #+END_SRC
 
 * Final touches
