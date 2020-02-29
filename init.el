@@ -182,7 +182,6 @@
   (add-to-list 'package-selected-packages 'ox-pandoc))
 (when (executable-find "scala")
   (add-to-list 'package-selected-packages 'scala-mode)
-  (add-to-list 'package-selected-packages 'ensime)
   (add-to-list 'package-selected-packages 'sbt-mode))
 
 ;; install packages if needed
@@ -665,14 +664,6 @@
   (which-key-declare-prefixes-for-mode 'emacs-lisp-mode
                                        "C-c m" "elisp"
                                        "C-c m e" "eval")
-
-  (which-key-declare-prefixes-for-mode 'scala-mode
-                                       "C-c C-b" "ensime/build"
-                                       "C-c C-d" "ensime/debug"
-                                       "C-c C-r" "ensime/refactor"
-                                       "C-c C-v" "ensime/misc"
-                                       "C-c m" "scala/personal"
-                                       "C-c m b" "scala/build")
 
   (which-key-declare-prefixes-for-mode 'haskell-mode
                                        "C-c m" "haskell/personal"
