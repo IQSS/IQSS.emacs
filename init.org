@@ -108,6 +108,7 @@ If a program is not in your =PATH= but you wish to install an Emacs package anyw
           smex
           hydra
           ivy-hydra
+          wgrep
           which-key
           outline-magic
           outshine

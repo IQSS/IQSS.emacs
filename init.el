@@ -79,6 +79,7 @@
         smex
         hydra
         ivy-hydra
+        wgrep
         which-key
         outline-magic
         outshine
