@@ -784,8 +784,8 @@
             (outline-minor-mode t))))
 
 (when (executable-find "julia")
-  (require 'julia-mode)
-  (require 'julia-repl)
+  ;(require 'julia-mode)
+  ;(require 'julia-repl)
   (add-hook 'julia-mode-hook 'julia-repl-mode))
 
 (with-eval-after-load "elisp-mode"

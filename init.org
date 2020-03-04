@@ -954,8 +954,8 @@ Emacs has decent python support out of the box. As with other programming langua
 
 #+BEGIN_SRC emacs-lisp
   (when (executable-find "julia")
-    (require 'julia-mode)
-    (require 'julia-repl)
+    ;(require 'julia-mode)
+    ;(require 'julia-repl)
     (add-hook 'julia-mode-hook 'julia-repl-mode))
 #+END_SRC
 
