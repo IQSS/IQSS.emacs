@@ -1000,12 +1000,12 @@
   (setq org-confirm-babel-evaluate nil))
 
 ;;; polymode
-(require 'polymode)
-(require 'poly-R)
-(with-eval-after-load "markdown"
-    (require 'poly-markdown))
-(with-eval-after-load "org"
-  (require 'poly-org))
+;; (require 'polymode)
+;; (require 'poly-R)
+;; (with-eval-after-load "markdown"
+;;     (require 'poly-markdown))
+;; (with-eval-after-load "org"
+;;   (require 'poly-org))
 
 (when (executable-find "mu")
   (autoload 'mu4e "mu4e" "Read your mail." t)
