@@ -1111,7 +1111,10 @@ The app is chosen from your OS's preference."
   (define-key term-raw-map (kbd "C-j") 'term-line-mode)
   (require 'with-editor)
   (when (executable-find "git") (require 'git-commit))
-  (shell-command-with-editor-mode t))
+  (shell-command-with-editor-mode t)
+  (add-hook 'term-mode-hook
+        (lambda ()
+          (toggle-truncate-lines 1))))
 
 ;; multi-term
 (defun terminal ()
