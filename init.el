@@ -200,8 +200,10 @@
 
 (require 'better-defaults)
 ;; better defaults are well, better... but we don't always agree
-(menu-bar-mode 1)
-(scroll-bar-mode 1)
+(with-eval-after-load "menu-bar"
+  (menu-bar-mode 1))
+(with-eval-after-load "scroll-bar"
+  (scroll-bar-mode 1))
 
 (setq select-active-regions 'only)
 
