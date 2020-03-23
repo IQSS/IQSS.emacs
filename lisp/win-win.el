@@ -122,7 +122,7 @@
 
 ;;;;;;;; Additional key-binding goodness from castlemacs ;;;;;;;;;;;;;;;
 ;; Use ESC as universal get me out of here command
-(define-key key-translation-map (kbd "ESC") (kbd "C-g"))
+;; (define-key key-translation-map (kbd "ESC") (kbd "C-g"))
 
 
 

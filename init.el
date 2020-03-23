@@ -99,6 +99,7 @@
         eval-in-repl
         exec-path-from-shell
         dumb-jump
+        flycheck
         htmlize
         dictionary
         untitled-new-buffer))
@@ -175,7 +176,6 @@
 (when (or (executable-find "ghc")
           (executable-find "stack"))
   (add-to-list 'package-selected-packages 'haskell-mode)
-  (add-to-list 'package-selected-packages 'intero)
   (add-to-list 'package-selected-packages 'company-ghci))
 (when (executable-find "jupyter")
   (add-to-list 'package-selected-packages 'ein))
@@ -560,7 +560,7 @@
 (global-set-key (kbd "C-c i") 'ivy-resume)
 
 ;; Make Ivy more like ido
-(define-key ivy-minibuffer-map (kbd "<return>") 'ivy-alt-done)
+(define-key ivy-minibuffer-map (kbd "RET") 'ivy-alt-done)
 (define-key ivy-minibuffer-map (kbd "C-d") 'ivy-done)
 (define-key ivy-minibuffer-map (kbd "C-b") 'ivy-immediate-done)
 (define-key ivy-minibuffer-map (kbd "C-f") 'ivy-immediate-done)
@@ -602,7 +602,7 @@
 (setq company-require-match nil
       company-async-timeout 6
       company-idle-delay 5
-      company-minimum-prefix-length 1
+      company-minimum-prefix-length 0
       company-global-modes '(not term-mode))
 ;; use C-n and C-p to cycle through completions
 (define-key company-active-map (kbd "C-n") 'company-select-next)
@@ -613,8 +613,9 @@
 (require 'company-capf)
 (require 'company-files)
 (require 'company-math)
-(setq company-backends '(company-files company-math-symbols-unicode company-capf))
-(setq-default company-backends '(company-files company-math-symbols-unicode company-capf))
+(delete-dups (push 'company-math-symbols-unicode company-backends))
+(delete-dups (push 'company-capf company-backends))
+(delete-dups (push 'company-files company-backends))
 
 ;; completion key bindings
 (setq tab-always-indent 'complete)
@@ -726,11 +727,6 @@
 ;;;  ESS (Emacs Speaks Statistics)
 (with-eval-after-load "ess"
   (require 'ess-site)
-  (add-hook 'ess-r-mode-hook
-            (lambda()
-              (make-local-variable 'company-backends)
-              (delete-dups (push 'company-capf company-backends))                
-              (delete-dups (push 'company-files company-backends))))
   (require 'ess-mode)
   ;; standard control-enter evaluation
   (define-key ess-mode-map (kbd "<C-return>") 'ess-eval-region-or-function-or-paragraph-and-step)
@@ -810,18 +806,10 @@
   ;; Set up completions
   (add-hook 'emacs-lisp-mode-hook
             (lambda()
-              ;; make sure completion calls company-elisp first
-              (make-local-variable 'company-backends)
-              (require 'company-elisp)
-              (delete-dups (push 'company-elisp company-backends)))))
+              (require 'company-elisp))))
 
 (with-eval-after-load "haskell-mode"
-  (defalias 'haskell 'haskell-interactive-bring)
-  (when (or (executable-find "hie")
-            (executable-find "hie-wrapper")
-            (executable-find "stack")))
-  (when (executable-find "stack")
-    (intero-global-mode 1)))
+  (defalias 'haskell 'haskell-interactive-bring))
 
 ;; Use markdown-mode for files with .markdown or .md extensions
 (setq
@@ -907,9 +895,7 @@
                 (TeX-source-correlate-mode t)
                 (imenu-add-to-menubar "Index")
                 (outline-minor-mode)
-                (make-local-variable 'company-backends)
-                (require 'company-math)
-                (delete-dups (push 'company-math-symbols-latex company-backends))))
+                (require 'company-math)))
     ;; Use pdf-tools to open PDF files
     (when (eq system-type 'gnu/linux)
       (if (string-equal (getenv "EMACS_AUTOINSTALL_PACKAGES") "yes")
