@@ -111,19 +111,15 @@ If a program is not in your =PATH= but you wish to install an Emacs package anyw
           wgrep
           which-key
           outline-magic
-          outshine
           smooth-scroll
           unfill
           company
           company-math
           web-mode
           markdown-mode
-          pandoc-mode
-          ess
           polymode
-          poly-R
           poly-markdown
-          poly-org
+          poly-ogr
           poly-noweb
           eval-in-repl
           exec-path-from-shell
@@ -822,21 +818,8 @@ I encourage you to use [[*Note taking and outlining (Org-mode)][org-mode]] for n
   (add-hook 'outline-minor-mode-hook 
 	    (lambda ()
 	      (require 'outline-magic)
-	       ;; (when (derived-mode-p 'prog-mode)
-	       ;;   (outshine-hook-function))
-	       ;; ;; outshine messes with keybindings :-(
-	       ;; (define-key
-	       ;;   outline-minor-mode-map (kbd "C-M-i") 'company-complete)
-	       ;; (define-key
-	       ;;   outline-minor-mode-map (kbd "M-TAB") 'company-complete)
 	      (define-key outline-minor-mode-map "\C-c\C-o\t" 'outline-cycle)
 	      (define-key outline-minor-mode-map (kbd "<backtab>") 'outline-cycle)))
-
-  (with-eval-after-load "outshine"
-    (define-key
-      outline-minor-mode-map
-      (kbd "<backtab>")
-      'outshine-cycle-buffer))
 #+END_SRC
 
 * Demonstration tools (command-log-mode)

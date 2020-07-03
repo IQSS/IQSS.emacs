@@ -82,19 +82,15 @@
         wgrep
         which-key
         outline-magic
-        outshine
         smooth-scroll
         unfill
         company
         company-math
         web-mode
         markdown-mode
-        pandoc-mode
-        ess
         polymode
-        poly-R
         poly-markdown
-        poly-org
+        poly-ogr
         poly-noweb
         eval-in-repl
         exec-path-from-shell
@@ -690,21 +686,8 @@
 (add-hook 'outline-minor-mode-hook 
 	  (lambda ()
 	    (require 'outline-magic)
-	     ;; (when (derived-mode-p 'prog-mode)
-	     ;;   (outshine-hook-function))
-	     ;; ;; outshine messes with keybindings :-(
-	     ;; (define-key
-	     ;;   outline-minor-mode-map (kbd "C-M-i") 'company-complete)
-	     ;; (define-key
-	     ;;   outline-minor-mode-map (kbd "M-TAB") 'company-complete)
 	    (define-key outline-minor-mode-map "\C-c\C-o\t" 'outline-cycle)
 	    (define-key outline-minor-mode-map (kbd "<backtab>") 'outline-cycle)))
-
-(with-eval-after-load "outshine"
-  (define-key
-    outline-minor-mode-map
-    (kbd "<backtab>")
-    'outshine-cycle-buffer))
 
 (setq command-log-mode-auto-show t)
 (global-set-key (kbd "C-x cl") 'global-command-log-mode)
