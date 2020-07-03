@@ -119,7 +119,7 @@ If a program is not in your =PATH= but you wish to install an Emacs package anyw
           markdown-mode
           polymode
           poly-markdown
-          poly-ogr
+          poly-org
           poly-noweb
           eval-in-repl
           exec-path-from-shell

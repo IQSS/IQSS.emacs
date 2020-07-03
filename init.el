@@ -90,7 +90,7 @@
         markdown-mode
         polymode
         poly-markdown
-        poly-ogr
+        poly-org
         poly-noweb
         eval-in-repl
         exec-path-from-shell
