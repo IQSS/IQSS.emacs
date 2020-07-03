@@ -160,6 +160,12 @@
 
 ;; Add to the list of the packages we want
 
+(when (executable-find "R")
+  (add-to-list 'package-selected-packages 'ess)
+  (add-to-list 'package-selected-packages 'poly-R))
+(when (executable-find "python")
+  (add-to-list 'package-selected-packages 'poetry)
+  (add-to-list 'package-selected-packages 'conda))
 (when (executable-find "pdflatex")
   (add-to-list 'package-selected-packages 'auctex)
   (add-to-list 'package-selected-packages 'ivy-bibtex))
@@ -176,6 +182,7 @@
 (when (executable-find "jupyter")
   (add-to-list 'package-selected-packages 'ein))
 (when (executable-find "pandoc")
+  (add-to-list 'package-selected-packages 'pandoc-mode)
   (add-to-list 'package-selected-packages 'ox-pandoc))
 (when (executable-find "scala")
   (add-to-list 'package-selected-packages 'scala-mode)
@@ -745,6 +752,10 @@
 (defalias 'python 'run-python)
 
 (with-eval-after-load "python"
+  ;; conda (https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) environment support
+  (require 'conda)
+  ;; poetry (https://poetry.eustace.io/) environment support
+  (require 'poetry)
   ;; try to get indent/completion working nicely
   ;; readline support is wonky at the moment
   (setq python-shell-completion-native-enable nil)
