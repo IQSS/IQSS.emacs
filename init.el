@@ -38,8 +38,7 @@
 (package-initialize t)
 
 ;; Add additional package sources
-(add-to-list 'package-archives 
-             '("melpa" . "http://melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
 ;; Fix gnu package archive verification in Emacs 26.2 by disabling broken TLS 1.3 support
 ;;  per https://www.reddit.com/r/emacs/comments/cdei4p/failed_to_download_gnu_archive_bad_request/
