@@ -1,10 +1,5 @@
-(when (< (string-to-number 
-          (concat 
-           (number-to-string emacs-major-version) 
-           "." 
-           (number-to-string emacs-minor-version)))
-         26.0)
-  (error "Your version of emacs is old and must be upgraded before you can use these packages! Version >= 26.0 is required."))
+(when (< emacs-major-version 26)
+  (error "Your version of emacs is old and must be upgraded before you can use these packages! Version >= 26 is required."))
 
 ;; start maximized 
 (setq frame-resize-pixelwise t
@@ -22,8 +17,6 @@
 (setq buffer-file-coding-system 'utf-8)
 (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 
-(require 'cl)
-
 ;; set things that need to be set before packages load
 (setq outline-minor-mode-prefix "\C-c\C-o")
 (add-hook 'outline-minor-mode-hook
@@ -35,7 +28,10 @@
 
 ;; load the package manager
 (require 'package)
-(package-initialize t)
+(when (< emacs-major-version 27)
+  (package-initialize))
+
+(require 'cl-lib)
 
 ;; Add additional package sources
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
@@ -48,7 +44,7 @@
 ;; Assume yes to the package installation prompts if EMACS_AUTOINSTALL_PACKAGES=yes
 (if (string-equal (getenv "EMACS_AUTOINSTALL_PACKAGES") "yes")
     (defadvice package-install-selected-packages (around auto-confirm compile activate)
-        (cl-letf (((symbol-function 'yes-or-no-p) (lambda (&rest args) t))
+        (letf (((symbol-function 'yes-or-no-p) (lambda (&rest args) t))
                   ((symbol-function 'y-or-n-p) (lambda (&rest args) t)))
          ad-do-it)))
 
@@ -115,7 +111,7 @@
                   (message "No Compilation Errors!")))))
 
 ;; install packages if needed
-(unless (every 'package-installed-p package-selected-packages)
+(unless (cl-every 'package-installed-p package-selected-packages)
   (message "Missing packages detected, please wait...")
   (package-refresh-contents)
   (package-install-selected-packages))
@@ -188,7 +184,7 @@
   (add-to-list 'package-selected-packages 'sbt-mode))
 
 ;; install packages if needed
-(unless (every 'package-installed-p package-selected-packages)
+(unless (cl-every 'package-installed-p package-selected-packages)
   (message "Missing packages detected, please wait...")
   (package-refresh-contents)
   (package-install-selected-packages))
@@ -452,16 +448,10 @@
 (global-set-key (kbd "C-c D") 'dictionary-match-words)
 
 (when (eq system-type 'gnu/linux)
-  (setq hfyview-quick-print-in-files-menu t)
-  (require 'hfyview)
   (setq mygtklp (executable-find "gtklp"))
   (when mygtklp
     (setq lpr-command "gtklp")
     (setq ps-lpr-command "gtklp")))
-
-(when (eq system-type 'darwin)
-  (setq hfyview-quick-print-in-files-menu t)
-  (require 'hfyview))
 
 ;; use ivy instead of ido
 (ido-mode nil)
@@ -1209,7 +1199,7 @@ Will prompt you shell name when you type `C-u' before this command."
 
 
 ;; Don't remove this:
-(unless (every 'package-installed-p package-selected-packages)
+(unless (cl-every 'package-installed-p package-selected-packages)
   (package-refresh-contents)
   (package-install-selected-packages))
 
@@ -1233,7 +1223,7 @@ Will prompt you shell name when you type `C-u' before this command."
   (defun
       package--save-selected-packages (&rest opt) nil)
 
-  (unless (every 'package-installed-p package-selected-packages)
+  (unless (cl-every 'package-installed-p package-selected-packages)
     (package-refresh-contents)
     (package-install-selected-packages))
   (package-autoremove)
