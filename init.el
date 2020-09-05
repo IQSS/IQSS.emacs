@@ -1,10 +1,10 @@
 (when (< emacs-major-version 26)
   (error "Your version of emacs is old and must be upgraded before you can use these packages! Version >= 26 is required."))
 
-;; start maximized 
+(setq warning-minimum-level :emergency)
+
 (setq frame-resize-pixelwise t
       x-frame-normalize-before-maximize t)
-(add-to-list 'initial-frame-alist '(fullscreen . fullheight))
 
 ;; set coding system so emacs doesn't choke on melpa file listings
 (set-language-environment 'utf-8)
@@ -99,16 +99,12 @@
 ;; from http://emacs.stackexchange.com/questions/62/hide-compilation-window
 (add-hook 'compilation-finish-functions
           (lambda (buf str)
-            (if (null (string-match ".*exited abnormally.*" str))
-                ;;no errors, make the compilation window go away in a few seconds
-                (progn
-                  (run-at-time
-                   "2 sec" nil 'delete-windows-on
-                   (get-buffer-create "*compilation*"))
-                  (run-at-time
-                   "2 sec" nil 'delete-windows-on
-                   (get-buffer-create "*Compile-Log*"))
-                  (message "No Compilation Errors!")))))
+            (run-at-time
+             "2 sec" nil 'delete-windows-on
+             (get-buffer-create "*compilation*"))
+            (run-at-time
+             "2 sec" nil 'delete-windows-on
+             (get-buffer-create "*Compile-Log*"))))
 
 ;; install packages if needed
 (unless (cl-every 'package-installed-p package-selected-packages)
@@ -796,7 +792,6 @@
  markdown-fontify-code-blocks-natively t)
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
-(add-hook 'markdown-mode-hook 'turn-on-orgtbl)
 (when (executable-find "pandoc")
   (add-hook 'markdown-mode-hook 'pandoc-mode))
 
@@ -1196,8 +1191,6 @@ Will prompt you shell name when you type `C-u' before this command."
 ;; (add-to-list 'package-selected-packages 'ess)
 ;; will ensure that the ess package is installed the next time Emacs starts.
 
-
-
 ;; Don't remove this:
 (unless (cl-every 'package-installed-p package-selected-packages)
   (package-refresh-contents)
@@ -1208,26 +1201,22 @@ Will prompt you shell name when you type `C-u' before this command."
 " nil custom-file))
   (load custom-file 'noerror)
 
-  ;; start with untitled new buffer
-  (add-hook 'after-init-hook
-            (lambda()
-              (setq inhibit-startup-screen t) ;; yes, we really want to do this!
-              (delete-other-windows)
-              (untitled-new-buffer-with-select-major-mode 'text-mode)))
-
   (setq untitled-new-buffer-major-modes '(text-mode python-mode r-mode markdown-mode LaTeX-mode emacs-lisp-mode))
   ;; Change default buffer name.
   (setq untitled-new-buffer-default-name "*Untitled*")
 
-  ;; make sure emacs doesn't mess with our package list.
-  (defun
-      package--save-selected-packages (&rest opt) nil)
-
   (unless (cl-every 'package-installed-p package-selected-packages)
     (package-refresh-contents)
     (package-install-selected-packages))
-  (package-autoremove)
 
   ;; Start the server if it is not already running
   (require 'server)
   (unless (server-running-p) (server-start))
+
+    ;; Cleanup and start with untitled new buffer
+  (add-hook 'after-init-hook
+            (lambda()
+              (setq inhibit-startup-screen t) ;; yes, we really want to do this!
+              (delete-windows-on (get-buffer-create "*Compile-Log*"))
+              (untitled-new-buffer-with-select-major-mode 'text-mode)
+              (setq warning-minimum-level :warning)))
