@@ -1209,10 +1209,6 @@ Will prompt you shell name when you type `C-u' before this command."
     (package-refresh-contents)
     (package-install-selected-packages))
 
-  ;; Start the server if it is not already running
-  (require 'server)
-  (unless (server-running-p) (server-start))
-
     ;; Cleanup and start with untitled new buffer
   (add-hook 'after-init-hook
             (lambda()
