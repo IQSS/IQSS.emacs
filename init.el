@@ -1183,8 +1183,9 @@ Will prompt you shell name when you type `C-u' before this command."
   (sql-set-product-feature 'mysql :prompt-regexp "^\\(MariaDB\\|MySQL\\) \\[[_a-zA-Z()]*\\]> "))
 
 ;; save settings made using the customize interface to a sparate file
-  (setq custom-file (concat user-emacs-directory "custom.el"))
-  (unless (file-exists-p custom-file)
+  (setq custom-file (concat user-emacs-directory "custom-settings.el"))
+  (setq my-user-settings (concat user-emacs-directory "custom.el"))
+  (unless (file-exists-p my-user-settings)
     (write-region ";; Put your personal user configuration in this file.
 
 ;; To require addional packages add them to 'package-selected-packages, e.g.
@@ -1198,8 +1199,7 @@ Will prompt you shell name when you type `C-u' before this command."
 
 
 
-" nil custom-file))
-  (load custom-file 'noerror)
+  " nil my-user-settings))
 
   (setq untitled-new-buffer-major-modes '(text-mode python-mode r-mode markdown-mode LaTeX-mode emacs-lisp-mode))
   ;; Change default buffer name.
@@ -1212,6 +1212,9 @@ Will prompt you shell name when you type `C-u' before this command."
     ;; Cleanup and start with untitled new buffer
   (add-hook 'after-init-hook
             (lambda()
+                (load my-user-settings)
+                (package--save-selected-packages)
+                (load custom-file)
               (setq inhibit-startup-screen t) ;; yes, we really want to do this!
               (delete-windows-on (get-buffer-create "*Compile-Log*"))
               (untitled-new-buffer-with-select-major-mode 'text-mode)
