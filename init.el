@@ -198,18 +198,7 @@
   (menu-bar-mode 1))
 (with-eval-after-load "scroll-bar"
   (scroll-bar-mode 1))
-
 (setq select-active-regions 'only)
-
-;; from https://github.com/bbatsov/prelude/
-;; store all backup and autosave files in the tmp dir
-(setq backup-directory-alist
-      `((".*" . ,temporary-file-directory)))
-(setq auto-save-file-name-transforms
-      `((".*" ,temporary-file-directory t)))
-;; autosave the undo-tree history
-(setq undo-tree-history-directory-alist
-      `((".*" . ,temporary-file-directory)))
 
 ;; scrolling behavior
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ; one line at a time
