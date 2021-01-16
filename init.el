@@ -32,6 +32,8 @@
   (package-initialize))
 
 (require 'cl-lib)
+;; Use y/n instead of yes/no
+(fset 'yes-or-no-p 'y-or-n-p)
 
 ;; Add additional package sources
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
