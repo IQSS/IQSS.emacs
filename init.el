@@ -66,6 +66,11 @@
         better-defaults
         minions
         ace-window
+        ctable
+        yaml-mode
+        deferred
+        epc
+        s
         rotate
         howdoi
         multi-term
@@ -577,10 +582,7 @@
       dumb-jump-default-project "./")
 
 (require 'company)
-;; cancel if input doesn't match, be patient, and don't complete automatically.
-(setq company-require-match nil
-      company-async-timeout 2
-      company-idle-delay 1
+(setq company-idle-delay 1
       company-minimum-prefix-length 2
       company-global-modes '(not term-mode))
 ;; use C-n and C-p to cycle through completions
