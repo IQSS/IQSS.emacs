@@ -729,58 +729,6 @@ Here we configure in-buffer text completion using the company-mode package. Thes
 This mode shows a keymap when an incomplete command is entered. It is especially useful for families of commands with a prefix, e.g., =C-c C-o= for =outline-mode= commands, or =C-c C-v= for =org-babel= commands. Just start typing your command and pause if you want a hint.
 
 #+BEGIN_SRC emacs-lisp
-  ;; which-key settings taken mostly from https://github.com/aculich/.emacs.d/blob/master/init.el
-  (with-eval-after-load "which-key"
-    (setq which-key-sort-order 'which-key-prefix-then-key-order
-          ;; Let's go unicode :)
-          which-key-key-replacement-alist
-          '(("<\\([[:alnum:]-]+\\)>" . "\\1")
-            ("up"                    . "↑")
-            ("right"                 . "→")
-            ("down"                  . "↓")
-            ("left"                  . "←")
-            ("DEL"                   . "⌫")
-            ("deletechar"            . "⌦")
-            ("RET"                   . "⏎"))
-          which-key-description-replacement-alist
-          '(("Prefix Command" . "prefix")
-            ;; Lambdas
-            ("\\`\\?\\?\\'"   . "λ")
-            ;; Prettify hydra entry points
-            ("/body\\'"       . "|=")
-            ;; Drop/shorten package prefixes
-            ("magit-"         . "ma-")))
-
-    (which-key-declare-prefixes
-     ;; Prefixes for global prefixes and minor modes
-     "C-c C-o" "outline"
-     "C-c C-l" "window/layouts")
-
-    ;; Prefixes for major modes
-    (which-key-declare-prefixes-for-mode 'markdown-mode
-                                         "C-c TAB" "markdown/images"
-                                         "C-c C-a" "markdown/links"
-                                         "C-c C-c" "markdown/process"
-                                         "C-c C-s" "markdown/style"
-                                         "C-c C-t" "markdown/header"
-                                         "C-c C-x" "markdown/structure"
-                                         "C-c m" "markdown/personal")
-
-    (which-key-declare-prefixes-for-mode 'emacs-lisp-mode
-                                         "C-c m" "elisp"
-                                         "C-c m e" "eval")
-
-    (which-key-declare-prefixes-for-mode 'haskell-mode
-                                         "C-c m" "haskell/personal"
-                                         "C-c m i" "haskell/imports")
-
-    (which-key-declare-prefixes-for-mode 'web-mode
-                                         "C-c C-a" "web/attributes"
-                                         "C-c C-b" "web/blocks"
-                                         "C-c C-d" "web/dom"
-                                         "C-c C-e" "web/element"
-                                         "C-c C-t" "web/tags"))
-
   (which-key-mode t)
 #+END_SRC
 

@@ -33,8 +33,7 @@
 
 (require 'cl-lib)
 ;; Use y/n instead of yes/no
-(defalias 'yes-or-no-p 'y-or-n-p)
-
+(fset 'yes-or-no-p 'y-or-n-p)
 ;; Add additional package sources
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
@@ -605,58 +604,6 @@
 (define-key company-mode-map (kbd "C-M-S-i") 'counsel-company)
 
 (add-hook 'after-init-hook 'global-company-mode)
-
-;; which-key settings taken mostly from https://github.com/aculich/.emacs.d/blob/master/init.el
-(with-eval-after-load "which-key"
-  (setq which-key-sort-order 'which-key-prefix-then-key-order
-        ;; Let's go unicode :)
-        which-key-key-replacement-alist
-        '(("<\\([[:alnum:]-]+\\)>" . "\\1")
-          ("up"                    . "↑")
-          ("right"                 . "→")
-          ("down"                  . "↓")
-          ("left"                  . "←")
-          ("DEL"                   . "⌫")
-          ("deletechar"            . "⌦")
-          ("RET"                   . "⏎"))
-        which-key-description-replacement-alist
-        '(("Prefix Command" . "prefix")
-          ;; Lambdas
-          ("\\`\\?\\?\\'"   . "λ")
-          ;; Prettify hydra entry points
-          ("/body\\'"       . "|=")
-          ;; Drop/shorten package prefixes
-          ("magit-"         . "ma-")))
-
-  (which-key-declare-prefixes
-   ;; Prefixes for global prefixes and minor modes
-   "C-c C-o" "outline"
-   "C-c C-l" "window/layouts")
-
-  ;; Prefixes for major modes
-  (which-key-declare-prefixes-for-mode 'markdown-mode
-                                       "C-c TAB" "markdown/images"
-                                       "C-c C-a" "markdown/links"
-                                       "C-c C-c" "markdown/process"
-                                       "C-c C-s" "markdown/style"
-                                       "C-c C-t" "markdown/header"
-                                       "C-c C-x" "markdown/structure"
-                                       "C-c m" "markdown/personal")
-
-  (which-key-declare-prefixes-for-mode 'emacs-lisp-mode
-                                       "C-c m" "elisp"
-                                       "C-c m e" "eval")
-
-  (which-key-declare-prefixes-for-mode 'haskell-mode
-                                       "C-c m" "haskell/personal"
-                                       "C-c m i" "haskell/imports")
-
-  (which-key-declare-prefixes-for-mode 'web-mode
-                                       "C-c C-a" "web/attributes"
-                                       "C-c C-b" "web/blocks"
-                                       "C-c C-d" "web/dom"
-                                       "C-c C-e" "web/element"
-                                       "C-c C-t" "web/tags"))
 
 (which-key-mode t)
 
