@@ -61,7 +61,6 @@
         multiple-cursors
         visual-regexp
         command-log-mode
-        undo-tree
         better-defaults
         minions
         ace-window
@@ -86,6 +85,7 @@
         smooth-scroll
         unfill
         company
+        undo-fu
         company-math
         web-mode
         markdown-mode
@@ -118,7 +118,8 @@
   (package-refresh-contents)
   (package-install-selected-packages))
 
-(package-initialize)
+(when (< emacs-major-version 28)
+  (package-initialize))
 
 ;; add custom lisp directory to path
 (unless
@@ -311,36 +312,13 @@
 (require 'win-win)
 
 ;; ;; Make control-z undo
-(let ((map (make-sparse-keymap)))
-  ;; remap `undo' and `undo-only' to `undo-tree-undo'
-  ;; (define-key map [remap undo] 'undo-tree-undo)
-  ;; (define-key map [remap undo-only] 'undo-tree-undo)
-  ;; bind standard undo bindings (since these match redo counterparts)
-  ;; (define-key map (kbd "C-/") 'undo-tree-undo)
-  ;; (define-key map "\C-_" 'undo-tree-undo)
-  ;; redo doesn't exist normally, so define our own keybindings
-  (define-key map (kbd "C-?") 'undo-tree-redo)
-  (define-key map (kbd "M-_") 'undo-tree-redo)
-  (define-key map (kbd "C-S-z") 'undo-tree-redo)
-  ;; just in case something has defined `redo'...
-  (define-key map [remap redo] 'undo-tree-redo)
-  ;; we use "C-x U" for the undo-tree visualizer
-  (define-key map (kbd "\C-x U") 'undo-tree-visualize)
-  ;; bind register commands
-  (define-key map (kbd "C-x r u") 'undo-tree-save-state-to-register)
-  (define-key map (kbd "C-x r U") 'undo-tree-restore-state-from-register)
-  ;; set keymap
-  (setq undo-tree-map map))
+(require 'undo-fu)
+(global-unset-key (kbd "C-z"))
+(global-set-key (kbd "C-z")   'undo-fu-only-undo)
+(global-set-key (kbd "C-S-z") 'undo-fu-only-redo)
+(global-set-key (kbd "C-u")   'undo-fu-only-undo)
+(global-set-key (kbd "C-S-u")   'undo-fu-only-redo)
 
-(global-undo-tree-mode t)
-
-;; Make C-g quit undo tree
-(define-key undo-tree-visualizer-mode-map (kbd "C-g") 'undo-tree-visualizer-quit)
-(define-key undo-tree-visualizer-mode-map (kbd "<escape> <escape> <escape>") 'undo-tree-visualizer-quit)
-
-
-
-;;
 ;; Make right-click do something close to what people expect
 (require 'mouse3)
 (global-set-key (kbd "<mouse-3>") 'mouse3-popup-menu)
