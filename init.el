@@ -87,6 +87,7 @@
         company
         undo-fu
         company-math
+        company-auctex
         web-mode
         markdown-mode
         polymode
@@ -787,7 +788,8 @@
                 (TeX-source-correlate-mode t)
                 (imenu-add-to-menubar "Index")
                 (outline-minor-mode)
-                (require 'company-math)))
+                (require 'company-math)
+                (company-auctex-init)))
     ;; Use pdf-tools to open PDF files
     (when (eq system-type 'gnu/linux)
       (if (string-equal (getenv "EMACS_AUTOINSTALL_PACKAGES") "yes")
