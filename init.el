@@ -560,7 +560,7 @@
       dumb-jump-default-project "./")
 
 (require 'company)
-(setq company-idle-delay 1
+(setq company-idle-delay nil
       company-minimum-prefix-length 2
       company-global-modes '(not term-mode))
 ;; use C-n and C-p to cycle through completions

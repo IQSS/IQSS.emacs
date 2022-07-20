@@ -675,7 +675,7 @@ Here we configure in-buffer text completion using the company-mode package. Thes
 
 #+BEGIN_SRC emacs-lisp
   (require 'company)
-  (setq company-idle-delay 1
+  (setq company-idle-delay nil
         company-minimum-prefix-length 2
         company-global-modes '(not term-mode))
   ;; use C-n and C-p to cycle through completions
