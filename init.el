@@ -682,7 +682,7 @@
   (add-hook 'julia-mode-hook 'julia-repl-mode))
 
 (with-eval-after-load "elisp-mode"
-  (require 'company-elisp)
+  (require 'company)
   ;; ielm
   (require 'eval-in-repl-ielm)
   ;; For .el files
@@ -700,7 +700,7 @@
   ;; Set up completions
   (add-hook 'emacs-lisp-mode-hook
             (lambda()
-              (require 'company-elisp))))
+              (require 'company))))
 
 (with-eval-after-load "haskell-mode"
   (defalias 'haskell 'haskell-interactive-bring))
