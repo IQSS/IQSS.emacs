@@ -39,6 +39,11 @@ Highlights of this Emacs configuration:
     it more familiar to those new to Emacs.
 -   Multiple cursors, as in Sublime and VScode
 -   Convenient window management.
+-   **Magit** for Git: status, diffs, and history from inside Emacs (see
+    [Version control](#version-control-magit) below).
+-   A version-controlled **`custom.el`** in this repository for personal
+    settings that sync across machines (frame size, Magit shortcuts,
+    Copilot, and more).
 
 Installation
 =================
@@ -56,6 +61,11 @@ https://github.com/IQSS/IQSS.emacs.git ~/.emacs.d`, or you can download
 the .zip archive from
 https://github.com/IQSS/IQSS.emacs/archive/master.zip, extract it, and
 move the files to `~/.emacs.d`.
+
+**Updating an existing install** (e.g., on another computer): if
+`~/.emacs.d` is already a clone of this repository, run `git pull` in
+that directory before starting Emacs. Personal settings in `custom.el`
+are tracked in git, so they follow the same workflow as `init.el`.
 
 First run
 =============
@@ -166,7 +176,32 @@ Emacs do what it wants and the revert the layout using `C-c left`.
   `C-c V`                 | Restore a saved window layout
   `C-c a`                 | Rotate window arrangements
   `C-c b`                 | Rotate buffers
-  
+
+Version control (Magit)
+-------------------------
+
+[Magit](https://magit.vc/) is the Git interface used with this
+configuration. After you `git pull` changes to a file, open the file
+in Emacs and use Magit to see what changed.
+
+  Key        | Description
+  -----------|----------------------------------------------------------
+  `C-x g`    | Open Magit status for the current Git repository
+  `l`        | Log (in the status buffer); `l` again on a commit for details
+  `d`        | Diff the change at point
+  `q`        | Quit the Magit buffer
+
+**Viewing changes to the file you are editing:** with the file open,
+run `M-x magit-log-buffer-file` and press `d` on a commit to see its
+diff. Word-level highlights inside diff hunks are enabled
+(`magit-diff-refine-hunk`); press `h` in a diff buffer to toggle
+refinement on a hunk.
+
+**Viewing recent pulls:** `M-x magit-reflog-head` shows where `HEAD`
+has been (including fast-forward pulls); `d` on an entry shows the
+diff. For a single file, `M-x magit-log-buffer-file` lists commits that
+touched that file.
+
 Searching and Completion
 ------------------------------
 
@@ -232,11 +267,41 @@ Customization
 
 You can put any additional Emacs configuration in
 `~/.emacs.d/custom.el`. This file is loaded last, so you always have
-the chance to override any settings you don't like. You can require
-additional packages by adding the to `package-selected-packages`. For
-example, putting `(add-to-list 'package-selected-packages
-'matlab-mode)` in your `custom.el` file will ensure that the
-*matlab-mode* package is installed.
+the chance to override any settings you don't like. **`custom.el` is
+part of this git repository**, so edits you commit and push are available
+on other machines after `git pull`. Machine-specific Customize UI
+settings are stored separately in `custom-settings.el` (not tracked in
+git).
+
+You can require additional packages by adding them to
+`package-selected-packages`. For example, putting `(add-to-list
+'package-selected-packages 'matlab-mode)` in your `custom.el` file will
+ensure that the *matlab-mode* package is installed.
+
+Settings currently in the shared `custom.el`
+----------------------------------------------
+
+The following personal settings are documented here so you know what
+ships with the repo and how to change them. All of this lives in
+`custom.el`; adjust values there and commit if you want them everywhere.
+
+| Setting | What it does |
+|--------|----------------|
+| **Font** | Default face: Monaco at height 180. |
+| **Frame size** | On graphical displays, new frames open at 1053×1382 pixels when the monitor is large enough; on smaller screens (e.g. laptop only) the size is clamped to the work area. Frames are placed with their **right edge** aligned to the right of the screen. Still freely resizable. Implemented by `my/set-default-frame-size`. |
+| **Scroll keys** | `C-up` / `C-down` scroll the view one line without moving point. |
+| **Quit Emacs (macOS)** | `Cmd+Q` does not quit Emacs (shows a reminder); use `C-x C-c` to quit. |
+| **Magit** | `C-x g` → `magit-status`; diffs use word-level refinement (`magit-diff-refine-hunk`). See [Version control](#version-control-magit). |
+| **Copilot** | `copilot.el` via `quelpa`; accept completion with `M-C-return` or `C-right`. |
+| **Quelpa / MELPA** | `quelpa-update-melpa-p` is `nil` so the MELPA recipe repo is not re-cloned on every Emacs startup. Set it to `t` or run `M-x quelpa-upgrade-all` when you want to refresh Copilot. |
+
+**Copilot** requires network access the first time Emacs installs the
+package. The bootstrap block at the top of `custom.el` still runs
+`package-install-selected-packages` when needed; do not remove it.
+
+**Frame dimensions** are the pixel size `1053` and `1382` in
+`my/set-default-frame-size`; change those numbers in `custom.el` if you
+want a different default on large monitors.
 
 
 More information

@@ -267,6 +267,20 @@ div.tocify {
 <section id="using-git-from-emacs" class="level3">
 <h3>Using git from emacs</h3>
 <p>This Emacs configuration includes <a href="https://www.emacswiki.org/emacs/Magit">magit</a>, the best interface to git there is. It also configures Emacs as the editor so that working with version control systems in a shell inside Emacs should be pleasant.</p>
+<p>Key bindings (defined in the shared <code>~/.emacs.d/custom.el</code> file):</p>
+<table>
+<thead>
+<tr><th>Key</th><th>Action</th></tr>
+</thead>
+<tbody>
+<tr><td><code>C-x g</code></td><td>Open Magit status for the current repository</td></tr>
+<tr><td><code>l</code></td><td>Log (in the status buffer); press <code>l</code> on a commit for more detail</td></tr>
+<tr><td><code>d</code></td><td>Show diff at point</td></tr>
+<tr><td><code>q</code></td><td>Quit the Magit buffer</td></tr>
+</tbody>
+</table>
+<p>To see what changed in the file you are editing after a <code>git pull</code>, use <code>M-x magit-log-buffer-file</code> and press <code>d</code> on a commit. Diffs use word-level refinement inside hunks (<code>magit-diff-refine-hunk</code>); press <code>h</code> in a diff buffer to toggle refinement. For recent pulls on the current branch, <code>M-x magit-reflog-head</code> lists where <code>HEAD</code> has been; <code>d</code> on an entry shows the corresponding diff.</p>
+<p>The Emacs configuration itself is a git repository; update it on another machine with <code>git pull</code> in <code>~/.emacs.d</code> after changes are pushed. See the <a href="https://github.com/IQSS/IQSS.emacs">IQSS.emacs README</a> for full documentation of <code>custom.el</code> settings.</p>
 <ol>
 <li><p>Pandoc</p>
 <p>Pandoc is a program for converting markup files from one markup language to another. Documentation and examples are available on the <a href="http://johnmacfarlane.net/pandoc/">pandoc website</a>.</p></li>

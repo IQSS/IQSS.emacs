@@ -1379,7 +1379,7 @@ Emacs built-in sql mode is good, just needs a little tweak to work with MariaDB
 #+END_SRC
 
 * Final touches
-This Emacs configuration sets up lots of packages and configures a number of keybindings. To add our own customizations, place them in =~/.emacs.d/custom.el=. This file will be sourced last, so you always have the ability to override any settings provided here.
+This Emacs configuration sets up lots of packages and configures a number of keybindings. To add our own customizations, place them in =~/.emacs.d/custom.el=. This file is tracked in the [[https://github.com/IQSS/IQSS.emacs][IQSS.emacs]] git repository (see the README for documented settings: frame size, Magit, Copilot, etc.) and is sourced last, so you always have the ability to override any settings provided here.
 
 #+BEGIN_SRC emacs-lisp
   ;; save settings made using the customize interface to a sparate file

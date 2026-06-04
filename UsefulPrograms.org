@@ -50,6 +50,19 @@ Many git users host their repositories on [[http://github.com]]; helpful guides 
 *** Using git from emacs
 This Emacs configuration includes [[https://www.emacswiki.org/emacs/Magit][magit]], the best interface to git there is. It also configures Emacs as the editor so that working with version control systems in a shell inside Emacs should be pleasant.
 
+Key bindings (defined in the shared =~/.emacs.d/custom.el= file):
+
+| Key     | Action |
+|---------+--------|
+| ~C-x g~ | Open Magit status for the current repository |
+| ~l~     | Log (in the status buffer); press ~l~ on a commit for more detail |
+| ~d~     | Show diff at point |
+| ~q~     | Quit the Magit buffer |
+
+To see what changed in the file you are editing after a ~git pull~, use ~M-x magit-log-buffer-file~ and press ~d~ on a commit. Diffs use word-level refinement inside hunks (~magit-diff-refine-hunk~); press ~h~ in a diff buffer to toggle refinement. For recent pulls on the current branch, ~M-x magit-reflog-head~ lists where ~HEAD~ has been; ~d~ on an entry shows the corresponding diff.
+
+The Emacs configuration itself is a git repository; update it on another machine with ~git pull~ in =~/.emacs.d= after changes are pushed. See the [[https://github.com/IQSS/IQSS.emacs][IQSS.emacs README]] for full documentation of ~custom.el= settings.
+
 
 **** Pandoc
 :PROPERTIES:
