@@ -169,7 +169,9 @@
   (add-to-list 'package-selected-packages 'auctex)
   (add-to-list 'package-selected-packages 'ivy-bibtex))
 (when (executable-find "git")
-  (add-to-list 'package-selected-packages 'git-commit)
+  ;; `git-commit' is bundled inside `magit' now (no standalone ELPA package),
+  ;; so selecting it would make `package-installed-p' always return nil and
+  ;; force `package-refresh-contents' to hit ELPA on every startup.
   (add-to-list 'package-selected-packages 'magit))
 (when (executable-find "julia")
   (add-to-list 'package-selected-packages 'julia-mode)
