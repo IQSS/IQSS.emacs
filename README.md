@@ -83,7 +83,7 @@ If you have never used Emacs before many things will work as you
 expect. This is especially true on Mac OS X. If you use Windows, note
 that **standard Windows shortcuts starting with `control` have been
 shifted to the `windows` key**. For example, to copy use `win-c`
-rather than `control-c`, and to paste use `win-v` rather than `control-c`.
+rather than `control-c`, and to paste use `win-v` rather than `control-v`.
 
 A few things may not work as you expect, in which case you will need
 to search the web or read the Emacs documentation to learn the Emacs
@@ -169,7 +169,7 @@ Emacs do what it wants and the revert the layout using `C-c left`.
   `C-x 3`                 | Split vertically            
   `C-x 1`                 | Remove splits               
   `C-x S-<arrow>`         | Move to other window        
-  `C-x S-0`               | Move to a window by number  
+  `C-x O`                 | Jump to a window by on-screen label (ace-window)
   `C-c left`              | Undo a window layout change 
   `C-c right`             | Redo a window layout change 
   `C-c v`                 | Save window layout          
@@ -224,7 +224,7 @@ contents using the keys described in the table below.
   `C-c l`    |Searches for files by name                  |(think "locates")
   `C-c f`    |(or `C-c s`) Searches file contents         |requires `mlocate` on linux, `everything` (<http://www.voidtools.com/>) on windows
   `<tab>`    |Completion suggestions                      |
-  `win-S-v`  |Paste from the clipboard history            |`M-S-y` also works for this
+  `M-y`      |Paste from the clipboard history            |Cycle through previously killed/copied text (counsel-yank-pop)
   `C-c r`    |Search for a reference to insert            |You must set `bibtex-completion-bibliography` to your BibTeX files for this to work
   
 REPL interaction
