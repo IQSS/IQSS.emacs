@@ -55,17 +55,19 @@
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
-(require 'quelpa)
-;; Don't re-clone the MELPA recipe repo on every launch; reuse the existing
-;; checkout. Set back to t (or run M-x quelpa-upgrade-all) to update Copilot.
-(setq quelpa-update-melpa-p nil)
-(require 'use-package)
-(require 'quelpa-use-package)
-(use-package copilot
- :quelpa (copilot :fetcher github
-          :repo "zerolfx/copilot.el"
-          :branch "main"
-          :files ("dist" "*.el")))
-(define-key copilot-mode-map (kbd "M-C-<return>") #'copilot-accept-completion)
-(define-key copilot-mode-map (kbd "C-<right>") #'copilot-accept-completion-by-word)
+;; Copilot is installed through quelpa.  Only set it up when quelpa is actually
+;; installed, so a machine without it still starts cleanly instead of aborting
+;; here (which would skip the rest of this file and the bindings in init.el).
+;; To enable Copilot on such a machine: M-x package-install RET quelpa
+(when (require 'quelpa nil t)
+  ;; Don't re-clone the MELPA recipe repo on every launch; reuse the existing
+  ;; checkout. Set back to t (or run M-x quelpa-upgrade-all) to update Copilot.
+  (setq quelpa-update-melpa-p nil)
+  (quelpa '(copilot :fetcher github
+                    :repo "zerolfx/copilot.el"
+                    :branch "main"
+                    :files ("dist" "*.el")))
+  (when (require 'copilot nil t)
+    (define-key copilot-mode-map (kbd "M-C-<return>") #'copilot-accept-completion)
+    (define-key copilot-mode-map (kbd "C-<right>") #'copilot-accept-completion-by-word)))
 
