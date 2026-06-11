@@ -51,6 +51,32 @@
 (global-set-key (kbd "C-x g") 'magit-status)
 (setq magit-diff-refine-hunk 'all)
 
+;; AUCTeX SyncTeX / Skim on macOS.
+;; C-c C-a (TeX-command-run-all) runs LaTeX → Biber (if needed) → LaTeX → View.
+;; Forward search (Emacs → Skim): C-c C-v, or the final View step of C-c C-a.
+;; Inverse search (Skim → Emacs): Shift+Cmd+click in Skim.
+(when (eq system-type 'darwin)
+  (let ((texbin "/Library/TeX/texbin"))
+    (when (file-directory-p texbin)
+      (add-to-list 'exec-path texbin)
+      (setenv "PATH" (concat texbin path-separator (or (getenv "PATH") "")))))
+  ;; Emacs server must be running for Skim inverse search.
+  (when (and (display-graphic-p) (not (daemonp)))
+    (require 'server)
+    (unless (server-running-p)
+      (server-start)))
+  ;; AUCTeX variables only exist after the tex library is loaded.
+  (with-eval-after-load "tex"
+    (setq TeX-source-correlate-method 'synctex
+          TeX-source-correlate-start-server t)
+    ;; Use Skim's displayline (synctex) instead of plain "open -a Skim".
+    (setq TeX-view-program-selection '((output-pdf "Skim")))
+    (add-to-list 'TeX-view-program-list
+                 '("Skim"
+                   "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b"
+                   "/Applications/Skim.app/Contents/SharedSupport/displayline")
+                 t)))
+
 ;; from Len for copilot
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
