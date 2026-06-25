@@ -77,6 +77,86 @@
                    "/Applications/Skim.app/Contents/SharedSupport/displayline")
                  t)))
 
+;; Preserve outline-minor-mode folding across buffer reverts.
+;; When an external program (e.g. a Cursor agent) edits a file on disk, Emacs
+;; auto-reverts the buffer.  A native revert of an outline-folded LaTeX buffer
+;; *over-collapses* it: the body of a high-level heading such as \begin{document}
+;; ends up hiding every \section and frame heading nested beneath it, so the
+;; document collapses to just a few top-level lines.  We wrap `revert-buffer':
+;; capture which headings had folded bodies, let the revert run, then fully
+;; expand (to clear the over-collapse) and re-fold those headings.  The captured
+;; list lives in a lexical (let) variable so it survives the revert, and the
+;; restore runs once immediately and once on a short idle timer to survive
+;; AUCTeX's asynchronous style-hook pass.
+(defun my/outline-folded-headings ()
+  "Return the list of heading lines whose body is currently hidden."
+  (when (bound-and-true-p outline-minor-mode)
+    (let (folded)
+      (save-excursion
+        (goto-char (point-min))
+        (unless (outline-on-heading-p t)
+          (outline-next-heading))
+        (while (and (not (eobp)) (outline-on-heading-p t))
+          (when (save-excursion
+                  (outline-end-of-heading)
+                  (outline-invisible-p (point)))
+            (push (buffer-substring-no-properties
+                   (line-beginning-position) (line-end-position))
+                  folded))
+          (outline-next-heading)))
+      (nreverse folded))))
+
+(defun my/outline-apply-folds (headings)
+  "Hide the body of each heading in HEADINGS, matched by heading text."
+  (when (and headings (bound-and-true-p outline-minor-mode))
+    (let ((remaining (copy-sequence headings)))
+      (save-excursion
+        (goto-char (point-min))
+        (unless (outline-on-heading-p t)
+          (outline-next-heading))
+        (while (and (not (eobp)) (outline-on-heading-p t) remaining)
+          (let ((text (buffer-substring-no-properties
+                       (line-beginning-position) (line-end-position))))
+            (when (member text remaining)
+              (setq remaining (delete text remaining))
+              (outline-hide-entry)))
+          (outline-next-heading))))))
+
+(defun my/outline-restore-overview (folds buf)
+  "Re-establish the outline overview described by FOLDS in BUF.
+A native `revert-buffer' of an outline-folded LaTeX buffer *over-collapses* it:
+the body of a high-level heading such as \\begin{document} ends up hiding every
+section and frame heading nested beneath it, so the buffer collapses to just a
+few top-level lines.  Simply re-hiding bodies cannot undo that, because the
+section headings themselves are invisible.  So we first fully expand the buffer
+to clear the over-collapse, then re-hide exactly the bodies that were folded
+before the revert."
+  (when (and folds (buffer-live-p buf) (bound-and-true-p outline-minor-mode))
+    (outline-show-all)
+    (my/outline-apply-folds folds)
+    (force-window-update buf)))
+
+(define-advice revert-buffer
+    (:around (orig &rest args) my/preserve-outline-folds)
+  "Keep outline-minor-mode folding across a revert (e.g. external edits).
+A native revert over-collapses an outline-folded LaTeX buffer (hiding even the
+section headings), and AUCTeX re-applies its style hooks asynchronously after
+the revert returns.  We capture which headings had folded bodies, run the
+revert, then restore the overview (expand to undo the over-collapse, re-fold
+those headings, repaint) -- once immediately and once on a short idle timer to
+survive the async style-hook pass."
+  (if (not (bound-and-true-p outline-minor-mode))
+      (apply orig args)
+    (let ((folds (my/outline-folded-headings))
+          (buf (current-buffer)))
+      (apply orig args)
+      (my/outline-restore-overview folds buf)
+      (run-at-time 0.15 nil
+                   (lambda ()
+                     (when (buffer-live-p buf)
+                       (with-current-buffer buf
+                         (my/outline-restore-overview folds buf))))))))
+
 ;; from Len for copilot
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
