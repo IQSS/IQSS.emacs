@@ -77,6 +77,26 @@
                    "/Applications/Skim.app/Contents/SharedSupport/displayline")
                  t)))
 
+;; natbib citation commands (\citep, \citet, …) are not in font-latex's
+;; built-in reference list; AUCTeX adds them only after async style parsing.
+;; Register them up front so they stay citation-colored (not dim gray).
+(with-eval-after-load "Latex"
+  (defun my/font-latex-natbib-cites ()
+    (when (fboundp 'font-latex-add-keywords)
+      (font-latex-add-keywords
+       '(("citep"        "*[[{") ("citet"        "*[[{")
+         ("citep*"       "*[[{") ("citet*"       "*[[{")
+         ("citealt"      "*[[{") ("citealt*"     "*[[{")
+         ("citealp"      "*[[{") ("citealp*"     "*[[{")
+         ("citeauthor"   "*[[{") ("citeauthor*"  "*[[{")
+         ("citefullauthor" "[[{") ("citeyear"   "[[{") ("citeyearpar" "[[{")
+         ("Citep"        "*[[{") ("Citet"        "*[[{")
+         ("Citealt"      "*[[{") ("Citealp"      "*[[{")
+         ("Citeauthor"   "*[[{")
+         ("citetalias"   "*[[{") ("citepalias"   "*[[{"))
+       'reference)))
+  (add-hook 'LaTeX-mode-hook #'my/font-latex-natbib-cites))
+
 ;; Preserve outline-minor-mode folding across buffer reverts.
 ;; When an external program (e.g. a Cursor agent) edits a file on disk, Emacs
 ;; auto-reverts the buffer.  A native revert of an outline-folded LaTeX buffer
@@ -152,10 +172,11 @@ survive the async style-hook pass."
       (apply orig args)
       (my/outline-restore-overview folds buf)
       (run-at-time 0.15 nil
-                   (lambda ()
-                     (when (buffer-live-p buf)
-                       (with-current-buffer buf
-                         (my/outline-restore-overview folds buf))))))))
+                   (lambda (b f)
+                     (when (buffer-live-p b)
+                       (with-current-buffer b
+                         (my/outline-restore-overview f b))))
+                   buf folds))))
 
 ;; from Len for copilot
 (require 'package)
