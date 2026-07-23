@@ -97,6 +97,15 @@
        'reference)))
   (add-hook 'LaTeX-mode-hook #'my/font-latex-natbib-cites))
 
+;; Auto-reload file buffers when something else changes them on disk
+;; (e.g. a Cursor agent).  Without this, Emacs keeps the stale in-memory
+;; copy until you manually revert.  Unmodified buffers update silently;
+;; if you have unsaved edits, Emacs will prompt before discarding them.
+(require 'autorevert)
+(setq auto-revert-verbose nil
+      global-auto-revert-non-file-buffers t)
+(global-auto-revert-mode 1)
+
 ;; Preserve outline-minor-mode folding across buffer reverts.
 ;; When an external program (e.g. a Cursor agent) edits a file on disk, Emacs
 ;; auto-reverts the buffer.  A native revert of an outline-folded LaTeX buffer
