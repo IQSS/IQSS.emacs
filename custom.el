@@ -5,11 +5,29 @@
 ;; will ensure that the ess package is installed the next time Emacs starts.
 
 ;; Don't remove this:
+(add-to-list 'package-selected-packages 'jinx)
 (unless (cl-every 'package-installed-p package-selected-packages)
   (package-refresh-contents)
   (package-install-selected-packages))
 
 (set-face-attribute 'default nil :family "Monaco" :height 180)
+
+;; Jinx: fast Enchant-based spell checker (replaces flyspell from IQSS init).
+;; Needs Homebrew `enchant` (+ `aspell` for English). Correct with M-$;
+;; C-u M-$ checks the whole buffer. Right-click a wavy underline for suggestions.
+(when (require 'jinx nil t)
+  ;; IQSS enables flyspell via anonymous hooks; turn it off once it starts.
+  (add-hook 'flyspell-mode-hook
+            (lambda ()
+              (when flyspell-mode
+                (flyspell-mode -1))))
+  (setq jinx-languages "en")
+  (keymap-global-set "M-$" #'jinx-correct)
+  (keymap-global-set "C-M-$" #'jinx-languages)
+  (add-hook 'emacs-startup-hook #'global-jinx-mode)
+  ;; If this file is reloaded after startup, enable immediately.
+  (when after-init-time
+    (global-jinx-mode 1)))
 
 ;; Open Emacs at a comfortable default size (the size used on the large
 ;; monitor), but shrink to fit when the current screen is smaller (e.g.
