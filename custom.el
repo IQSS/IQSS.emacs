@@ -72,44 +72,68 @@
 (global-set-key (kbd "C-x g") 'magit-status)
 (setq magit-diff-refine-hunk 'all)
 
-;; AUCTeX SyncTeX / Skim on macOS.
-;; Prefer `ltx` in a terminal for builds; from Emacs, LatexMk matches ltx's
-;; layout (aux in build/, PDF + SyncTeX next to the .tex via ~/.latexmkrc).
-;; Do NOT set TeX-output-dir to "build" — that would move the PDF too and break
-;; Skim's %o path. Forward search: C-c C-v. Inverse: Shift+Cmd+click in Skim.
+;; AUCTeX: fast Emacs builds via latexmk (NOT the `ltx` wrapper).
+;; latexmk puts aux/log/fdb in build/, keeps PDF + SyncTeX next to the .tex so
+;; Skim forward/inverse search keep working. Do NOT set TeX-output-dir to
+;; "build" — that would move the PDF too and break Skim's %o path.
+;; Use terminal `ltx` when you want xr auto-discovery / warning summaries.
+;; Forward search: C-c C-v. Inverse: Shift+Cmd+click in Skim.
 (when (eq system-type 'darwin)
   (let ((texbin "/Library/TeX/texbin"))
     (when (file-directory-p texbin)
       (add-to-list 'exec-path texbin)
       (setenv "PATH" (concat texbin path-separator (or (getenv "PATH") "")))))
-  ;; Emacs server must be running for Skim inverse search.
   (when (and (display-graphic-p) (not (daemonp)))
     (require 'server)
     (unless (server-running-p)
-      (server-start)))
-  ;; AUCTeX variables only exist after the tex library is loaded.
-  (with-eval-after-load "tex"
-    (setq TeX-source-correlate-method 'synctex
-          TeX-source-correlate-start-server t)
-    ;; Use Skim's displayline (synctex) instead of plain "open -a Skim".
+      (server-start))))
+
+(with-eval-after-load "tex"
+  (setq TeX-source-correlate-method 'synctex
+        TeX-source-correlate-start-server t)
+  (when (eq system-type 'darwin)
     (setq TeX-view-program-selection '((output-pdf "Skim")))
     (add-to-list 'TeX-view-program-list
                  '("Skim"
                    "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b"
                    "/Applications/Skim.app/Contents/SharedSupport/displayline")
-                 t)
-    ;; LatexMk: same auxdir as ltx / ~/.latexmkrc (PDF stays beside the .tex).
-    ;; Prefer `ltx` for auto engine/xr; this keeps C-c C-c / C-c C-a tidy too.
-    (when (executable-find "latexmk")
-      (add-to-list
-       'TeX-command-list
-       '("LatexMk"
-         "latexmk -pdf -auxdir=build -emulate-aux-dir -synctex=1 -file-line-error -interaction=nonstopmode %(extraopts) %t"
-         TeX-run-TeX nil
-         (latex-mode doctex-mode)
-         :help "Run LatexMk (aux in build/, PDF next to .tex)")
-       t)
-      (setq TeX-command-default "LatexMk"))))
+                 t))
+  (when (executable-find "latexmk")
+    ;; Engine flag for latexmk; SyncTeX flags live in ~/.latexmkrc.
+    ;; User expanders belong in TeX-expand-list (not -builtin); AUCTeX
+    ;; concatenates both in (TeX-expand-list) for TeX-command-expand.
+    (add-to-list 'TeX-expand-list
+                 '("%(latexmk-eng)"
+                   (lambda ()
+                     (pcase TeX-engine
+                       ('xetex "-xelatex")
+                       ('luatex "-lualatex")
+                       (_ "-pdf")))))
+    (let ((mk "latexmk %(latexmk-eng) -auxdir=build -emulate-aux-dir -interaction=nonstopmode %(extraopts) %t"))
+      ;; Replace stock "LaTeX" so C-c C-c / C-c C-a never write aux beside .tex.
+      (setq TeX-command-list
+            (mapcar (lambda (e)
+                      (if (equal (car e) "LaTeX")
+                          (list "LaTeX" mk #'TeX-run-TeX nil
+                                '(latex-mode doctex-mode)
+                                :help "latexmk → build/ aux, PDF beside .tex")
+                        e))
+                    TeX-command-list))
+      (unless (assoc "LatexMk" TeX-command-list)
+        (add-to-list 'TeX-command-list
+                     (list "LatexMk" mk #'TeX-run-TeX nil
+                           '(latex-mode doctex-mode)
+                           :help "latexmk → build/ aux, PDF beside .tex")
+                     t)))
+    (setq TeX-command-default "LaTeX"
+          TeX-command-Biber "LaTeX"
+          TeX-command-BibTeX "LaTeX")
+    (defun my/TeX-command-run-all-latexmk ()
+      "Run latexmk (handles biber) then View — no separate LaTeX/Biber chain."
+      (interactive)
+      (TeX-command-sequence '("LaTeX" "View") t))
+    (with-eval-after-load "latex"
+      (define-key LaTeX-mode-map (kbd "C-c C-a") #'my/TeX-command-run-all-latexmk))))
 
 ;; natbib citation commands (\citep, \citet, …) are not in font-latex's
 ;; built-in reference list; AUCTeX adds them only after async style parsing.
