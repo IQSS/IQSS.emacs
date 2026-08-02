@@ -12,6 +12,9 @@
 
 (set-face-attribute 'default nil :family "Monaco" :height 180)
 
+;; Markdown preview (C-c C-c p) needs a converter; Homebrew pandoc.
+(setq markdown-command "pandoc")
+
 ;; Jinx: fast Enchant-based spell checker (replaces flyspell from IQSS init).
 ;; Needs Homebrew `enchant` (+ `aspell` for English). Correct with M-$;
 ;; C-u M-$ checks the whole buffer. Right-click a wavy underline for suggestions.
@@ -70,9 +73,10 @@
 (setq magit-diff-refine-hunk 'all)
 
 ;; AUCTeX SyncTeX / Skim on macOS.
-;; C-c C-a (TeX-command-run-all) runs LaTeX → Biber (if needed) → LaTeX → View.
-;; Forward search (Emacs → Skim): C-c C-v, or the final View step of C-c C-a.
-;; Inverse search (Skim → Emacs): Shift+Cmd+click in Skim.
+;; Prefer `ltx` in a terminal for builds; from Emacs, LatexMk matches ltx's
+;; layout (aux in build/, PDF + SyncTeX next to the .tex via ~/.latexmkrc).
+;; Do NOT set TeX-output-dir to "build" — that would move the PDF too and break
+;; Skim's %o path. Forward search: C-c C-v. Inverse: Shift+Cmd+click in Skim.
 (when (eq system-type 'darwin)
   (let ((texbin "/Library/TeX/texbin"))
     (when (file-directory-p texbin)
@@ -93,7 +97,19 @@
                  '("Skim"
                    "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b"
                    "/Applications/Skim.app/Contents/SharedSupport/displayline")
-                 t)))
+                 t)
+    ;; LatexMk: same auxdir as ltx / ~/.latexmkrc (PDF stays beside the .tex).
+    ;; Prefer `ltx` for auto engine/xr; this keeps C-c C-c / C-c C-a tidy too.
+    (when (executable-find "latexmk")
+      (add-to-list
+       'TeX-command-list
+       '("LatexMk"
+         "latexmk -pdf -auxdir=build -emulate-aux-dir -synctex=1 -file-line-error -interaction=nonstopmode %(extraopts) %t"
+         TeX-run-TeX nil
+         (latex-mode doctex-mode)
+         :help "Run LatexMk (aux in build/, PDF next to .tex)")
+       t)
+      (setq TeX-command-default "LatexMk"))))
 
 ;; natbib citation commands (\citep, \citet, …) are not in font-latex's
 ;; built-in reference list; AUCTeX adds them only after async style parsing.
